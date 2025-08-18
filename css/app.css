@@ -113,52 +113,51 @@ code {
     text-align: start;
 }
 
+/* Largeur maximale de 860px sur desktop */
+@media (min-width: 768px) {
+    .container {
+        max-width: 860px !important;
+    }
+}
+
 /* Design responsive pour mobile - largeur complète sur petits écrans */
 @media (max-width: 767.98px) {
-    /* Supprime les marges du container sur mobile */
+    /* Supprime complètement le système Bootstrap sur mobile */
     .container {
-        padding-left: 0;
-        padding-right: 0;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
     }
     
-    /* Supprime les marges négatives des rows Bootstrap */
+    /* Neutralise les rows Bootstrap */
     .row {
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+        justify-content: flex-start !important; /* Annule justify-content-center */
     }
     
-    /* Contenu principal occupe toute la largeur sur mobile */
-    .col-8.main-content {
-        flex: 0 0 auto;
-        width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    /* Footer - informations contact en largeur complète */
-    .col-4.footer-contact {
-        flex: 0 0 auto;
-        width: 100%;
-        margin-bottom: 1rem;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    /* Footer - mentions légales en largeur complète et centrées */
+    /* Transforme toutes les colonnes en blocs full-width */
+    .col-8.main-content,
+    .col-4.footer-contact,
     .col-4.footer-legal {
-        flex: 0 0 auto;
-        width: 100%;
-        text-align: center !important;
-        padding-left: 15px;
-        padding-right: 15px;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px !important;
+        margin: 0 !important;
     }
     
-    /* Assure que le body occupe toute la largeur */
-    body {
-        margin: 0;
-        padding: 0;
+    /* Style spécifique pour les mentions légales */
+    .col-4.footer-legal {
+        text-align: center !important;
+    }
+    
+    /* Assure que body et html occupent toute la largeur */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        overflow-x: hidden;
     }
 }
