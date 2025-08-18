@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Pourquoi l&#x27;IA ne peut pas encore remplacer les d&#xE9;veloppeurs. - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="col-8"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="#"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/Realizations">Exemples de réalisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/About">A propos</a></li></ul></div></nav></div></div>
+    <div class="row mt-4 justify-content-center"><div class="col-8"><article><header><h3>Pourquoi l&#x27;IA ne peut pas encore remplacer les d&#xE9;veloppeurs.</h3>
+                    <small class="text-muted">lundi 18 ao&#xFB;t 2025</small><div class="mt-2"><span class="badge bg-primary me-1">IA</span></div></header>
+                <div class="mt-3"><h1 id="pourquoi-lia-ne-peut-pas-encore-remplacer-les-developpeurs-les-obstacles-techniques-persistants">Pourquoi l'IA ne peut pas encore remplacer les développeurs : les obstacles techniques persistants</h1>
+<p>L'intelligence artificielle a révolutionné de nombreux aspects du développement logiciel. Des assistants comme GitHub Copilot ou Claude Code peuvent générer du code, corriger des bugs et même expliquer des concepts complexes. Pourtant, malgré ces avancées impressionnantes, l'IA ne peut pas encore remplacer complètement les développeurs humains. Plusieurs obstacles techniques persistent et limitent encore ses capacités.</p>
+<h2 id="le-probleme-des-hallucinations-quand-lia-invente-sa-propre-realite">Le problème des hallucinations : quand l'IA invente sa propre réalité</h2>
+<p>L'un des défis majeurs de l'IA générative réside dans sa tendance à &quot;halluciner&quot; — c'est-à-dire à générer des informations qui semblent plausibles, mais qui sont en réalité incorrectes ou inexistantes.</p>
+<p>Prenons un exemple concret : vous demandez à une IA de changer la couleur d'un bouton dans votre interface. L'IA pourrait vous suggérer d'utiliser une propriété <code>Button.Color = &quot;red&quot;</code> qui semble parfaitement logique, mais qui n'existe tout simplement pas dans le framework que vous utilisez. En réalité, il faudrait peut-être utiliser <code>Button.BackgroundColor</code> ou appliquer une classe CSS spécifique selon votre environnement.</p>
+<p>Ce type d'erreur révèle un problème fondamental : l'IA ne &quot;comprend&quot; pas vraiment le code qu'elle génère. Elle produit des réponses basées sur des patterns statistiques appris pendant son entraînement, sans véritable compréhension des APIs ou des spécificités de votre environnement de développement.</p>
+<h2 id="le-piege-des-versions-obsoletes-quand-lia-vit-dans-le-passe">Le piège des versions obsolètes : quand l'IA vit dans le passé</h2>
+<p>Un autre défi majeur réside dans la tendance de l'IA à se référer à des versions obsolètes des bibliothèques et frameworks. Les modèles d'IA sont entraînés sur d'énormes corpus de code existant, ce qui signifie qu'ils &quot;voient&quot; beaucoup plus de code utilisant d'anciennes versions que les toutes dernières.</p>
+<p>Considérons l'exemple de NUnit : si vous demandez à une IA de générer des tests unitaires, elle pourrait vous suggérer d'utiliser <code>Assert.IsTrue(condition)</code> ou <code>Assert.IsFalse(condition)</code>. Ces méthodes fonctionnaient parfaitement dans NUnit 3, mais ont été supprimées dans NUnit 4 au profit de <code>Assert.That(condition, Is.True)</code> et <code>Assert.That(condition, Is.False)</code>.</p>
+<p>Cette erreur s'explique facilement : il existe des millions de lignes de code sur GitHub et Stack Overflow qui utilisent encore les anciennes méthodes. L'IA, en analysant ces patterns statistiquement dominants, continuera de les suggérer même après leur obsolescence.</p>
+<h2 id="linegalite-du-savoir-quand-lia-favorise-les-technologies-mainstream">L'inégalité du savoir : quand l'IA favorise les technologies mainstream</h2>
+<p>L'efficacité de l'IA varie énormément selon la popularité des technologies utilisées. Les modèles d'IA excellent avec JavaScript, Python ou React, car ces technologies génèrent des millions de lignes de code public. Mais la situation se complique considérablement quand vous travaillez avec des technologies moins courantes.</p>
+<p>Prenons le cas des technologies de niche : imaginez que vous développiez avec un langage moins répandu comme AutoLISP, une variante du LISP conçue pour être exécutée dans AutoCAD, ou encore iLogic, une technologie conçue pour apporter de l'intelligence aux configurations Autodesk Inventor. L'IA aura vu beaucoup moins d'exemples de ces technologies, ce qui se traduit par des suggestions génériques ou incorrectes qui ne tiennent pas compte des spécificités de ces environnements particuliers.</p>
+<h2 id="le-phenomene-de-boucle-infinie-quand-lia-senlise">Le phénomène de boucle infinie : quand l'IA s'enlise</h2>
+<p>Un problème particulièrement frustrant avec l'IA réside dans sa tendance à entrer dans des boucles de raisonnement sans issue. Face à un problème complexe qu'elle ne parvient pas à résoudre, l'IA peut continuer à proposer des variations de la même solution défaillante.</p>
+<p>Voici un scénario typique : vous demandez à l'IA de corriger une erreur de configuration complexe impliquant plusieurs services. Elle vous propose une première solution qui ne fonctionne pas. Vous lui indiquez l'erreur. Elle vous propose alors une variante légèrement différente, qui échoue également. Elle peut ainsi tourner en rond pendant plusieurs échanges, vous proposant des modifications mineures d'une approche fondamentalement incorrecte.</p>
+<p>Dans ces situations, l'intervention humaine devient cruciale, car un développeur expérimenté peut apporter son expertise et reformuler complètement le problème sous un autre angle, sortant ainsi du cercle vicieux.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ces limitations techniques — hallucinations, références obsolètes, biais vers les technologies populaires et boucles de raisonnement — démontrent que l'IA reste un outil d'assistance puissant, mais imparfait. Elle excelle pour générer du code standard et aider sur des tâches répétitives, mais nécessite encore la supervision et l'expertise d'un développeur humain pour les défis complexes et les contextes spécifiques.</p>
+<p>Les modèles vont naturellement encore progresser et l'IA deviendra de plus en plus capable, mais ces obstacles techniques persistent encore aujourd'hui.</p>
+</div></article></div></div>
+    <div class="row justify-content-center"><div class="col-8"><hr></div></div>
+    <div class="row justify-content-center"><div class="col-4"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                        <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                        </a>
+                        <br>
+                        <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                        </a></address>
+                    <h4></h4></div></div></div>
+        <div class="col-4 text-end"><a class="link-secondary small" href="/TermsOfUse">Mentions légales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate></body></html>
