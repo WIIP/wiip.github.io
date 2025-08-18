@@ -120,6 +120,14 @@ code {
         padding-left: 0;
         padding-right: 0;
         max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Supprime les marges négatives des rows Bootstrap */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
     }
     
     /* Contenu principal occupe toute la largeur sur mobile */
@@ -146,5 +154,11 @@ code {
         text-align: center !important;
         padding-left: 15px;
         padding-right: 15px;
+    }
+    
+    /* Assure que le body occupe toute la largeur */
+    body {
+        margin: 0;
+        padding: 0;
     }
 }
