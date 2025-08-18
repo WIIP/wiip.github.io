@@ -112,3 +112,26 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* Design responsive pour mobile - largeur complète sur petits écrans */
+@media (max-width: 767.98px) {
+    /* Contenu principal occupe toute la largeur sur mobile */
+    .col-8.main-content {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    
+    /* Footer - informations contact en largeur complète */
+    .col-4.footer-contact {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    /* Footer - mentions légales en largeur complète et centrées */
+    .col-4.footer-legal {
+        flex: 0 0 auto;
+        width: 100%;
+        text-align: center !important;
+    }
+}
