@@ -15,17 +15,27 @@
     <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi iLogic ?</h1>
                     <small class="text-muted">
                         Dernière mise à jour : mardi 19 ao&#xFB;t 2025</small><div class="mt-2"><span class="badge bg-primary me-1">Inventor</span><span class="badge bg-primary me-1">iLogic</span><span class="badge bg-primary me-1">CAO</span><span class="badge bg-primary me-1">Programmation</span><span class="badge bg-primary me-1">VB.NET</span></div></header>
-                <div class="mt-3"><p>iLogic est un système de règles intégré à Autodesk Inventor qui permet d'automatiser la conception et de créer des modèles 3D intelligents et paramétriques. Cette technologie révolutionnaire transforme la façon dont les ingénieurs et concepteurs abordent la modélisation en introduisant une logique conditionnelle directement dans leurs assemblages et pièces.</p>
-<h2 id="une-approche-revolutionnaire-de-la-conception">Une approche révolutionnaire de la conception</h2>
-<p>Traditionnellement, la conception assistée par ordinateur nécessitait des modifications manuelles répétitives pour adapter un modèle à différentes configurations. iLogic change la donne en permettant aux concepteurs d'intégrer des règles de conception intelligentes qui s'exécutent automatiquement selon des conditions prédéfinies.</p>
-<p>Le système utilise le langage VB.NET (Visual Basic .NET) pour créer des règles qui peuvent contrôler pratiquement tous les aspects d'un modèle Inventor : dimensions, contraintes, propriétés des matériaux, visibilité des composants, et bien plus encore.</p>
+                <div class="mt-3"><p>iLogic est un système de règles intégré à Autodesk Inventor qui permet d'automatiser la conception et de créer des modèles 3D paramétriques intelligents. Cette technologie permet d'introduire de la logique conditionnelle dans les ensembles et les pièces.</p>
+<p>iLogic utilise le langage VB.NET (Visual Basic .NET) pour créer des règles qui peuvent contrôler pratiquement tous les aspects d'un modèle Inventor : dimensions, contraintes, propriétés des matériaux, visibilité des composants, et bien plus encore.</p>
+<h2 id="un-exemple-concret">Un exemple concret</h2>
+<p>Imaginons que vous travaillez sur une pièce qui doit être découpée dans de la tôle. L'épaisseur de la pièce est calculée pour résister à une contrainte particulière. Le résultat du calcul vous donne une épaisseur théorique, 0,73 mm par exemple. Mais bien évidemment, vous n'allez pas trouver dans le commerce une telle épaisseur. Vous devez l'arrondir à une valeur existante, comme 8/10e par exemple. Vous ne pouvez pas faire ça avec une équation donc c'est là qu'iLogic entre en jeu.</p>
+<p>Pour résoudre ce problème, vous pouvez créer une règle <strong>Epaisseur</strong> qui va choisir une épaisseur dans une liste d'épaisseurs standard à partir de votre épaisseur théorique.</p>
+<p>Vous pouvez par exemple utiliser la méthode iLogic <code>MultiValue.FindValue()</code> :</p>
+<pre><code class="language-vb.net">' On crée un tableau de valeurs
+Dim values = { 0.8, 1, 1.2, 1.6, 2, 3, 4 }
+' On recherche une valeur appropriée pour l'épaisseur avec la méthode MultiValue.FindValue().
+' Cette méthode va d'abord filtrer la liste de valeurs pour ne retenir que les épaisseurs supérieure ou égale à l'épaisseur théorique. 
+' Donc si par exemple, on a ep_theo = 1.1, les valeurs 0.8 et 1 vont être éliminées et il ne restera que les valeurs 1.2, 1.6, 2, 3, 4.
+' MultiValue.FindValue() va alors retenir la valeur la plus proche de ep_theo dans les valeurs restantes, c'est à dire 1.2.
+ep = MultiValue.FindValue(values, &quot;&gt;=&quot;, ep_theo)
+</code></pre>
 <h2 id="fonctionnalites-principales">Fonctionnalités principales</h2>
 <p><strong>Automatisation des tâches répétitives</strong> : iLogic élimine le besoin de modifier manuellement des paramètres en créant des règles qui s'adaptent automatiquement aux changements de conception.</p>
 <p><strong>Logique conditionnelle avancée</strong> : Le système permet d'implémenter des conditions complexes du type &quot;si-alors-sinon&quot; pour créer des comportements intelligents dans vos modèles.</p>
 <p><strong>Interface utilisateur dynamique</strong> : Les règles peuvent générer automatiquement des formulaires personnalisés permettant aux utilisateurs de saisir des paramètres sans connaître le fonctionnement interne du modèle.</p>
 <p><strong>Intégration native</strong> : Contrairement aux solutions tierces, iLogic est entièrement intégré à Inventor, garantissant une compatibilité parfaite et des performances optimales.</p>
 <h2 id="applications-pratiques">Applications pratiques</h2>
-<p>Les cas d'usage d'iLogic sont nombreux et variés. Dans l'industrie manufacturière, il permet de créer des configurateurs de produits qui génèrent automatiquement des variantes selon les spécifications client. Par exemple, un fabricant de mobilier peut développer une table parametrable où la modification de la longueur ajuste automatiquement le nombre et la position des pieds de support.</p>
+<p>Les cas d'usage d'iLogic sont nombreux et variés. Dans l'industrie manufacturière, il permet de créer des configurateurs de produits qui génèrent automatiquement des variantes selon les spécifications client. Par exemple, un fabricant de mobilier peut développer une table paramétrable où la modification de la longueur ajuste automatiquement le nombre et la position des pieds de support.</p>
 <p>Dans le secteur de la construction mécanique, iLogic facilite la création de familles de pièces standardisées. Une règle peut automatiquement sélectionner la boulonnerie appropriée selon l'épaisseur des matériaux assemblés, ou ajuster les dimensions d'un carter selon la taille du moteur qu'il doit protéger.</p>
 <p>L'outil excelle également dans la gestion des configurations complexes d'assemblages. Les règles peuvent contrôler la visibilité des composants, modifier leurs propriétés, et même supprimer ou ajouter des pièces selon les besoins de la configuration sélectionnée.</p>
 <h2 id="avantages-concrets">Avantages concrets</h2>
@@ -33,7 +43,7 @@
 <p>La standardisation des processus de conception représente un autre atout majeur. Les règles iLogic encapsulent les bonnes pratiques et les contraintes de conception, garantissant une cohérence entre les différents projets et concepteurs.</p>
 <p>La réduction des erreurs humaines constitue également un bénéfice significatif. En automatisant les calculs et les ajustements, iLogic élimine les risques d'oubli ou d'incohérence qui peuvent survenir lors de modifications manuelles complexes.</p>
 <h2 id="mise-en-uvre-et-apprentissage">Mise en œuvre et apprentissage</h2>
-<p>L'apprentissage d'iLogic nécessite une compréhension de base de la programmation, mais Autodesk a conçu l'interface pour être accessible aux concepteurs sans formation informatique approfondie. L'éditeur de règles intégré propose une syntaxe simplifiée et des assistants qui guident l'utilisateur dans la création de règles courantes.</p>
+<p>L'apprentissage d'iLogic nécessite une compréhension de base de la programmation, mais Autodesk a conçu l'interface pour être accessible aux concepteurs sans formation informatique approfondie. L'éditeur de règles intégré propose une syntaxe simplifiée, des extraits de code et des assistants qui guident l'utilisateur dans la création de règles courantes.</p>
 <p><img src="Content/Qna/media/ilogic.png" alt="L'éditeur de règles" /></p>
 <p>Les concepteurs peuvent commencer par des règles simples, comme la création automatique d'iPropriétés, avant de progresser vers des logiques plus complexes impliquant des conditions multiples et des interactions entre différents paramètres.</p>
 <h2 id="conclusion">Conclusion</h2>
