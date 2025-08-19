@@ -23,10 +23,14 @@
 <p>Vous pouvez par exemple utiliser la méthode iLogic <code>MultiValue.FindValue()</code> :</p>
 <pre><code class="language-vb.net">' On crée un tableau de valeurs
 Dim values = { 0.8, 1, 1.2, 1.6, 2, 3, 4 }
+
 ' On recherche une valeur appropriée pour l'épaisseur avec la méthode MultiValue.FindValue().
-' Cette méthode va d'abord filtrer la liste de valeurs pour ne retenir que les épaisseurs supérieure ou égale à l'épaisseur théorique. 
-' Donc si par exemple, on a ep_theo = 1.1, les valeurs 0.8 et 1 vont être éliminées et il ne restera que les valeurs 1.2, 1.6, 2, 3, 4.
-' MultiValue.FindValue() va alors retenir la valeur la plus proche de ep_theo dans les valeurs restantes, c'est à dire 1.2.
+' Cette méthode va d'abord filtrer la liste de valeurs pour ne retenir que les épaisseurs 
+' supérieure ou égale à l'épaisseur théorique. 
+' Donc si par exemple, on a ep_theo = 1.1, les valeurs 0.8 et 1 vont être éliminées et il ne
+' restera que les valeurs 1.2, 1.6, 2, 3, 4.
+' MultiValue.FindValue() va alors retenir la valeur la plus proche de ep_theo dans les valeurs
+' restantes, c'est à dire 1.2.
 ep = MultiValue.FindValue(values, &quot;&gt;=&quot;, ep_theo)
 </code></pre>
 <h2 id="fonctionnalites-principales">Fonctionnalités principales</h2>
