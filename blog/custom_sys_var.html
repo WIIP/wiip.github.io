@@ -17,11 +17,11 @@
                 <div class="mt-3"><p>C'est une fonctionnalité cachée au fin fond de la documentation sur l'API .NET AutoCAD : vous pouvez créer vos propres variables système.</p>
 <p>Pour cela, il faut modifier votre base de registre.</p>
 <p>⚠️ Petit avertissement au préalable, les manipulations de la base de registre présentent toujours des risques, ne faites cela que si vous êtes à l'aise avec ce genre de modifications.</p>
-<p>Il faut aller dans la clé <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\Rxx.x\ACAD-xxxx\</code>, où <code>Rxx.x</code> est la <em>release</em>* de AutoCAD et <code>ACAD-xxxx</code> est le code produit.</p>
+<p>Il faut aller dans la clé <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\Rxx.x\ACAD-xxxx\</code>, où <code>Rxx.x</code> est la <em>release</em> de AutoCAD et <code>ACAD-xxxx</code> est le code produit.</p>
 <p>Pour AutoCAD 2026 par exemple, la clé est <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R25.1\ACAD-9101\</code>, parce que la version 2026 correspond à la <em>release</em> 25.1 et que le code produit est 9101.</p>
 <p><img src="Content/Blog/media/sys_var.png" alt="La clé de base de registre" /></p>
 <p>La valeur de cette clé correspondra à la valeur de votre variable.</p>
-<p>Vous devez également ajouter une valeur DWORD 32 bits nommée <code>PrimaryType</code> avec le type de votre variable. En effet, la valeur d'une clé dans la base de registre est toujours de type <code>REG_SZ</code> (une chaine de caractères), mais votre variable système AutoCAD peut avoir les types suivants :</p>
+<p>Vous devez également ajouter une valeur DWORD nommée <code>PrimaryType</code> avec le type de votre variable. En effet, la valeur d'une clé dans la base de registre est toujours de type <code>REG_SZ</code> (une chaine de caractères), mais votre variable système AutoCAD peut avoir les types suivants :</p>
 <ul>
 <li><code>RTREAL</code> : 5001</li>
 <li><code>RTSHORT</code>: 5003</li>
@@ -29,13 +29,16 @@
 <li><code>RTSTR</code> : 5005</li>
 <li><code>RTLONG</code> : 5010</li>
 </ul>
+<p>Petit aparté sur les types  <code>SZ</code> et <code>DWORD</code> : ce sont des types de donnée utilisés en programmation, notamment dans les API Windows.</p>
+<p><code>SZ</code>, c'est pour <em>String ending with a Zero</em>. Pour marquer la fin de la chaine de caractère, on met un caractère nul (un octet à 0).</p>
 <p><code>DWORD</code>, c'est pour <em>Double WORD</em>. C'est parce qu'en informatique, on a :</p>
 <ul>
 <li>1 octet = 8 bits</li>
 <li>2 octets = 16 bits = 1 mot (<em>word</em> en anglais)</li>
 <li>4 octets = 32 bits = 1 mot double (<em>double word</em> en anglais)</li>
+<li>8 octets = 64 bits = 2 mots doubles (<em>quad word</em> en anglais)</li>
 </ul>
-<p>Attention à bien sélectionner la base décimale quand vous saisissez les valeurs.</p>
+<p>Attention à bien sélectionner la base décimale quand vous saisissez les valeurs. Par défaut, <strong>regedit</strong> utilise la base hexadécimale (base 16) et dans cette base 5005 en décimal correspond à <code>138d</code>.</p>
 <p>Vous devez également préciser le type de stockage avec une valeur DWORD nommée <code>StorageType</code> :</p>
 <ul>
 <li><code>PerSession</code> : 0</li>
@@ -47,17 +50,17 @@
 <p>Si vous choisissez 3 par exemple, la variable sera enregistrée dans le DWG. Avec 2, elle sera enregistré dans la base de registre, dans <code>HKEY_CURRENT_USER\Software\Autodesk\AutoCAD\R25.1\ACAD-9101:40C\Variables\MYVAR</code>.</p>
 <p>Il y a également d'autres valeurs optionnelles :</p>
 <ul>
-<li><code>SecondaryType</code> : <code>None (0)</code>, <code>Boolean (1)</code>, <code>SymbolName (2)</code>, <code>Area (3)</code>, <code>Distance  (4)</code>, <code>Angle (5)</code>, <code>UnitlessReal (6)</code></li>
+<li><code>SecondaryType</code> : <code>None (0)</code>, <code>Boolean (1)</code>, <code>SymbolName (2)</code>, <code>Area (3)</code>, <code>Distance (4)</code>, <code>Angle (5)</code>, <code>UnitlessReal (6)</code></li>
 <li><code>TypeFlags</code> : <code>None (0)</code>, <code>SpacesAllowed (1)</code>, <code>DotMeansEmpty (2)</code>, <code>NoUndo (4)</code>, <code>Chatty (8)</code>, <code>Deprecated (16)</code></li>
-<li><code>Owner</code> : pour indique le nom de l'application qui a créé la variable</li>
-<li><code>Range</code> : pour les valeurs numériques (<code>RTREAL</code>, <code>RTANG</code>, <code>RTSHORT</code> et <code>RTLONG</code>), ça permet de préciser la plage de valeurs autorisées. Par exemple <code>&quot;1,5&quot;</code></li>
+<li><code>Owner</code> : pour indiquer le nom de l'application qui a créé la variable</li>
+<li><code>Range</code> : pour les valeurs numériques (<code>RTREAL</code>, <code>RTANG</code>, <code>RTSHORT</code> et <code>RTLONG</code>), ça permet de préciser la plage de valeurs autorisée. Par exemple <code>&quot;1,5&quot;</code></li>
 </ul>
 <p>Au format .reg, pour une variable nommée <strong>MYVAR</strong> de type texte avec la valeur <strong>FOO</strong> ça donne :</p>
 <pre><code>Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R25.1\ACAD-9101\Variables\MYVAR]
-&quot;PrimaryType&quot;=dword:0000138d
 @=&quot;FOO&quot;
+&quot;PrimaryType&quot;=dword:0000138d
 &quot;StorageType&quot;=dword:00000003
 </code></pre>
 <p>Une fois la variable créée, vous pouvez l'utiliser comme n'importe quelle autre variable système. Je peux par exemple taper <strong>MYVAR</strong> sur la ligne de commande pour la changer, ou utiliser les fonctions AutoLISP <code>(getvar)</code> et <code>(setvar)</code>.</p>
