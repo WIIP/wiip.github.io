@@ -23,11 +23,11 @@
 <p>La valeur de cette clé correspondra à la valeur de votre variable.</p>
 <p>Vous devez également ajouter une valeur DWORD nommée <code>PrimaryType</code> avec le type de votre variable. En effet, la valeur d'une clé dans la base de registre est toujours de type <code>REG_SZ</code> (une chaine de caractères), mais votre variable système AutoCAD peut avoir les types suivants :</p>
 <ul>
-<li><code>RTREAL</code> : 5001</li>
-<li><code>RTSHORT</code>: 5003</li>
-<li><code>RTANG</code> : 5004</li>
-<li><code>RTSTR</code> : 5005</li>
-<li><code>RTLONG</code> : 5010</li>
+<li><code>RTREAL</code> : 5001, un réel comme 2,5</li>
+<li><code>RTSHORT</code>: 5003, un entier 16 bits compris entre -32 768 et 32 767</li>
+<li><code>RTANG</code> : 5004, un réel</li>
+<li><code>RTSTR</code> : 5005, une chaine de caractères</li>
+<li><code>RTLONG</code> : 5010, un entier 32 bits compris entre -2 147 483 648 et 2 147 483 647</li>
 </ul>
 <p>Petit aparté sur les types  <code>SZ</code> et <code>DWORD</code> : ce sont des types de donnée utilisés en programmation, notamment dans les API Windows.</p>
 <p><code>SZ</code>, c'est pour <em>String ending with a Zero</em>. Pour marquer la fin de la chaine de caractère, on met un caractère nul (un octet à 0).</p>
@@ -47,7 +47,7 @@
 <li><code>PerDatabase</code> : 3</li>
 <li><code>PerViewport</code> : 4</li>
 </ul>
-<p>Si vous choisissez 3 par exemple, la variable sera enregistrée dans le DWG. Avec 2, elle sera enregistré dans la base de registre, dans <code>HKEY_CURRENT_USER\Software\Autodesk\AutoCAD\R25.1\ACAD-9101:40C\Variables\MYVAR</code>.</p>
+<p>Si vous choisissez 3 par exemple, la variable sera enregistrée dans le DWG. Avec 1, elle sera enregistré dans la base de registre, dans <code>HKEY_CURRENT_USER\Software\Autodesk\AutoCAD\R25.1\ACAD-9101:40C\Variables\MYVAR</code>.</p>
 <p>Il y a également d'autres valeurs optionnelles :</p>
 <ul>
 <li><code>SecondaryType</code> : <code>None (0)</code>, <code>Boolean (1)</code>, <code>SymbolName (2)</code>, <code>Area (3)</code>, <code>Distance (4)</code>, <code>Angle (5)</code>, <code>UnitlessReal (6)</code></li>
