@@ -161,3 +161,23 @@ code {
         overflow-x: hidden;
     }
 }
+
+/* Styles pour les citations */
+blockquote {
+    background-color: #f5f5f5;
+    border-left: 4px solid #0071c1;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+}
+
+/* Styles pour les blocs de code */
+pre {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+pre code {
+    background-color: transparent;
+}
