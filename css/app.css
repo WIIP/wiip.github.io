@@ -170,14 +170,32 @@ blockquote {
     margin: 1rem 0;
 }
 
-/* Styles pour les blocs de code */
+/* Styles pour les blocs de code - Prism.js gère la coloration */
 pre {
-    background-color: #f5f5f5;
-    padding: 1rem;
     border-radius: 4px;
     overflow-x: auto;
 }
 
 pre code {
     background-color: transparent;
+}
+
+/* Styles pour les tableaux générés via Markdown */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    border: 1px solid #d3d3d3;
+}
+
+table th,
+table td {
+    border: 1px solid #d3d3d3;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
 }
