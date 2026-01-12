@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Comment trouver l&#x27;intersection entre une droite et un plan dans AutoCAD ? - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/line-plane-intersection-acad" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/questions-reponses/line-plane-intersection-acad" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Comment trouver l&#x27;intersection entre une droite et un plan dans AutoCAD ?</h1>
+                    <small class="text-muted">Derni&#xE8;re mise &#xE0; jour : lundi 12 janvier 2026</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>On ne doit pas faire ça tous les jours, mais quand on a besoin, comment faire ?</p>
+<p><img src="Content/fr/questions-reponses/media/line-plane-intersection-acad.png" alt="Intersection entre une droite et un plan" /></p>
+<p>Bon on peut y arriver en positionnant le SCU de sorte que le plan ZX corresponde au plan, puis en se positionnant en vue avant et finalement en utilisant l'intersection projetée. On peut également utiliser <strong>AJUSTER</strong>/<strong>PROLONGER</strong> Mais bon, c'est un peu fastidieux et pas très élégant.</p>
+<p>Une autre solution est d'utiliser la calculatrice en ligne (commande <strong>CAL</strong>). :</p>
+<ol>
+<li>Lancez la commande <strong>POINT</strong> ;</li>
+<li>Tapez <code>'CAL</code>. Notez l'apostrophe avant <strong>CAL</strong>, c'est pour dire qu'on veut lancer la commande de façon transparente. Certaines commandes peuvent être lancées de cette manière, cela permet de ne pas annuler la commande en cours d'exécution ;</li>
+<li>Tapez <code>ilp(cur,cur,cur,cur,cur)</code>. <code>ilp</code> c'est une fonction qui permet de calculer l'intersection entre une droite et un plan (Intersection Line-Plane). Les 5 <code>cur</code> qui suivent servent à dire à AutoCAD qu'on veut sélectionner des points avec la souris. Les deux premiers points doivent se trouver sur la droite, les trois derniers sur le plan.</li>
+</ol>
+<p>Voilà, vous avez maintenant l'intersection entre une droite et un plan dans AutoCAD !</p>
+<p>La commande <code>CAL</code> peut faire plein d'autres choses, comme calculer des distances, des angles, manipuler des vecteurs, etc.</p>
+<p>Je m'en sers régulièrement pour calculer des distances pour la commande <strong>DECALER</strong> :</p>
+<pre><code>Commande: DECALER
+
+Paramètres courants: Effacer source=Non  Calque=Source  OFFSETGAPTYPE=0
+Spécifiez la distance de décalage ou [Par/Effacer/Calque] &lt;Par&gt;: 'cal
+&gt;&gt;&gt;&gt; Expression: 15.5/2
+
+Reprend la commande DECALER.
+
+Spécifiez la distance de décalage ou [Par/Effacer/Calque] &lt;Par&gt;: 7.75
+</code></pre>
+<p>Quand le calcul se fait avec des entiers, comme <code>15/2</code>, on n'a pas besoin de <strong>CAL</strong>, mais ça ne marche pas dès qu'on a des réels.</p>
+<p>Un autre exemple : calculer le centre de gravité d'un triangle :</p>
+<pre><code>Commande: POINT
+
+Modes point courants:  PDMODE=0  PDSIZE=0.0000
+Spécifiez un point: 'cal
+&gt;&gt;&gt;&gt; Expression: (cur+cur+cur)/3
+&gt;&gt;&gt;&gt; Entrez un point:
+&gt;&gt;&gt;&gt; Entrez un point:
+&gt;&gt;&gt;&gt; Entrez un point:
+
+Reprend la commande POINT.
+Spécifiez un point: 2023.6727542407,1678.1318497134,0
+</code></pre>
+<p>Vous pouvez consulter la documentation de la commande <strong>CAL</strong> pour en savoir plus sur les autres fonctions disponibles : <a href="https://help.autodesk.com/view/ACD/2026/FRA/?guid=GUID-B29F2EF7-12C8-423C-91F5-3852E6AF1514">https://help.autodesk.com/view/ACD/2026/FRA/?guid=GUID-B29F2EF7-12C8-423C-91F5-3852E6AF1514</a></p>
+<p>[block:acad]</p>
+</div></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

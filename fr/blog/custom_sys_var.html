@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/custom_sys_var" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/custom_sys_var" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD</h1>
+                    <small class="text-muted">mardi 26 ao&#xFB;t 2025</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>C'est une fonctionnalité cachée au fin fond de la documentation sur l'API .NET AutoCAD : vous pouvez créer vos propres variables système.</p>
+<p>Pour cela, il faut modifier votre base de registre.</p>
+<p>⚠️ Petit avertissement au préalable, les manipulations de la base de registre présentent toujours des risques, ne faites cela que si vous êtes à l'aise avec ce genre de modifications.</p>
+<p>Il faut aller dans la clé <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\Rxx.x\ACAD-xxxx\</code>, où <code>Rxx.x</code> est la <em>release</em> de AutoCAD et <code>ACAD-xxxx</code> est le code produit.</p>
+<p>Pour AutoCAD 2026 par exemple, la clé est <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R25.1\ACAD-9101\</code>, parce que la version 2026 correspond à la <em>release</em> 25.1 et que le code produit est 9101.</p>
+<p><img src="Content/fr/blog/media/sys_var.png" alt="La clé de base de registre" /></p>
+<p>La valeur de cette clé correspondra à la valeur de votre variable.</p>
+<p>Vous devez également ajouter une valeur DWORD nommée <code>PrimaryType</code> avec le type de votre variable. En effet, la valeur d'une clé dans la base de registre est toujours de type <code>REG_SZ</code> (une chaine de caractères), mais votre variable système AutoCAD peut avoir les types suivants :</p>
+<ul>
+<li><code>RTREAL</code> : 5001, un réel comme 2,5</li>
+<li><code>RTSHORT</code>: 5003, un entier 16 bits compris entre -32 768 et 32 767</li>
+<li><code>RTANG</code> : 5004, un réel</li>
+<li><code>RTSTR</code> : 5005, une chaine de caractères</li>
+<li><code>RTLONG</code> : 5010, un entier 32 bits compris entre -2 147 483 648 et 2 147 483 647</li>
+</ul>
+<p>Petit aparté sur les types  <code>SZ</code> et <code>DWORD</code> : ce sont des types de donnée utilisés en programmation, notamment dans les API Windows.</p>
+<p><code>SZ</code>, c'est pour <em>String ending with a Zero</em>. Pour marquer la fin de la chaine de caractère, on met un caractère nul (un octet à 0).</p>
+<p><code>DWORD</code>, c'est pour <em>Double WORD</em>. C'est parce qu'en informatique, on a :</p>
+<ul>
+<li>1 octet = 8 bits</li>
+<li>2 octets = 16 bits = 1 mot (<em>word</em> en anglais)</li>
+<li>4 octets = 32 bits = 1 mot double (<em>double word</em> en anglais)</li>
+<li>8 octets = 64 bits = 2 mots doubles (<em>quad word</em> en anglais)</li>
+</ul>
+<p>Attention à bien sélectionner la base décimale quand vous saisissez les valeurs. Par défaut, <strong>regedit</strong> utilise la base hexadécimale (base 16) et dans cette base 5005 en décimal correspond à <code>138d</code>.</p>
+<p>Vous devez également préciser le type de stockage avec une valeur DWORD nommée <code>StorageType</code> :</p>
+<ul>
+<li><code>PerSession</code> : 0</li>
+<li><code>PerUser</code> : 1</li>
+<li><code>PerProfile</code> : 2</li>
+<li><code>PerDatabase</code> : 3</li>
+<li><code>PerViewport</code> : 4</li>
+</ul>
+<p>Si vous choisissez 3 par exemple, la variable sera enregistrée dans le DWG (dans le dictionnaire <strong>AcDbVariableDictionary</strong>).</p>
+<p>Avec 1, elle sera enregistrée dans la base de registre, dans <code>HKEY_CURRENT_USER\Software\Autodesk\AutoCAD\R25.1\ACAD-9101:40C\Variables\MYVAR</code>.</p>
+<p>Avec 2, elle sera également enregistrée dans la base de registre, mais dans la partie réservée au profil de l'utilisateur, c'est-à-dire dans <code>Ordinateur\HKEY_CURRENT_USER\Software\Autodesk\AutoCAD\R25.1\ACAD-9101:40C\Profiles\&lt;Nom du profil&gt;\Variables</code> pour AutoCAD 2026 Français.</p>
+<p>Avec 0, elle sera uniquement présente en mémoire et donc réinitialisée au prochain démarrage d'AutoCAD.</p>
+<p>Enfin avec 4, elle sera propre à chaque fenêtre.</p>
+<p>Il y a également d'autres valeurs optionnelles :</p>
+<ul>
+<li><code>SecondaryType</code> : <code>None (0)</code>, <code>Boolean (1)</code>, <code>SymbolName (2)</code>, <code>Area (3)</code>, <code>Distance (4)</code>, <code>Angle (5)</code>, <code>UnitlessReal (6)</code> : pour spécifier l'usage de la variable.</li>
+<li><code>TypeFlags</code> : <code>None (0)</code>, <code>SpacesAllowed (1)</code>, <code>DotMeansEmpty (2)</code>, <code>NoUndo (4)</code>, <code>Chatty (8)</code>, <code>Deprecated (16)</code> pour des options qui peuvent être combinées</li>
+<li><code>Owner</code> : pour indiquer le nom de l'application qui possède la variable. <code>&quot;exe&quot;</code> est la valeur par défaut qui désigne l'exécutable principal de AutoCAD</li>
+<li><code>LowerBound</code> et <code>UpperBound</code> : pour les valeurs numériques (<code>RTREAL</code>, <code>RTANG</code>, <code>RTSHORT</code> et <code>RTLONG</code>), ces deux entrées permet de préciser la plage de valeurs autorisée</li>
+</ul>
+<p>Si vous spécifiez un <code>Owner</code>, la variable ne pourra être écrite que par cette application. La variable <a href="https://help.autodesk.com/view/ACD/2026/ENU/?guid=GUID-61E4267F-6957-4A0D-A2B6-69FB0674331C">RIBBONSTATE</a> par exemple, ne peut être écrite que par <code>AcWindows.dll</code> car <code>Owner</code> est à la valeur <code>AcWindows</code>.</p>
+<p>Au format .reg, pour une variable nommée <strong>MYVAR</strong> de type texte avec la valeur <strong>FOO</strong> cela donne :</p>
+<pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R25.1\ACAD-9101\Variables\MYVAR]
+@=&quot;FOO&quot;
+&quot;PrimaryType&quot;=dword:0000138d
+&quot;StorageType&quot;=dword:00000003
+</code></pre>
+<p>Une fois la variable créée, vous pouvez l'utiliser comme n'importe quelle autre variable système. Je peux par exemple taper <strong>MYVAR</strong> sur la ligne de commande pour la changer, utiliser les fonctions AutoLISP <code>(getvar)</code> et <code>(setvar)</code> ou les méthodes <code>Application.GetSystemVariable()</code> et <code>Application.SetSystemVariable()</code> en .NET.</p>
+<p block:autocad=""></p>
+</div></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
