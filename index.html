@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WIIP - Développement CAO</title>
+    <script>
+        // Redirection automatique vers la langue par défaut
+        // Détecte la langue du navigateur
+        const userLang = navigator.language || navigator.userLanguage;
+        const langCode = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.href = `/${langCode}/`;
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .language-selector {
+            margin-top: 20px;
+        }
+        .language-selector a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .language-selector a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>WIIP</h1>
+    <p>Redirection en cours...</p>
+    <noscript>
+        <div class="language-selector">
+            <p>JavaScript est désactivé. Veuillez sélectionner votre langue :</p>
+            <a href="/fr/">Français</a>
+            <a href="/en/">English</a>
+        </div>
+    </noscript>
+</body>
+</html>
