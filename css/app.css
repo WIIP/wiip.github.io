@@ -199,3 +199,29 @@ table th {
     background-color: #f5f5f5;
     font-weight: bold;
 }
+
+/* Styles pour le sélecteur de langue */
+.language-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.language-switcher a {
+    text-decoration: none;
+    color: #0071c1;
+    font-weight: normal;
+}
+
+.language-switcher a.active {
+    font-weight: bold;
+    color: #1b6ec2;
+}
+
+.language-switcher a:hover {
+    text-decoration: underline;
+}
+
+.language-switcher .separator {
+    color: #666;
+}
