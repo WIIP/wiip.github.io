@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/Realizations" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/Realizations" class="active">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><h1>Examples of Achievements</h1></div></div>
+<div class="row mt-4 justify-content-center"><div class="col"><h2>AutoCAD</h2>
+        <ul><li>Horizontal and vertical formwork (choice of joist compositions, positioning of props and/or towers)</li>
+            <li>Installation of photovoltaic panels on a plot</li>
+            <li>Grating layout</li>
+            <li>Scaffolding installation</li>
+            <li>Sheet metal work</li>
+            <li>Truck crane configuration</li>
+            <li>Unfolding of flexible materials</li></ul>
+        <h2>Inventor</h2>
+        <ul><li>Drawing complex sketches</li>
+            <li>Connection with an ERP such as <a href="https://www.clipper-erp.com/en">Clipper</a>, <a href="https://www.sage.com/en-us/sage-business-cloud/x3/">Sage X3</a></li>
+            <li>Collection of dimensions and geometric tolerances present on a drawing for automatic generation of a control report</li></ul>
+        <h2>Revit</h2>
+        <ul><li>Extracting data from the model: net areas, baseboard lengths... Data can be written to a file (XML, Excel workbook) or sent to a Web service.</li>
+            <li>Batch sheet generation</li>
+            <li>Element numbering</li>
+            <li>Automated dimensioning of certain elements</li></ul>
+        <h2>Vault</h2>
+        <ul><li>Connection with an ERP such as <a href="https://www.clipper-erp.com/en">Clipper</a>, <a href="https://www.sylob.com/en">Sylob</a>, <a href="https://www.sage.com/en-us/sage-business-cloud/x3/">Sage X3</a> (export bill of materials to file or Web service)</li>
+            <li>Elaborate validation workflow with writing of validator name and date in the title block</li>
+            <li>Restrictions on transitions to require comment entry</li></ul>
+        <h2>Standalone programs</h2>
+        <ul><li>DWG file compliance verification with graphic charter</li>
+            <li>Scaffolding configuration with material list and quote</li>
+            <li>Sheet metal profile editing with DXF import/export and STEP export</li></ul>
+        <h2>AutoCAD OEM</h2>
+        <p><a href="https://aps.autodesk.com/developer/overview/autocad-oem">AutoCAD OEM</a> allows you to create custom applications based on AutoCAD. I can assist you in creating your application.</p>
+        <h2>Computer Aided Manufacturing (CAM)</h2>
+        <p>Autodesk has a range of software for CAM:</p>
+        <ul><li>PowerShape</li>
+            <li>PowerMill</li>
+            <li>PowerInspect</li></ul>
+        <p>I can develop macros on these platforms to increase your productivity and/or improve your user experience.</p></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
