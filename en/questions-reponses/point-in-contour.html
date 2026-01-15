@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    </head>
+    <title>How to determine if a point is inside a contour? - WIIP</title></head>
 
 <body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
@@ -16,8 +16,96 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/point-in-contour" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/questions-reponses/point-in-contour" class="active">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Question not found</h1>
-            <p>The requested question does not exist.</p></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>How to determine if a point is inside a contour?</h1>
+                    <small class="text-muted">Last updated: Saturday, November 15, 2025</small><div class="mt-2"><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>We often need to determine if a point is inside a contour. For example, when we have labeled zones, we need to establish the link between a closed polyline and the text inside it.</p>
+<p>There are several ways to proceed, but for me the simplest and most reliable is to use AutoCAD's BRep API. BRep stands for <em>Boundary REPresentation</em>. It's a 3D API, but we can use it with 2D objects such as regions.</p>
+<p>The first step is to create a region from the curves that form the contour. We can do this with the <code>Region.CreateFromCurves</code> method:</p>
+<pre><code class="language-csharp">DBObjectCollection regions = Region.CreateFromCurves(new DBObjectCollection { curve })!;
+using var region = (Region)regions[0]!;
+</code></pre>
+<p>Here, we assume we have a single curve (closed polyline, circle, or ellipse). We use the <code>using</code> keyword to ensure the <code>region</code> object will be destroyed at the end, since we only need it temporarily.</p>
+<p>The second step is to create a BRep object, also with <code>using</code>:</p>
+<pre><code class="language-csharp">using var brep = new Brep(region);
+</code></pre>
+<p>The third step is to test if the point is in the region with the <code>GetPointContainment()</code> method:</p>
+<pre><code class="language-csharp">brep.GetPointContainment(point, out PointContainment _);
+</code></pre>
+<p>This is where it gets a bit complicated. As I mentioned earlier, the BRep API is a 3D API. <code>GetPointContainment()</code> is used to determine whether a point is inside a 3D object like a cube.</p>
+<p>As shown here, we have a point A inside the cube and a point B outside.</p>
+<p><img src="Content/en/questions-reponses/media/point_in_cube.svg" alt="Point in a cube" /></p>
+<p>That's why the <code>out PointContainment</code> parameter is an enumeration that can be <code>Inside</code> or <code>Outside</code>. But there's also another possibility: the point can be on the shell that separates the inside of the cube from the outside. <code>PointContainment</code> will then have the value <code>OnBoundary</code>.</p>
+<p>If we look at the signature of <code>GetPointContainment()</code>, we see that it returns a <code>BrepEntity</code> object:</p>
+<pre><code class="language-csharp">public BrepEntity GetPointContainment(
+    Point3d point,
+    out Autodesk.AutoCAD.BoundaryRepresentation.PointContainment containment
+);
+</code></pre>
+<p>The shell is actually composed of faces, edges, and vertices. So if the point is located inside a face, a <code>Face</code> object will be returned. If the point is on an edge or vertex, an <code>Edge</code> or <code>Vertex</code> object will be returned.</p>
+<p>But in the case of our region, which is a 2D object, we don't have a solid, but a single planar face that doesn't delimit a volume. So <code>GetPointContainment()</code> will never return <code>Inside</code>.</p>
+<p><img src="Content/en/questions-reponses/media/point_in_region.svg" alt="Point in a region" /></p>
+<p>If the point is in the region, <code>OnBoundary</code> will be returned in the <code>containment</code> parameter and a <code>Face</code> or <code>Edge</code> object will be returned. We won't get a <code>Vertex</code> in this case, even if we pass a point that corresponds to a vertex of one of the curves forming the contour.</p>
+<p>If the point is outside the region, <code>Outside</code> will be returned in the <code>containment</code> parameter and <code>null</code> will be returned.</p>
+<p>Here's the code for a small command to let you experiment:</p>
+<pre><code class="language-csharp">[CommandMethod(&quot;PTINCONTOUR&quot;)]
+public static void PointInContour()
+{
+    Document document = Application.DocumentManager!.MdiActiveDocument!;
+    Editor editor = document.Editor!;
+    PromptEntityResult entityResult = editor.GetEntity(&quot;\nSelect a closed curve:&quot;)!;
+    if (entityResult.Status != PromptStatus.OK)
+        return;
+    PromptPointResult pointResult = editor.GetPoint(&quot;\nSelect a point:&quot;)!;
+    if (pointResult.Status != PromptStatus.OK)
+        return;
+    using Transaction transaction = document.TransactionManager!.StartTransaction()!;
+    var curve = (Curve)entityResult.ObjectId.GetObject(OpenMode.ForRead)!;
+    DBObjectCollection regions = Region.CreateFromCurves(new DBObjectCollection { curve })!;
+    using var region = (Region)regions[0]!;
+    using var brep = new Brep(region);
+    BrepEntity? entity = brep.GetPointContainment(pointResult.Value, out PointContainment containment);
+    editor.WriteMessage($&quot;\nContainment: {containment}, Entity: {entity}&quot;);
+    transaction.Commit();
+}
+</code></pre>
+<p>So if <code>GetPointContainment</code> returns <code>null</code>, the point is outside the region. If it returns a <code>Face</code> object, the point is inside the region. If it returns an <code>Edge</code> object, the point is on the boundary of the region.</p>
+<p>You can therefore write an <code>IsInside</code> method that returns a <code>PointContainment</code> by passing a point and one or more curves that form the contour.</p>
+<pre><code class="language-csharp">public static PointContainment IsInside(Point3d point, Curve[] curves)
+{
+    ArgumentNullException.ThrowIfNull(curves);
+
+    var collection = new DBObjectCollection();
+    foreach (Curve curve in curves)
+        collection.Add(curve);
+    DBObjectCollection regions;
+    try
+    {
+        regions = Region.CreateFromCurves(collection)!;
+    }
+    catch (Autodesk.AutoCAD.Runtime.Exception exception) when (exception.ErrorStatus == ErrorStatus.InvalidInput)
+    {
+        throw new ArgumentException(&quot;The curves do not form a valid region.&quot;, nameof(curves), exception);
+    }
+    using var region = (Region)regions[0]!;
+    using var brep = new Brep(region);
+    using BrepEntity? entity = brep.GetPointContainment(point, out PointContainment _);
+    return entity switch
+    {
+        null =&gt; PointContainment.Outside,
+        Face =&gt; PointContainment.Inside,
+        _ =&gt; PointContainment.OnBoundary
+    };
+}
+</code></pre>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/questions-reponses/standardization-organizations" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous question</small>
+                                    <span>What are the different standardization organizations found in Inventor&#x27;s Content Center?</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/questions-reponses/line-plane-intersection-acad" class="text-decoration-none"><small class="text-muted d-block">Next question &#x2192;</small>
+                                    <span>How to find the intersection between a line and a plane in AutoCAD?</span></a></div></div></nav></article></div></div>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr

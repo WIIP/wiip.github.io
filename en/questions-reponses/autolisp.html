@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    </head>
+    <title>What is AutoLISP? - WIIP</title></head>
 
 <body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
@@ -16,8 +16,109 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/autolisp" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/questions-reponses/autolisp" class="active">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Question not found</h1>
-            <p>The requested question does not exist.</p></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>What is AutoLISP?</h1>
+                    <small class="text-muted">Last updated: Thursday, January 15, 2026</small><div class="mt-2"><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><h2 id="introduction">Introduction</h2>
+<p>AutoLISP is a programming language built into Autodesk AutoCAD, derived from the LISP (LISt Processing) language. Introduced in AutoCAD in 1986, AutoLISP allows users to automate repetitive tasks, create custom commands, and extend the functionality of the CAD (Computer Aided Design) software.</p>
+<p><img src="Content/en/questions-reponses/media/autolisp.png" alt="AutoLISP" /></p>
+<h2 id="origins-and-lisp-heritage">Origins and LISP Heritage</h2>
+<p>AutoLISP has its roots in the LISP language, created by John McCarthy in 1958 at MIT. LISP is one of the oldest programming languages still in use today and was designed for list processing and artificial intelligence. Autodesk adapted LISP to create AutoLISP, preserving its functional philosophy while specifically tailoring it to CAD needs.</p>
+<h2 id="key-features">Key Features</h2>
+<h3 id="parentheses-based-syntax">Parentheses-Based Syntax</h3>
+<p>AutoLISP uses prefix notation where operators precede their operands, all enclosed in parentheses:</p>
+<pre><code class="language-lisp">(+ 5 3)  ; Addition: 5 + 3 = 8
+(* 2 4)  ; Multiplication: 2 × 4 = 8
+</code></pre>
+<h3 id="list-processing">List Processing</h3>
+<p>Like its LISP ancestor, AutoLISP excels at list manipulation, which is particularly useful for handling coordinates and object properties:</p>
+<pre><code class="language-lisp">(setq point1 '(10.0 20.0 0.0))  ; Defines a 3D point
+</code></pre>
+<h3 id="native-autocad-integration">Native AutoCAD Integration</h3>
+<p>AutoLISP can directly interact with AutoCAD objects, access the drawing database, and use all software commands.</p>
+<h3 id="interactive-repl-mode">Interactive REPL Mode</h3>
+<p>The AutoCAD command line functions as a REPL (Read-Eval-Print Loop), similar to Python. This makes it very easy to test AutoLISP code directly from the AutoCAD interface. For example, you can simply type in the command line:</p>
+<pre><code class="language-lisp">(alert &quot;Hello&quot;)
+</code></pre>
+<p>This command will immediately display a dialog box with the message &quot;Hello&quot;, enabling quick learning and prototyping.</p>
+<p><img src="Content/en/questions-reponses/media/coucou.png" alt="The alert with the message &quot;Hello&quot;" /></p>
+<h2 id="practical-applications">Practical Applications</h2>
+<h3 id="automating-repetitive-tasks">Automating Repetitive Tasks</h3>
+<ul>
+<li>Automatic creation of standardized blocks</li>
+<li>Bill of materials generation</li>
+<li>Automatic area and volume calculations</li>
+<li>Batch updating of object properties</li>
+</ul>
+<h3 id="interface-customization">Interface Customization</h3>
+<ul>
+<li>Creating new commands</li>
+<li>Developing custom dialog boxes</li>
+<li>Modifying menus and toolbars</li>
+</ul>
+<h3 id="external-data-integration">External Data Integration</h3>
+<ul>
+<li>Import/export to databases</li>
+<li>Reading Excel or CSV files</li>
+<li>Automated report generation</li>
+</ul>
+<h2 id="advantages-of-autolisp">Advantages of AutoLISP</h2>
+<h3 id="accessibility">Accessibility</h3>
+<p>AutoLISP is relatively easy to learn for AutoCAD users, even without prior programming experience. Its simple syntax and extensive documentation facilitate learning.</p>
+<h3 id="seamless-integration">Seamless Integration</h3>
+<p>Being built directly into AutoCAD, AutoLISP requires no additional installation or configuration. Programs can be loaded and executed directly from the AutoCAD interface.</p>
+<h3 id="flexibility">Flexibility</h3>
+<p>The language allows creating custom solutions tailored to the specific needs of each user or company.</p>
+<h3 id="active-community">Active Community</h3>
+<p>A large community of users shares routines, tips, and solutions, facilitating learning and development.</p>
+<h2 id="modern-evolution">Modern Evolution</h2>
+<h3 id="visual-lisp-vlisp">Visual LISP (VLISP)</h3>
+<p>Autodesk introduced Visual LISP and its integrated development environment (<strong>VLIDE</strong>) which offers:</p>
+<ul>
+<li>A code editor with syntax highlighting</li>
+<li>An integrated debugger</li>
+<li>Automatic formatting tools</li>
+<li>An improved graphical interface</li>
+</ul>
+<p><img src="Content/en/questions-reponses/media/vlide.png" alt="VLIDE, the traditional AutoLISP development environment" /></p>
+<p>Since AutoCAD 2021, Autodesk offers an alternative to <strong>VLIDE</strong>: you can now use <strong>VS Code</strong> with an extension called <strong>AutoCAD AutoLISP Extension</strong>. Note that you cannot compile to fas or vlx formats; you still need to use VLIDE for that.</p>
+<h3 id="modern-alternatives">Modern Alternatives</h3>
+<p>Although AutoLISP remains popular, Autodesk also offers:</p>
+<ul>
+<li><strong>VBA (Visual Basic for Applications)</strong>: The advantage of this technology is that it's developed by Microsoft and is found in many applications like Microsoft Office or SolidWorks. However, it is now obsolete and no longer being developed. Furthermore, it is no longer installed by default with AutoCAD; it must be downloaded separately.</li>
+<li><strong>.NET API</strong>: For developing robust applications in C#</li>
+<li><strong>ObjectARX</strong>: For those who master C++ and want maximum performance</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<h3 id="performance">Performance</h3>
+<p>As an interpreted language, AutoLISP can be slower than compiled languages for very intensive tasks.</p>
+<h3 id="limited-portability">Limited Portability</h3>
+<p>AutoLISP programs are specifically designed for AutoCAD and are not portable to other applications. However, they can often be used on AutoCAD clones such as <strong>DraftSight</strong>, <strong>BricsCAD</strong>, <strong>ZWCAD</strong>, <strong>GstarCAD</strong>, etc.</p>
+<h3 id="technological-evolution">Technological Evolution</h3>
+<p>Although still supported, AutoLISP no longer evolves as much as more recent technologies offered by Autodesk. The list of latest changes can be found <a href="https://help.autodesk.com/view/ACDLT/2026/ENU/?guid=GUID-037BF4D4-755E-4A5C-8136-80E85CCEDF3E">here</a></p>
+<h3 id="limited-user-interface-development-options">Limited User Interface Development Options</h3>
+<p>If you need to display data or create input forms, your choice will be limited to <strong>DCL</strong> (Dialog Control Library) technology, which is very basic and difficult to use, or <strong>OpenDCL</strong> which is also limited. Whereas in .NET for example, you can use <strong>WPF</strong> or <strong>WinForms</strong> which are much more powerful and flexible.</p>
+<h2 id="practical-example">Practical Example</h2>
+<p>Here is a simple example of an AutoLISP routine that draws a rectangle:</p>
+<pre><code class="language-lisp">(defun c:rectangle ()
+  (setq pt1 (getpoint &quot;\nStart point: &quot;))
+  (setq pt2 (getpoint pt1 &quot;\nOpposite point: &quot;))
+  (setq pt3 (list (car pt2) (cadr pt1)))
+  (setq pt4 (list (car pt1) (cadr pt2)))
+  (command &quot;LINE&quot; pt1 pt3 pt2 pt4 &quot;C&quot;)
+  (princ)
+)
+</code></pre>
+<p>This routine creates a new command called &quot;RECTANGLE&quot; that prompts the user for two points and automatically draws a rectangle.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>AutoLISP remains a powerful and accessible tool for customizing and automating AutoCAD. Although more modern alternatives exist, its ease of learning and native integration make it a preferred choice for many AutoCAD users looking to improve their productivity. Whether for automating repetitive tasks or creating custom solutions, AutoLISP continues to play an important role in the AutoCAD ecosystem.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/questions-reponses/autocad-rotation-3d" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous question</small>
+                                    <span>How to do a 3D rotation in AutoCAD?</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    </head>
+    <title>How to do a 3D rotation in AutoCAD? - WIIP</title></head>
 
 <body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
@@ -16,8 +16,33 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/autocad-rotation-3d" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/questions-reponses/autocad-rotation-3d" class="active">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Question not found</h1>
-            <p>The requested question does not exist.</p></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>How to do a 3D rotation in AutoCAD?</h1>
+                    <small class="text-muted">Last updated: Monday, January 12, 2026</small><div class="mt-2"><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>There are several commands that allow you to perform a 3D rotation in AutoCAD:</p>
+<ul>
+<li><strong>ROTATE3D</strong>: command similar to the command that allows you to perform a 2D rotation;</li>
+<li><strong>3DROTATE</strong>: allows you to perform a rotation using a &quot;gizmo&quot;;</li>
+<li><strong>ALIGN</strong> and <strong>3DALIGN</strong>: allow you to align objects onto a plane.</li>
+</ul>
+<p>There's not much to say about the <strong>ROTATE3D</strong> command. You define the rotation axis, most often by selecting two points. Then you enter the angle. As a reminder, by default in AutoCAD, angles use the trigonometric direction. So if for example you rotate around the Z axis, the positive direction is when you go from the X axis to the Y axis. If you rotate around the X axis, the positive direction is when you go from the Y axis to the Z axis. Finally, if you rotate around the Y axis, the positive direction is when you go from the X axis to the Z axis.</p>
+<p>The <strong>3DROTATE</strong> command allows you to perform a rotation using a &quot;gizmo&quot;. A gizmo is a symbol that appears on the screen. For rotation, it looks like this:</p>
+<p><img src="Content/en/questions-reponses/media/gizmo.png" alt="Rotation gizmo" /></p>
+<p>These are the red, green, and blue rings. By clicking on the red ring, you choose the red axis which corresponds by default to the X axis. To memorize the color/axis correspondence, it's simple, it's like for a screen: RGB (red, green, blue) corresponds to XYZ (X axis, Y axis, Z axis).</p>
+<p>By right-clicking, you can display a context menu that allows you to reposition the gizmo. But be careful. If you try, you may realize that it doesn't work. In fact, to use gizmos, you need to switch to a 3D visual style. Indeed, in AutoCAD, by default you are in the <strong>2D Wireframe</strong> visual style. Before launching <strong>ROTATION3D</strong>, you need to switch to one of the 3D visual styles like <strong>Hidden</strong>, <strong>Realistic</strong>, or simply <strong>Wireframe</strong>. In fact, only <strong>2D Wireframe</strong> is a 2D visual style, all the others are 3D (they actually use another graphics system optimized for 3D).</p>
+<p>Finally, we have the <strong>ALIGN</strong> and <strong>3DALIGN</strong> commands that allow you to align objects onto a plane. For those who know <strong>Inventor</strong>, it's a bit like a flush constraint.</p>
+<p>It works with three pairs of points. For example here, we started by selecting the midpoint of the text and the midpoint of the destination plane (in red). Then the left midpoint of the frame and the left midpoint of the destination plane (in yellow). Finally, the top midpoint of the frame and the top midpoint of the destination plane (in green). AutoCAD then calculates the rotation so that the points match.</p>
+<p><img src="Content/en/questions-reponses/media/align.png" alt="The ALIGN command" /></p>
+<p>The <strong>3DALIGN</strong> command works the same way, except that you start by selecting three points on the objects to align, then the three points on the destination plane. This allows you to have a preview of the rotation before applying it.</p>
+<p>Note that the <strong>ALIGN</strong> command also works in 2D, with two pairs of points.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/questions-reponses/line-plane-intersection-acad" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous question</small>
+                                    <span>How to find the intersection between a line and a plane in AutoCAD?</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/questions-reponses/autolisp" class="text-decoration-none"><small class="text-muted d-block">Next question &#x2192;</small>
+                                    <span>What is AutoLISP?</span></a></div></div></nav></article></div></div>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
