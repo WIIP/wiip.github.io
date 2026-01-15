@@ -18,16 +18,129 @@
     <a href="/en/blog/vault-items" class="">EN</a></div></li></ul></div></nav></div></div>
         <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Les articles dans Autodesk Vault</h1>
                     <small class="text-muted">jeudi 15 janvier 2026</small><div class="mt-2"><a href="/fr/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
-                <div class="mt-3"><p>Les articles permettent plus de flexibilité, au prix d'une plus grande complexité à gérer.</p>
-<p>Côté CAO, le concepteur dispose de différents outils pour découpler la nomenclature produite de la structure de l'assemblage :</p>
+                <div class="mt-3"><p>Les articles servent à représenter un produit, un assemblage, une pièce commerciale, un composant acheté, ou même un service — bref, quelque chose qui existe dans le monde réel et qui doit être suivi indépendamment des fichiers CAO.</p>
+<p>Ils permettent de gérer les nomenclatures d'une façon plus flexible et plus alignée avec l'ERP.</p>
+<p>En effet, il est fréquent que la structure de l'assemblage ne corresponde pas toujours à la forme définitive de la nomenclature.</p>
+<h2 id="un-exemple">Un exemple</h2>
+<p>Prenons l'exemple d'un assemblage qui contient :</p>
+<ul>
+<li>1 châssis</li>
+<li>1 moteur</li>
+<li>1 faisceau électrique</li>
+<li>12 colliers de serrage modélisés individuellement</li>
+<li>1 connecteur 12 broches</li>
+<li>1 gaine thermo</li>
+</ul>
+<p>La nomenclature du logiciel CAO va refléter exactement ce qui est modélisé :</p>
+<table>
+<thead>
+<tr>
+<th>Référence</th>
+<th>Désignation</th>
+<th>Qté</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CH-001</td>
+<td>Châssis</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MT-200</td>
+<td>Moteur</td>
+<td>1</td>
+</tr>
+<tr>
+<td>FS-300</td>
+<td>Faisceau 3D</td>
+<td>1</td>
+</tr>
+<tr>
+<td>CL-010</td>
+<td>Collier</td>
+<td>12</td>
+</tr>
+<tr>
+<td>CN-012</td>
+<td>Connecteur</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GN-050</td>
+<td>Gaine</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Alors que la nomenclature désirée côté ERP peut être différente :</p>
+<table>
+<thead>
+<tr>
+<th>Référence</th>
+<th>Désignation</th>
+<th>Qté</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CH-001</td>
+<td>Châssis</td>
+<td>1</td>
+<td>Identique CAO</td>
+</tr>
+<tr>
+<td>MT-200</td>
+<td>Moteur</td>
+<td>1</td>
+<td>Identique CAO</td>
+</tr>
+<tr>
+<td>FS-900</td>
+<td>Faisceau complet</td>
+<td>1</td>
+<td>Article acheté, remplace 14 composants CAO</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Colliers</td>
+<td>—</td>
+<td>Inclus dans FS-900</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Connecteur</td>
+<td>—</td>
+<td>Inclus dans FS-900</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Gaine</td>
+<td>—</td>
+<td>Inclus dans FS-900</td>
+</tr>
+</tbody>
+</table>
+<p><img src="Content/fr/blog/media/vault-items.png" alt="La structure de l'assemblage ne reflète pas toujours la forme définitive de la nomenclature" /></p>
+<p>Alors bien sûr, le concepteur a plusieurs possibilités dans Autodesk Inventor pour adapter la structure de l'assemblage à la nomenclature ERP :</p>
 <ul>
 <li><strong>Composants virtuels</strong> : permettent d'ajouter des composants à un assemblage qui ne sont pas modélisés dans Inventor (des colliers de serrage, de la colle, des outils ou une notice de montage par exemple) ;</li>
 <li><strong>Colonne structure de nomenclature</strong> : permet de contrôler si l'élément va être inclus ou détaillé dans la nomenclature. Un sous-ensemble déclaré comme <strong>Acheté</strong> ou <strong>Indivisible</strong> (ensemble mécano-soudé) ne sera pas détaillé dans la nomenclature. Un sous-ensemble marqué comme <strong>Fantôme</strong> ou <strong>Référence</strong> ne sera pas inclus.</li>
 </ul>
-<p>Mais parfois, ce système a ses limites. Le concepteur n'a pas forcément toutes les informations sur ce qui doit figurer dans la nomenclature et comment elle doit être structurée. Ou alors des impératifs de modélisation obligent à dévier de la structure logique de la nomenclature.</p>
-<p>C'est pour cela, que dans les moyennes et grandes entreprises, la forme définitive de la nomenclature est gérée par un service autre que le bureau d'études via l'<strong>ERP</strong>.</p>
-<h2 id="lien-plus-flexible-entre-la-cao-et-lerp">Lien plus flexible entre la CAO et l'ERP</h2>
-<p><img src="Content/fr/blog/media/vault-items.png" alt="La structure de l'assemblage ne reflète pas toujours la forme définitive de la nomenclature" /></p>
+<p>Mais parfois, ce système a ses limites.</p>
+<p>Le concepteur n'a pas forcément toutes les informations sur ce qui doit figurer dans la nomenclature et comment elle doit être structurée. C'est pour cela, que dans les moyennes et grandes entreprises, la forme définitive de la nomenclature est gérée par un service autre que le bureau d'études via l'ERP.</p>
+<p>Le concepteur peut aussi être confronté à des impératifs de modélisation (animation ou simulation par exemple) qui l'obligent à dévier de la structure logique de la nomenclature.</p>
+<p>Et parfois, on a besoin de plusieurs nomenclatures : une nomenclature pour l'ingénierie, une pour la fabrication, une pour les achats, une pour la maintenance, etc.</p>
+<p>Enfin, il peut être intéressant de découpler la nomenclature CAO de la nomenclature ERP pour la réviser indépendamment.</p>
+<p>Le module <strong>Articles</strong> dans Autodesk Vault va permettre cette approche. On va attribuer un article aux fichiers du chassis et du moteur. Pour le faisceau, on va attribuer par contre un seul article qui va regrouper tous les composants CAO qui le composent. On peut aussi ajouter des articles sans fichier CAO associé.</p>
+<h2 id="complexite-accrue">Complexité accrue</h2>
+<p>L'inconvénient principal de cette approche est la complexité accrue pour gérer les articles dans Autodesk Vault. En effet, chaque article doit être lié à un article ERP, ce qui nécessite des manipulations supplémentaires. L'administration du coffre est plus lourde et les utilisateurs doivent être formés à l'utilisation des articles.</p>
+<p>C'est pour cette raison que certains de mes clients cherchent un système plus simple. Il faut savoir qu'à chaque fois que vous archivez un ensemble dans Autodesk Vault, les informations de la nomenclature (repère, ordre des lignes, quantité, profondeur...) sont transmises également et stockées dans le coffre. Ces données sont exploitées pour générer la version initiale de la nomenclature Articles.</p>
+<p>On peut aller chercher ces informations en utilisant l'interface de développement de Vault (API pour Application Programming Interface). Il est ainsi possible d'ajouter au menu contextuel qui s'affiche quand on clique avec le bouton droit de la souris sur un ensemble, une option pour générer automatiquement un fichier qui reprend ces données. Ce fichier peut être formaté en CSV ou Excel pour faciliter son traitement. On peut calculer certaines données ou ajouter automatiquement des lignes supplémentaires en fonction des besoins. On peut également générer deux fichiers : un qui décrit la structure et un qui fournit les détails pour chaque composant. Enfin, on peut aussi générer des fichiers supplémentaires : STEP, PDF...</p>
+<p>Ce ou ces fichiers peuvent ensuite être importés dans un ERP comme Sylob, IFS, Sage X3...</p>
+<h2 id="amelioration-de-la-connexion-avec-lerp">Amélioration de la connexion avec l'ERP</h2>
+<p>Avec l'API Vault, il est possible également de faciliter les échanges entre Vault et l'ERP. On peut synchroniser automatiquement les articles entre  les deux systèmes par exemple.</p>
 <hr />
 <p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Vault</strong> ? Contactez-moi pour un devis gratuit.</p>
 
