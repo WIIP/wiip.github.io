@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>0x80004005 the answer to almost everything - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/0x80004005" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/0x80004005" class="active">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>0x80004005 the answer to almost everything</h1>
+                    <small class="text-muted">Wednesday, January 21, 2026</small><div class="mt-2"><a href="/en/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p>There's something very frustrating when developing with the Inventor API: when there's a problem, 90% of the time, the answer is <code>0x80004005</code>.</p>
+<p><img src="Content/en/blog/media/0x80004005.png" alt="0x80004005, the answer to almost everything" /></p>
+<p>And that makes debugging very frustrating. With no indication of the nature of the problem, you have to check everything and that can take time, a lot of time.</p>
+<p>The documentation doesn't help. Some documentation, like Microsoft's (MSDN), has an <strong>Exceptions</strong> section for each function/method that lists the exceptions that can be thrown. But in the case of Autodesk Inventor, there's no such information.</p>
+<p>As a result, you can spend hours only to realize at the end that the problem comes from a non-existent directory, a property name that doesn't have the right case, or a parameter that isn't within the expected values.</p>
+<p>So why don't Autodesk developers return more explicit messages?</p>
+<p>It's actually related to the underlying technology: <strong>COM</strong>. It's a very old technology that dates back to the 90s. At the time, we didn't have standardized exceptions in C++ and we didn't really care about the quality of error messages. When we had an error, we most often wrote:</p>
+<pre><code class="language-c++">if (something_bad) return E_FAIL;
+</code></pre>
+<p>And we moved on to something else.</p>
+<p>It must be said that to return a more explicit message, you had to use something like:</p>
+<pre><code class="language-c++">CComPtr&lt;ICreateErrorInfo&gt; cei;
+CreateErrorInfo(&amp;cei);
+cei-&gt;SetDescription(L&quot;The file is corrupted&quot;);
+cei-&gt;SetSource(L&quot;MonComObject&quot;);
+CComPtr&lt;IErrorInfo&gt; ei;
+cei-&gt;QueryInterface(&amp;ei);
+SetErrorInfo(0, ei);
+return MY_E_BAD_DATA;
+</code></pre>
+<p>It's verbose and easy to forget.</p>
+<p>So developers didn't do it, and that's why we still have <code>0x80004005</code> (and why I'm pulling my hair out).</p>
+<p>Note that if the developer is conscientious and does things correctly, the .NET runtime will call <code>GetErrorInfo</code> to retrieve the error message and will use its description to create a <code>COMException</code> object that will then be thrown.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Need an <strong>Inventor</strong> (iLogic, .NET) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/vault-server-installation" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
