@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Am&#xE9;liorer les fen&#xEA;tres dans AutoCAD - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/windows-and-dialogs" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/windows-and-dialogs" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Am&#xE9;liorer les fen&#xEA;tres dans AutoCAD</h1>
+                    <small class="text-muted">samedi 24 janvier 2026</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/WPF" class="badge bg-primary me-1 text-decoration-none">WPF</a></div></header>
+                <div class="mt-3"><p>La chose qui me pique aux yeux le plus souvent quand je reprends un projet écrit par quelqu'un d'autre, ce sont les fenêtres.</p>
+<p>Prenons cet exemple :</p>
+<p><img src="Content/fr/blog/media/a-hideous-window.png" alt="Une fenêtre hideuse" /></p>
+<p>Il y a instantanément plusieurs choses qui me dérangent :</p>
+<ol>
+<li>Le bouton <strong>OK</strong> est orthographié <strong>Ok</strong> ;</li>
+<li>La fenêtre est trop grande par rapport à son contenu ;</li>
+<li>Le bouton <strong>Annuler</strong> est collé sur le bord gauche de la fenêtre ;</li>
+<li>Le fond de la fenêtre est blanc au lieu d'être dans le gris utilisé habituellement pour les boites de dialogue AutoCAD ;</li>
+<li>La fenêtre apparait dans la barre des tâches ;</li>
+<li>La fenêtre apparait à une position inappropriée sur l'écran ;</li>
+<li>Il y a des boutons <strong>Minimiser</strong> et <strong>Maximiser</strong> qui ne servent à rien</li>
+<li>La fenêtre peut passer en arrière-plan dans certaines situations.</li>
+</ol>
+<p>Des détails, vous me direz, OK, mais la plupart d'entre eux peuvent être corrigés en quelques clics donc c'est dommage de ne les avoir pas corrigés.</p>
+<p>Alors reprenons un par un ces problèmes et essayons de les résoudre.</p>
+<h2 id="orthographe-casse">Orthographe, casse</h2>
+<p>Des boutons OK, on en voit à longueur de journée, ils sont partout dans les interfaces utilisateur. Et pourtant, certaines personnes n'ont visiblement jamais réalisé qu'<strong>OK</strong> était en majuscule. Les erreurs de casse, les fautes d'orthographe, renvoient l'image d'un produit de mauvaise qualité.</p>
+<p>Parfois, certains inversent également le sens des boutons <strong>OK</strong> et <strong>Annuler</strong>, avec <strong>Annuler</strong> en premier. C'est la disposition habituelle sur Mac OS, et bien que je la trouve personnellement plus intuitive, on est sur Windows donc on respecte la convention de la plateforme. Sinon, par réflexe, les utilisateurs risquent de cliquer sur le mauvais bouton.</p>
+<h2 id="taille-de-la-fenetre">Taille de la fenêtre</h2>
+<p>La fenêtre a été développée en WPF. WPF utilise un système de mise en page (<em>layout</em>) automatique, donc on peut lui demander d'adapter automatiquement la taille de la fenêtre en fonction de son contenu.
+Il suffit d'ajouter la propriété <code>SizeToContent=&quot;WidthAndHeight&quot;</code> à la fenêtre et de retirer les propriétés <code>Height</code> et <code>Width</code> (ainsi que les contraintes comme <code>MinHeight</code>, <code>MinWidth</code>, <code>MaxHeight</code>, <code>MaxWidth</code>).</p>
+<p>Personnellement le plus souvent, je fixe la largeur et je demande à WPF de calculer la hauteur automatiquement avec <code>SizeToContent=&quot;Height&quot;</code>, parce que les contrôles de saisie comme TextBox et ComboBox n'ont pas de largeur par défaut et donc ils prennent une largeur qui dépend de leur contenu.</p>
+<h2 id="bouton-annuler-colle-au-bord-droit">Bouton Annuler collé au bord droit</h2>
+<p>Souvent, on a une grille ou un <code>StackPanel</code> à la racine du contenu de la fenêtre, donc pour décoller le contenu du bord, il suffit de spécifier une marge avec l'attribut <code>Margin</code>. Dans AutoCAD, c'est environ neuf pixels.</p>
+<h2 id="fond-de-la-fenetre-blanc">Fond de la fenêtre blanc</h2>
+<p>Là, il suffit de changer la couleur de fond de la fenêtre avec la propriété <code>Background</code>. Dans AutoCAD, le gris utilisé habituellement pour les boites de dialogue est <code>#F0F0F0</code>.</p>
+<h2 id="la-fenetre-apparait-dans-la-barre-des-taches">La fenêtre apparait dans la barre des tâches</h2>
+<p>Ça, c'est une bizarrerie de WPF. Sur l'élément <code>Window</code>, il faut ajouter la propriété <code>ShowInTaskbar=&quot;False&quot;</code> pour empêcher la fenêtre d'apparaître dans la barre des tâches. C'est approprié pour la fenêtre principale de l'application, mais pas pour toutes les autres fenêtres, donc à mon avis, Microsoft aurait dû choisir de mettre cette propriété à <code>False</code> par défaut.</p>
+<h2 id="la-fenetre-apparait-a-une-position-inappropriee-sur-lecran">La fenêtre apparaît à une position inappropriée sur l'écran</h2>
+<p>Ici ça commence à être un peu plus technique. Pour commencer, dans WPF, il y a une propriété <code>WindowStartupLocation</code> qui peut prendre les valeurs <code>CenterScreen</code>, <code>CenterOwner</code>  ou <code>Manual</code>. Par défaut, c'est <code>Manual</code> et donc la fenêtre apparait là où Windows le décide, c'est-à-dire un peu n'importe où.</p>
+<p>Le mieux ici, comme on a une fenêtre modale (une fenêtre qui bloque l'interaction avec le reste de l'application), c'est de la centrer sur l'écran avec <code>WindowStartupLocation=&quot;CenterScreen&quot;</code>. On utilise <code>Manual</code> quand on veut spécifier une position précise, c'est généralement quand on veut positionner une fenêtre non modale dans un coin de l'écran pour ne pas gêner l'interaction avec le contenu.</p>
+<p>On reviendra sur la troisième option <code>CenterOwner</code> plus tard.</p>
+<h2 id="boutons-minimiser-et-maximiser-inutiles">Boutons Minimiser et Maximiser inutiles</h2>
+<p>Ici la fenêtre est en fait un formulaire qui permet de saisir des informations. On n'a pas besoin d'occuper tout l'écran pour ça, il n'y a que quelques champs. Donc pas besoin de bouton <strong>Maximiser</strong>. On n'a pas de propriété pour cacher le bouton <strong>Maximiser</strong>, mais on peut changer le mode de redimensionnement de la fenêtre avec la propriété <code>ResizeMode</code>. Comme on n'a pas besoin de redimensionner la fenêtre, on utilise <code>NoResize</code>. WPF masque alors automatiquement le bouton <strong>Maximiser</strong>.</p>
+<p>Pour le bouton <strong>Minimiser</strong>, c'est à nouveau une bizarrerie de WPF. On n'a pas de propriété pour cacher ce bouton. Pourtant, il est inapproprié de l'afficher dans la plupart des cas.</p>
+<p>Pour le masquer, il faut changer le style de la fenêtre et là, attention, il faut sortir l'artillerie lourde (Interop avec Win32).</p>
+<pre><code class="language-csharp">using System;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+
+public abstract partial class WindowWithoutMinimizeButton : Window
+{
+    const int GWL_STYLE = -16;
+    
+    const int WS_MINIMIZEBOX = 0x20000;
+
+    [LibraryImport(&quot;user32.dll&quot;)]
+    private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+    [LibraryImport(&quot;user32.dll&quot;)]
+    private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+
+        IntPtr hwnd = new WindowInteropHelper(this).Handle;
+        IntPtr style = GetWindowLongPtr(hwnd, GWL_STYLE);
+
+        // Retire le bouton Minimiser
+        style &amp;= ~new IntPtr(WS_MINIMIZEBOX);
+
+        SetWindowLongPtr(hwnd, GWL_STYLE, style);
+    }
+}
+</code></pre>
+<p>On doit carrément créer une classe dérivée de <code>Window</code> pour pouvoir surcharger <code>OnSourceInitialized</code>. Cette méthode est appelée lorsque la fenêtre est initialisée et est prévue justement pour éventuellement changer le style de la fenêtre. On utilise <code>GetWindowLongPtr</code> et <code>SetWindowLongPtr</code> pour modifier le style de la fenêtre, en retirant le drapeau <code>WS_MINIMIZEBOX</code>.</p>
+<p>Notez qu'ici, j'utilise <code>LibraryImport</code> pour importer les fonctions Win32, qui est une fonctionnalité introduite dans .NET 7, donc ce code n'est valable que pour AutoCAD 2025 et versions ultérieures. Pour les versions antérieures, vous devrez utiliser <code>DllImport</code> à la place.</p>
+<h2 id="la-fenetre-peut-passer-en-arriere-plan">La fenêtre peut passer en arrière-plan</h2>
+<p>Dernier point de la liste et le plus compliqué. Dans Windows, les fenêtres d'une application forment une hiérarchie. Chaque fenêtre peut avoir des enfants et/ou un parent. En WPF, cette relation parent/enfant doit être explicitement définie. Si vous ne le faites pas, la fenêtre peut avoir un comportement qui n'est pas celui attendu.</p>
+<p>Si par exemple, vous avez une fenêtre modale affichée dans AutoCAD et que vous basculez sur une autre application, quand vous allez revenir dans AutoCAD en cliquant sur son icône dans la barre des tâches par exemple, la fenêtre principale d'AutoCAD va venir au premier plan et va masquer votre fenêtre. Comme c'est une fenêtre modale, AutoCAD va apparaître comme figé.</p>
+<p>Ça peut être problématique parce que l'utilisateur peut penser que AutoCAD s'est planté alors qu'en fait, c'est simplement parce qu'il attend que la fenêtre modale se ferme.</p>
+<p>Pour que cela ne se produise pas, il faut désigner la fenêtre principale d'AutoCAD comme parent de votre fenêtre modale. Le meilleur moyen de le faire est d'utiliser la méthode <code>Autodesk.AutoCAD.ApplicationServices.Application.ShowModalWindow()</code> à la place de <code>System.Windows.Window.ShowDialog()</code>.</p>
+<p>Il y a une surcharge de cette méthode qui prend en paramètre un propriétaire :</p>
+<pre><code class="language-csharp">public static bool? ShowModalWindow(IntPtr owner, System.Windows.Window formToShow);
+</code></pre>
+<p>AutoCAD fournit le maintien de sa fenêtre principale via la propriété <code>Application.MainWindowHandle</code>. Donc, vous pouvez utiliser :</p>
+<pre><code class="language-csharp">var window = new MyModalWindow();
+Application.ShowModalWindow(Application.MainWindow.Handle, window);
+</code></pre>
+<p>Voilà comme ça, les deux fenêtres seront liées et la fenêtre modale ne pourra pas passer en arrière-plan.</p>
+<p>Notez que cette méthode <code>ShowModalWindow()</code> enregistre également la position et la taille de la fenêtre pour la restaurer lorsqu'elle sera ré-affichée. Personnellement, je préfère garder ma fenêtre centrée, donc j'utilise plutôt :</p>
+<pre><code class="language-csharp">public static bool? ShowModalWindow(System.Windows.Window owner, System.Windows.Window formToShow, bool persistSizeAndPosition);
+</code></pre>
+<p>Le booléen <code>persistSizeAndPosition</code> permet de spécifier si la position et la taille de la fenêtre doivent être enregistrées et restaurées. Je passe <code>false</code>  pour garder ma fenêtre centrée.</p>
+<p>Enfin, je vous avais dit que <code>WindowStartupLocation</code> avait une option <code>CenterOwner</code>. Comme vous pouvez le deviner, au lieu de centrer la fenêtre sur l'écran, vous pouvez la centrer sur la fenêtre propriétaire. Je pense que c'est la meilleure option, si par exemple votre utilisateur a un écran ultra-large.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Voilà, en suivant ces conseils, vous pouvez améliorer considérablement l'expérience utilisateur de vos fenêtres dans AutoCAD.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/0x80004005" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>0x80004005 la r&#xE9;ponse &#xE0; presque tout</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

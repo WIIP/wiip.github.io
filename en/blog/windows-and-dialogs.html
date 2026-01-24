@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Improving Windows in AutoCAD - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/windows-and-dialogs" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/windows-and-dialogs" class="active">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Improving Windows in AutoCAD</h1>
+                    <small class="text-muted">Saturday, January 24, 2026</small><div class="mt-2"><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/WPF" class="badge bg-primary me-1 text-decoration-none">WPF</a></div></header>
+                <div class="mt-3"><p>The thing that catches my eye most often when I take over a project written by someone else is the windows.</p>
+<p>Let's take this example:</p>
+<p><img src="Content/en/blog/media/a-hideous-window.png" alt="A hideous window" /></p>
+<p>There are immediately several things that bother me:</p>
+<ol>
+<li>The <strong>OK</strong> button is spelled <strong>Ok</strong>;</li>
+<li>The window is too large for its content;</li>
+<li>The <strong>Cancel</strong> button (labeled <strong>Annuler</strong> here, sorry the screenshot comes from a French application) is stuck to the left edge of the window;</li>
+<li>The window background is white instead of the gray usually used for AutoCAD dialog boxes;</li>
+<li>The window appears in the taskbar;</li>
+<li>The window appears at an inappropriate position on the screen;</li>
+<li>There are <strong>Minimize</strong> and <strong>Maximize</strong> buttons that serve no purpose;</li>
+<li>The window can move to the background in certain situations.</li>
+</ol>
+<p>Details, you might say, OK, but most of them can be fixed in a few clicks so it's a shame not to have fixed them.</p>
+<p>So let's go through these problems one by one and try to solve them.</p>
+<h2 id="spelling-case">Spelling, Case</h2>
+<p>We see OK buttons all day long, they're everywhere in user interfaces. And yet, some people have apparently never realized that <strong>OK</strong> is in uppercase. Casing errors and spelling mistakes convey the image of a poor quality product.</p>
+<p>Sometimes, some people also reverse the order of the <strong>OK</strong> and <strong>Cancel</strong> buttons, with <strong>Cancel</strong> first. This is the usual layout on macOS, and although I personally find it more intuitive, we are on Windows so we respect the platform convention. Otherwise, users may reflexively click on the wrong button.</p>
+<h2 id="window-size">Window Size</h2>
+<p>The window was developed in WPF. WPF uses an automatic layout system, so we can ask it to automatically adjust the window size based on its content.
+Just add the <code>SizeToContent=&quot;WidthAndHeight&quot;</code> property to the window and remove the <code>Height</code> and <code>Width</code> properties (as well as constraints like <code>MinHeight</code>, <code>MinWidth</code>, <code>MaxHeight</code>, <code>MaxWidth</code>).</p>
+<p>Personally, most often, I set the width and ask WPF to calculate the height automatically with <code>SizeToContent=&quot;Height&quot;</code>, because input controls like TextBox and ComboBox don't have a default width, and so they take a width that depends on their content.</p>
+<h2 id="cancel-button-stuck-to-the-right-edge">Cancel Button Stuck to the Right Edge</h2>
+<p>Often, we have a grid or StackPanel at the root of the window content, so to detach the content from the edge, just specify a margin with the <code>Margin</code> attribute. In AutoCAD, it's about nine pixels.</p>
+<h2 id="white-window-background">White Window Background</h2>
+<p>Here, just change the window background color with the <code>Background</code> property. In AutoCAD, the gray usually used for dialog boxes is <code>#F0F0F0</code>.</p>
+<h2 id="the-window-appears-in-the-taskbar">The Window Appears in the Taskbar</h2>
+<p>That's a WPF quirk. On the <code>Window</code> element, you need to add the <code>ShowInTaskbar=&quot;False&quot;</code> property to prevent the window from appearing in the taskbar. It's appropriate for the application's main window, but not for all other windows, so in my opinion, Microsoft should have chosen to set this property to <code>False</code> by default.</p>
+<h2 id="the-window-appears-at-an-inappropriate-position-on-the-screen">The Window Appears at an Inappropriate Position on the Screen</h2>
+<p>Here it starts to get a bit more technical. To begin with, in WPF, there's a <code>WindowStartupLocation</code> property that can take the values <code>CenterScreen</code>, <code>CenterOwner</code> or <code>Manual</code>. By default, it's <code>Manual</code> and so the window appears wherever Windows decides, which is somewhat random.</p>
+<p>The best approach here, since we have a modal window (a window that blocks interaction with the rest of the application), is to center it on the screen with <code>WindowStartupLocation=&quot;CenterScreen&quot;</code>. We use <code>Manual</code> when we want to specify a precise position, generally when we want to position a non-modal window in a corner of the screen so as not to interfere with content interaction.</p>
+<p>We'll come back to the third option <code>CenterOwner</code> later.</p>
+<h2 id="useless-minimize-and-maximize-buttons">Useless Minimize and Maximize Buttons</h2>
+<p>Here the window is actually a form for entering information. We don't need to occupy the whole screen for that, there are only a few fields. So no need for a <strong>Maximize</strong> button. We don't have a property to hide the <strong>Maximize</strong> button, but we can change the window's resize mode with the <code>ResizeMode</code> property. Since we don't need to resize the window, we use <code>NoResize</code>. WPF then automatically hides the <strong>Maximize</strong> button.</p>
+<p>For the <strong>Minimize</strong> button, it's again a WPF quirk. We don't have a property to hide this button. Yet, it's inappropriate to display it in most cases.</p>
+<p>To hide it, we need to change the window style and there, watch out, we need to bring out the heavy artillery (Interop with Win32).</p>
+<pre><code class="language-csharp">using System;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+
+public abstract partial class WindowWithoutMinimizeButton : Window
+{
+    const int GWL_STYLE = -16;
+
+    const int WS_MINIMIZEBOX = 0x20000;
+
+    [LibraryImport(&quot;user32.dll&quot;)]
+    private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+    [LibraryImport(&quot;user32.dll&quot;)]
+    private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+
+        IntPtr hwnd = new WindowInteropHelper(this).Handle;
+        IntPtr style = GetWindowLongPtr(hwnd, GWL_STYLE);
+
+        // Remove the Minimize button
+        style &amp;= ~new IntPtr(WS_MINIMIZEBOX);
+
+        SetWindowLongPtr(hwnd, GWL_STYLE, style);
+    }
+}
+</code></pre>
+<p>We actually have to create a class derived from <code>Window</code> to be able to override <code>OnSourceInitialized</code>. This method is called when the window is initialized and is specifically intended for possibly changing the window style. We use <code>GetWindowLongPtr</code> and <code>SetWindowLongPtr</code> to modify the window style, removing the <code>WS_MINIMIZEBOX</code> flag.</p>
+<p>Note that here, I use <code>LibraryImport</code> to import Win32 functions, which is a feature introduced in .NET 7, so this code is only valid for AutoCAD 2025 and later versions. For earlier versions, you'll need to use <code>DllImport</code> instead.</p>
+<h2 id="the-window-can-move-to-the-background">The Window Can Move to the Background</h2>
+<p>Last point on the list and the most complicated. In Windows, an application's windows form a hierarchy. Each window can have children and/or a parent. In WPF, this parent/child relationship must be explicitly defined. If you don't do this, the window may have behavior that isn't what you expect.</p>
+<p>If for example, you have a modal window displayed in AutoCAD and you switch to another application, when you return to AutoCAD by clicking on its icon in the taskbar for example, AutoCAD's main window will come to the foreground and will hide your window. Since it's a modal window, AutoCAD will appear frozen.</p>
+<p>This can be problematic because the user may think that AutoCAD has crashed when in fact, it's simply waiting for the modal window to close.</p>
+<p>To prevent this from happening, you need to designate AutoCAD's main window as the parent of your modal window. The best way to do this is to use the <code>Autodesk.AutoCAD.ApplicationServices.Application.ShowModalWindow()</code> method instead of <code>System.Windows.Window.ShowDialog()</code>.</p>
+<p>There's an overload of this method that takes an owner as a parameter:</p>
+<pre><code class="language-csharp">public static bool? ShowModalWindow(IntPtr owner, System.Windows.Window formToShow);
+</code></pre>
+<p>AutoCAD provides the handle to its main window via the <code>Application.MainWindowHandle</code> property. So, you can use:</p>
+<pre><code class="language-csharp">var window = new MyModalWindow();
+Application.ShowModalWindow(Application.MainWindow.Handle, window);
+</code></pre>
+<p>There you go, this way, the two windows will be linked and the modal window won't be able to move to the background.</p>
+<p>Note that this <code>ShowModalWindow()</code> method also saves the window's position and size to restore it when it's displayed again. Personally, I prefer to keep my window centered, so I rather use:</p>
+<pre><code class="language-csharp">public static bool? ShowModalWindow(System.Windows.Window owner, System.Windows.Window formToShow, bool persistSizeAndPosition);
+</code></pre>
+<p>The boolean <code>persistSizeAndPosition</code> allows you to specify whether the window's position and size should be saved and restored. I pass <code>false</code> to keep my window centered.</p>
+<p>Finally, I told you that <code>WindowStartupLocation</code> had a <code>CenterOwner</code> option. As you can guess, instead of centering the window on the screen, you can center it on the owner window. I think this is the best option, if for example your user has an ultra-wide screen.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>There you have it, by following these tips, you can significantly improve the user experience of your windows in AutoCAD.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/0x80004005" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>0x80004005 the answer to almost everything</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
