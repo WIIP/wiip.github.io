@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>AutoLISP avec VS Code - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/autolisp-vs-code" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autolisp-vs-code" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>AutoLISP avec VS Code</h1>
+                    <small class="text-muted">dimanche 25 janvier 2026</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Pour développer des macros <strong>AutoLISP</strong>, on utilise traditionnellement <strong>VLIDE</strong> (Visual Lisp IDE). Mais depuis la version 2021 d'<strong>AutoCAD</strong>, Autodesk propose une alternative : <strong>VS Code</strong> avec l'extension <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension.</a></p>
+<h2 id="installation-de-microsoft-visual-studio-code-et-de-lextension-autocad-autolisp">Installation de Microsoft Visual Studio Code et de l'extension AutoCAD AutoLISP</h2>
+<p>Quand vous tapez <strong>VLISP</strong> sur la ligne de commande la première fois avec une version d'<strong>AutoCAD</strong> fraichement installée, l'écran suivant vous est présenté :</p>
+<p><img src="Content/fr/blog/media/vlide_first_run.png" alt="1ère exécution de VLIDE" /></p>
+<p>Si vous choisissez la première option et que <strong>Visual Studio Code</strong> n'est pas installé, vous allez avoir l'écran suivant :</p>
+<p><img src="Content/fr/blog/media/vscode_install.png" alt="Installation de VS Code" /></p>
+<p>Le lien <strong>Télécharger</strong> va vous amener sur la page de <a href="https://visualstudio.microsoft.com/fr/">Visual Studio</a>. Alors là attention, <strong>Visual Studio</strong> est différent de <strong>Visual Studio Code</strong>. C'est un environnement de développement complet, tandis que <strong>Visual Studio Code</strong> est un éditeur de code. <strong>Visual Studio</strong> n'est pas du tout adapté pour le développement avec AutoLISP, c'est <strong>Visual Studio Code</strong> qu'il vous faut. Vous pouvez le télécharger gratuitement <a href="https://code.visualstudio.com/download">ici</a>.</p>
+<p>Prenez l'installation pour l'utilisateur courant pour Windows x64.</p>
+<p>L'étape suivante, c'est l'installation de l'extension <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension</a>. Il suffit de cliquer sur le bouton <strong>Install</strong> et de suivre les instructions.</p>
+<p>Relancez <strong>VLISP</strong>, vous devriez basculer vers <strong>VS Code</strong> et le message suivant devrait s'afficher :</p>
+<p><img src="Content/fr/blog/media/vscode_first_run.png" alt="1ère exécution de VS Code" /></p>
+<h2 id="ecriture-de-code-autolisp-avec-vs-code">Écriture de code AutoLISP avec VS Code</h2>
+<p>Appuyer sur Ctrl + N pour créer un nouveau fichier. Appuyez sur Ctrl + K, relâchez Ctrl et appuyez sur M pour choisir le langage AutoLISP.</p>
+<p>Tapez le code suivant :</p>
+<pre><code class="language-lisp">(defun c:hello ()
+  (princ &quot;Hello, World!&quot;)
+  (princ)
+)
+</code></pre>
+<h2 id="execution-du-code-autolisp">Exécution du code AutoLISP</h2>
+<p>Appuyez sur Ctrl + F5 pour exécuter le code. VS Code va vous proposer d'enregistrer votre fichier avec une extension .lsp.</p>
+<p>Basculez sur <strong>AutoCAD</strong> et tapez le nom de la commande que vous venez de créer (<strong>HELLO</strong>). <code>Hello, World!</code> devrait s'afficher dans la fenêtre texte d'<strong>AutoCAD</strong>.</p>
+<h2 id="debogage-du-code-autolisp">Débogage du code AutoLISP</h2>
+<p>L'extension intègre un débogueur. Vous pouvez donc placer un point d'arrêt sur une ligne de code avec F9. Quand vous allez relancer votre commande <strong>HELLO</strong>, le débogueur va s'activer, <strong>VS Code</strong> va venir au premier plan et vous allez pouvoir inspecter les variables, la pile des appels, etc.</p>
+<p>Vous pouvez même utiliser la console intégrée de VS Code pour exécuter des commandes <strong>AutoLISP</strong>.</p>
+<h2 id="avantages-par-rapport-a-vlide">Avantages par rapport à VLIDE</h2>
+<p>Vous avez un éditeur de code bien plus moderne qui vous permet d'utiliser l'IA. <strong>VSCode</strong> propose de nombreuses fonctionnalités telles que les curseurs multiples, l'intégration avec <strong>Git</strong>, les <em>refactorings</em> (renommage de symboles par exemple) qui vous rendent plus productif.</p>
+<h2 id="limitations">Limitations</h2>
+<p>Pour compiler en fas, vous devez utiliser <code>vlisp-compile</code> :</p>
+<pre><code class="language-lisp">(vlisp-compile 'st &quot;mon_programme.lsp&quot;)
+</code></pre>
+<p>Sur <strong>VLIDE</strong>, une fois que vous avez créé un projet, il suffit de cliquer sur le bouton <strong>Générer FAS du projet</strong> pour compiler.</p>
+<p>Et si vous avez besoin de compiler en vlx, on peut utiliser également <code>vlisp-compile</code> :</p>
+<pre><code class="language-lisp">(vlisp-compile 'make &quot;C:\\repertoire_de_mon_application\\&quot;)
+</code></pre>
+<p>Mais il faudra au préalable créer un fichier .prv et pour ça le plus simple, c'est d'utiliser <strong>VLIDE</strong>.</p>
+<h2 id="repasser-en-vlide">Repasser en VLIDE</h2>
+<p>Si vous n'arrivez pas à vous faire à l'environnement, vous pouvez basculer en <strong>VLIDE</strong> en modifiant la variable système <strong>LISPSYS</strong>. Il faut la passer à 0 puis relancer <strong>AutoCAD</strong>.</p>
+<p>Pour revenir à <strong>VS Code</strong>, il faudra la passer à 1.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Je sais que ce n'est pas facile de changer ses habitudes, mais vous avez tout à gagner à passer à <strong>VS Code</strong> pour développer vos programmes <strong>AutoLISP</strong>.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/windows-and-dialogs" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Am&#xE9;liorer les fen&#xEA;tres dans AutoCAD</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
