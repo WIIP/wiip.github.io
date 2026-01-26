@@ -66,10 +66,10 @@ public abstract partial class WindowWithoutMinimizeButton : Window
     
     const int WS_MINIMIZEBOX = 0x20000;
 
-    [LibraryImport(&quot;user32.dll&quot;)]
+    [LibraryImport(&quot;user32.dll&quot;, EntryPoint = &quot;GetWindowLongPtrW&quot;)]
     private static partial IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
 
-    [LibraryImport(&quot;user32.dll&quot;)]
+    [LibraryImport(&quot;user32.dll&quot;, EntryPoint = &quot;SetWindowLongPtrW&quot;)]
     private static partial IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
     protected override void OnSourceInitialized(EventArgs e)
