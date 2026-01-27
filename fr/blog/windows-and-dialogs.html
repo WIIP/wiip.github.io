@@ -88,6 +88,12 @@ public abstract partial class WindowWithoutMinimizeButton : Window
 </code></pre>
 <p>On doit carrément créer une classe dérivée de <code>Window</code> pour pouvoir surcharger <code>OnSourceInitialized</code>. Cette méthode est appelée lorsque la fenêtre est initialisée et est prévue justement pour éventuellement changer le style de la fenêtre. On utilise <code>GetWindowLongPtr</code> et <code>SetWindowLongPtr</code> pour modifier le style de la fenêtre, en retirant le drapeau <code>WS_MINIMIZEBOX</code>.</p>
 <p>Notez qu'ici, j'utilise <code>LibraryImport</code> pour importer les fonctions Win32, qui est une fonctionnalité introduite dans .NET 7, donc ce code n'est valable que pour AutoCAD 2025 et versions ultérieures. Pour les versions antérieures, vous devrez utiliser <code>DllImport</code> à la place.</p>
+<pre><code class="language-csharp">[DllImport(&quot;user32.dll&quot;, SetLastError = true)]
+static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+[DllImport(&quot;user32.dll&quot;, SetLastError = true)]
+static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+</code></pre>
 <h2 id="la-fenetre-peut-passer-en-arriere-plan">La fenêtre peut passer en arrière-plan</h2>
 <p>Dernier point de la liste et le plus compliqué. Dans Windows, les fenêtres d'une application forment une hiérarchie. Chaque fenêtre peut avoir des enfants et/ou un parent. En WPF, cette relation parent/enfant doit être explicitement définie. Si vous ne le faites pas, la fenêtre peut avoir un comportement qui n'est pas celui attendu.</p>
 <p>Si par exemple, vous avez une fenêtre modale affichée dans AutoCAD et que vous basculez sur une autre application, quand vous allez revenir dans AutoCAD en cliquant sur son icône dans la barre des tâches par exemple, la fenêtre principale d'AutoCAD va venir au premier plan et va masquer votre fenêtre. Comme c'est une fenêtre modale, AutoCAD va apparaître comme figé.</p>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Localisation avec AutoLISP - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/autolisp-localization" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autolisp-localization" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Localisation avec AutoLISP</h1>
+                    <small class="text-muted">mardi 27 janvier 2026</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Il peut parfois être nécessaire de traduire vos programmes <strong>AutoLISP</strong> en plusieurs langues.</p>
+<p>Pour cela, on va d'abord avoir besoin d'une fonction qui permet de diviser une chaîne en une liste de sous-chaînes.</p>
+<pre><code class="language-lisp">;;; Divise une chaîne en une liste de sous-chaînes
+;;; string : la chaîne à diviser
+;;; separator : le caractère séparateur
+;;; ignore-empty : si vrai, ignore les sous-chaînes vides
+(defun split-string (string separator ignore-empty / result current-word index character)
+  (setq result '())
+  (setq current-word &quot;&quot;)
+  (setq index 1)
+
+  (while (&lt;= index (strlen string))
+    (setq character (substr string index 1))
+    (if (= character separator)
+      (progn
+        (if (or (not ignore-empty) (/= current-word &quot;&quot;))
+          (setq result (append result (list current-word)))
+        )
+        (setq current-word &quot;&quot;)
+      )
+      (setq current-word (strcat current-word character))
+    )
+    (setq index (1+ index))
+  )
+
+  (if (or (not ignore-empty) (/= current-word &quot;&quot;))
+    (setq result (append result (list current-word)))
+    result
+  )
+)
+</code></pre>
+<p>Ensuite, on a besoin de connaitre la langue utilisée par <strong>AutoCAD</strong> pour savoir quelles traductions utiliser. Aussi étonnant que cela puisse paraître, <strong>AutoCAD</strong> ne fournit pas de variable système pour cela. Il y a une variable nommée <strong>LOCALE</strong>, mais elle renvoie un code correspondant à la langue du système d'exploitation. Pour avoir la langue utilisée par <strong>AutoCAD</strong>, il faut utilsier un moyen détouné :</p>
+<pre><code class="language-lisp">;;; Retourne la culture actuelle d'AutoCAD en majuscules
+;;; FRA pour français/France, ENU pour anglais/Etats-Unis, etc.
+(defun get-acad-culture (/)
+  ;; La variable système LOCALE retourne la langue du système d'exploitation, mais pas la culture d'AutoCAD.
+  ;; La variable système LOCALROOTPREFIX contient un chemin qui se termine par le code de culture.
+  ;; Exemple : C:\Users\&lt;Nom d'utilisateur&gt;\AppData\Local\Autodesk\AutoCAD 2026\R25.1\fra\
+  (strcase (last (split-string (getvar &quot;LOCALROOTPREFIX&quot;) &quot;\\&quot; T)))
+)
+</code></pre>
+<p>La variable système <strong>LOCALROOTPREFIX</strong> contient un chemin qui se termine par le code de culture d'AutoCAD. Donc on peut utiliser la première fonction <code>split-string</code> pour extraire le code de culture.</p>
+<p>Ensuite, pour les traductions, on va utiliser un fichier TSV (Tab-Separated Values). Ce type de fichier permet de stocker des données tabulaires et on peut les créer et les modifier facilement avec un tableur comme Microsoft Excel.</p>
+<pre><code>ID	ENU	FRA
+hello	Hello	Bonjour
+goodbye	Goodbye	Au revoir
+</code></pre>
+<p>Attention, il faut utiliser UTF-8 pour encoder le fichier TSV sinon les caractères spéciaux (é, è, etc.) ne seront pas correctement affichés.</p>
+<p>La première colonne est un identifiant unique pour chaque traduction. Les colonnes suivantes contiennent les traductions en différentes langues.</p>
+<p>On peut charger le fichier avec la fonction suivante :</p>
+<pre><code class="language-lisp">;;; Retourne l'index (0-based) d'un élément dans une liste, ou nil si non trouvé
+;;; element : l'élément à rechercher
+;;; items : la liste dans laquelle chercher
+(defun find-index (element items / index found)
+  (setq index 0)
+  (setq found nil)
+  (while (and (not found) (nth index items))
+    (if (= (nth index items) element)
+      (setq found T)
+      (setq index (1+ index))
+    )
+  )
+  (if found index nil)
+)
+
+;;; Charge les traductions depuis un fichier TSV pour la culture courante
+;;; Le fichier doit comporter un en-tête avec les codes de culture (ENU, FRA, etc.)
+;;; La première colonne contient les identifiants
+;;; filename : chemin du fichier TSV
+;;; Résultat : définit la variable globale $strings (liste de paires pointées)
+(defun load-strings (filename / file header-line headers culture-index line columns)
+  (setq file (open filename &quot;r&quot;))
+  (if (not file)
+    (progn
+      (princ (strcat &quot;\nErreur : impossible d'ouvrir le fichier &quot; filename))
+      nil
+    )
+    (progn
+      ;; Lire l'en-tête et trouver la colonne de la culture courante
+      (setq header-line (read-line file))
+      (setq headers (split-string header-line &quot;\t&quot; T))
+      (setq culture-index (find-index (get-acad-culture) headers))
+
+      ;; Si la culture courante n'est pas trouvée, utiliser ENU par défaut
+      (if (not culture-index)
+        (setq culture-index (find-index &quot;ENU&quot; headers))
+      )
+
+      (if (not culture-index)
+        (progn
+          (close file)
+          (princ &quot;\nErreur : aucune colonne de traduction trouvee.&quot;)
+          nil
+        )
+        (progn
+          ;; Lire chaque ligne et construire la liste d'associations
+          (setq $strings '())
+          (while (setq line (read-line file))
+            (setq columns (split-string line &quot;\t&quot; nil))
+            (if (and (car columns) (nth culture-index columns))
+              (setq $strings (cons (cons (car columns) (nth culture-index columns)) $strings))
+            )
+          )
+          (setq $strings (reverse $strings))
+          (close file)
+          $strings
+        )
+      )
+    )
+  )
+)
+</code></pre>
+<p>Les traductions sont stockées dans la variable globale <code>$strings</code> (noter le <code>$</code> qui indique une variable globale). Elle va contenir une liste de paires pointées similaire à <code>('(&quot;hello&quot; &quot;Hello&quot;) (&quot;goodbye&quot; &quot;Goodbye&quot;))</code>. C'est l'équivalent d'un dictionnaire en Python ou en .NET.</p>
+<p>Une fois les traductions chargées, on peut utiliser <code>assoc</code> pour récupérer une traduction :</p>
+<pre><code class="language-lisp">;;; Retourne la traduction associée à un identifiant
+;;; identifier : l'identifiant de la chaîne à traduire
+(defun get-string (identifier)
+  (cdr (assoc identifier $strings))
+)
+</code></pre>
+<p>Vous pouvez maintenant utiliser ce petit <em>framework</em> comme ceci :</p>
+<pre><code class="language-lisp">(load-strings &quot;traductions.tsv&quot;)
+(princ (get-string &quot;hello&quot;))
+</code></pre>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autolisp-vs-code" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>AutoLISP avec VS Code</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

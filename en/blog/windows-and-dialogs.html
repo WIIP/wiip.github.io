@@ -88,6 +88,12 @@ public abstract partial class WindowWithoutMinimizeButton : Window
 </code></pre>
 <p>We actually have to create a class derived from <code>Window</code> to be able to override <code>OnSourceInitialized</code>. This method is called when the window is initialized and is specifically intended for possibly changing the window style. We use <code>GetWindowLongPtr</code> and <code>SetWindowLongPtr</code> to modify the window style, removing the <code>WS_MINIMIZEBOX</code> flag.</p>
 <p>Note that here, I use <code>LibraryImport</code> to import Win32 functions, which is a feature introduced in .NET 7, so this code is only valid for AutoCAD 2025 and later versions. For earlier versions, you'll need to use <code>DllImport</code> instead.</p>
+<pre><code class="language-csharp">[DllImport(&quot;user32.dll&quot;, SetLastError = true)]
+static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+[DllImport(&quot;user32.dll&quot;, SetLastError = true)]
+static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+</code></pre>
 <h2 id="the-window-can-move-to-the-background">The Window Can Move to the Background</h2>
 <p>Last point on the list and the most complicated. In Windows, an application's windows form a hierarchy. Each window can have children and/or a parent. In WPF, this parent/child relationship must be explicitly defined. If you don't do this, the window may have behavior that isn't what you expect.</p>
 <p>If for example, you have a modal window displayed in AutoCAD and you switch to another application, when you return to AutoCAD by clicking on its icon in the taskbar for example, AutoCAD's main window will come to the foreground and will hide your window. Since it's a modal window, AutoCAD will appear frozen.</p>
