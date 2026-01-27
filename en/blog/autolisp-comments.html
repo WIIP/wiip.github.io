@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Comments in AutoLISP - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/autolisp-comments" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autolisp-comments" class="active">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Comments in AutoLISP</h1>
+                    <small class="text-muted">Tuesday, January 27, 2026</small><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>Commenting your code is a good practice that makes your programs easier to maintain and understand. <strong>AutoLISP</strong> supports five comment styles, each with a specific purpose. Let's take a look at them.</p>
+<h2 id="the-inline-comment">The inline comment: <code>;| ... |;</code></h2>
+<p>This style allows you to insert a comment directly in the middle of an expression, or across multiple lines:</p>
+<pre><code class="language-lisp">(setq x ;| initial value |; 10)
+</code></pre>
+<p>You can also use it across multiple lines:</p>
+<pre><code class="language-lisp">;| This is a comment
+   spanning multiple lines |;
+</code></pre>
+<p>This is the only comment style in <strong>AutoLISP</strong> that allows you to comment out a block of code. It is useful for temporarily disabling a portion of code during debugging.</p>
+<h2 id="the-column-comment">The column comment: <code>;</code></h2>
+<p>A comment preceded by a single semicolon is aligned to a fixed column defined in the <strong>VLIDE</strong> formatting options. It is intended for short end-of-line annotations:</p>
+<pre><code class="language-lisp">(setq radius 10)                               ; Circle radius
+(setq diameter (* 2 radius))                   ; Calculate diameter
+</code></pre>
+<p>When auto-formatting code in <strong>VLIDE</strong>, these comments are repositioned to the column defined by the <strong>Single-Semicolon comment indentation</strong> option.</p>
+<h2 id="the-current-column-comment">The current-column comment: <code>;;</code></h2>
+<p>A comment preceded by two semicolons is indented at the same level as the surrounding code. It is used to describe the code block that follows:</p>
+<pre><code class="language-lisp">(defun c:draw-circle (/ center radius)
+  ;; Ask the user for parameters
+  (setq center (getpoint &quot;\nCenter of the circle: &quot;))
+  (setq radius (getdist center &quot;\nRadius: &quot;))
+
+  ;; Draw the circle
+  (command &quot;._CIRCLE&quot; center radius)
+)
+</code></pre>
+<p>This is the most common style for commenting code sections inside a function. Note that with <strong>VS Code</strong>, you can also use Ctrl + K, Ctrl + C to comment out selected lines (Ctrl + K, Ctrl + U will uncomment them).</p>
+<h2 id="the-heading-comment">The heading comment: <code>;;;</code></h2>
+<p>A comment preceded by three semicolons is always placed at the beginning of a line, without indentation. It is used to document functions:</p>
+<pre><code class="language-lisp">;;; Draws a circle from a center point and a radius
+;;; center : the center point of the circle
+;;; radius : the radius of the circle
+(defun draw-circle (center radius)
+  (command &quot;._CIRCLE&quot; center radius)
+)
+</code></pre>
+<p>This is the convention used to describe a function's purpose, its parameters and its return value.</p>
+<h2 id="the-closing-comment">The closing comment: <code>;_</code></h2>
+<p>This style is placed right after a closing parenthesis to indicate which expression it closes:</p>
+<pre><code class="language-lisp">(defun c:example (/ i)
+  (setq i 0)
+  (while (&lt; i 10)
+    (if (= (rem i 2) 0)
+      (princ (strcat &quot;\n&quot; (itoa i) &quot; is even&quot;))
+      (princ (strcat &quot;\n&quot; (itoa i) &quot; is odd&quot;))
+    ) ;_ if
+    (setq i (1+ i))
+  ) ;_ while
+) ;_ defun
+</code></pre>
+<p>When functions grow long and parentheses pile up, this comment style helps identify which expression each closing parenthesis terminates.</p>
+<h2 id="full-example">Full example</h2>
+<p>Here is an example that uses all five styles:</p>
+<pre><code class="language-lisp">;;; Displays numbers from 1 to n with their parity
+;;; n : the maximum number
+(defun display-parity (n / i)
+  ;; Initialization
+  (setq i 1)
+
+  ;; Main loop
+  (while (&lt;= i n)
+    (if (= (rem i 2) 0)
+      (princ (strcat &quot;\n&quot; (itoa i) &quot; is even&quot; ;| even result |;))
+      (princ (strcat &quot;\n&quot; (itoa i) &quot; is odd&quot;))
+    ) ;_ if
+    (setq i (1+ i))                            ; Increment counter
+  ) ;_ while
+) ;_ defun
+</code></pre>
+<h2 id="best-practices">Best practices</h2>
+<ul>
+<li>Use <code>;;;</code> to document your functions (purpose, parameters, return value).</li>
+<li>Use <code>;;</code> to explain logical sections of your code.</li>
+<li>Use <code>;_</code> when your functions exceed a dozen lines to identify closing parentheses.</li>
+<li>Use <code>;</code> sparingly for end-of-line annotations.</li>
+<li>Use <code>;| ... |;</code> to temporarily disable code during debugging.</li>
+</ul>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/autolisp-localization" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Localization with AutoLISP</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
