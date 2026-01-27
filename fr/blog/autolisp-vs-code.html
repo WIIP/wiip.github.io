@@ -46,14 +46,15 @@
 <h2 id="avantages-par-rapport-a-vlide">Avantages par rapport à VLIDE</h2>
 <p>Vous avez un éditeur de code bien plus moderne qui vous permet d'utiliser l'IA. <strong>VSCode</strong> propose de nombreuses fonctionnalités telles que les curseurs multiples, l'intégration avec <strong>Git</strong>, les <em>refactorings</em> (renommage de symboles par exemple) qui vous rendent plus productif.</p>
 <h2 id="limitations">Limitations</h2>
-<p>Pour compiler en fas, vous devez utiliser <code>vlisp-compile</code> :</p>
+<p>Pour compiler en fas, vous n'avez pas un bouton qui vous permet de le faire en un clic, vous devez utiliser <code>vlisp-compile</code> :</p>
 <pre><code class="language-lisp">(vlisp-compile 'st &quot;mon_programme.lsp&quot;)
 </code></pre>
-<p>Sur <strong>VLIDE</strong>, une fois que vous avez créé un projet, il suffit de cliquer sur le bouton <strong>Générer FAS du projet</strong> pour compiler.</p>
-<p>Et si vous avez besoin de compiler en vlx, on peut utiliser également <code>vlisp-compile</code> :</p>
+<p>Bon ce n'est pas très compliqué, donc ce n'est pas un gros problème.</p>
+<p>Pour créer un VLX, normalement sur <strong>VLIDE</strong>, il faut utiliser l'assistant qui permet de créer une application. Chez <strong>Autodesk</strong>, ils ont pensé à ça, car il ont ajouté une commande à <strong>AutoCAD</strong> nommée <strong>FABLISPAPP</strong> pour lancer cet assistant sans passer par <strong>VLIDE</strong>.</p>
+<p>Et si vous préférez la ligne de commande, on peut générer le .VLX <code>vlisp-compile</code> :</p>
 <pre><code class="language-lisp">(vlisp-compile 'make &quot;C:\\repertoire_de_mon_application\\&quot;)
 </code></pre>
-<p>Mais il faudra au préalable créer un fichier .prv et pour ça le plus simple, c'est d'utiliser <strong>VLIDE</strong>.</p>
+<p>Mais il faudra au préalable créer le fichier .prv avec l'assistant.</p>
 <h2 id="repasser-a-vlide">Repasser à VLIDE</h2>
 <p>Si vous n'arrivez pas à vous faire à l'environnement, vous pouvez basculer à <strong>VLIDE</strong> en modifiant la variable système <strong>LISPSYS</strong>. Il faut la passer à 0 puis relancer <strong>AutoCAD</strong>.</p>
 <p>Pour revenir à <strong>VS Code</strong>, il faudra la passer à 1.</p>

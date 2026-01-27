@@ -46,14 +46,15 @@
 <h2 id="advantages-over-vlide">Advantages over VLIDE</h2>
 <p>You have a much more modern code editor that allows you to use AI. VS Code offers many features such as multiple cursors, Git integration, refactoring (symbol renaming for example) that make you more productive.</p>
 <h2 id="limitations">Limitations</h2>
-<p>To compile to fas, you must use <code>vlisp-compile</code>:</p>
+<p>To compile to fas, there is no button that lets you do it in one click, you must use <code>vlisp-compile</code>:</p>
 <pre><code class="language-lisp">(vlisp-compile 'st &quot;my_program.lsp&quot;)
 </code></pre>
-<p>In <strong>VLIDE</strong>, once you have created a project, just click the <strong>Build Project FAS</strong> button to compile.</p>
-<p>And if you need to compile to vlx, you can also use <code>vlisp-compile</code>:</p>
+<p>Well, it's not very complicated, so it's not a big deal.</p>
+<p>To create a VLX, normally in <strong>VLIDE</strong>, you need to use the wizard that lets you create an application. At <strong>Autodesk</strong>, they thought of this, as they added a command to <strong>AutoCAD</strong> named <strong>MAKELISPAPP</strong> to launch this wizard without going through <strong>VLIDE</strong>.</p>
+<p>And if you prefer the command line, you can generate the .VLX with <code>vlisp-compile</code>:</p>
 <pre><code class="language-lisp">(vlisp-compile 'make &quot;C:\\my_application_directory\\&quot;)
 </code></pre>
-<p>But you will need to create a .prv file first, and the easiest way to do that is to use <strong>VLIDE</strong>.</p>
+<p>But you will need to create the .prv file first using the wizard.</p>
 <h2 id="switching-back-to-vlide">Switching back to VLIDE</h2>
 <p>If you can't get used to the environment, you can switch to <strong>VLIDE</strong> by modifying the <strong>LISPSYS</strong> system variable. Set it to 0 and restart AutoCAD.</p>
 <p>To return to VS Code, set it to 1.</p>
