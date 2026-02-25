@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" baseProfile="full" width="266.68" height="200.01" viewBox="0 0 266.68 200.01" enable-background="new 0 0 266.68 200.01" xmlns="http://www.w3.org/2000/svg">
+  <line fill="none" stroke-width="0.666699" stroke-linejoin="round" stroke="#0096FF" stroke-opacity="1" x1="160.008" y1="146.674" x2="240.012" y2="66.6699"/>
+  <path fill="#0096FF" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round" d="M 169.2,137.01L 173.914,132.296L 174.386,132.767L 169.672,137.481L 169.2,137.01 Z M 178.628,127.582L 183.342,122.868L 183.814,123.339L 179.1,128.053L 178.628,127.582 Z M 188.056,118.154L 192.77,113.44L 193.242,113.911L 188.528,118.625L 188.056,118.154 Z M 197.484,108.726L 202.198,104.012L 202.67,104.483L 197.956,109.197L 197.484,108.726 Z M 206.913,99.2976L 211.627,94.5836L 212.098,95.055L 207.384,99.7691L 206.913,99.2976 Z M 216.341,89.8695L 221.055,85.1555L 221.526,85.6269L 216.812,90.341L 216.341,89.8695 Z M 225.769,80.4415L 230.483,75.7274L 230.954,76.1988L 226.24,80.9129L 225.769,80.4415 Z M 235.197,71.0134L 239.776,66.4342L 240.247,66.9056L 235.668,71.4848L 235.197,71.0134 Z M 159.772,146.438L 164.486,141.724L 164.958,142.195L 160.243,146.91L 159.772,146.438 Z "/>
+  <text transform="matrix(0.707107, -0.707107, 0.707107, 0.707107, 177.80336, 123.985291)" style="white-space: pre;">
+		<tspan style="font-family: Flama; font-size: 13.3px; font-weight: bold; word-spacing: 0px;" letter-spacing="0.00em" fill="#0096FF" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round">Corde</tspan>
+	</text>
+  <line fill="none" stroke-width="0.666699" stroke-linejoin="round" stroke="#000000" stroke-opacity="1" x1="13.334" y1="146.674" x2="160.008" y2="146.674"/>
+  <path fill="none" stroke-width="0.666699" stroke-linejoin="round" stroke="#000000" stroke-opacity="1" d="M 240.012,66.6699C 240.012,110.855 204.193,146.674 160.008,146.674"/>
+  <ellipse fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round" stroke="#000000" stroke-opacity="1" cx="13.334" cy="146.674" rx="3.3335" ry="3.3335"/>
+  <text transform="matrix(0.9999998807907103 0.0000000000000000 0.0000000000000000 0.9999998807907103 6.00 133.00)" style="white-space: pre;">
+		<tspan style=" font-family:Flama; font-size:10.000000pt;font-weight:Bold;" letter-spacing="0.00em" fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round">p0</tspan>
+	</text>
+  <path fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round" stroke="#000000" stroke-opacity="1" d="M 239.845,63.3364C 241.686,63.3364 243.179,64.8288 243.179,66.6699C 243.179,68.5109 241.686,70.0034 239.845,70.0034C 238.004,70.0034 236.512,68.5109 236.512,66.6699C 236.512,64.8288 238.004,63.3364 239.845,63.3364 Z "/>
+  <text transform="matrix(0.9999998807907103 0.0000000000000000 0.0000000000000000 0.9999998807907103 153.00 166.00)" style="white-space: pre;">
+		<tspan style=" font-family:Flama; font-size:10.000000pt;font-weight:Bold;" letter-spacing="0.00em" fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round">p1</tspan>
+	</text>
+  <text transform="matrix(0.9999998807907103 0.0000000000000000 0.0000000000000000 0.9999998807907103 233.00 53.00)" style="white-space: pre;">
+		<tspan style=" font-family:Flama; font-size:10.000000pt;font-weight:Bold;" letter-spacing="0.00em" fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round">p2</tspan>
+	</text>
+  <ellipse fill="#000000" fill-opacity="1" stroke-width="0.666699" stroke-linejoin="round" stroke="#000000" stroke-opacity="1" cx="160.008" cy="146.563" rx="3.3335" ry="3.3335"/>
+</svg>

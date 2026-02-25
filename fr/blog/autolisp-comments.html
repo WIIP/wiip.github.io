@@ -69,7 +69,7 @@
   ) ;_ while
 ) ;_ defun
 </code></pre>
-<p>Quand les fonctions deviennent longues et que les parenthèses s'accumulent, ce style de commentaire aide à savoir quelle expression chaque parenthèse fermante termine.</p>
+<p>Quand les fonctions deviennent longues et que les parenthèses s'accumulent, ce style de commentaire aide à savoir quelle expression chaque parenthèse fermante termine. Bon en pratique, si vous avez une fonction très longue qui nécessite cet usage, c'est un <em>code smell</em>, vous devriez probablement reprendre votre fonction pour déplacer certaines parties dans des fonctions plus petites.</p>
 <h2 id="exemple-recapitulatif">Exemple récapitulatif</h2>
 <p>Voici un exemple qui utilise les cinq styles :</p>
 <pre><code class="language-lisp">;;; Affiche les nombres de 1 à n avec leur parité
@@ -92,9 +92,8 @@
 <ul>
 <li>Utilisez <code>;;;</code> pour documenter vos fonctions (rôle, paramètres, valeur de retour).</li>
 <li>Utilisez <code>;;</code> pour expliquer les sections logiques de votre code.</li>
-<li>Utilisez <code>;_</code> quand vos fonctions dépassent une dizaine de lignes pour repérer les parenthèses fermantes.</li>
-<li>Utilisez <code>;</code> avec parcimonie pour les annotations en fin de ligne.</li>
-<li>Utilisez <code>;| ... |;</code> pour désactiver temporairement du code pendant le débogage.</li>
+<li>Utilisez <code>;_</code> pour repérer les parenthèses fermantes.</li>
+<li>Utilisez <code>;</code> pour les annotations en fin de ligne.</li>
 </ul>
 <hr />
 <p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
@@ -103,7 +102,8 @@
 
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autolisp-localization" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
                                     <span>Localisation avec AutoLISP</span></a></div>
-                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+                        <div class="col-6 text-end"><a href="/fr/blog/vault-data-api" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
+                                    <span>Vault Data API</span></a></div></div></nav></article></div></div>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr

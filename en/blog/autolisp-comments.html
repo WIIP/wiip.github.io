@@ -69,7 +69,7 @@
   ) ;_ while
 ) ;_ defun
 </code></pre>
-<p>When functions grow long and parentheses pile up, this comment style helps identify which expression each closing parenthesis terminates.</p>
+<p>When functions grow long and parentheses pile up, this comment style helps identify which expression each closing parenthesis terminates. In practice though, if you have a very long function that requires this, it's a <em>code smell</em> — you should probably refactor your function to move some parts into smaller functions.</p>
 <h2 id="full-example">Full example</h2>
 <p>Here is an example that uses all five styles:</p>
 <pre><code class="language-lisp">;;; Displays numbers from 1 to n with their parity
@@ -92,9 +92,8 @@
 <ul>
 <li>Use <code>;;;</code> to document your functions (purpose, parameters, return value).</li>
 <li>Use <code>;;</code> to explain logical sections of your code.</li>
-<li>Use <code>;_</code> when your functions exceed a dozen lines to identify closing parentheses.</li>
-<li>Use <code>;</code> sparingly for end-of-line annotations.</li>
-<li>Use <code>;| ... |;</code> to temporarily disable code during debugging.</li>
+<li>Use <code>;_</code> to identify closing parentheses.</li>
+<li>Use <code>;</code> for end-of-line annotations.</li>
 </ul>
 <hr />
 <p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
@@ -103,7 +102,8 @@
 
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/autolisp-localization" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
                                     <span>Localization with AutoLISP</span></a></div>
-                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+                        <div class="col-6 text-end"><a href="/en/blog/vault-data-api" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Vault Data API</span></a></div></div></nav></article></div></div>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr

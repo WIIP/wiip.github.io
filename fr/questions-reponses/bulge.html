@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>C&#x27;est quoi la courbure sur un sommet de polyligne ? - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/bulge" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/questions-reponses/bulge" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi la courbure sur un sommet de polyligne ?</h1>
+                    <small class="text-muted">Derni&#xE8;re mise &#xE0; jour : lundi 1 janvier 0001</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/DXF" class="badge bg-primary me-1 text-decoration-none">DXF</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Une polyligne, c'est une série de sommets (<em>vertex</em>), donc des points et sur chaque point, on a un réel qu'on appelle la courbure (<em>bulge</em> en anglais ; code 42 dans les DXF).</p>
+<p>La courbure est égale à la tangente de 1/4 de l'angle parcouru par l'arc.</p>
+<p>Si un sommet a une courbure de zéro, le segment qui suit est une ligne droite. Si la courbure est différente de zéro, c'est un arc.</p>
+<p>Une valeur de 1 correspond à un demi-tour ou 180°. En effet, 180° / 4 = 45° et la tangente de 45° est 1.</p>
+<p><img src="Content/fr/questions-reponses/media/bulge.png" alt="Courbure sur un sommet de polyligne" /></p>
+<p>Si la courbure est positive, on tourne dans le sens trigonométrique. Si elle est négative, on tourne dans le sens horaire.</p>
+<p>On ne peut pas décrire un arc de 360° car tan(360°/4) = infini</p>
+<p>Le dernier sommet de la polyligne a une courbure, mais elle n'est pas prise en compte si la polyligne est ouverte. Si par contre la polyligne est fermée, alors le dernier segment est un arc.</p>
+<p>On peut noter également que dans une polyligne, tous les arcs sont tangents au segment précédent.</p>
+<h2 id="determiner-la-position-du-centre-et-le-rayon-de-larc">Déterminer la position du centre et le rayon de l'arc</h2>
+<h3 id="avec-lapi.net-dautocad">Avec l'API .NET d'AutoCAD</h3>
+<p>Si vous êtes dans AutoCAD, c'est très simple, il y a une méthode <code>GetArcSegment2dAt()</code> dans la classe <code>Polyline</code> qui permet de récupérer l'arc correspondant à un sommet donné.</p>
+<p>Mais bon, si vous n'avez pas accès à l'API .NET d'AutoCAD, vous pouvez toujours calculer ça vous-même.</p>
+<h3 id="calcul-de-la-longueur-de-corde">Calcul de la longueur de corde</h3>
+<p>On peut commencer par calculer la longueur de corde. C'est la distance qui sépare les deux sommets adjacents sur la polyligne. C'est une simple distance euclidienne entre deux points.</p>
+<p><img src="Content/fr/questions-reponses/media/bulge0.svg" alt="Longueur de corde" /></p>
+<pre><code class="language-csharp">double cordLength = Math.Sqrt(Math.Pow(point2.X - point1.X, 2) + Math.Pow(point2.Y - point1.Y, 2));
+</code></pre>
+<h3 id="calcul-du-rayon-de-larc">Calcul du rayon de l'arc</h3>
+<p>Ensuite pour calculer le rayon, on observe que p1, p2 et le centre de l'arc C forment un triangle isocèle.</p>
+<p>Les côtés p1 → C et p2 → C sont égaux et correspondent au rayon R de l'arc.</p>
+<p>Si on coupe ce triangle en deux, on obtient deux triangles rectangles avec un angle droit au milieu de la corde (point M). Sur ce triangle, R est l'hypoténuse. On connait la longueur M → p2 c'est la moitié de la longueur de la corde L.</p>
+<p><img src="Content/fr/questions-reponses/media/bulge1.svg" alt="Les deux triangles rectangles" /></p>
+<p>Donc <code>sin(alpha/2)</code> = côté opposé / hypoténuse = <code>(L/2) / R</code>.</p>
+<p>On multiplie par R des deux côtés : <code>R * sin(alpha/2) = L/2</code>.</p>
+<p>Et pour finir, on divise par <code>sin(alpha/2)</code> des deux côtés : <code>R = L / (2 * sin(alpha/2))</code>.</p>
+<pre><code class="language-csharp">double angle = Math.Atan(bulge);
+double radius = cordLength / (2 * Math.Sin(angle / 2));
+</code></pre>
+<h3 id="calcul-du-centre-de-larc">Calcul du centre de l'arc</h3>
+<p>Là ça se complique un peu. On doit utiliser des vecteurs.</p>
+<p>Il nous faut une structure comme celle-ci pour représenter un vecteur dans le plan :</p>
+<pre><code class="language-csharp">public readonly struct Vector2d
+{
+    public double X { get; }
+    
+    public double Y { get; }
+    
+    public Vector2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+}
+</code></pre>
+<p>Pour commencer, il faut calculer le vecteur entre les deux sommets p1 et p2 :</p>
+<pre><code class="language-csharp">Vector2d vector = new Vector2d(point2.X - point1.X, point2.Y - point1.Y);
+</code></pre>
+<p>On divise ce vecteur par sa longueur pour obtenir un vecteur unitaire :</p>
+<pre><code class="language-csharp">Vector2d unitVector = vector / Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+</code></pre>
+<p>On détermine la position du milieu de la corde (point M) :</p>
+<pre><code class="language-csharp">Vector2d midPoint = new Vector2d((point1.X + point2.X) / 2, (point1.Y + point2.Y) / 2);
+</code></pre>
+<p>Si la courbure est égale à un, alors l'arc est un demi-tour et le centre est situé sur la corde donc on a notre centre.</p>
+<p>La distance CM, avec un peu de trigonométrie :</p>
+<pre><code class="language-csharp">double distanceCM = radius * Math.Cos(angle / 2);
+</code></pre>
+<p>Ensuite, on peut calculer le centre de l'arc en ajoutant le vecteur perpendiculaire à la moitié de la corde :</p>
+<pre><code class="language-csharp">Vector2d perpendicularVector = new Vector2d(-unitVector.Y, unitVector.X);
+Vector2d center = new Vector2d(midPoint.X + perpendicularVector.X * distanceCM, midPoint.Y + perpendicularVector.Y * distanceCM);
+</code></pre>
+<p>Pour avoir un vecteur perpendiculaire au vecteur (x, y), on peut prendre (-y, x).</p>
+<p>On n'a pas fini parce que si la courbure est égale à un,</p>
+<p>{{bloc:AutoCAD}}</p>
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
+                        <div class="col-6 text-end"><a href="/fr/questions-reponses/autolisp" class="text-decoration-none"><small class="text-muted d-block">Question suivante &#x2192;</small>
+                                    <span>C&#x27;est quoi AutoLISP ?</span></a></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
