@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>C&#x27;est quoi APS ? - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/autodesk-platform-services" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/questions-reponses/autodesk-platform-services" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi APS ?</h1>
+                    <small class="text-muted">Derni&#xE8;re mise &#xE0; jour : lundi 1 janvier 0001</small><div class="mt-2"><a href="/fr/tags/APS" class="badge bg-primary me-1 text-decoration-none">APS</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/Revit" class="badge bg-primary me-1 text-decoration-none">Revit</a><a href="/fr/tags/Fusion" class="badge bg-primary me-1 text-decoration-none">Fusion</a><a href="/fr/tags/3ds&#x2B;Max" class="badge bg-primary me-1 text-decoration-none">3ds Max</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>APS c'est pour <strong>Autodesk Platform Services</strong>. C'est un ensemble de services qui permettent de créer des applications manipulant des données CAO ou des données liées au secteur du divertissement (<strong>3ds Max</strong>, <strong>Maya</strong>...).</p>
+<h2 id="autocad-inventor-et-revit-dans-le-cloud">AutoCAD, Inventor et Revit dans le Cloud</h2>
+<p>Imaginons que vous voulez mettre en place sur votre site Web une fonctionnalité qui permettrait à vos clients de télécharger des plans ou des modèles 3D et que ces derniers doivent être personnalisés. Par exemple pour un plan <strong>AutoCAD</strong>, vous voulez inscrire le nom du client et 'emplacement du projet dans le cartouche. Et bien pour ça vous pouvez utiliser l'<a href="https://aps.autodesk.com/automation-apis">API Automation</a> qui vous permet d'envoyer des tâches à exécuter sur des serveurs qui vont exécuter <strong>AutoCAD</strong>.</p>
+<p>On commence par installer un complément écrit en .NET, un script ou un programme <strong>AutoLISP</strong> dans <strong>APS</strong>, puis on peut lui envoyer des fichiers <strong>DWG</strong> à traiter, accompagnés d'autres données (comme les informations sur le client ou le chantier dans notre exemple). Le traitement s'effectue et un nouveau DWG vous est renvoyé que vous pouvez alors transmettre au client via E-mail.</p>
+<p>Ca peut fonctionner aussi pour des modèles 3D et dans ce cas de figure on utilise <strong>Inventor</strong>, <strong>Fusion</strong>, <strong>3ds Max</strong> ou <strong>Revit</strong>. Comme ces derniers peuvent gérer pas mal de types de fichiers, on peut faire pas mal de choses.</p>
+<p>Pour ce qui est du coût, il est proportionnel au temps de traitement. Il y a une option gratuite pour vous permettre d'expérimenter. Sinon, vous pouvez payer en avance (<em>Prepay</em>) ou payer en allant (<em>Pay as You Go</em>). La première option vous permet de contrôler votre budget, la deuxième vous permet de payer uniquement pour ce que vous utilisez.</p>
+<h2 id="visionneuse">Visionneuse</h2>
+<p>APS propose aussi une visionneuse que vous pouvez intégrer dans vos pages Web et qui peut vous permettre d'afficher des modèles 3D ou des plans 2D. Ça peut être utile par exemple pour votre catalogue de pièces détachées.</p>
+<p><img src="Content/fr/questions-reponses/media/autodesk-viewer.png" alt="Visionneuse Autodesk" /></p>
+<h2 id="autres-services">Autres services</h2>
+<p>Il y a beaucoup d'autres API disponibles, notamment pour le secteur de la construction :</p>
+<ul>
+<li><strong>Autodesk Construction Cloud</strong> et <strong>BIM 360</strong> : pour la gestion des projets de construction</li>
+<li><strong>Civil 3D</strong> : pour la conception et la gestion des projets de chantier</li>
+<li><strong>Model Derivative API</strong> : pour convertir des fichiers CAO en formats Web (SVF)</li>
+<li><strong>Reality Capture</strong> : pour créer des modèles 3D à partir de scans</li>
+<li><strong>Tandem Data</strong> : pour les jumeaux numériques</li>
+<li><strong>VRED</strong> : pour la réalité virtuelle et la réalité augmentée</li>
+</ul>
+<p>N'hésitez pas à me contacter si vous souhaitez en savoir plus sur les services d'Autodesk Platform Services et si vous êtes à la recherche de solutions pour votre entreprise.</p>
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/questions-reponses/bulge" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Question pr&#xE9;c&#xE9;dente</small>
+                                    <span>C&#x27;est quoi la courbure sur un sommet de polyligne ?</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/questions-reponses/autolisp" class="text-decoration-none"><small class="text-muted d-block">Question suivante &#x2192;</small>
+                                    <span>C&#x27;est quoi AutoLISP ?</span></a></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
