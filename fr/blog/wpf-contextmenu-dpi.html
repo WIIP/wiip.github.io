@@ -36,7 +36,8 @@
 <p>Ce bug a été <a href="https://github.com/dotnet/wpf/pull/2097">corrigé</a> dans .NET Core 3.1, mais la correction <strong>n'a jamais été rétroportée dans .NET Framework 4.8</strong>.</p>
 <h2 id="la-solution">La solution</h2>
 <p>Notre complément Vault est une extension chargée dans l'explorateur Vault, qui est une application WinForms. On ne contrôle pas le processus hôte, donc pas moyen de modifier son manifeste ou son <code>app.config</code>.</p>
-<p>En revanche, on peut modifier le contexte de <em>DPI awareness</em> au niveau du fil d'exécution avec l'API Win32 <code>SetThreadDpiAwarenessContext</code>. On passe le fil d'exécution en mode <strong>System DPI Aware</strong> (<code>DPI_AWARENESS_CONTEXT_SYSTEM_AWARE</code>) juste avant d'ouvrir notre fenêtre WPF, et on restaure le contexte précédent à la fermeture :</p>
+<h3 id="premiere-approche-changement-global-du-dpi-awareness">Première approche : changement global du DPI awareness</h3>
+<p>La première idée est de modifier le contexte de <em>DPI awareness</em> au niveau du fil d'exécution avec l'API Win32 <code>SetThreadDpiAwarenessContext</code>. On passe le fil d'exécution en mode <strong>System DPI Aware</strong> (<code>DPI_AWARENESS_CONTEXT_SYSTEM_AWARE</code>) juste avant d'ouvrir notre fenêtre WPF, et on restaure le contexte précédent à la fermeture :</p>
 <pre><code class="language-csharp">[DllImport(&quot;user32.dll&quot;)]
 static extern IntPtr SetThreadDpiAwarenessContext(IntPtr dpiContext);
 
@@ -44,7 +45,7 @@ static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new(-2);
 
 void ExecuteCommand(IVaultExplorerCommand cmd)
 {
-    IntPtr previousDpiAwarenessContext =
+    IntPtr previousContext =
         SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
     try
     {
@@ -52,11 +53,166 @@ void ExecuteCommand(IVaultExplorerCommand cmd)
     }
     finally
     {
-        SetThreadDpiAwarenessContext(previousDpiAwarenessContext);
+        SetThreadDpiAwarenessContext(previousContext);
     }
 }
 </code></pre>
-<p>En mode <strong>System DPI Aware</strong>, le code problématique de <code>Popup</code> qui détruit et recrée le <code>HWND</code> n'est pas exécuté, car cette logique ne se déclenche qu'en mode <strong>Per-Monitor DPI Aware</strong>. Le menu contextuel fonctionne normalement et le reste de l'application Vault n'est pas affecté puisque le changement est limité au fil d'exécution et à la durée d'exécution de notre commande.</p>
+<p>En mode <strong>System DPI Aware</strong>, le code problématique de <code>Popup</code> qui détruit et recrée le <code>HWND</code> n'est pas exécuté, car cette logique ne se déclenche qu'en mode <strong>Per-Monitor DPI Aware</strong>. Le menu contextuel fonctionne normalement.</p>
+<p><strong>Mais cette approche a un effet de bord</strong> : changer le DPI awareness pour toute la durée de la commande (qui inclut la création et l'affichage de la fenêtre WPF) perturbe le système de layout de WPF. Les marges, les tailles et le positionnement des éléments sont incorrects. La fenêtre a une apparence étrange.</p>
+<h3 id="la-bonne-approche-changement-cible-uniquement-pour-le-menu-contextuel">La bonne approche : changement ciblé uniquement pour le menu contextuel</h3>
+<p>Il faut restreindre le changement de DPI awareness au strict minimum : uniquement pendant l'ouverture du <code>ContextMenu</code>. Pour ça, on intercepte les événements routés <code>ContextMenuOpeningEvent</code> et <code>ContextMenuClosingEvent</code> au niveau de la fenêtre.</p>
+<p>Mais ce n'est pas suffisant. Le changement de DPI context en cours de route fausse le positionnement du popup. En effet :</p>
+<ul>
+<li><strong>Avant le switch</strong>, <code>GetCursorPos</code> renvoie des coordonnées virtualisées (par exemple <code>(283, 338)</code> à 150%)</li>
+<li><strong>Après le switch</strong> en SYSTEM_AWARE, <code>GetCursorPos</code> renvoie les pixels physiques réels (<code>(424, 507)</code>)</li>
+<li>WPF utilise sa position interne de la souris (capturée avant le switch) pour positionner le popup, mais l'interprète dans le référentiel physique du mode SYSTEM_AWARE</li>
+</ul>
+<p>Résultat : le menu apparait systématiquement décalé par rapport au curseur.</p>
+<h4 id="corriger-le-positionnement-avec-wm_windowposchanging">Corriger le positionnement avec <code>WM_WINDOWPOSCHANGING</code></h4>
+<p>La solution est d'intercepter le message Win32 <code>WM_WINDOWPOSCHANGING</code> sur le <code>HWND</code> du popup pour remplacer la position calculée par WPF par la position physique réelle du curseur.</p>
+<p>Le point délicat est le <strong>timing</strong> du hook. L'événement <code>ContextMenu.Opened</code> se déclenche <strong>après</strong> que le popup est déjà positionné — trop tard. Et <code>SetWindowPos</code> appelé après coup n'a aucun effet car WPF intercepte <code>WM_WINDOWPOSCHANGING</code> en interne et annule les repositionnements externes.</p>
+<p>La solution est d'utiliser <code>PresentationSource.AddSourceChangedHandler</code> sur le <code>ContextMenu</code>. Cet événement se déclenche quand le <code>HwndSource</code> est créé et associé au <code>ContextMenu</code>, <strong>avant</strong> le positionnement initial du popup. On peut alors installer un hook <code>WndProc</code> qui interceptera le premier <code>WM_WINDOWPOSCHANGING</code> avec un vrai déplacement (sans le flag <code>SWP_NOMOVE</code>) :</p>
+<pre><code class="language-csharp">sealed class DpiAwarenessContextMenuFixer
+{
+    static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new(-2);
+    const int WM_WINDOWPOSCHANGING = 0x0046;
+    const uint SWP_NOMOVE = 0x0002;
+
+    [DllImport(&quot;user32.dll&quot;)]
+    static extern IntPtr SetThreadDpiAwarenessContext(IntPtr dpiContext);
+
+    [DllImport(&quot;user32.dll&quot;)]
+    static extern bool GetCursorPos(out POINT point);
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct POINT { public int X; public int Y; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct WINDOWPOS
+    {
+        public IntPtr hwnd, hwndInsertAfter;
+        public int x, y, cx, cy;
+        public uint flags;
+    }
+
+    IntPtr _previousDpiAwarenessContext;
+    POINT _cursorPhysicalPosition;
+    bool _needsRepositioning;
+    ContextMenu _currentContextMenu;
+
+    public static void Attach(Window window)
+    {
+        window.Loaded += (s, e) =&gt;
+        {
+            var fixer = new DpiAwarenessContextMenuFixer();
+            var w = (Window)s;
+            w.AddHandler(ContextMenuService.ContextMenuOpeningEvent,
+                new ContextMenuEventHandler(fixer.OnContextMenuOpening),
+                handledEventsToo: true);
+            w.AddHandler(ContextMenuService.ContextMenuClosingEvent,
+                new ContextMenuEventHandler(fixer.OnContextMenuClosing),
+                handledEventsToo: true);
+        };
+    }
+
+    void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        _previousDpiAwarenessContext =
+            SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+
+        // En SYSTEM_AWARE, GetCursorPos renvoie les pixels physiques réels.
+        GetCursorPos(out _cursorPhysicalPosition);
+        _needsRepositioning = true;
+
+        // SourceChanged se déclenche quand le HwndSource est créé pour le
+        // ContextMenu, AVANT le positionnement initial du popup.
+        _currentContextMenu = FindContextMenu(e.OriginalSource);
+        if (_currentContextMenu != null)
+            PresentationSource.AddSourceChangedHandler(
+                _currentContextMenu, OnSourceChanged);
+    }
+
+    void OnSourceChanged(object sender, SourceChangedEventArgs e)
+    {
+        if (e.NewSource is HwndSource hwndSource)
+            hwndSource.AddHook(PopupWndProc);
+        if (sender is ContextMenu cm)
+            PresentationSource.RemoveSourceChangedHandler(cm, OnSourceChanged);
+    }
+
+    IntPtr PopupWndProc(IntPtr hwnd, int msg, IntPtr wParam,
+        IntPtr lParam, ref bool handled)
+    {
+        if (msg == WM_WINDOWPOSCHANGING &amp;&amp; _needsRepositioning)
+        {
+            var pos = Marshal.PtrToStructure&lt;WINDOWPOS&gt;(lParam);
+            if ((pos.flags &amp; SWP_NOMOVE) == 0)
+            {
+                _needsRepositioning = false;
+                pos.x = _cursorPhysicalPosition.X;
+                pos.y = _cursorPhysicalPosition.Y;
+                Marshal.StructureToPtr(pos, lParam, false);
+            }
+        }
+        return IntPtr.Zero;
+    }
+
+    void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
+    {
+        SetThreadDpiAwarenessContext(_previousDpiAwarenessContext);
+        if (_currentContextMenu != null)
+        {
+            PresentationSource.RemoveSourceChangedHandler(
+                _currentContextMenu, OnSourceChanged);
+            _currentContextMenu = null;
+        }
+    }
+
+    static ContextMenu FindContextMenu(DependencyObject element)
+    {
+        while (element != null)
+        {
+            if (element is FrameworkElement fe &amp;&amp; fe.ContextMenu != null)
+                return fe.ContextMenu;
+            element = VisualTreeHelper.GetParent(element);
+        }
+        return null;
+    }
+}
+</code></pre>
+<p>On appelle <code>DpiAwarenessContextMenuFixer.Attach(window)</code> avant <code>ShowDialog()</code> sur chaque fenêtre WPF qui contient des menus contextuels.</p>
+<h3 id="resume">Résumé</h3>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Événement</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>ContextMenuOpening</code></td>
+<td>Switch vers SYSTEM_AWARE, capture de la position physique du curseur, inscription à <code>SourceChanged</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>SourceChanged</code></td>
+<td>Le <code>HwndSource</code> du popup est créé, installation du hook <code>WndProc</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>WM_WINDOWPOSCHANGING</code></td>
+<td>Remplacement de la position calculée par WPF par la position physique du curseur</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>ContextMenuClosing</code></td>
+<td>Restauration du DPI awareness précédent</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Vault</strong> ? Contactez-moi pour un devis gratuit.</p>
 
