@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Menu contextuel WPF qui disparait avec un scaling sup&#xE9;rieur &#xE0; 100% - WIIP</title></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/wpf-contextmenu-dpi" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/wpf-contextmenu-dpi" class="">EN</a></div></li></ul></div></nav></div></div>
+        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Menu contextuel WPF qui disparait avec un scaling sup&#xE9;rieur &#xE0; 100%</h1>
+                    <small class="text-muted">vendredi 27 f&#xE9;vrier 2026</small><div class="mt-2"><a href="/fr/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/fr/tags/WPF" class="badge bg-primary me-1 text-decoration-none">WPF</a><a href="/fr/tags/.NET&#x2B;Framework" class="badge bg-primary me-1 text-decoration-none">.NET Framework</a></div></header>
+                <div class="mt-3"><p>En développant une extension de l'explorateur Vault, j'ai rencontré un problème : dans une fenêtre WPF, le menu contextuel disparait partiellement dès qu'on passe le curseur de la souris dessus. Certains éléments réapparaissent quand on les survole, d'autres restent invisibles. Le menu est inutilisable.</p>
+<p>Le plus étrange, c'est que ça ne se produit pas sur tous les postes.</p>
+<h2 id="les-fausses-pistes">Les fausses pistes</h2>
+<p>Première hypothèse : la carte graphique. L'utilisateur a une NVIDIA RTX 2000 Ada Generation avec un pilote un peu ancien. Mise à jour du pilote : rien.</p>
+<p>Deuxième hypothèse : le rendu matériel. WPF utilise par défaut l'accélération matérielle pour le rendu. On peut forcer le rendu logiciel avec :</p>
+<pre><code class="language-csharp">RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
+</code></pre>
+<p>Rien non plus.</p>
+<p>Troisième hypothèse : l'ombre portée du menu contextuel, qui utilise des fenêtres transparentes en couche. On désactive avec <code>HasDropShadow=&quot;False&quot;</code> sur le <code>ContextMenu</code>. Toujours rien.</p>
+<h2 id="la-vraie-cause">La vraie cause</h2>
+<p>En comparant les postes qui fonctionnent et ceux qui ne fonctionnent pas, le point commun saute aux yeux : <strong>la mise à l'échelle de l'affichage</strong>. Les postes à 100% fonctionnent. Ceux à 125% ou 150% ont le problème.</p>
+<p>En fouillant, on tombe sur <a href="https://github.com/dotnet/wpf/issues/2088">ce ticket</a> dans le dépôt WPF de Microsoft. C'est un <strong>bug connu de .NET Framework 4.8</strong>.</p>
+<h3 id="lexplication-technique">L'explication technique</h3>
+<p>Dans .NET 4.8, Microsoft a ajouté une logique de scaling DPI dans la classe <code>Popup</code> (qui est utilisée en interne par <code>ContextMenu</code>). Quand le système détecte un mode DPI élevé, <code>Popup.CreateWindow</code> appelle <code>DestroyWindow()</code> pour détruire le <code>HWND</code> sous-jacent et le recréer avec la bonne affinité DPI.</p>
+<p>Le problème, c'est que <code>DestroyWindow()</code> fait beaucoup plus que détruire le <code>HWND</code> : il relâche la capture de la souris, déclenche l'événement <code>OnClosed</code> et réinitialise <code>IsOpen</code> à <code>false</code>. Résultat : le menu contextuel se retrouve dans un état incohérent où il est partiellement affiché, mais pense être fermé.</p>
+<p>Ce bug a été <a href="https://github.com/dotnet/wpf/pull/2097">corrigé</a> dans .NET Core 3.1, mais la correction <strong>n'a jamais été rétroportée dans .NET Framework 4.8</strong>.</p>
+<h2 id="la-solution">La solution</h2>
+<p>Notre complément Vault est une extension chargée dans l'explorateur Vault, qui est une application WinForms. On ne contrôle pas le processus hôte, donc pas moyen de modifier son manifeste ou son <code>app.config</code>.</p>
+<p>En revanche, on peut modifier le contexte de <em>DPI awareness</em> au niveau du fil d'exécution avec l'API Win32 <code>SetThreadDpiAwarenessContext</code>. On passe le fil d'exécution en mode <strong>System DPI Aware</strong> (<code>DPI_AWARENESS_CONTEXT_SYSTEM_AWARE</code>) juste avant d'ouvrir notre fenêtre WPF, et on restaure le contexte précédent à la fermeture :</p>
+<pre><code class="language-csharp">[DllImport(&quot;user32.dll&quot;)]
+static extern IntPtr SetThreadDpiAwarenessContext(IntPtr dpiContext);
+
+static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new(-2);
+
+void ExecuteCommand(IVaultExplorerCommand cmd)
+{
+    IntPtr previousDpiAwarenessContext =
+        SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+    try
+    {
+        cmd.Execute();
+    }
+    finally
+    {
+        SetThreadDpiAwarenessContext(previousDpiAwarenessContext);
+    }
+}
+</code></pre>
+<p>En mode <strong>System DPI Aware</strong>, le code problématique de <code>Popup</code> qui détruit et recrée le <code>HWND</code> n'est pas exécuté, car cette logique ne se déclenche qu'en mode <strong>Per-Monitor DPI Aware</strong>. Le menu contextuel fonctionne normalement et le reste de l'application Vault n'est pas affecté puisque le changement est limité au fil d'exécution et à la durée d'exécution de notre commande.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Vault</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/vault-data-api" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Vault Data API</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
