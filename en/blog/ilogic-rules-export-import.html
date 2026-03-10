@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Export and import iLogic rules - WIIP</title><meta name="description" content="Put your iLogic rules under version control and edit them in a modern editor with two export/import scripts." />
+        <meta property="og:title" content="Export and import iLogic rules" />
+        <meta property="og:description" content="Put your iLogic rules under version control and edit them in a modern editor with two export/import scripts." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/ilogic-rules-export-import" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Export and import iLogic rules" />
+        <meta name="twitter:description" content="Put your iLogic rules under version control and edit them in a modern editor with two export/import scripts." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/ilogic-rules-export-import" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/ilogic-rules-export-import" class="active">EN</a></div></li></ul></div></nav></div></div>
+        
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Export and import iLogic rules",
+        "description": "Put your iLogic rules under version control and edit them in a modern editor with two export/import scripts.",
+        "datePublished": "2026-03-04",
+        "url": "https://wiip.fr/en/blog/ilogic-rules-export-import",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Export and import iLogic rules</h1>
+                    <small class="text-muted">Wednesday, March 4, 2026</small><div class="mt-2"><a href="/en/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/en/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>Internal iLogic rules are stored directly inside Inventor documents (parts, assemblies, drawings). This is convenient — the rule travels with the file — but it creates a major problem: <strong>these rules cannot be placed under version control</strong> with a tool like Git.</p>
+<p>By exporting rules as text files (<code>.iLogicVB</code>), several possibilities open up:</p>
+<ul>
+<li><strong>Track changes with <a href="https://git-scm.com/">Git</a></strong>: Git is a version control tool used by the vast majority of developers. It keeps a complete history of every file, making it possible to compare versions, roll back in case of error, and collaborate on the same rules. It also acts as a reliable backup: as long as the repository is synchronized with a remote server, nothing is lost. Using Git for iLogic rules means applying the same practices as professional developers.</li>
+<li><strong>Edit in a modern editor</strong> such as Visual Studio Code, with advanced search and the ability to pair the editor with an <strong>AI assistant</strong> to speed up code writing.</li>
+</ul>
+<h2 id="internal-rules-remain-essential">Internal rules remain essential</h2>
+<p>Internal rules have specific advantages that external rules cannot reproduce:</p>
+<ul>
+<li><strong>Direct access to parameters</strong>: in the built-in editor, model parameter names appear as variables (displayed in blue). You can read and modify them without going through the API, which makes code more readable.</li>
+<li><strong>Targeted automatic triggering</strong>: an internal rule can be associated with a specific parameter change via <em>Event Triggers</em>. For example, modifying the <code>Length</code> parameter can automatically trigger a rule that recalculates other dimensions. External rules can also be assigned to triggers, but only for global events like &quot;any parameter change&quot;, without filtering on a specific parameter.</li>
+</ul>
+<p>Editing in an external editor does not replace the built-in editor: the two approaches are <strong>complementary</strong>. The Inventor iLogic editor provides <strong>interactive assistants</strong> that let you browse the model and directly select parameters, iProperties, or assembly components. It also supplies a library of <strong>code snippets</strong> for common operations. You can use it to build model-related calls and configure triggers, then switch to an external editor for the rest of the logic.</p>
+<h2 id="export-import-procedure">Export / import procedure</h2>
+<p>The principle is simple, but requires discipline:</p>
+<ol>
+<li><strong>After each modification in Inventor's built-in editor</strong>, run the export rule to synchronize the files on disk.</li>
+<li><strong>After each modification in the external editor</strong>, run the import rule to inject changes into the Inventor document.</li>
+</ol>
+<p>Remember to synchronize each time, otherwise you risk overwriting changes made on one side with the other.</p>
+<h2 id="export-rule">Export rule</h2>
+<p>This rule exports all iLogic rules from the active document as <code>.iLogicVB</code> files into a folder. It excludes itself from the export to avoid an unnecessary loop.</p>
+<pre><code class="language-vb.net">' Export all iLogic rules from the active document
+Dim doc As Document = ThisDoc.Document
+Dim iLogicAuto As Object = Nothing
+
+Try
+    iLogicAuto = ThisApplication.ApplicationAddIns.ItemById( _
+        &quot;{3BDD8D79-2179-4B11-8A5A-257B1C0263AC}&quot;).Automation
+Catch
+    MessageBox.Show(&quot;iLogic Automation not available.&quot;)
+    Return
+End Try
+
+Dim rules = iLogicAuto.Rules(doc)
+Dim exportFolder As String = &quot;C:\MyProject\&quot;
+
+If Not System.IO.Directory.Exists(exportFolder) Then
+    System.IO.Directory.CreateDirectory(exportFolder)
+End If
+
+For Each r In rules
+    If r.Name = &quot;Export rules&quot; Then Continue For
+    Dim filePath As String = System.IO.Path.Combine(exportFolder, r.Name &amp; &quot;.iLogicVB&quot;)
+    System.IO.File.WriteAllText(filePath, r.Text)
+Next
+
+MessageBox.Show(&quot;Export complete: &quot; &amp; exportFolder)
+</code></pre>
+<h2 id="import-rule">Import rule</h2>
+<p>This rule scans <code>.iLogicVB</code> files from the folder and updates existing rules in the document. If a rule does not exist yet, it is created automatically.</p>
+<pre><code class="language-vb.net">' Import / update iLogic rules from a folder
+Dim doc As Document = ThisDoc.Document
+Dim iLogicAuto As Object = Nothing
+
+Try
+    iLogicAuto = ThisApplication.ApplicationAddIns.ItemById( _
+        &quot;{3BDD8D79-2179-4B11-8A5A-257B1C0263AC}&quot;).Automation
+Catch
+    MessageBox.Show(&quot;iLogic Automation not available.&quot;)
+    Return
+End Try
+
+' Folder containing .iLogicVB or .txt files
+Dim importFolder As String = &quot;C:\MyProject\&quot;
+
+If Not System.IO.Directory.Exists(importFolder) Then
+    MessageBox.Show(&quot;Folder does not exist: &quot; &amp; importFolder)
+    Return
+End If
+
+' Retrieve files
+Dim files = System.IO.Directory.GetFiles(importFolder, &quot;*.iLogicVB&quot;)
+
+If files.Length = 0 Then
+    MessageBox.Show(&quot;No .iLogicVB files found.&quot;)
+    Return
+End If
+
+For Each file In files
+    Dim ruleName As String = System.IO.Path.GetFileNameWithoutExtension(File)
+    Dim ruleText As String = System.IO.File.ReadAllText(File)
+
+    Dim existingRule = iLogicAuto.GetRule(doc, ruleName)
+
+    If existingRule Is Nothing Then
+        ' Create a new rule
+        iLogicAuto.AddRule(doc, ruleName, ruleText)
+    Else
+        ' Update the existing rule
+        existingRule.Text = ruleText
+    End If
+Next
+
+MessageBox.Show(&quot;Import / update complete.&quot;)
+</code></pre>
+<p>Note that you can do the same thing with VBA macros, although I would advise against writing new code on that platform as it has been obsolete for a long time. However, it can be useful for migrating existing macros to iLogic rules.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Need an <strong>Inventor</strong> (iLogic, .NET, VBA, C++) or <strong>Fusion 360</strong> (Python, C++) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/wpf-contextmenu-dpi" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>WPF context menu disappearing with display scaling above 100%</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

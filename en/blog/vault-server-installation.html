@@ -6,9 +6,19 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur) - WIIP</title></head>
+    <title>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur) - WIIP</title><meta name="description" content="SQL Server ne s&#x27;installe pas sur un disque dur NVMe avec des tailles de secteur sup&#xE9;rieures &#xE0; 4096 octets." />
+        <meta property="og:title" content="Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)" />
+        <meta property="og:description" content="SQL Server ne s&#x27;installe pas sur un disque dur NVMe avec des tailles de secteur sup&#xE9;rieures &#xE0; 4096 octets." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/vault-server-installation" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)" />
+        <meta name="twitter:description" content="SQL Server ne s&#x27;installe pas sur un disque dur NVMe avec des tailles de secteur sup&#xE9;rieures &#xE0; 4096 octets." /></head>
 
-<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
                             <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
@@ -16,7 +26,23 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/vault-server-installation" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/vault-server-installation" class="active">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)</h1>
+        
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Probl\u00E8me d\u0027installation du serveur Vault (taille de secteur de disque dur)",
+        "description": "SQL Server ne s\u0027installe pas sur un disque dur NVMe avec des tailles de secteur sup\u00E9rieures \u00E0 4096 octets.",
+        "datePublished": "2025-11-12",
+        "url": "https://wiip.fr/en/blog/vault-server-installation",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)</h1>
                     <small class="text-muted">Wednesday, November 12, 2025</small><div class="mt-2"><a href="/en/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/en/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
                 <div class="mt-3"><p>J'avais une connaissance qui n'arrivait pas à installer le serveur Vault sur son ordinateur. Quand on essayait de démarrer le service <strong>SQL Server (AUTODESKVAULT)</strong>, il y avait une erreur 1067 (le processus s'est arrêté immédiatement).</p>
 <p>Dans le journal des événements, il y avait notamment :</p>

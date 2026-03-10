@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="fr"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>C&#x27;est quoi la courbure sur un sommet de polyligne ? - WIIP</title></head>
+    <title>C&#x27;est quoi la courbure sur un sommet de polyligne ? - WIIP</title><meta name="description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" />
+        <meta property="og:title" content="C&#x27;est quoi la courbure sur un sommet de polyligne ?" />
+        <meta property="og:description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/questions-reponses/bulge" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="C&#x27;est quoi la courbure sur un sommet de polyligne ?" />
+        <meta name="twitter:description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" /></head>
 
-<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
@@ -16,7 +26,8 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/bulge" class="active">FR</a>
     <span class="separator">|</span>
     <a href="/en/questions-reponses/bulge" class="">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi la courbure sur un sommet de polyligne ?</h1>
+        
+    <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi la courbure sur un sommet de polyligne ?</h1>
                     <small class="text-muted">Derni&#xE8;re mise &#xE0; jour : lundi 1 janvier 0001</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/DXF" class="badge bg-primary me-1 text-decoration-none">DXF</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
                 <div class="mt-3"><p>Une polyligne, c'est une série de sommets (<em>vertex</em>), donc des points et sur chaque point, on a un réel qu'on appelle la courbure (<em>bulge</em> en anglais ; code 42 dans les DXF).</p>
 <p>La courbure est égale à la tangente de 1/4 de l'angle parcouru par l'arc.</p>

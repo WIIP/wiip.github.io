@@ -6,9 +6,19 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Vault Data API - WIIP</title></head>
+    <title>Vault Data API - WIIP</title><meta name="description" content="Interact with Vault server data through a REST API" />
+        <meta property="og:title" content="Vault Data API" />
+        <meta property="og:description" content="Interact with Vault server data through a REST API" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/vault-data-api" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Vault Data API" />
+        <meta name="twitter:description" content="Interact with Vault server data through a REST API" /></head>
 
-<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
                             <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
@@ -16,7 +26,23 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/vault-data-api" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/vault-data-api" class="active">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Vault Data API</h1>
+        
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vault Data API",
+        "description": "Interact with Vault server data through a REST API",
+        "datePublished": "2026-02-25",
+        "url": "https://wiip.fr/en/blog/vault-data-api",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Vault Data API</h1>
                     <small class="text-muted">Wednesday, February 25, 2026</small><div class="mt-2"><a href="/en/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/en/tags/APS" class="badge bg-primary me-1 text-decoration-none">APS</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
                 <div class="mt-3"><p>Since version 2025.2 of Autodesk Vault Professional Server, a new REST API is available to interact with Vault server data.</p>
 <p>To verify that it works, you can point your web browser to the following URL: <code>http(s)://&lt;vault_server_ip_address_or_name&gt;/AutodeskDM/Services/api/vault/v2/server-info</code>. This should return information about the Vault server (product name and version).</p>

@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="fr"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD - WIIP</title></head>
+    <title>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD - WIIP</title><meta name="description" content="Comment cr&#xE9;er et g&#xE9;rer des variables syst&#xE8;mes personnalis&#xE9;es dans AutoCAD." />
+        <meta property="og:title" content="Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD" />
+        <meta property="og:description" content="Comment cr&#xE9;er et g&#xE9;rer des variables syst&#xE8;mes personnalis&#xE9;es dans AutoCAD." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/custom_sys_var" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD" />
+        <meta name="twitter:description" content="Comment cr&#xE9;er et g&#xE9;rer des variables syst&#xE8;mes personnalis&#xE9;es dans AutoCAD." /></head>
 
-<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
@@ -16,7 +26,23 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/custom_sys_var" class="active">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/custom_sys_var" class="">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD</h1>
+        
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Ajouter des variables syst\u00E8mes \u00E0 AutoCAD",
+        "description": "Comment cr\u00E9er et g\u00E9rer des variables syst\u00E8mes personnalis\u00E9es dans AutoCAD.",
+        "datePublished": "2025-08-26",
+        "url": "https://wiip.fr/fr/blog/custom_sys_var",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD</h1>
                     <small class="text-muted">mardi 26 ao&#xFB;t 2025</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
                 <div class="mt-3"><p>C'est une fonctionnalité cachée au fin fond de la documentation sur l'API .NET AutoCAD : vous pouvez créer vos propres variables système.</p>
 <p>Pour cela, il faut modifier votre base de registre.</p>

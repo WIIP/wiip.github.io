@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="fr"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Exporter et importer des r&#xE8;gles ILogic - WIIP</title></head>
+    <title>Exporter et importer des r&#xE8;gles iLogic - WIIP</title><meta name="description" content="Placer ses r&#xE8;gles iLogic sous contr&#xF4;le de version et les &#xE9;diter dans un &#xE9;diteur moderne gr&#xE2;ce &#xE0; deux scripts d&#x27;export et d&#x27;import." />
+        <meta property="og:title" content="Exporter et importer des r&#xE8;gles iLogic" />
+        <meta property="og:description" content="Placer ses r&#xE8;gles iLogic sous contr&#xF4;le de version et les &#xE9;diter dans un &#xE9;diteur moderne gr&#xE2;ce &#xE0; deux scripts d&#x27;export et d&#x27;import." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/ilogic-rules-export-import" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Exporter et importer des r&#xE8;gles iLogic" />
+        <meta name="twitter:description" content="Placer ses r&#xE8;gles iLogic sous contr&#xF4;le de version et les &#xE9;diter dans un &#xE9;diteur moderne gr&#xE2;ce &#xE0; deux scripts d&#x27;export et d&#x27;import." /></head>
 
-<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
                         <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
@@ -16,9 +26,47 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/ilogic-rules-export-import" class="active">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/ilogic-rules-export-import" class="">EN</a></div></li></ul></div></nav></div></div>
-        <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Exporter et importer des r&#xE8;gles ILogic</h1>
+        
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Exporter et importer des r\u00E8gles iLogic",
+        "description": "Placer ses r\u00E8gles iLogic sous contr\u00F4le de version et les \u00E9diter dans un \u00E9diteur moderne gr\u00E2ce \u00E0 deux scripts d\u0027export et d\u0027import.",
+        "datePublished": "2026-03-04",
+        "url": "https://wiip.fr/fr/blog/ilogic-rules-export-import",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Exporter et importer des r&#xE8;gles iLogic</h1>
                     <small class="text-muted">mercredi 4 mars 2026</small><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
-                <div class="mt-3"><pre><code class="language-vb.net">' Exporter toutes les règles iLogic du document actif
+                <div class="mt-3"><p>Les règles iLogic internes sont stockées directement à l'intérieur des documents Inventor (pièces, assemblages, dessins). Cette approche a l'avantage d'être pratique — la règle voyage avec le fichier — mais elle pose un problème majeur : <strong>il est impossible de placer ces règles sous contrôle de révision</strong> avec un outil comme Git.</p>
+<p>En exportant les règles sous forme de fichiers texte (<code>.iLogicVB</code>), on ouvre plusieurs possibilités :</p>
+<ul>
+<li><strong>Suivi des modifications avec <a href="https://git-scm.com/">Git</a></strong> : Git est un outil de contrôle de version utilisé par la quasi-totalité des développeurs. Il conserve l'historique complet de chaque fichier, ce qui permet de comparer les versions, de revenir en arrière en cas d'erreur et de travailler à plusieurs sur les mêmes règles. C'est aussi une forme de sauvegarde fiable : tant que le dépôt est synchronisé avec un serveur distant, rien ne se perd. Adopter Git pour ses règles iLogic, c'est appliquer les mêmes pratiques que les développeurs professionnels.</li>
+<li><strong>Édition dans un éditeur moderne</strong> comme Visual Studio Code, avec la recherche avancée et la possibilité de coupler l'éditeur avec un <strong>assistant d'intelligence artificielle</strong> pour accélérer l'écriture du code.</li>
+</ul>
+<h2 id="les-regles-internes-restent-indispensables">Les règles internes restent indispensables</h2>
+<p>Les règles internes ont des avantages propres qu'une règle externe ne peut pas reproduire :</p>
+<ul>
+<li><strong>Accès direct aux paramètres</strong> : dans l'éditeur intégré, les noms de paramètres du modèle apparaissent comme des variables (affichées en bleu). On peut les lire et les modifier sans passer par l'API, ce qui rend le code plus lisible.</li>
+<li><strong>Déclenchement automatique ciblé</strong> : une règle interne peut être associée au changement d'un paramètre précis via les <em>Event Triggers</em>. Par exemple, modifier le paramètre <code>Longueur</code> peut déclencher automatiquement une règle qui recalcule d'autres dimensions. Les règles externes peuvent aussi être assignées à des déclencheurs, mais uniquement sur des événements globaux comme &quot;tout changement de paramètre&quot;, sans pouvoir filtrer sur un paramètre spécifique.</li>
+</ul>
+<p>L'édition dans un éditeur externe ne remplace donc pas l'éditeur intégré : les deux approches sont <strong>complémentaires</strong>. L'éditeur iLogic d'Inventor propose des <strong>assistants interactifs</strong> qui permettent de parcourir le modèle et de sélectionner directement des paramètres, des iPropriétés ou des composants d'assemblage. Il fournit également une bibliothèque d'<strong>extraits de code</strong> prêts à l'emploi pour les opérations courantes. On peut s'en servir pour construire les appels liés au modèle et configurer les déclencheurs, puis basculer vers un éditeur externe pour le reste de la logique.</p>
+<h2 id="procedure-dexport-import">Procédure d'export / import</h2>
+<p>Le principe est simple, mais demande de la rigueur :</p>
+<ol>
+<li><strong>Après chaque modification dans l'éditeur intégré</strong> d'Inventor, exécuter la règle d'export pour synchroniser les fichiers sur le disque.</li>
+<li><strong>Après chaque modification dans l'éditeur externe</strong>, exécuter la règle d'import pour injecter les changements dans le document Inventor.</li>
+</ol>
+<p>Il faut bien penser à synchroniser à chaque fois, sinon on risque d'écraser des modifications faites d'un côté par l'autre.</p>
+<h2 id="regle-dexport">Règle d'export</h2>
+<p>Cette règle exporte toutes les règles iLogic du document actif sous forme de fichiers <code>.iLogicVB</code> dans un dossier. Elle s'exclut elle-même de l'export pour éviter une boucle inutile.</p>
+<pre><code class="language-vb.net">' Exporter toutes les règles iLogic du document actif
 Dim doc As Document = ThisDoc.Document
 Dim iLogicAuto As Object = Nothing
 
@@ -45,6 +93,8 @@ Next
 
 MessageBox.Show(&quot;Export terminé : &quot; &amp; exportFolder)
 </code></pre>
+<h2 id="regle-dimport">Règle d'import</h2>
+<p>Cette règle parcourt les fichiers <code>.iLogicVB</code> du dossier et met à jour les règles existantes dans le document. Si une règle n'existe pas encore, elle est créée automatiquement.</p>
 <pre><code class="language-vb.net">' Importer / mettre à jour les règles iLogic depuis un dossier
 Dim doc As Document = ThisDoc.Document
 Dim iLogicAuto As Object = Nothing
@@ -90,6 +140,10 @@ Next
 
 MessageBox.Show(&quot;Import / mise à jour terminé.&quot;)
 </code></pre>
+<p>Notez qu'on peut faire la même chose avec les macros VBA, même si je déconseille d'écrire du nouveau code sur cette plateforme qui est obsolète depuis longtemps, mais ça peut être utile pour migrer ces macros vers des règles iLogic.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
 </div>
 
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/wpf-contextmenu-dpi" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
