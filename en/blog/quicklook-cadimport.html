@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Preview DWG and DXF Files with QuickLook - WIIP</title><meta name="description" content="Install QuickLook and its CADImport plugin to preview CAD files directly from Windows Explorer, without opening AutoCAD." />
+        <meta property="og:title" content="Preview DWG and DXF Files with QuickLook" />
+        <meta property="og:description" content="Install QuickLook and its CADImport plugin to preview CAD files directly from Windows Explorer, without opening AutoCAD." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/quicklook-cadimport" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Preview DWG and DXF Files with QuickLook" />
+        <meta name="twitter:description" content="Install QuickLook and its CADImport plugin to preview CAD files directly from Windows Explorer, without opening AutoCAD." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li>
+                            <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/quicklook-cadimport" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/quicklook-cadimport" class="active">EN</a></div></li></ul></div></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Preview DWG and DXF Files with QuickLook",
+        "description": "Install QuickLook and its CADImport plugin to preview CAD files directly from Windows Explorer, without opening AutoCAD.",
+        "datePublished": "2026-03-13",
+        "url": "https://wiip.fr/en/blog/quicklook-cadimport",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Preview DWG and DXF Files with QuickLook</h1>
+                    <small class="text-muted">Friday, March 13, 2026</small><div class="mt-2"><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/DWG" class="badge bg-primary me-1 text-decoration-none">DWG</a><a href="/en/tags/DXF" class="badge bg-primary me-1 text-decoration-none">DXF</a></div></header>
+                <div class="mt-3"><p>When working with <strong>DWG</strong> or <strong>DXF</strong> files on a daily basis, opening AutoCAD just to check a file's contents is a waste of time. <strong><a href="https://github.com/QL-Win/QuickLook">QuickLook</a></strong> solves this problem by bringing macOS's <em>Quick Look</em> feature to Windows: select a file, press <strong>Space</strong>, and a preview appears instantly.</p>
+<p>Combined with the <strong><a href="https://github.com/emako/QuickLook.Plugin.CADImport">CADImport</a></strong> plugin, QuickLook can preview <code>.dwg</code> and <code>.dxf</code> files.</p>
+<h2 id="installing-quicklook">Installing QuickLook</h2>
+<p>QuickLook can be installed in two ways:</p>
+<h3 id="via-the-microsoft-store-recommended">Via the Microsoft Store (recommended)</h3>
+<p>This is the simplest method. The application updates automatically and runs in a sandboxed environment.</p>
+<p>Search for <strong>QuickLook</strong> in the Microsoft Store or <a href="https://apps.microsoft.com/detail/9nv4bs3l1h4s">click here</a>.</p>
+<h3 id="via-the-installer">Via the installer</h3>
+<p>Download the installer from the <a href="https://github.com/QL-Win/QuickLook/releases">GitHub releases page</a>. This method provides full functionality, including support for Open/Save dialogs.</p>
+<p>Once installed, QuickLook launches automatically at Windows startup and sits in the notification area (taskbar).</p>
+<h2 id="installing-the-cadimport-plugin">Installing the CADImport plugin</h2>
+<ol>
+<li>Go to the <a href="https://github.com/emako/QuickLook.Plugin.CADImport/releases">CADImport plugin releases page</a>.</li>
+<li>Download the <code>.qlplugin</code> file.</li>
+<li>With QuickLook running, select the downloaded <code>.qlplugin</code> file and press <strong>Space</strong>.</li>
+<li>Click <strong>Install</strong> in the window that appears.</li>
+<li>Restart QuickLook.</li>
+</ol>
+<p><img src="../fr/blog/media/quicklook.png" alt="QuickLook interface with a DWG file" /></p>
+<h2 id="usage">Usage</h2>
+<p>The workflow is straightforward:</p>
+<ol>
+<li>Select a <code>.dwg</code> or <code>.dxf</code> file in Windows Explorer.</li>
+<li>Press the <strong>Space</strong> key.</li>
+<li>The drawing preview appears immediately.</li>
+</ol>
+<h3 id="navigating-the-preview">Navigating the preview</h3>
+<ul>
+<li><strong>Mouse wheel</strong>: zoom in / out</li>
+<li><strong>Double left-click</strong>: reset zoom</li>
+<li><strong>Right-click hold + drag</strong>: pan the view</li>
+<li><strong>Esc</strong> or <strong>Space</strong>: close the preview</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>QuickLook with the CADImport plugin is a simple yet highly effective tool for anyone who regularly works with AutoCAD files. No need to open CAD software just to quickly identify a file's contents — a single press of <strong>Space</strong> is all it takes.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/ilogic-rules-export-import" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Export and import iLogic rules</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

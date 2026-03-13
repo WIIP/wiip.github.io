@@ -4,7 +4,7 @@
     <base href="/">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>How to determine if a point is inside a contour? - WIIP</title><meta name="description" content="How to determine if a point is inside a contour in AutoCAD." />
         <meta property="og:title" content="How to determine if a point is inside a contour?" />
@@ -26,7 +26,7 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/questions-reponses/point-in-contour" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/questions-reponses/point-in-contour" class="active">EN</a></div></li></ul></div></nav></div></div>
-        
+        <main>
     <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>How to determine if a point is inside a contour?</h1>
                     <small class="text-muted">Last updated: Saturday, November 15, 2025</small><div class="mt-2"><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
                 <div class="mt-3"><p>We often need to determine if a point is inside a contour. For example, when we have labeled zones, we need to establish the link between a closed polyline and the text inside it.</p>
@@ -116,24 +116,25 @@ public static void PointInContour()
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/questions-reponses/standardization-organizations" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous question</small>
                                     <span>What are the different standardization organizations found in Inventor&#x27;s Content Center?</span></a></div>
                         <div class="col-6 text-end"><a href="/en/questions-reponses/line-plane-intersection-acad" class="text-decoration-none"><small class="text-muted d-block">Next question &#x2192;</small>
-                                    <span>How to find the intersection between a line and a plane in AutoCAD?</span></a></div></div></nav></article></div></div>
+                                    <span>How to find the intersection between a line and a plane in AutoCAD?</span></a></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
-                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
                             </a>
                             <br>
-                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
                             <br>
-                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
                             </a></address></div></div></div>
             <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
         <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
 <script>
 (function() {
     if (window.location.pathname === '/' || window.location.pathname === '') {

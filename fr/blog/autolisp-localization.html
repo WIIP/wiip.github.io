@@ -4,7 +4,7 @@
     <base href="/">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Localisation avec AutoLISP - WIIP</title><meta name="description" content="" />
         <meta property="og:title" content="Localisation avec AutoLISP" />
@@ -26,7 +26,7 @@
                             <li class="nav-item ms-3"><div class="language-switcher"><a href="/fr/blog/autolisp-localization" class="active">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/autolisp-localization" class="">EN</a></div></li></ul></div></nav></div></div>
-        
+        <main>
     <script type="application/ld&#x2B;json">
     {
         "@context": "https://schema.org",
@@ -176,24 +176,25 @@ goodbye	Goodbye	Au revoir
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autolisp-vs-code" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
                                     <span>AutoLISP avec VS Code</span></a></div>
                         <div class="col-6 text-end"><a href="/fr/blog/autolisp-comments" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
-                                    <span>Les commentaires en AutoLISP</span></a></div></div></nav></article></div></div>
+                                    <span>Les commentaires en AutoLISP</span></a></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
-                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg">contact@wiip.fr
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
                             </a>
                             <br>
-                            <img alt="Téléphone" src="img/phone.svg">(+33) 6 46 40 75 66
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
                             <br>
-                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg">8 rue du bocage, 62910 SERQUES (France)
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
                             </a></address></div></div></div>
             <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
         <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
 <script>
 (function() {
     if (window.location.pathname === '/' || window.location.pathname === '') {
