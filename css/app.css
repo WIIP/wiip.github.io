@@ -226,3 +226,28 @@ table th {
 .language-switcher .separator {
     color: #666;
 }
+
+/* Réduction de la taille des titres pour une meilleure lisibilité */
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 0.9rem;
+}
