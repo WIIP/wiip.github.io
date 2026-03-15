@@ -6,10 +6,28 @@
     <loc>https://wiip.fr/en/About</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/developpement-aps</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/aps-development</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/developpement-autocad</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/autocad-development</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/developpement-fao</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/cam-development</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr</loc>
@@ -19,6 +37,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/developpement-inventor</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/inventor-development</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/questions-reponses</loc>
@@ -33,6 +57,12 @@
     <loc>https://wiip.fr/en/Realizations</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/developpement-revit</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/revit-development</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags</loc>
   </url>
   <url>
@@ -43,6 +73,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/TermsOfUse</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/developpement-vault</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/vault-development</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/0x80004005</loc>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>D&#xE9;veloppement Inventor sur mesure - WIIP</title><meta name="description" content="D&#xE9;veloppement de plugins Inventor sur mesure en C#/.NET, iLogic et VBA. Automatisation, int&#xE9;gration ERP et compl&#xE9;ments pour Autodesk Inventor." />
+    <meta property="og:title" content="D&#xE9;veloppement Inventor sur mesure - WIIP" />
+    <meta property="og:description" content="D&#xE9;veloppement de plugins Inventor sur mesure en C#/.NET, iLogic et VBA. Automatisation, int&#xE9;gration ERP et compl&#xE9;ments pour Autodesk Inventor." />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wiip.fr/fr/developpement-inventor" />
+    <meta property="og:site_name" content="WIIP"></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/developpement-inventor" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/developpement-inventor" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+
+
+<script type="application/ld&#x2B;json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "D\u00E9veloppement Inventor sur mesure",
+    "description": "D\u00E9veloppement de plugins Inventor sur mesure en C#/.NET, iLogic et VBA. Automatisation, int\u00E9gration ERP et compl\u00E9ments pour Autodesk Inventor.",
+    "provider": {
+        "@type": "Organization",
+        "name": "WIIP",
+        "url": "https://wiip.fr"
+    },
+    "serviceType": "Custom Inventor Development",
+    "areaServed": "Worldwide"
+}
+</script>
+
+<div class="row mt-4 justify-content-center"><div class="col"><h1 id="developpement-inventor-sur-mesure">Développement Inventor sur mesure</h1>
+<p><img src="/img/wiip.png" alt="WIIP" /></p>
+<p>Depuis 2008, j'accompagne les bureaux d'études et les industriels dans le développement de <strong>compléments Inventor sur mesure</strong>. Mon objectif : automatiser vos tâches de conception répétitives, fiabiliser vos processus, améliorer le confort de vos utilisateurs et réduire le risque d'erreurs.</p>
+<p>Inventor est un outil puissant pour la conception mécanique 3D, mais sa richesse fonctionnelle peut être décuplée grâce à des développements personnalisés qui s'intègrent directement dans votre flux de travail.</p>
+<hr />
+<h2 id="les-technologies">Les technologies</h2>
+<h3 id="c.net-api-inventor">C# / .NET (API Inventor)</h3>
+<p>C'est <strong>la technologie principale</strong> pour développer des plugins Inventor. L'API .NET d'Inventor est très complète : accès au modèle 3D, aux assemblages, aux dessins, aux paramètres, aux contraintes... Elle permet de créer des commandes personnalisées, des interfaces utilisateur riches et des automatismes avancés.</p>
+<p>C'est mon langage principal. Je l'utilise pour la majorité de mes projets Inventor.</p>
+<h3 id="ilogic">iLogic</h3>
+<p>iLogic est le moteur de règles intégré à Inventor. Il permet d'écrire des scripts en VB.NET directement dans le document Inventor pour automatiser des comportements : configuration de pièces paramétriques, gestion de variantes, mise à jour automatique de propriétés...</p>
+<p>iLogic est particulièrement adapté aux cas où l'automatisme doit voyager avec le document. Je peux développer des règles iLogic complexes ou les combiner avec des plugins .NET pour des solutions hybrides.</p>
+<h3 id="vba">VBA</h3>
+<p>Inventor intègre un éditeur VBA qui permet de créer des macros rapidement. Comme pour AutoCAD, VBA a l'avantage d'être un langage familier pour les utilisateurs de MS Office ou SolidWorks. Il convient pour des automatismes simples ou pour prototyper une solution avant un développement .NET plus abouti.</p>
+<h3 id="apprentice-server">Apprentice Server</h3>
+<p>Apprentice est une bibliothèque fournie par Autodesk qui permet de <strong>lire et modifier des fichiers Inventor sans Inventor</strong>. C'est l'équivalent de RealDWG pour le monde Inventor. Idéal pour les applications serveur, les traitements par lots ou les outils de vérification.</p>
+<hr />
+<h2 id="ce-que-je-peux-automatiser">Ce que je peux automatiser</h2>
+<p>Voici un aperçu de projets réalisés pour mes clients :</p>
+<ul>
+<li><strong>Tracé d'esquisses complexes</strong> — Génération automatique de profils paramétriques à partir de spécifications techniques</li>
+<li><strong>Connexion avec un ERP</strong> — Intégration bidirectionnelle avec des systèmes comme <a href="https://www.clipper-erp.com/fr">Clipper</a>, <a href="https://www.sage.com/fr-fr/cp/sage-x3/">Sage X3</a> : synchronisation des nomenclatures, des propriétés et des statuts</li>
+<li><strong>Collecte de cotes et tolérances</strong> — Extraction automatique des GD&amp;T depuis les dessins pour générer des procès-verbaux de contrôle qualité</li>
+<li><strong>Génération de fiches de débits</strong> — Création automatique de documents de découpe pour profilés de menuiseries</li>
+</ul>
+<hr />
+<h2 id="articles-et-ressources">Articles et ressources</h2>
+<h3>Articles de blog</h3>
+            <ul><li><a href="/fr/blog/ilogic-rules-export-import">Exporter et importer des r&#xE8;gles iLogic</a> — Placer ses r&#xE8;gles iLogic sous contr&#xF4;le de version et les &#xE9;diter dans un &#xE9;diteur moderne gr&#xE2;ce &#xE0; deux scripts d&#x27;export et d&#x27;import.</li><li><a href="/fr/blog/0x80004005">0x80004005 la r&#xE9;ponse &#xE0; presque tout</a> — Ce qui est aga&#xE7;ant avec les erreurs dans Autodesk Inventor</li></ul><h3>Questions / R&#xE9;ponses</h3>
+            <ul><li><a href="/fr/questions-reponses/profile-standards">O&#xF9; est ce que je trouve les profil&#xE9;s standards comme les HEA, les UPN dans le centre de contenu d&#x27;Inventor ?</a> — O&#xF9; est ce que je trouve les profil&#xE9;s standards comme les HEA, les UPN dans le centre de contenu d&#x27;Inventor ?</li><li><a href="/fr/questions-reponses/standardization-organizations">Quels sont les diff&#xE9;rents organismes de standardisation qu&#x27;on trouve dans le centre de contenu d&#x27;Inventor ?</a> — Voici une liste des principaux organismes de standardisation avec leur sigle, nom complet et pays ou r&#xE9;gion.</li><li><a href="/fr/questions-reponses/ilogic">C&#x27;est quoi iLogic ?</a> — iLogic est un syst&#xE8;me de r&#xE8;gles int&#xE9;gr&#xE9; &#xE0; Autodesk Inventor qui permet d&#x27;automatiser la conception et de cr&#xE9;er des mod&#xE8;les 3D intelligents et param&#xE9;triques.</li><li><a href="/fr/questions-reponses/autodesk-platform-services">C&#x27;est quoi APS ?</a> — Ca sert &#xE0; quoi Autodesk Platform Services ?</li></ul><hr>
+
+        <p>Vous avez un projet de développement Inventor ? <a href="mailto:maxence.delannoy@wiip.fr">Contactez-moi</a> pour un devis gratuit, ou appelez-moi au (+33) 6 46 40 75 66.</p></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>D&#xE9;veloppement Revit sur mesure - WIIP</title><meta name="description" content="D&#xE9;veloppement de plugins Revit sur mesure en C#/.NET, Dynamo et pyRevit. Automatisation BIM, extraction de donn&#xE9;es et compl&#xE9;ments pour Autodesk Revit." />
+    <meta property="og:title" content="D&#xE9;veloppement Revit sur mesure - WIIP" />
+    <meta property="og:description" content="D&#xE9;veloppement de plugins Revit sur mesure en C#/.NET, Dynamo et pyRevit. Automatisation BIM, extraction de donn&#xE9;es et compl&#xE9;ments pour Autodesk Revit." />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wiip.fr/fr/developpement-revit" />
+    <meta property="og:site_name" content="WIIP"></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/developpement-revit" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/developpement-revit" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+
+
+<script type="application/ld&#x2B;json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "D\u00E9veloppement Revit sur mesure",
+    "description": "D\u00E9veloppement de plugins Revit sur mesure en C#/.NET, Dynamo et pyRevit. Automatisation BIM, extraction de donn\u00E9es et compl\u00E9ments pour Autodesk Revit.",
+    "provider": {
+        "@type": "Organization",
+        "name": "WIIP",
+        "url": "https://wiip.fr"
+    },
+    "serviceType": "Custom Revit Development",
+    "areaServed": "Worldwide"
+}
+</script>
+
+<div class="row mt-4 justify-content-center"><div class="col"><h1 id="developpement-revit-sur-mesure">Développement Revit sur mesure</h1>
+<p><img src="/img/wiip.png" alt="WIIP" /></p>
+<p>J'accompagne les bureaux d'études et les entreprises du BTP dans le développement de <strong>compléments Revit sur mesure</strong>. Mon objectif : automatiser les tâches répétitives de votre maquette BIM, fiabiliser vos processus, améliorer le confort de vos utilisateurs et réduire le risque d'erreurs.</p>
+<p>Revit est au cœur du flux de travail BIM. Des développements sur mesure permettent d'en tirer le maximum : extraction de données, génération automatique de documents, vérifications de conformité...</p>
+<hr />
+<h2 id="les-technologies">Les technologies</h2>
+<h3 id="c.net-api-revit">C# / .NET (API Revit)</h3>
+<p>C'est <strong>la seule technologie officielle</strong> pour développer des plugins Revit. L'API .NET de Revit permet d'accéder à l'ensemble de la maquette : éléments, familles, paramètres, vues, feuilles... On peut créer des commandes personnalisées, des interfaces utilisateur, des exportateurs et des outils de vérification.</p>
+<p>Contrairement à AutoCAD ou Inventor, Revit ne propose pas d'alternative (pas de LISP, pas de VBA). Le développement .NET est donc le seul chemin pour personnaliser le logiciel en profondeur.</p>
+<h3 id="dynamo">Dynamo</h3>
+<p>Dynamo est l'outil de programmation visuelle intégré à Revit. Il permet aux utilisateurs non-développeurs de créer des automatismes en connectant des blocs visuellement. Dynamo peut être étendu avec des nœuds personnalisés développés en C#.</p>
+<p>Je peux développer des scripts Dynamo pour des besoins ponctuels, ou des nœuds personnalisés quand les blocs standard ne suffisent pas.</p>
+<hr />
+<h2 id="ce-que-je-peux-automatiser">Ce que je peux automatiser</h2>
+<p>Voici un aperçu de projets réalisés pour mes clients :</p>
+<ul>
+<li><strong>Extraction de données de la maquette</strong> — Surfaces nettes, longueurs de plinthes, métrés... Les données peuvent être écrites dans un fichier (XML, classeur Excel) ou envoyées à un service Web</li>
+<li><strong>Génération de feuilles en lot</strong> — Création automatique de feuilles avec placement des vues selon des gabarits prédéfinis</li>
+<li><strong>Numérotation d'éléments</strong> — Attribution automatique de numéros selon des règles métier (portes, fenêtres, locaux...)</li>
+<li><strong>Cotation automatisée</strong> — Placement automatique de cotes sur certains types d'éléments selon des règles prédéfinies</li>
+</ul>
+<hr />
+<h2 id="articles-et-ressources">Articles et ressources</h2>
+<h3>Questions / R&#xE9;ponses</h3>
+            <ul><li><a href="/fr/questions-reponses/autodesk-platform-services">C&#x27;est quoi APS ?</a> — Ca sert &#xE0; quoi Autodesk Platform Services ?</li></ul><hr>
+
+        <p>Vous avez un projet de développement Revit ? <a href="mailto:maxence.delannoy@wiip.fr">Contactez-moi</a> pour un devis gratuit, ou appelez-moi au (+33) 6 46 40 75 66.</p></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
