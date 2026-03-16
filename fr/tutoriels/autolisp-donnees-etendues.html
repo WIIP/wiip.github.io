@@ -6,22 +6,22 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Donn&#xE9;es &#xE9;tendues et dictionnaires - AutoLISP : le guide complet - WIIP</title><meta name="description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs handles." />
+    <title>Donn&#xE9;es &#xE9;tendues et dictionnaires - AutoLISP : le guide complet - WIIP</title><meta name="description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs maintiens." />
         <meta property="og:title" content="Donn&#xE9;es &#xE9;tendues et dictionnaires - AutoLISP : le guide complet" />
-        <meta property="og:description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs handles." />
+        <meta property="og:description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs maintiens." />
         <meta property="og:type" content="article">
-        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues-reactors" />
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues" />
         <meta property="og:site_name" content="WIIP">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="Donn&#xE9;es &#xE9;tendues et dictionnaires - AutoLISP : le guide complet" />
-        <meta name="twitter:description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs handles." /></head>
+        <meta name="twitter:description" content="Apprenez &#xE0; attacher des donn&#xE9;es personnalis&#xE9;es aux entit&#xE9;s avec les xdata, &#xE0; stocker des informations au niveau du dessin avec les dictionnaires d&#x27;extension, et &#xE0; lier des entit&#xE9;s entre elles par leurs maintiens." /></head>
 
 <body>
 
 <div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
-                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="active">FR</a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-donnees-etendues" class="active">FR</a>
     <span class="separator">|</span>
-    <a href="/en/tutoriels/autolisp-donnees-etendues-reactors" class="">EN</a></div></div>
+    <a href="/en/tutoriels/autolisp-donnees-etendues" class="">EN</a></div></div>
                     <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
@@ -44,8 +44,8 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Donn\u00E9es \u00E9tendues et dictionnaires",
-        "description": "Apprenez \u00E0 attacher des donn\u00E9es personnalis\u00E9es aux entit\u00E9s avec les xdata, \u00E0 stocker des informations au niveau du dessin avec les dictionnaires d\u0027extension, et \u00E0 lier des entit\u00E9s entre elles par leurs handles.",
-        "url": "https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues-reactors",
+        "description": "Apprenez \u00E0 attacher des donn\u00E9es personnalis\u00E9es aux entit\u00E9s avec les xdata, \u00E0 stocker des informations au niveau du dessin avec les dictionnaires d\u0027extension, et \u00E0 lier des entit\u00E9s entre elles par leurs maintiens.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues",
         "inLanguage": "fr",
         "isPartOf": {
             "@type": "Course",
@@ -59,7 +59,7 @@
     }
     </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
                 <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
-                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none fw-bold">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues" class="text-decoration-none fw-bold">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
         <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 14 / 16</small>
                     <h1>Donn&#xE9;es &#xE9;tendues et dictionnaires</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
                 <div class="mt-3"><p>Jusqu'ici, nous avons créé, modifié et lu des entités avec leurs propriétés géométriques standard : points, rayons, calques, couleurs. Mais dans un programme réel, vous aurez souvent besoin d'<strong>attacher vos propres informations</strong> à une entité — un numéro de pièce, une référence fournisseur, un lien vers une autre entité. AutoLISP offre plusieurs mécanismes pour cela, du plus simple au plus puissant.</p>
@@ -96,7 +96,7 @@
 </tr>
 <tr>
 <td>1005</td>
-<td>Référence de handle (lien vers une autre entité)</td>
+<td>Référence de maintien (lien vers une autre entité)</td>
 <td><code>(1005 . &quot;1A3F&quot;)</code></td>
 </tr>
 <tr>
@@ -348,7 +348,7 @@
   (lire-configuration)
 )
 </code></pre>
-<p>L'avantage décisif des dictionnaires est que les données sont <strong>persistantes</strong> : elles sont sauvegardées avec le fichier DWG et survivent aux sessions d'AutoCAD.</p>
+<p>Comme les xdata, les dictionnaires sont <strong>persistants</strong> : ils sont sauvegardés dans le fichier DWG et survivent aux sessions d'AutoCAD. Leur avantage décisif est qu'ils ne sont <strong>pas limités en taille</strong> (les xdata sont plafonnées à 16 Ko par application et par entité) et qu'ils permettent de stocker des données <strong>au niveau du dessin</strong>, indépendamment de toute entité.</p>
 <h3 id="xdata-ou-dictionnaire-comment-choisir">Xdata ou dictionnaire : comment choisir ?</h3>
 <table>
 <thead>
@@ -382,14 +382,14 @@
 </tbody>
 </table>
 <p>En règle générale : si la donnée est liée à une entité spécifique, utilisez les xdata. Si elle concerne le dessin dans son ensemble, utilisez un dictionnaire.</p>
-<h2 id="lier-des-entites-entre-elles-par-les-handles">Lier des entités entre elles par les handles</h2>
-<p>Chaque entité du dessin possède un <strong>handle</strong> — un identifiant unique sous forme de chaîne hexadécimale. Vous le trouvez dans le code DXF <code>5</code> :</p>
+<h2 id="lier-des-entites-entre-elles-par-les-maintiens">Lier des entités entre elles par les maintiens</h2>
+<p>Chaque entité du dessin possède un <strong>maintien</strong> (<em>handle</em> en anglais) — un identifiant unique sous forme de chaîne hexadécimale. Vous le trouvez dans le code DXF <code>5</code> :</p>
 <pre><code class="language-lisp">(setq donnees (entget (entlast)))
 (cdr (assoc 5 donnees))  ; → &quot;1A3F&quot; (par exemple)
 </code></pre>
-<p>Ce handle reste <strong>stable</strong> : il ne change pas quand vous sauvegardez et rouvrez le dessin. C'est ce qui le rend idéal pour créer des <strong>liens entre entités</strong>.</p>
+<p>Ce maintien reste <strong>stable</strong> : il ne change pas quand vous sauvegardez et rouvrez le dessin. C'est ce qui le rend idéal pour créer des <strong>liens entre entités</strong>.</p>
 <h3 id="creer-un-lien-entre-deux-entites">Créer un lien entre deux entités</h3>
-<p>Imaginons que vous voulez lier un texte d'annotation à la ligne qu'il décrit. L'idée est de stocker le handle de la ligne dans les xdata du texte :</p>
+<p>Imaginons que vous voulez lier un texte d'annotation à la ligne qu'il décrit. L'idée est de stocker le maintien de la ligne dans les xdata du texte :</p>
 <pre><code class="language-lisp">(defun c:lier-annotation (/ selection-ligne ligne donnees-ligne handle-ligne
                             selection-texte texte donnees-texte)
   (regapp &quot;WIIP_LIEN&quot;)
@@ -411,13 +411,13 @@
   (setq texte (car selection-texte))
   (setq donnees-texte (entget texte))
 
-  ;; Attacher le handle de la ligne au texte via xdata
+  ;; Attacher le maintien de la ligne au texte via xdata
   (setq donnees-texte
     (append donnees-texte
       (list
         (list -3
           (list &quot;WIIP_LIEN&quot;
-            (cons 1005 handle-ligne)    ; Code 1005 = référence de handle
+            (cons 1005 handle-ligne)    ; Code 1005 = référence de maintien
           )
         )
       )
@@ -425,13 +425,13 @@
   )
   (entmod donnees-texte)
 
-  (princ (strcat &quot;\nLien créé vers le handle &quot; handle-ligne))
+  (princ (strcat &quot;\nLien créé vers le maintien &quot; handle-ligne))
   (princ)
 )
 </code></pre>
-<p>Le code xdata <code>1005</code> est <strong>spécialement conçu</strong> pour stocker des références de handles. Ce n'est pas anodin — AutoCAD le traite différemment d'une simple chaîne (code <code>1000</code>).</p>
+<p>Le code xdata <code>1005</code> est <strong>spécialement conçu</strong> pour stocker des références de maintiens. Ce n'est pas anodin — AutoCAD le traite différemment d'une simple chaîne (code <code>1000</code>).</p>
 <h3 id="retrouver-lentite-liee">Retrouver l'entité liée</h3>
-<p>Pour retrouver une entité à partir de son handle, utilisez <code>handent</code> :</p>
+<p>Pour retrouver une entité à partir de son maintien, utilisez <code>handent</code> :</p>
 <pre><code class="language-lisp">(defun c:suivre-lien (/ selection entite donnees xdata handle-cible cible)
   (setq selection (entsel &quot;\nSélectionnez l'annotation : &quot;))
   (if (null selection)
@@ -461,14 +461,14 @@
   (princ)
 )
 </code></pre>
-<h3 id="wblock-et-la-traduction-des-handles">WBLOCK et la traduction des handles</h3>
-<p>C'est un point crucial à comprendre. Quand vous utilisez <strong>WBLOCK</strong> (écrire un bloc dans un fichier externe), AutoCAD <strong>traduit les handles</strong> : les entités reçoivent de nouveaux handles dans le fichier de destination. Et grâce au code <code>1005</code>, AutoCAD sait que la valeur stockée est un handle et <strong>met à jour la référence automatiquement</strong>. C'est pour cela qu'il ne faut pas utiliser le code <code>1000</code> (chaîne ordinaire) pour stocker un handle — AutoCAD ne saurait pas qu'il doit le traduire.</p>
-<p>En revanche, lors d'une <strong>copie interne</strong> (par exemple avec <code>_COPY</code> ou <code>(command &quot;_COPY&quot; ...)</code>), il n'y a <strong>pas de traduction de handle</strong>. La copie conserve les mêmes valeurs xdata que l'original, y compris les références de handles. Les deux entités pointeront donc vers la même cible. C'est un comportement à garder en tête : après une copie, il faudra peut-être mettre à jour les liens manuellement.</p>
+<h3 id="wblock-et-la-traduction-des-maintiens">WBLOCK et la traduction des maintiens</h3>
+<p>C'est un point crucial à comprendre. Quand vous utilisez <strong>WBLOCK</strong> (écrire un bloc dans un fichier externe), AutoCAD <strong>traduit les maintiens</strong> : les entités reçoivent de nouveaux maintiens dans le fichier de destination. Et grâce au code <code>1005</code>, AutoCAD sait que la valeur stockée est un maintien et <strong>met à jour la référence automatiquement</strong>. C'est pour cela qu'il ne faut pas utiliser le code <code>1000</code> (chaîne ordinaire) pour stocker un maintien — AutoCAD ne saurait pas qu'il doit le traduire.</p>
+<p>En revanche, lors d'une <strong>copie interne</strong> (par exemple avec <code>_COPY</code> ou <code>(command &quot;_COPY&quot; ...)</code>), il n'y a <strong>pas de traduction de maintien</strong>. La copie conserve les mêmes valeurs xdata que l'original, y compris les références de maintiens. Les deux entités pointeront donc vers la même cible. C'est un comportement à garder en tête : après une copie, il faudra peut-être mettre à jour les liens manuellement.</p>
 <table>
 <thead>
 <tr>
 <th>Opération</th>
-<th>Traduction des handles (code 1005)</th>
+<th>Traduction des maintiens (code 1005)</th>
 </tr>
 </thead>
 <tbody>
@@ -526,14 +526,14 @@
 <td>Attache un xrecord au dictionnaire</td>
 </tr>
 <tr>
-<td>Handle d'une entité</td>
+<td>Maintien d'une entité</td>
 <td><code>(cdr (assoc 5 donnees))</code></td>
 <td>Identifiant unique et stable</td>
 </tr>
 <tr>
-<td>Entité depuis un handle</td>
+<td>Entité depuis un maintien</td>
 <td><code>(handent &quot;1A3F&quot;)</code></td>
-<td>Retrouve une entité par son handle</td>
+<td>Retrouve une entité par son maintien</td>
 </tr>
 </tbody>
 </table>
