@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Premiers pas &#x2014; La ligne de commande - AutoLISP : le guide complet - WIIP</title><meta name="description" content="Apprenez &#xE0; ex&#xE9;cuter vos premi&#xE8;res expressions AutoLISP directement dans la ligne de commande d&#x27;AutoCAD. D&#xE9;couvrez la fonction alert et testez vos premiers calculs." />
+        <meta property="og:title" content="Premiers pas &#x2014; La ligne de commande - AutoLISP : le guide complet" />
+        <meta property="og:description" content="Apprenez &#xE0; ex&#xE9;cuter vos premi&#xE8;res expressions AutoLISP directement dans la ligne de commande d&#x27;AutoCAD. D&#xE9;couvrez la fonction alert et testez vos premiers calculs." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-premiers-pas" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Premiers pas &#x2014; La ligne de commande - AutoLISP : le guide complet" />
+        <meta name="twitter:description" content="Apprenez &#xE0; ex&#xE9;cuter vos premi&#xE8;res expressions AutoLISP directement dans la ligne de commande d&#x27;AutoCAD. D&#xE9;couvrez la fonction alert et testez vos premiers calculs." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-premiers-pas" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutoriels/autolisp-premiers-pas" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Premiers pas \u2014 La ligne de commande",
+        "description": "Apprenez \u00E0 ex\u00E9cuter vos premi\u00E8res expressions AutoLISP directement dans la ligne de commande d\u0027AutoCAD. D\u00E9couvrez la fonction alert et testez vos premiers calculs.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-premiers-pas",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none fw-bold">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 2 / 16</small>
+                    <h1>Premiers pas &#x2014; La ligne de commande</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>L'un des grands avantages d'AutoLISP, c'est qu'il est <strong>directement accessible</strong> depuis la ligne de commande d'AutoCAD. Pas besoin d'installer quoi que ce soit, pas besoin de compiler : vous tapez une expression, vous appuyez sur Entrée, et AutoCAD l'exécute immédiatement. C'est le moyen le plus rapide de découvrir le langage.</p>
+<h2 id="la-ligne-de-commande-dautocad">La ligne de commande d'AutoCAD</h2>
+<p>La ligne de commande est cette zone de texte située en bas de la fenêtre d'AutoCAD. C'est là que vous tapez habituellement les noms de commandes comme <code>LIGNE</code>, <code>CERCLE</code> ou <code>COPIER</code>. C'est aussi là que vous allez écrire vos expressions AutoLISP.</p>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-ligne-de-commande-vide.png" alt="Ligne de commande AutoCAD vide" /></p>
+<p><strong>Comment AutoCAD reconnaît-il une expression AutoLISP ?</strong> C'est simple : toute saisie qui commence par une <strong>parenthèse ouvrante</strong> <code>(</code> est interprétée comme du code AutoLISP, et non comme une commande AutoCAD classique.</p>
+<h2 id="votre-premiere-expression-alert">Votre première expression : <code>(alert)</code></h2>
+<p>Commençons par quelque chose de très simple et visuel. La fonction <code>alert</code> affiche une boîte de dialogue avec un message. Tapez ceci dans la ligne de commande :</p>
+<pre><code class="language-lisp">(alert &quot;Bonjour AutoLISP !&quot;)
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-alert.png" alt="Saisie de (alert &quot;Bonjour AutoLISP !&quot;) dans la ligne de commande" /></p>
+<p>Appuyez sur <strong>Entrée</strong>. Une boîte de dialogue apparaît avec votre message :</p>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-alert-dialogue.png" alt="La boîte de dialogue alert affichant &quot;Bonjour AutoLISP !&quot;" /></p>
+<p>Félicitations, vous venez d'exécuter votre première expression AutoLISP ! Décortiquons ce qui s'est passé :</p>
+<ul>
+<li>Les <strong>parenthèses</strong> <code>(</code> et <code>)</code> délimitent l'expression</li>
+<li><code>alert</code> est le nom de la <strong>fonction</strong> à appeler</li>
+<li><code>&quot;Bonjour AutoLISP !&quot;</code> est l'<strong>argument</strong> passé à cette fonction (une chaîne de caractères, entourée de guillemets)</li>
+</ul>
+<p>La fonction <code>alert</code> est idéale pour débuter car elle produit un <strong>résultat visible immédiatement</strong>. Vous saurez tout de suite si votre code fonctionne.</p>
+<h2 id="tester-des-calculs-simples">Tester des calculs simples</h2>
+<p>AutoLISP peut aussi servir de calculatrice. Essayez ces expressions une par une dans la ligne de commande :</p>
+<pre><code class="language-lisp">(+ 2 3)
+</code></pre>
+<p>AutoCAD affiche le résultat directement dans la ligne de commande :</p>
+<pre><code>5
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-plus.png" alt="Résultat de (+ 2 3) dans la ligne de commande" /></p>
+<p>Essayez d'autres opérations :</p>
+<pre><code class="language-lisp">(- 10 4)
+</code></pre>
+<p>Résultat : <code>6</code></p>
+<pre><code class="language-lisp">(* 3 7)
+</code></pre>
+<p>Résultat : <code>21</code></p>
+<pre><code class="language-lisp">(/ 20 4)
+</code></pre>
+<p>Résultat : <code>5</code></p>
+<p>Vous remarquez que la syntaxe est différente de ce que vous connaissez : on n'écrit pas <code>2 + 3</code> mais <code>(+ 2 3)</code>. Le <strong>signe d'opération vient en premier</strong>, avant les nombres. C'est la <strong>notation préfixée</strong>, caractéristique du LISP. Nous l'étudierons en détail dans le prochain chapitre.</p>
+<h2 id="la-valeur-de-retour">La valeur de retour</h2>
+<p>Chaque expression AutoLISP <strong>retourne une valeur</strong>. C'est un concept fondamental. Quand vous tapez <code>(+ 2 3)</code>, le résultat <code>5</code> n'est pas juste affiché — il est <em>retourné</em> par la fonction <code>+</code>.</p>
+<p>Même la fonction <code>alert</code> retourne une valeur. Après avoir fermé la boîte de dialogue, vous verrez apparaître <code>nil</code> dans la ligne de commande. <code>nil</code> est la valeur « rien » en AutoLISP — c'est ce que retournent les fonctions qui n'ont pas de résultat significatif.</p>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-nil.png" alt="Résultat de nil dans la ligne de commande après un alert" /></p>
+<h2 id="imbriquer-des-expressions">Imbriquer des expressions</h2>
+<p>Puisque chaque expression retourne une valeur, vous pouvez <strong>utiliser le résultat d'une expression comme argument d'une autre</strong>. Par exemple :</p>
+<pre><code class="language-lisp">(alert (itoa (+ 2 3)))
+</code></pre>
+<p>Cette expression fonctionne de l'intérieur vers l'extérieur :</p>
+<ol>
+<li><code>(+ 2 3)</code> calcule <code>5</code></li>
+<li><code>(itoa 5)</code> convertit le nombre <code>5</code> en la chaîne <code>&quot;5&quot;</code> (<em>itoa</em> signifie <em>integer to ASCII</em>)</li>
+<li><code>(alert &quot;5&quot;)</code> affiche <code>&quot;5&quot;</code> dans une boîte de dialogue</li>
+</ol>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-plus-alert.png" alt="La boîte de dialogue alert affichant &quot;5&quot;" /></p>
+<p>C'est la puissance de LISP : les expressions peuvent s'<strong>emboîter</strong> les unes dans les autres, comme des poupées russes. Chaque paire de parenthèses contient une expression complète.</p>
+<h2 id="les-erreurs">Les erreurs</h2>
+<p>N'ayez pas peur de faire des erreurs ! AutoLISP affiche des messages d'erreur explicites. Par exemple, si vous oubliez une parenthèse fermante :</p>
+<pre><code class="language-lisp">(+ 2 3
+</code></pre>
+<p>AutoCAD attend la suite et affiche un indicateur montrant qu'il manque des parenthèses. Vous pouvez soit compléter l'expression en tapant <code>)</code>, soit appuyer sur <strong>Échap</strong> pour annuler.</p>
+<p>Si vous essayez d'utiliser un nom de fonction qui n'existe pas :</p>
+<pre><code class="language-lisp">(bonjour)
+</code></pre>
+<p>Vous obtiendrez un message d'erreur comme :</p>
+<pre><code>; erreur: no function definition: BONJOUR
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-premiers-pas-erreur.png" alt="Message d'erreur AutoLISP dans la ligne de commande" /></p>
+<p>Ces messages sont vos alliés : ils vous indiquent précisément ce qui ne va pas. Prenez l'habitude de les lire attentivement.</p>
+<h2 id="afficher-du-texte-dans-la-ligne-de-commande">Afficher du texte dans la ligne de commande</h2>
+<p>La fonction <code>alert</code> affiche un message dans une boîte de dialogue, mais vous pouvez aussi écrire directement dans la ligne de commande avec <code>princ</code> :</p>
+<pre><code class="language-lisp">(princ &quot;Bonjour depuis la ligne de commande !&quot;)
+</code></pre>
+<p>Le texte s'affiche immédiatement dans la ligne de commande, sans boîte de dialogue. Vous verrez que le texte apparaît deux fois : une fois par l'effet de <code>princ</code>, et une fois comme valeur de retour de l'expression. Ne vous en préoccupez pas pour l'instant.</p>
+<p>Vous pouvez aussi utiliser <code>print</code> (avec un <code>t</code>) qui ajoute automatiquement un retour à la ligne :</p>
+<pre><code class="language-lisp">(print &quot;Bonjour avec retour à la ligne !&quot;)
+</code></pre>
+<h2 id="resume">Résumé</h2>
+<p>Voici ce que nous avons appris dans ce chapitre :</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exécuter une expression</td>
+<td><code>(alert &quot;Bonjour !&quot;)</code></td>
+</tr>
+<tr>
+<td>Calculer</td>
+<td><code>(+ 2 3)</code></td>
+</tr>
+<tr>
+<td>Imbriquer des expressions</td>
+<td><code>(alert (itoa (+ 2 3)))</code></td>
+</tr>
+<tr>
+<td>Afficher dans la ligne de commande</td>
+<td><code>(princ &quot;texte&quot;)</code></td>
+</tr>
+<tr>
+<td>Valeur de retour</td>
+<td>Chaque expression retourne une valeur</td>
+</tr>
+<tr>
+<td><code>nil</code></td>
+<td>La valeur « rien »</td>
+</tr>
+</tbody>
+</table>
+<p>Dans le prochain chapitre, nous allons explorer en détail la <strong>syntaxe d'AutoLISP</strong> : la notation préfixée, le rôle des parenthèses et comment lire du code LISP avec aisance.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>La syntaxe AutoLISP</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

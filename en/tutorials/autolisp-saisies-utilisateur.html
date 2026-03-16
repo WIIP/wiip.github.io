@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Interacting with the User - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to make your AutoLISP programs interactive using the get* functions: collecting points, distances, angles, numbers, and text entered by the user." />
+        <meta property="og:title" content="Interacting with the User - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to make your AutoLISP programs interactive using the get* functions: collecting points, distances, angles, numbers, and text entered by the user." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-saisies-utilisateur" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Interacting with the User - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to make your AutoLISP programs interactive using the get* functions: collecting points, distances, angles, numbers, and text entered by the user." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-saisies-utilisateur" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-saisies-utilisateur" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Interacting with the User",
+        "description": "Learn how to make your AutoLISP programs interactive using the get* functions: collecting points, distances, angles, numbers, and text entered by the user.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-saisies-utilisateur",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none fw-bold">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 9 / 16</small>
+                    <h1>Interacting with the User</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>So far, our programs have been working with values defined in advance in the code. But a truly useful program needs to <strong>interact with the user</strong>: asking where to place an object, what dimension to use, what name to assign. AutoLISP provides a family of functions dedicated to this purpose: the <code>get*</code> functions.</p>
+<h2 id="the-general-principle">The General Principle</h2>
+<p>All <code>get*</code> functions follow the same pattern:</p>
+<ol>
+<li>They display a <strong>prompt message</strong> in the command line</li>
+<li>They <strong>wait</strong> for the user to provide a value (click, keyboard input, etc.)</li>
+<li>They <strong>return</strong> the entered value in the appropriate type</li>
+</ol>
+<pre><code class="language-lisp">(setq point (getpoint &quot;\nClick a point: &quot;))
+(setq radius (getreal &quot;\nCircle radius: &quot;))
+</code></pre>
+<blockquote>
+<p><strong>Convention</strong>: always start your prompt message with <code>\n</code> so it appears on a new line in the command line. Without this <code>\n</code>, the message runs into the previous text and becomes hard to read.</p>
+</blockquote>
+<h2 id="collecting-points">Collecting Points</h2>
+<h3 id="getpoint-a-point-in-the-drawing"><code>getpoint</code> — a point in the drawing</h3>
+<p><code>getpoint</code> asks the user to click a point or enter coordinates. It returns a list of three real numbers <code>(X Y Z)</code>:</p>
+<pre><code class="language-lisp">(setq point (getpoint &quot;\nInsertion point: &quot;))
+;; The user clicks → (125.0 80.5 0.0)
+
+(car point)    ; → 125.0 (X coordinate)
+(cadr point)   ; → 80.5  (Y coordinate)
+(caddr point)  ; → 0.0   (Z coordinate)
+</code></pre>
+<p><code>getpoint</code> accepts an optional <strong>base point</strong>. When provided, AutoCAD draws a <strong>rubber-band line</strong> between this base point and the cursor, helping the user visualize the direction:</p>
+<pre><code class="language-lisp">(setq point1 (getpoint &quot;\nFirst point: &quot;))
+(setq point2 (getpoint point1 &quot;\nSecond point: &quot;))
+</code></pre>
+<h3 id="getcorner-a-rectangle-corner"><code>getcorner</code> — a rectangle corner</h3>
+<p><code>getcorner</code> is similar to <code>getpoint</code>, but it draws a <strong>rubber-band rectangle</strong> between the base point and the cursor. It is ideal for defining a rectangular area:</p>
+<pre><code class="language-lisp">(setq corner1 (getpoint &quot;\nFirst corner: &quot;))
+(setq corner2 (getcorner corner1 &quot;\nOpposite corner: &quot;))
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: unlike <code>getpoint</code>, the base point is <strong>mandatory</strong> for <code>getcorner</code>.</p>
+</blockquote>
+<h2 id="collecting-numeric-values">Collecting Numeric Values</h2>
+<h3 id="getint-an-integer"><code>getint</code> — an integer</h3>
+<pre><code class="language-lisp">(setq count (getint &quot;\nNumber of copies: &quot;))
+;; The user types 5 → 5
+</code></pre>
+<p><code>getint</code> only accepts integers. If the user types <code>3.5</code> or <code>abc</code>, AutoCAD asks them to try again.</p>
+<h3 id="getreal-a-real-number"><code>getreal</code> — a real number</h3>
+<pre><code class="language-lisp">(setq height (getreal &quot;\nText height: &quot;))
+;; The user types 2.5 → 2.5
+</code></pre>
+<h3 id="getdist-a-distance"><code>getdist</code> — a distance</h3>
+<p><code>getdist</code> is the most versatile function for obtaining a distance value. The user can either <strong>type a value</strong> or <strong>click two points</strong> in the drawing — AutoCAD then calculates the distance between them:</p>
+<pre><code class="language-lisp">(setq length (getdist &quot;\nLength: &quot;))
+;; The user types 50.0 → 50.0
+;; OR clicks two points → distance between them
+</code></pre>
+<p>With a base point, the user only needs to click a single point:</p>
+<pre><code class="language-lisp">(setq point1 (getpoint &quot;\nStart point: &quot;))
+(setq length (getdist point1 &quot;\nLength: &quot;))
+;; The user clicks a second point → distance is calculated
+</code></pre>
+<blockquote>
+<p><strong>Best practice</strong>: <code>getdist</code> always returns the value <strong>in the drawing's internal units</strong>, regardless of the display format (architectural, decimal, etc.). It is the recommended function for requesting dimensions, rather than <code>getreal</code>.</p>
+</blockquote>
+<h3 id="getangle-an-angle"><code>getangle</code> — an angle</h3>
+<p><code>getangle</code> prompts for an angle. The user can type a value or click two points to define the direction. The angle is <strong>always returned in radians</strong>, regardless of the <code>AUNITS</code> system variable:</p>
+<pre><code class="language-lisp">(setq angle (getangle &quot;\nRotation angle: &quot;))
+;; The user types 45 (degrees) → 0.785398 (radians)
+</code></pre>
+<p>With a base point:</p>
+<pre><code class="language-lisp">(setq base-point (getpoint &quot;\nBase point: &quot;))
+(setq angle (getangle base-point &quot;\nAngle: &quot;))
+</code></pre>
+<h3 id="getorient-an-absolute-angle"><code>getorient</code> — an absolute angle</h3>
+<p><code>getorient</code> works like <code>getangle</code>, but it ignores the <code>ANGBASE</code> (base angle) and <code>ANGDIR</code> (angle direction) system variables. The returned angle is always measured <strong>from east, in the counterclockwise direction</strong>. Use <code>getorient</code> when you need an absolute angle, independent of the user's configuration.</p>
+<pre><code class="language-lisp">(setq orientation (getorient &quot;\nOrientation: &quot;))
+</code></pre>
+<blockquote>
+<p><strong>When to choose <code>getangle</code> or <code>getorient</code>?</strong> Use <code>getangle</code> when you want a <strong>relative</strong> angle (a rotation, an angular offset). Use <code>getorient</code> when you want an <strong>absolute</strong> direction (the orientation of text, a block).</p>
+</blockquote>
+<h2 id="collecting-text">Collecting Text</h2>
+<h3 id="getstring-a-string-of-characters"><code>getstring</code> — a string of characters</h3>
+<pre><code class="language-lisp">(setq name (getstring &quot;\nLayer name: &quot;))
+;; The user types &quot;Construction&quot; → &quot;Construction&quot;
+</code></pre>
+<p>By default, <code>getstring</code> <strong>stops at the first space</strong>. If you need to accept spaces (for example, for a full name), pass <code>T</code> as the first argument:</p>
+<pre><code class="language-lisp">(setq description (getstring T &quot;\nDescription: &quot;))
+;; The user can type &quot;Load-bearing wall level 2&quot; → &quot;Load-bearing wall level 2&quot;
+</code></pre>
+<p>Without the <code>T</code>, typing &quot;Load-bearing wall&quot; would be truncated to &quot;Load-bearing&quot;.</p>
+<h2 id="collecting-a-keyword">Collecting a Keyword</h2>
+<h3 id="getkword-a-choice-among-options"><code>getkword</code> — a choice among options</h3>
+<p><code>getkword</code> lets you offer a <strong>menu of choices</strong> to the user. First define the options with <code>initget</code>, then call <code>getkword</code>:</p>
+<pre><code class="language-lisp">(initget &quot;Yes No&quot;)
+(setq answer (getkword &quot;\nConfirm? [Yes/No]: &quot;))
+;; The user types &quot;Yes&quot;, &quot;Y&quot;, &quot;No&quot; or &quot;N&quot;
+</code></pre>
+<p>Keywords are <strong>case-insensitive</strong>. AutoLISP also accepts <strong>abbreviations</strong>: the uppercase letters in the <code>initget</code> string define the minimum prefix. For example, <code>&quot;Yes No&quot;</code> accepts <code>Y</code> for <code>Yes</code> and <code>N</code> for <code>No</code>.</p>
+<p>To control abbreviations more precisely:</p>
+<pre><code class="language-lisp">(initget &quot;Red Green Blue&quot;)
+(setq color (getkword &quot;\nColor? [Red/Green/Blue]: &quot;))
+;; &quot;R&quot; → &quot;Red&quot;, &quot;G&quot; → &quot;Green&quot;, &quot;B&quot; → &quot;Blue&quot;
+</code></pre>
+<p>If the user types a word that does not match any keyword, AutoCAD displays an error message and asks for input again.</p>
+<h2 id="controlling-input-with-initget">Controlling Input with <code>initget</code></h2>
+<p>The <code>initget</code> function lets you <strong>restrict</strong> what the user can enter. It is called <strong>before</strong> the <code>get*</code> function and affects only the next call.</p>
+<h3 id="control-bits">Control Bits</h3>
+<p><code>initget</code> accepts an integer (or a combination of bits) that enables different restrictions:</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Value</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Disallows empty input (pressing Enter without typing anything)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>Disallows a value of zero</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>Disallows negative values</td>
+</tr>
+<tr>
+<td>8</td>
+<td>8</td>
+<td>Does not check drawing limits (even if LIMCHECK is enabled)</td>
+</tr>
+<tr>
+<td>32</td>
+<td>32</td>
+<td>Displays coordinates with a dash instead of a comma in 2D</td>
+</tr>
+<tr>
+<td>64</td>
+<td>64</td>
+<td>Ignores the Z coordinate (returns a 2D point)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>128</td>
+<td>Allows arbitrary input (returns the string as-is)</td>
+</tr>
+</tbody>
+</table>
+<p>Bits are combined by addition:</p>
+<pre><code class="language-lisp">;; Disallow empty (1) + zero (2) + negative (4) = 7
+(initget 7)
+(setq radius (getreal &quot;\nRadius (positive non-zero value): &quot;))
+</code></pre>
+<pre><code class="language-lisp">;; Disallow empty input
+(initget 1)
+(setq point (getpoint &quot;\nRequired point: &quot;))
+</code></pre>
+<h3 id="combining-bits-and-keywords">Combining Bits and Keywords</h3>
+<p><code>initget</code> can receive both bits and keywords:</p>
+<pre><code class="language-lisp">(initget 7 &quot;Diameter&quot;)
+(setq value (getreal &quot;\nRadius or [Diameter]: &quot;))
+</code></pre>
+<p>Here, the user can either type a positive non-zero number or type <code>D</code> (or <code>Diameter</code>) to choose the diameter option. When a keyword is entered, <code>getreal</code> returns the keyword as a string instead of a number — so you need to test the result.</p>
+<h2 id="handling-keywords-in-get-functions">Handling Keywords in <code>get*</code> Functions</h2>
+<p>When <code>initget</code> defines keywords, numeric <code>get*</code> functions (<code>getreal</code>, <code>getint</code>, <code>getdist</code>, etc.) and geometric ones (<code>getpoint</code>, <code>getcorner</code>, etc.) can return <strong>either</strong> their normal type <strong>or</strong> a string (the keyword). You must therefore test the type of the returned value:</p>
+<pre><code class="language-lisp">(defun c:my-circle (/ center value radius)
+  (setq center (getpoint &quot;\nCircle center: &quot;))
+
+  (initget 7 &quot;Diameter&quot;)
+  (setq value (getdist center &quot;\nRadius or [Diameter]: &quot;))
+
+  (if (= (type value) 'STR)
+    ;; The user typed &quot;Diameter&quot;
+    (progn
+      (initget 7)
+      (setq radius (/ (getdist center &quot;\nDiameter: &quot;) 2.0))
+    )
+    ;; The user entered a number → it's the radius
+    (setq radius value)
+  )
+
+  (command &quot;_CIRCLE&quot; center radius)
+  (princ)
+)
+</code></pre>
+<h2 id="default-values">Default Values</h2>
+<p>The <code>get*</code> functions do not natively handle default values, but it is easy to implement. The idea: do not disallow empty input (no bit 1 in <code>initget</code>), and test whether the result is <code>nil</code>:</p>
+<pre><code class="language-lisp">(defun c:custom-text (/ height)
+  ;; No bit 1 → empty input is allowed
+  (initget 6)  ; Disallow zero and negative, but allow empty
+  (setq height (getreal &quot;\nText height &lt;2.5&gt;: &quot;))
+
+  ;; If the user pressed Enter without typing anything
+  (if (not height)
+    (setq height 2.5)
+  )
+
+  (princ (strcat &quot;\nChosen height: &quot; (rtos height)))
+  (princ)
+)
+</code></pre>
+<blockquote>
+<p><strong>AutoCAD convention</strong>: the default value is displayed <strong>in angle brackets</strong> <code>&lt; &gt;</code> in the prompt message. This is a convention that all AutoCAD users are familiar with.</p>
+</blockquote>
+<h2 id="complete-example-drawing-an-interactive-rectangle">Complete Example: Drawing an Interactive Rectangle</h2>
+<p>Here is a program that puts into practice all the functions covered in this chapter:</p>
+<pre><code class="language-lisp">(defun c:interactive-rectangle (/ corner1 mode width height corner2 corner3 corner4)
+  ;; Ask for the first corner
+  (initget 1)
+  (setq corner1 (getpoint &quot;\nFirst corner: &quot;))
+
+  ;; Ask for the input mode
+  (initget &quot;Dimensions Corner&quot;)
+  (setq mode (getkword &quot;\nMode? [Dimensions/Opposite corner] &lt;Opposite corner&gt;: &quot;))
+
+  (if (not mode)
+    (setq mode &quot;Corner&quot;)
+  )
+
+  (if (= mode &quot;Dimensions&quot;)
+    ;; Dimensions mode: ask for width and height
+    (progn
+      (initget 7)
+      (setq width (getdist corner1 &quot;\nWidth: &quot;))
+      (initget 7)
+      (setq height (getdist corner1 &quot;\nHeight: &quot;))
+
+      (setq corner2 (list (+ (car corner1) width) (cadr corner1)))
+      (setq corner3 (list (+ (car corner1) width) (+ (cadr corner1) height)))
+      (setq corner4 (list (car corner1) (+ (cadr corner1) height)))
+    )
+    ;; Opposite corner mode: ask for the diagonal corner
+    (progn
+      (setq corner3 (getcorner corner1 &quot;\nOpposite corner: &quot;))
+      (setq corner2 (list (car corner3) (cadr corner1)))
+      (setq corner4 (list (car corner1) (cadr corner3)))
+    )
+  )
+
+  ;; Draw the rectangle
+  (command &quot;_LINE&quot; corner1 corner2 corner3 corner4 &quot;_Close&quot;)
+
+  (princ (strcat &quot;\nRectangle drawn — &quot;
+    &quot;Width: &quot; (rtos (distance corner1 corner2))
+    &quot;, Height: &quot; (rtos (distance corner2 corner3))
+  ))
+  (princ)
+)
+</code></pre>
+<p>This program illustrates several concepts:</p>
+<ul>
+<li><code>getpoint</code> for the first corner, with <code>initget 1</code> to make it mandatory</li>
+<li><code>getkword</code> to offer a mode choice, with a default value</li>
+<li><code>getdist</code> for the dimensions, with the base point for the rubber-band line</li>
+<li><code>getcorner</code> for the opposite corner, with the rubber-band rectangle</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getpoint</code></td>
+<td>List (X Y Z)</td>
+<td>Click or enter a point</td>
+</tr>
+<tr>
+<td><code>getcorner</code></td>
+<td>List (X Y Z)</td>
+<td>Click a corner (rubber-band rectangle)</td>
+</tr>
+<tr>
+<td><code>getint</code></td>
+<td>Integer</td>
+<td>Enter an integer</td>
+</tr>
+<tr>
+<td><code>getreal</code></td>
+<td>Real</td>
+<td>Enter a real number</td>
+</tr>
+<tr>
+<td><code>getdist</code></td>
+<td>Real</td>
+<td>Enter or click a distance</td>
+</tr>
+<tr>
+<td><code>getangle</code></td>
+<td>Real (radians)</td>
+<td>Enter or click a relative angle</td>
+</tr>
+<tr>
+<td><code>getorient</code></td>
+<td>Real (radians)</td>
+<td>Enter or click an absolute angle</td>
+</tr>
+<tr>
+<td><code>getstring</code></td>
+<td>String</td>
+<td>Enter text</td>
+</tr>
+<tr>
+<td><code>getkword</code></td>
+<td>String</td>
+<td>Choose among keywords</td>
+</tr>
+<tr>
+<td><code>initget</code></td>
+<td>nil</td>
+<td>Configure the next <code>get*</code> function</td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will use these inputs to <strong>interact with the AutoCAD drawing</strong>: creating lines, circles, and modifying existing entities.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Lists</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Interacting with the Drawing</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

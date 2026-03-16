@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Defining Functions - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to create your own functions and AutoCAD commands with defun. Discover arguments, local variables, and the c: function for custom commands." />
+        <meta property="og:title" content="Defining Functions - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to create your own functions and AutoCAD commands with defun. Discover arguments, local variables, and the c: function for custom commands." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-fonctions" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Defining Functions - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to create your own functions and AutoCAD commands with defun. Discover arguments, local variables, and the c: function for custom commands." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-fonctions" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-fonctions" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Defining Functions",
+        "description": "Learn how to create your own functions and AutoCAD commands with defun. Discover arguments, local variables, and the c: function for custom commands.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-fonctions",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none fw-bold">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 6 / 16</small>
+                    <h1>Defining Functions</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Up until now, we have been typing expressions directly into the command line. This is useful for testing, but to write real programs, you need to be able to <strong>group instructions together</strong> and <strong>reuse them</strong>. That is exactly what functions allow you to do.</p>
+<h2 id="creating-a-function-with-defun">Creating a function with <code>defun</code></h2>
+<p>The <code>defun</code> function (<em>define function</em>) creates a new function:</p>
+<pre><code class="language-lisp">(defun circle-area (radius)
+  (* pi (expt radius 2))
+)
+</code></pre>
+<p>Let's break down this definition:</p>
+<ul>
+<li><code>defun</code>: the keyword for defining a function</li>
+<li><code>circle-area</code>: the name of the function</li>
+<li><code>(radius)</code>: the list of <strong>arguments</strong> (here, just one)</li>
+<li><code>(* pi (expt radius 2))</code>: the <strong>body</strong> of the function</li>
+</ul>
+<p>To use this function:</p>
+<pre><code class="language-lisp">(circle-area 5)    ; → 78.5398
+(circle-area 10)   ; → 314.159
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-fonctions-aire-cercle.png" alt="Defining and calling the circle-area function" /></p>
+<h2 id="multiple-arguments">Multiple arguments</h2>
+<p>A function can accept as many arguments as needed:</p>
+<pre><code class="language-lisp">(defun box-volume (length width height)
+  (* length width height)
+)
+
+(box-volume 10 5 3)  ; → 150
+</code></pre>
+<h2 id="the-return-value">The return value</h2>
+<p>In AutoLISP, a function returns <strong>the value of its last expression</strong>. There is no <code>return</code> keyword:</p>
+<pre><code class="language-lisp">(defun double (number)
+  (* number 2)
+)
+
+(double 7)  ; → 14
+</code></pre>
+<p>If your function contains multiple expressions, the last one determines the return value:</p>
+<pre><code class="language-lisp">(defun greet (name)
+  (princ (strcat &quot;Hello &quot; name &quot;!&quot;))
+  (terpri)   ; New line
+  nil        ; Return nil to avoid unwanted echo
+)
+</code></pre>
+<h2 id="local-variables">Local variables</h2>
+<p>By default, variables created with <code>setq</code> inside a function are <strong>global</strong>: they remain accessible after the function has finished executing. This can cause conflicts. To avoid this, declare your variables as <strong>local</strong> by listing them after a <code>/</code> in the argument list:</p>
+<pre><code class="language-lisp">(defun rectangle-area (length width / area)
+  (setq area (* length width))
+  area
+)
+</code></pre>
+<p>Here:</p>
+<ul>
+<li><code>length</code> and <code>width</code> are <strong>arguments</strong></li>
+<li><code>area</code> (after the <code>/</code>) is a <strong>local variable</strong>: it only exists during the function's execution</li>
+</ul>
+<pre><code class="language-lisp">(rectangle-area 10 5)  ; → 50
+!area                   ; → nil (the local variable no longer exists)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-fonctions-portee-variables.png" alt="Variable scope" /></p>
+<p>Without the <code>/</code>, the <code>area</code> variable would remain accessible outside the function, which could interfere with other parts of your program.</p>
+<blockquote>
+<p><strong>Best practice</strong>: always declare your internal variables as local. The only variables that should be global are those you explicitly want to share between multiple functions.</p>
+</blockquote>
+<h2 id="creating-autocad-commands-with-c">Creating AutoCAD commands with <code>c:</code></h2>
+<p>The most powerful feature of <code>defun</code> in AutoLISP is the ability to create <strong>new AutoCAD commands</strong>. Simply prefix the function name with <code>c:</code>:</p>
+<pre><code class="language-lisp">(defun c:hello ()
+  (alert &quot;Hello from my custom command!&quot;)
+  (princ)
+)
+</code></pre>
+<p>After executing this definition, you can type <code>HELLO</code> directly in the AutoCAD command line, just like any native command!</p>
+<p><img src="Content/en/tutorials/media/autolisp-fonctions-bonjour-alert.png" alt="Message box displayed by the command" /></p>
+<p>A few important points:</p>
+<ul>
+<li><code>c:</code> commands take <strong>no arguments</strong> (the argument list is empty <code>()</code>)</li>
+<li>They can have <strong>local variables</strong>: <code>(defun c:mycommand (/ variable1 variable2) ...)</code></li>
+<li>The <code>(princ)</code> at the end prevents an unwanted return value from being displayed in the command line</li>
+</ul>
+<h3 id="example-area-calculation-command">Example: area calculation command</h3>
+<p>Let's create a command that asks the user for a circle's radius and displays the area:</p>
+<pre><code class="language-lisp">(defun c:circle-area (/ radius area)
+  (setq radius (getreal &quot;\nEnter the circle radius: &quot;))
+  (setq area (* pi (expt radius 2)))
+  (alert
+    (strcat &quot;The area of the circle with radius &quot;
+      (rtos radius 2 2)
+      &quot; is &quot;
+      (rtos area 2 2)
+    )
+  )
+  (princ)
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-fonctions-aire-cercle-action.png" alt="circle-area command in action" /></p>
+<p>The <code>getreal</code> function displays a message and waits for the user to enter a real number. We will explore other user interaction functions later.</p>
+<h2 id="writing-code-in-a-file">Writing code in a file</h2>
+<p>Typing long functions into the command line is not practical. In practice, you write your code in a <strong>text file</strong> with the <code>.lsp</code> extension and load it into AutoCAD.</p>
+<h3 id="recommended-editor-visual-studio-code">Recommended editor: Visual Studio Code</h3>
+<p>Historically, AutoCAD included a built-in editor called <strong>VLIDE</strong> (Visual LISP IDE). This editor is now <strong>obsolete</strong>: its interface has not evolved since the 2000s and it no longer receives updates from Autodesk.</p>
+<p>Since AutoCAD 2021, Autodesk recommends using <strong>Visual Studio Code</strong> (VS Code) with the official <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension</a>. VS Code is a free, modern editor widely used by developers worldwide.</p>
+<h4 id="installing-vs-code-for-autolisp">Installing VS Code for AutoLISP</h4>
+<ol>
+<li>Download and install <a href="https://code.visualstudio.com/download">Visual Studio Code</a> (note: this is different from <em>Visual Studio</em>, which is a full development environment)</li>
+<li>Install the <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension</a> from the marketplace</li>
+</ol>
+<p><img src="Content/en/tutorials/media/autolisp-fonctions-vscode-coloration.png" alt="AutoLISP syntax highlighting in VS Code" /></p>
+<h4 id="why-choose-vs-code-over-vlide">Why choose VS Code over VLIDE?</h4>
+<p>VLIDE already offers syntax highlighting, a debugger, and an AutoLISP console. But VS Code goes further:</p>
+<ul>
+<li><strong>Multiple cursors</strong>, advanced search, powerful keyboard shortcuts</li>
+<li><strong>Refactoring</strong>: variable and function renaming, and other automatic code transformations</li>
+<li><strong>Git integration</strong> for managing your program versions</li>
+<li><strong>AI support</strong> (GitHub Copilot, etc.) to help you write code</li>
+</ul>
+<blockquote>
+<p><strong>Tip</strong>: in AutoCAD, the <strong>VLISP</strong> command launches VS Code directly if the <code>LISPSYS</code> system variable is set to <code>1</code> (the default value since AutoCAD 2021). If you are still using VLIDE, set <code>LISPSYS</code> to <code>1</code> and restart AutoCAD.</p>
+</blockquote>
+<h3 id="creating-and-saving-a.lsp-file">Creating and saving a .lsp file</h3>
+<ol>
+<li>In VS Code, create a new file with <strong>Ctrl+N</strong></li>
+<li>Select the <strong>AutoLISP</strong> language (Ctrl+K then M)</li>
+<li>Write your functions</li>
+<li>Save the file with the <code>.lsp</code> extension (for example <code>my-tools.lsp</code>)</li>
+</ol>
+<p>You can run your code directly from VS Code with <strong>Ctrl+F5</strong>, or load it manually into AutoCAD.</p>
+<h3 id="loading-the-file-in-autocad">Loading the file in AutoCAD</h3>
+<p>In the AutoCAD command line, use the <code>APPLOAD</code> command or type:</p>
+<pre><code class="language-lisp">(load &quot;C:/path/to/my-tools.lsp&quot;)
+</code></pre>
+<p>All functions defined in the file become immediately available.</p>
+<blockquote>
+<p><strong>Tip</strong>: in AutoLISP file paths, use <strong>forward slashes</strong> <code>/</code> (not backslashes <code>\</code>), or double the backslashes <code>\\</code>.</p>
+</blockquote>
+<h2 id="useful-interaction-functions">Useful interaction functions</h2>
+<p>Here are the basic functions for interacting with the user:</p>
+<pre><code class="language-lisp">;; Ask for an integer
+(getint &quot;\nEnter an integer: &quot;)
+
+;; Ask for a real number
+(getreal &quot;\nEnter a real number: &quot;)
+
+;; Ask for a string
+(getstring &quot;\nEnter your name: &quot;)
+(getstring T &quot;\nEnter a sentence: &quot;)  ; T allows spaces
+
+;; Ask for a point (click in the drawing)
+(getpoint &quot;\nClick a point: &quot;)
+
+;; Ask for a distance
+(getdist &quot;\nSpecify the distance: &quot;)
+</code></pre>
+<h3 id="complete-example-parametric-rectangle">Complete example: parametric rectangle</h3>
+<pre><code class="language-lisp">(defun c:rect-info (/ point1 length width area perimeter)
+  ;; Ask for dimensions
+  (setq length (getreal &quot;\nRectangle length: &quot;))
+  (setq width (getreal &quot;\nRectangle width: &quot;))
+
+  ;; Calculate
+  (setq area (* length width))
+  (setq perimeter (* 2 (+ length width)))
+
+  ;; Display results
+  (alert
+    (strcat
+      &quot;Rectangle &quot; (rtos length 2 2) &quot; x &quot; (rtos width 2 2)
+      &quot;\n\nArea: &quot; (rtos area 2 2)
+      &quot;\nPerimeter: &quot; (rtos perimeter 2 2)
+    )
+  )
+  (princ)
+)
+</code></pre>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Define a function</td>
+<td><code>(defun name (args) body)</code></td>
+</tr>
+<tr>
+<td>Local variables</td>
+<td><code>(defun name (args / locals) body)</code></td>
+</tr>
+<tr>
+<td>Create an AutoCAD command</td>
+<td><code>(defun c:name (/ locals) body)</code></td>
+</tr>
+<tr>
+<td>Recommended editor</td>
+<td>Visual Studio Code + AutoLISP extension</td>
+</tr>
+<tr>
+<td>Run from VS Code</td>
+<td>Ctrl+F5</td>
+</tr>
+<tr>
+<td>Load a file</td>
+<td><code>(load &quot;path.lsp&quot;)</code></td>
+</tr>
+<tr>
+<td>Ask for a number</td>
+<td><code>(getreal &quot;message&quot;)</code></td>
+</tr>
+<tr>
+<td>Ask for a point</td>
+<td><code>(getpoint &quot;message&quot;)</code></td>
+</tr>
+<tr>
+<td>Ask for a string</td>
+<td><code>(getstring &quot;message&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will learn about <strong>control structures</strong>: how to make decisions with <code>if</code> and <code>cond</code>, and how to repeat actions with <code>while</code> and <code>repeat</code>.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Variables and Data Types</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Control Structures</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

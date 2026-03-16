@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>ActiveX Interoperability - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to control external applications like Microsoft Excel from AutoLISP using ActiveX/COM interoperability. Export quantity takeoffs, generate reports, and automate your workflows." />
+        <meta property="og:title" content="ActiveX Interoperability - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to control external applications like Microsoft Excel from AutoLISP using ActiveX/COM interoperability. Export quantity takeoffs, generate reports, and automate your workflows." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-activex" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="ActiveX Interoperability - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to control external applications like Microsoft Excel from AutoLISP using ActiveX/COM interoperability. Export quantity takeoffs, generate reports, and automate your workflows." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-activex" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-activex" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "ActiveX Interoperability",
+        "description": "Learn how to control external applications like Microsoft Excel from AutoLISP using ActiveX/COM interoperability. Export quantity takeoffs, generate reports, and automate your workflows.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-activex",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none fw-bold">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 16 / 16</small>
+                    <h1>ActiveX Interoperability</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>AutoLISP, through <strong>Visual LISP</strong> extensions, can communicate with any application that supports <strong>ActiveX/COM</strong> (Component Object Model). The most common example is interacting with <strong>Microsoft Excel</strong> to export data or generate reports, but the same principle applies to Word, Outlook, or any other application exposing a COM interface.</p>
+<blockquote>
+<p><strong>Important</strong>: ActiveX communication only works on <strong>Windows</strong>. Mac versions of AutoCAD do not support Visual LISP ActiveX.</p>
+</blockquote>
+<h2 id="the-com-model-in-brief">The COM Model in Brief</h2>
+<p>The COM model is based on three concepts:</p>
+<ul>
+<li><strong>Objects</strong>: software entities that expose functionality (an Excel workbook, a worksheet, a cell)</li>
+<li><strong>Properties</strong>: values that can be read or modified on an object (a cell's value, the application's visibility)</li>
+<li><strong>Methods</strong>: actions that can be performed on an object (adding a workbook, saving a file)</li>
+</ul>
+<p>From AutoLISP, these objects are manipulated using the <code>vlax-*</code> functions.</p>
+<h2 id="key-functions">Key Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vlax-get-or-create-object</code></td>
+<td>Connect to an application (launches it if necessary)</td>
+</tr>
+<tr>
+<td><code>vlax-get-object</code></td>
+<td>Connect to an application that is already running</td>
+</tr>
+<tr>
+<td><code>vlax-get-property</code></td>
+<td>Read a property of a COM object</td>
+</tr>
+<tr>
+<td><code>vlax-put-property</code></td>
+<td>Modify a property of a COM object</td>
+</tr>
+<tr>
+<td><code>vlax-invoke-method</code></td>
+<td>Call a method on a COM object</td>
+</tr>
+<tr>
+<td><code>vlax-release-object</code></td>
+<td>Release a COM object (prevents memory leaks)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="connecting-to-an-application">Connecting to an Application</h3>
+<pre><code class="language-lisp">;; Launch Excel (or connect to an existing instance)
+(setq excel (vlax-get-or-create-object &quot;Excel.Application&quot;))
+
+;; Connect only if Excel is already open (returns nil otherwise)
+(setq excel (vlax-get-object &quot;Excel.Application&quot;))
+</code></pre>
+<p>Common COM application names:</p>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>COM Identifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Excel</td>
+<td><code>&quot;Excel.Application&quot;</code></td>
+</tr>
+<tr>
+<td>Microsoft Word</td>
+<td><code>&quot;Word.Application&quot;</code></td>
+</tr>
+<tr>
+<td>Microsoft Outlook</td>
+<td><code>&quot;Outlook.Application&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="navigating-the-object-hierarchy">Navigating the Object Hierarchy</h3>
+<p>COM applications expose an <strong>object hierarchy</strong>. For Excel, the chain is: <code>Application</code> → <code>Workbooks</code> → <code>Workbook</code> → <code>Worksheets</code> → <code>Worksheet</code> → <code>Cells</code> → <code>Cell</code>. You navigate from one level to the next using <code>vlax-get-property</code>:</p>
+<pre><code class="language-lisp">(setq workbooks (vlax-get-property excel 'Workbooks))
+(setq workbook (vlax-invoke-method workbooks 'Add))
+(setq sheet (vlax-get-property workbook 'ActiveSheet))
+</code></pre>
+<h2 id="simplifying-cell-access">Simplifying Cell Access</h2>
+<p>The code to write to an Excel cell is quite verbose with raw <code>vlax-*</code> functions. You can factor it into utility functions:</p>
+<pre><code class="language-lisp">(defun write-cell (sheet row column value / cell)
+  (setq cell
+    (vlax-get-property
+      (vlax-get-property sheet 'Cells)
+      'Item row column
+    )
+  )
+  (vlax-put-property cell 'Value value)
+)
+
+(defun read-cell (sheet row column / cell)
+  (setq cell
+    (vlax-get-property
+      (vlax-get-property sheet 'Cells)
+      'Item row column
+    )
+  )
+  (vlax-get-property cell 'Value)
+)
+</code></pre>
+<p>Usage:</p>
+<pre><code class="language-lisp">(write-cell sheet 1 1 &quot;No.&quot;)
+(write-cell sheet 1 2 &quot;Length&quot;)
+(write-cell sheet 2 1 1)
+(write-cell sheet 2 2 42.5)
+
+(read-cell sheet 2 2)  ; → 42.5
+</code></pre>
+<h2 id="full-example-exporting-a-quantity-takeoff-to-excel">Full Example: Exporting a Quantity Takeoff to Excel</h2>
+<p>This program selects all lines in the drawing, calculates their total length, and exports the details to an Excel spreadsheet:</p>
+<pre><code class="language-lisp">(defun c:takeoff-excel (/ selection-set index entity data start-point end-point
+                          length excel workbooks workbook sheet
+                          excel-row total-length)
+  ;; Select all lines
+  (setq selection-set (ssget &quot;_X&quot; '((0 . &quot;LINE&quot;))))
+
+  (if (null selection-set)
+    (progn (princ &quot;\nNo lines found.&quot;) (princ) (exit))
+  )
+
+  ;; Launch Excel (or connect to an existing instance)
+  (setq excel (vlax-get-or-create-object &quot;Excel.Application&quot;))
+
+  ;; Make Excel visible
+  (vlax-put-property excel 'Visible :vlax-true)
+
+  ;; Create a new workbook
+  (setq workbooks (vlax-get-property excel 'Workbooks))
+  (setq workbook (vlax-invoke-method workbooks 'Add))
+  (setq sheet (vlax-get-property workbook 'ActiveSheet))
+
+  ;; Write headers
+  (write-cell sheet 1 1 &quot;No.&quot;)
+  (write-cell sheet 1 2 &quot;X1&quot;)
+  (write-cell sheet 1 3 &quot;Y1&quot;)
+  (write-cell sheet 1 4 &quot;X2&quot;)
+  (write-cell sheet 1 5 &quot;Y2&quot;)
+  (write-cell sheet 1 6 &quot;Length&quot;)
+
+  ;; Iterate through the drawing's lines
+  (setq index 0)
+  (setq excel-row 2)
+  (setq total-length 0.0)
+
+  (repeat (sslength selection-set)
+    (setq entity (ssname selection-set index))
+    (setq data (entget entity))
+    (setq start-point (cdr (assoc 10 data)))
+    (setq end-point (cdr (assoc 11 data)))
+
+    ;; Calculate the length
+    (setq length (distance start-point end-point))
+    (setq total-length (+ total-length length))
+
+    ;; Write to Excel
+    (write-cell sheet excel-row 1 (1+ index))
+    (write-cell sheet excel-row 2 (nth 0 start-point))
+    (write-cell sheet excel-row 3 (nth 1 start-point))
+    (write-cell sheet excel-row 4 (nth 0 end-point))
+    (write-cell sheet excel-row 5 (nth 1 end-point))
+    (write-cell sheet excel-row 6 length)
+
+    (setq index (1+ index))
+    (setq excel-row (1+ excel-row))
+  )
+
+  ;; Write the total
+  (write-cell sheet excel-row 5 &quot;TOTAL&quot;)
+  (write-cell sheet excel-row 6 total-length)
+
+  ;; Auto-fit column widths
+  (vlax-invoke-method
+    (vlax-get-property
+      (vlax-get-property sheet 'UsedRange)
+      'Columns)
+    'AutoFit
+  )
+
+  (princ (strcat &quot;\n&quot; (itoa (sslength selection-set)) &quot; line(s) exported to Excel.&quot;))
+  (princ (strcat &quot;\nTotal length: &quot; (rtos total-length 2 2)))
+
+  ;; Release COM objects
+  (vlax-release-object sheet)
+  (vlax-release-object workbook)
+  (vlax-release-object workbooks)
+  ;; Do not release excel so the user can review the result
+
+  (princ)
+)
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: this example uses the <code>write-cell</code> function defined above. In practice, you would place it in a utility file loaded before your main program.</p>
+</blockquote>
+<h2 id="releasing-com-objects">Releasing COM Objects</h2>
+<p>Every call to <code>vlax-get-property</code> or <code>vlax-invoke-method</code> that returns a COM object <strong>allocates memory</strong>. If you don't release these objects, the memory is never reclaimed — this is a <strong>memory leak</strong>.</p>
+<p>The rule is simple: release COM objects in the <strong>reverse order</strong> of their creation:</p>
+<pre><code class="language-lisp">;; Creation: excel → workbooks → workbook → sheet
+;; Release: sheet → workbook → workbooks → excel
+
+(vlax-release-object sheet)
+(vlax-release-object workbook)
+(vlax-release-object workbooks)
+(vlax-release-object excel)
+</code></pre>
+<p>If you don't release the <code>excel</code> object, the Excel instance will remain in memory even after its window is closed (visible in Task Manager).</p>
+<blockquote>
+<p><strong>Best practice</strong>: in a production program, wrap your ActiveX code in an <code>*error*</code> handler (covered in chapter 11) to ensure COM objects are released even if the program is interrupted.</p>
+</blockquote>
+<h2 id="accessing-the-autocad-object-model">Accessing the AutoCAD Object Model</h2>
+<p>ActiveX interoperability isn't just for controlling external applications. AutoCAD itself exposes a <strong>COM object model</strong> that you can manipulate from AutoLISP. It's an alternative to the <code>entmake</code>/<code>entmod</code> functions:</p>
+<pre><code class="language-lisp">;; Access the current document
+(setq document (vla-get-ActiveDocument (vlax-get-acad-object)))
+
+;; Access model space
+(setq model-space (vla-get-ModelSpace document))
+
+;; Create a circle via ActiveX
+(setq center (vlax-3d-point 50.0 50.0 0.0))
+(setq circle (vla-AddCircle model-space center 25.0))
+
+;; Modify its properties
+(vla-put-Color circle acRed)
+(vla-put-Layer circle &quot;Construction&quot;)
+</code></pre>
+<p>The <code>vla-*</code> functions are shortcuts automatically generated by Visual LISP for AutoCAD objects. They are equivalent to <code>vlax-get-property</code> / <code>vlax-put-property</code> / <code>vlax-invoke-method</code> but with a more concise syntax.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Launch an application</td>
+<td><code>vlax-get-or-create-object</code></td>
+<td>Connects to or launches the application</td>
+</tr>
+<tr>
+<td>Existing application</td>
+<td><code>vlax-get-object</code></td>
+<td>Connects only if already running</td>
+</tr>
+<tr>
+<td>Read a property</td>
+<td><code>vlax-get-property</code></td>
+<td>Retrieves the value of a COM property</td>
+</tr>
+<tr>
+<td>Modify a property</td>
+<td><code>vlax-put-property</code></td>
+<td>Changes the value of a COM property</td>
+</tr>
+<tr>
+<td>Call a method</td>
+<td><code>vlax-invoke-method</code></td>
+<td>Executes an action on a COM object</td>
+</tr>
+<tr>
+<td>Release an object</td>
+<td><code>vlax-release-object</code></td>
+<td>Frees memory allocated for the object</td>
+</tr>
+<tr>
+<td>AutoCAD object</td>
+<td><code>vlax-get-acad-object</code></td>
+<td>Accesses the AutoCAD application itself</td>
+</tr>
+<tr>
+<td>3D point for ActiveX</td>
+<td><code>vlax-3d-point</code></td>
+<td>Creates a 3D point variant for <code>vla-*</code> methods</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tutorial-conclusion">Tutorial Conclusion</h2>
+<p>Congratulations! You've covered all of AutoLISP, from your first <code>(alert &quot;Hello!&quot;)</code> expression to interoperability with external applications. Here is a summary of your journey:</p>
+<ol>
+<li><strong>Introduction</strong> — The origins of LISP and Autodesk's choice</li>
+<li><strong>Getting Started</strong> — The command line and <code>alert</code></li>
+<li><strong>Syntax</strong> — Prefix notation and parentheses</li>
+<li><strong>Mathematics</strong> — Arithmetic operations</li>
+<li><strong>Variables</strong> — <code>setq</code> and data types</li>
+<li><strong>Functions</strong> — <code>defun</code> and <code>c:</code> commands</li>
+<li><strong>Control Flow</strong> — <code>if</code>, <code>cond</code>, <code>while</code>, and <code>repeat</code></li>
+<li><strong>Lists</strong> — The fundamental data structure</li>
+<li><strong>Interacting with the Drawing</strong> — <code>command</code>, <code>entmake</code>, and <code>entmod</code></li>
+<li><strong>Reading and Writing Files</strong> — <code>open</code>, <code>read-line</code>, <code>write-line</code>, <code>findfile</code></li>
+<li><strong>Error Handling</strong> — <code>*error*</code> and state restoration</li>
+<li><strong>Symbols and Lambda</strong> — Functional programming</li>
+<li><strong>Extended Data and Dictionaries</strong> — Xdata, xrecords, and handles</li>
+<li><strong>Reactors</strong> — Monitoring and responding to events</li>
+<li><strong>ActiveX Interoperability</strong> — Controlling Excel and the AutoCAD object model</li>
+</ol>
+<p>You now have a solid foundation to start writing your own AutoLISP scripts. What's next? Open AutoCAD, identify a repetitive task in your daily work, and try to automate it. Practice is the best way to learn.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Reactors</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

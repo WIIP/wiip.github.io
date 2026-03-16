@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Symboles et fonctions lambda - AutoLISP : le guide complet - WIIP</title><meta name="description" content="Explorez les concepts avanc&#xE9;s d&#x27;AutoLISP : les symboles, la citation (quote), les fonctions lambda anonymes, et les fonctions d&#x27;ordre sup&#xE9;rieur comme mapcar et apply." />
+        <meta property="og:title" content="Symboles et fonctions lambda - AutoLISP : le guide complet" />
+        <meta property="og:description" content="Explorez les concepts avanc&#xE9;s d&#x27;AutoLISP : les symboles, la citation (quote), les fonctions lambda anonymes, et les fonctions d&#x27;ordre sup&#xE9;rieur comme mapcar et apply." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-symboles-lambda" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Symboles et fonctions lambda - AutoLISP : le guide complet" />
+        <meta name="twitter:description" content="Explorez les concepts avanc&#xE9;s d&#x27;AutoLISP : les symboles, la citation (quote), les fonctions lambda anonymes, et les fonctions d&#x27;ordre sup&#xE9;rieur comme mapcar et apply." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutoriels/autolisp-symboles-lambda" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Symboles et fonctions lambda",
+        "description": "Explorez les concepts avanc\u00E9s d\u0027AutoLISP : les symboles, la citation (quote), les fonctions lambda anonymes, et les fonctions d\u0027ordre sup\u00E9rieur comme mapcar et apply.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-symboles-lambda",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none fw-bold">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 13 / 16</small>
+                    <h1>Symboles et fonctions lambda</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Ce chapitre aborde des concepts plus avancés qui font la richesse et l'élégance de LISP. Les <strong>symboles</strong> et les <strong>fonctions lambda</strong> vous permettront d'écrire du code plus expressif et plus puissant. Ces notions sont moins courantes dans les scripts AutoLISP du quotidien, mais les comprendre vous donnera une maîtrise bien plus profonde du langage.</p>
+<h2 id="les-symboles">Les symboles</h2>
+<p>En AutoLISP, un <strong>symbole</strong> est un nom qui référence une valeur. Quand vous écrivez <code>(setq rayon 42)</code>, <code>rayon</code> est un symbole qui est <em>lié</em> à la valeur <code>42</code>. C'est en quelque sorte l'étiquette sur une boite qui renferme la valeur <code>42</code>.</p>
+<p><img src="Content/fr/tutoriels/media/autolisp-symboles-lambda-rayon.png" alt="Symbole rayon lié à la valeur 42" /></p>
+<p>Quand AutoLISP rencontre un symbole, il l'<strong>évalue</strong> automatiquement — c'est-à-dire qu'il le remplace par sa valeur :</p>
+<pre><code class="language-lisp">(setq rayon 42)
+rayon          ; → 42 (le symbole est évalué)
+</code></pre>
+<blockquote>
+<p><strong>Rappel</strong> : sur la ligne de commande d'AutoCAD, il faut préfixer le symbole par <code>!</code> pour obtenir sa valeur (par exemple <code>!rayon</code>). Dans un programme <code>.lsp</code> ou dans la console de débogage de VS Code, ce préfixe n'est pas nécessaire.</p>
+</blockquote>
+<p>Mais que se passe-t-il si vous voulez parler du <strong>symbole lui-même</strong>, sans l'évaluer ? C'est là qu'intervient <code>quote</code>.</p>
+<h2 id="la-citation-avec-quote-et">La citation avec <code>quote</code> et <code>'</code></h2>
+<p>La fonction <code>quote</code> (ou son raccourci <code>'</code>) empêche l'évaluation d'une expression :</p>
+<pre><code class="language-lisp">(quote rayon)  ; → rayon (le symbole lui-même, pas sa valeur)
+'rayon         ; → rayon (identique, syntaxe raccourcie)
+</code></pre>
+<p>Comparez :</p>
+<pre><code class="language-lisp">(setq rayon 42)
+rayon          ; → 42 (évaluation : retourne la valeur)
+'rayon         ; → rayon (citation : retourne le symbole)
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-symboles-lambda-eval-quote.png" alt="Différence entre évaluation et citation" /></p>
+<p>C'est exactement ce mécanisme que vous avez utilisé pour créer des listes littérales :</p>
+<pre><code class="language-lisp">'(1 2 3)       ; → (1 2 3) — la liste n'est pas évaluée comme un appel de fonction
+(list 1 2 3)   ; → (1 2 3) — même résultat, mais via un appel de fonction
+</code></pre>
+<p>Sans l'apostrophe, <code>(1 2 3)</code> serait interprété comme un appel à la « fonction » <code>1</code>, ce qui provoquerait une erreur.</p>
+<p>La distinction entre <code>quote</code> et <code>list</code> est importante en pratique. Avec <code>quote</code>, tout le contenu est figé — aucune variable n'est évaluée. Avec <code>list</code>, les arguments sont évalués avant de construire la liste. Prenons l'exemple d'un filtre pour <code>ssget</code> :</p>
+<pre><code class="language-lisp">;; Le nom du calque est connu à l'avance : quote suffit
+(ssget &quot;X&quot; '((8 . &quot;COTATION&quot;)))
+
+;; Le nom du calque est dans une variable : il faut utiliser list
+;; pour que la variable soit évaluée
+(setq nom-calque (getstring &quot;\nNom du calque : &quot;))
+(ssget &quot;X&quot; (list (cons 8 nom-calque)))
+</code></pre>
+<p>Avec <code>'((8 . nom-calque))</code>, AutoLISP chercherait littéralement un calque nommé <code>&quot;NOM-CALQUE&quot;</code> au lieu d'utiliser la valeur saisie par l'utilisateur.</p>
+<h2 id="eval-forcer-levaluation"><code>eval</code> : forcer l'évaluation</h2>
+<p><code>eval</code> est l'inverse de <code>quote</code>. Il évalue une expression :</p>
+<pre><code class="language-lisp">(setq expression '(+ 2 3))
+expression          ; → (+ 2 3) — c'est une liste, pas un résultat
+(eval expression)   ; → 5 — la liste est évaluée comme du code
+</code></pre>
+<p>C'est une capacité remarquable : en LISP, <strong>le code et les données ont la même structure</strong> (des listes). On peut donc construire du code dynamiquement et l'exécuter avec <code>eval</code>.</p>
+<pre><code class="language-lisp">;; Construire une expression dynamiquement
+(setq operateur '+)
+(setq donnees '(10 20 30))
+(eval (cons operateur donnees))  ; → 60 — évalue (+ 10 20 30)
+</code></pre>
+<h2 id="set-vs-setq"><code>set</code> vs <code>setq</code></h2>
+<p>Vous connaissez <code>setq</code>. La fonction <code>set</code> est sa version « sans quote » :</p>
+<pre><code class="language-lisp">(setq x 10)      ; Affecte 10 au symbole x
+(set 'x 10)      ; Identique : affecte 10 au symbole x
+</code></pre>
+<p><code>setq</code> est un raccourci pour <code>set quote</code> — il <em>cite</em> automatiquement le premier argument. Mais <code>set</code> est utile quand le nom de la variable est lui-même dynamique :</p>
+<pre><code class="language-lisp">(setq nom-variable 'ma-valeur)
+(set nom-variable 42)
+ma-valeur  ; → 42
+</code></pre>
+<p>En pratique, vous utiliserez presque toujours <code>setq</code>. Mais savoir que <code>set</code> existe vous aide à comprendre le fonctionnement interne du langage.</p>
+<h2 id="les-fonctions-lambda">Les fonctions lambda</h2>
+<p>Une <strong>fonction lambda</strong> est une fonction <strong>anonyme</strong> — une fonction sans nom. Elle se définit avec le mot-clé <code>lambda</code> :</p>
+<pre><code class="language-lisp">(lambda (x) (* x x))
+</code></pre>
+<p>Cette expression crée une fonction qui prend un argument <code>x</code> et retourne <code>x²</code>. Mais puisqu'elle n'a pas de nom, comment l'utiliser ?</p>
+<h3 id="appeler-directement-une-lambda">Appeler directement une lambda</h3>
+<p>On peut l'appeler immédiatement en la plaçant en première position d'une expression :</p>
+<pre><code class="language-lisp">((lambda (x) (* x x)) 5)  ; → 25
+</code></pre>
+<p>C'est équivalent à :</p>
+<pre><code class="language-lisp">(defun carre (x) (* x x))
+(carre 5)  ; → 25
+</code></pre>
+<p>Mais la version lambda n'a pas besoin de nom — elle est créée et utilisée en une seule fois.</p>
+<h3 id="stocker-une-lambda-dans-une-variable">Stocker une lambda dans une variable</h3>
+<p>On peut aussi affecter une lambda à une variable :</p>
+<pre><code class="language-lisp">(setq carre (lambda (x) (* x x)))
+</code></pre>
+<p>Attention cependant : en AutoLISP, pour appeler une fonction stockée dans une variable, vous devrez utiliser <code>apply</code> (que nous verrons juste après).</p>
+<h2 id="les-fonctions-dordre-superieur">Les fonctions d'ordre supérieur</h2>
+<p>Une <strong>fonction d'ordre supérieur</strong> est une fonction qui prend une autre fonction comme argument. C'est l'un des concepts les plus puissants de la programmation fonctionnelle, et AutoLISP en propose plusieurs.</p>
+<h3 id="mapcar-appliquer-une-fonction-a-chaque-element"><code>mapcar</code> : appliquer une fonction à chaque élément</h3>
+<p><code>mapcar</code> applique une fonction à <strong>chaque élément</strong> d'une ou plusieurs listes et retourne une liste des résultats :</p>
+<pre><code class="language-lisp">(mapcar '1+ '(1 2 3 4 5))
+; → (2 3 4 5 6) — ajoute 1 à chaque élément
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-symboles-lambda-mapcar-1-plus.png" alt="mapcar appliquant 1+" /></p>
+<p>Avec une fonction lambda :</p>
+<pre><code class="language-lisp">(mapcar '(lambda (x) (* x x)) '(1 2 3 4 5))
+; → (1 4 9 16 25) — calcule le carré de chaque élément
+</code></pre>
+<p><code>mapcar</code> avec plusieurs listes (les éléments sont pris en parallèle) :</p>
+<pre><code class="language-lisp">(mapcar '+ '(1 2 3) '(10 20 30))
+; → (11 22 33) — additionne les éléments deux à deux
+</code></pre>
+<h3 id="apply-appliquer-une-fonction-a-une-liste-darguments"><code>apply</code> : appliquer une fonction à une liste d'arguments</h3>
+<p><code>apply</code> prend une fonction et une liste, et appelle la fonction avec les éléments de la liste comme arguments :</p>
+<pre><code class="language-lisp">(apply '+ '(1 2 3 4 5))     ; → 15 — équivalent à (+ 1 2 3 4 5)
+(apply 'max '(3 7 1 9 2))   ; → 9 — équivalent à (max 3 7 1 9 2)
+(apply 'strcat '(&quot;Bon&quot; &quot;jour&quot;))  ; → &quot;Bonjour&quot;
+</code></pre>
+<p>C'est très utile quand vous avez une liste de valeurs et que vous voulez les passer comme arguments individuels à une fonction.</p>
+<h3 id="vl-sort-trier-une-liste"><code>vl-sort</code> : trier une liste</h3>
+<p><code>vl-sort</code> trie une liste en utilisant une fonction de comparaison :</p>
+<pre><code class="language-lisp">(vl-sort '(3 1 4 1 5 9 2 6) '&lt;)
+; → (1 2 3 4 5 6 9) — tri croissant (les doublons sont supprimés)
+
+(vl-sort '(3 1 4 1 5 9 2 6) '&gt;)
+; → (9 6 5 4 3 2 1) — tri décroissant (les doublons sont supprimés)
+</code></pre>
+<blockquote>
+<p><strong>Attention</strong> : <code>vl-sort</code> peut <strong>supprimer les doublons</strong> de la liste. La documentation officielle indique : <em>« Duplicate elements may be eliminated from the list »</em>. Ce comportement n'est pas garanti — il dépend de l'implémentation interne — mais en pratique, les doublons sont systématiquement supprimés. Si vous avez besoin de conserver les doublons, triez plutôt les <strong>indices</strong> de la liste et reconstruisez-la ensuite.</p>
+</blockquote>
+<p>Avec une lambda pour un tri personnalisé :</p>
+<pre><code class="language-lisp">;; Trier des chaînes par longueur
+(vl-sort '(&quot;chat&quot; &quot;hippopotame&quot; &quot;rat&quot; &quot;chien&quot;)
+  '(lambda (a b) (&lt; (strlen a) (strlen b)))
+)
+; → (&quot;rat&quot; &quot;chat&quot; &quot;chien&quot; &quot;hippopotame&quot;)
+</code></pre>
+<h3 id="vl-remove-if-et-vl-remove-if-not-filtrer"><code>vl-remove-if</code> et <code>vl-remove-if-not</code> : filtrer</h3>
+<pre><code class="language-lisp">;; Garder uniquement les nombres pairs
+(vl-remove-if-not
+  '(lambda (x) (= (rem x 2) 0))
+  '(1 2 3 4 5 6 7 8 9 10)
+)
+; → (2 4 6 8 10)
+
+;; Supprimer les nombres négatifs
+(vl-remove-if
+  '(lambda (x) (&lt; x 0))
+  '(-3 5 -1 8 -7 2)
+)
+; → (5 8 2)
+</code></pre>
+<h2 id="exemple-pratique-transformer-des-points">Exemple pratique : transformer des points</h2>
+<p>Imaginons que nous avons une liste de points 2D et que nous voulons les déplacer de 100 unités en X et 50 en Y :</p>
+<pre><code class="language-lisp">(setq points '((0 0) (10 20) (30 40) (50 60)))
+
+(setq points-deplaces
+  (mapcar
+    '(lambda (point)
+      (list
+        (+ (car point) 100)
+        (+ (cadr point) 50)
+      )
+    )
+    points
+  )
+)
+; → ((100 50) (110 70) (130 90) (150 110))
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-symboles-lambda-points-deplaces.svg" alt="Points originaux et déplacés" /></p>
+<p>Comparons avec une approche impérative classique :</p>
+<pre><code class="language-lisp">;; Version avec boucle
+(setq points-deplaces '())
+(foreach point points
+  (setq points-deplaces
+    (append points-deplaces
+      (list
+        (list
+          (+ (car point) 100)
+          (+ (cadr point) 50)
+        )
+      )
+    )
+  )
+)
+</code></pre>
+<p>La version avec <code>mapcar</code> est plus concise et plus lisible une fois qu'on est familier avec ces concepts.</p>
+<h2 id="resume">Résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Syntaxe</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Citation</td>
+<td><code>'x</code> ou <code>(quote x)</code></td>
+<td>Empêche l'évaluation</td>
+</tr>
+<tr>
+<td>Évaluation</td>
+<td><code>(eval expr)</code></td>
+<td>Force l'évaluation</td>
+</tr>
+<tr>
+<td>Lambda</td>
+<td><code>(lambda (args) corps)</code></td>
+<td>Fonction anonyme</td>
+</tr>
+<tr>
+<td><code>mapcar</code></td>
+<td><code>(mapcar 'fn lst)</code></td>
+<td>Applique une fonction à chaque élément</td>
+</tr>
+<tr>
+<td><code>apply</code></td>
+<td><code>(apply 'fn lst)</code></td>
+<td>Appelle une fonction avec une liste d'arguments</td>
+</tr>
+<tr>
+<td><code>vl-sort</code></td>
+<td><code>(vl-sort lst 'fn)</code></td>
+<td>Trie une liste</td>
+</tr>
+<tr>
+<td><code>vl-remove-if</code></td>
+<td><code>(vl-remove-if 'fn lst)</code></td>
+<td>Filtre les éléments</td>
+</tr>
+<tr>
+<td><code>vl-remove-if-not</code></td>
+<td><code>(vl-remove-if-not 'fn lst)</code></td>
+<td>Garde les éléments</td>
+</tr>
+</tbody>
+</table>
+<p>Dans le prochain chapitre, nous verrons comment <strong>attacher des données personnalisées</strong> aux entités et <strong>lier des entités entre elles</strong> par leurs handles.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>La gestion des erreurs</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Donn&#xE9;es &#xE9;tendues et dictionnaires</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

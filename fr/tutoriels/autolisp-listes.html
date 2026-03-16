@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les listes - AutoLISP : le guide complet - WIIP</title><meta name="description" content="D&#xE9;couvrez les listes, la structure de donn&#xE9;es fondamentale de LISP. Apprenez &#xE0; les cr&#xE9;er, les parcourir et les manipuler avec car, cdr, cons, list et foreach." />
+        <meta property="og:title" content="Les listes - AutoLISP : le guide complet" />
+        <meta property="og:description" content="D&#xE9;couvrez les listes, la structure de donn&#xE9;es fondamentale de LISP. Apprenez &#xE0; les cr&#xE9;er, les parcourir et les manipuler avec car, cdr, cons, list et foreach." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-listes" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les listes - AutoLISP : le guide complet" />
+        <meta name="twitter:description" content="D&#xE9;couvrez les listes, la structure de donn&#xE9;es fondamentale de LISP. Apprenez &#xE0; les cr&#xE9;er, les parcourir et les manipuler avec car, cdr, cons, list et foreach." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-listes" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutoriels/autolisp-listes" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Les listes",
+        "description": "D\u00E9couvrez les listes, la structure de donn\u00E9es fondamentale de LISP. Apprenez \u00E0 les cr\u00E9er, les parcourir et les manipuler avec car, cdr, cons, list et foreach.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-listes",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none fw-bold">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 8 / 16</small>
+                    <h1>Les listes</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Le nom LISP signifie <em>LISt Processing</em> — traitement de listes. Les listes sont la <strong>structure de données fondamentale</strong> du langage. Tout en LISP est construit autour des listes : les données, les programmes, et même les définitions de fonctions. Comprendre les listes, c'est comprendre LISP.</p>
+<h2 id="creer-des-listes">Créer des listes</h2>
+<h3 id="avec-la-fonction-list">Avec la fonction <code>list</code></h3>
+<p>La façon la plus courante de créer une liste :</p>
+<pre><code class="language-lisp">(list 1 2 3)              ; → (1 2 3)
+(list &quot;a&quot; &quot;b&quot; &quot;c&quot;)        ; → (&quot;a&quot; &quot;b&quot; &quot;c&quot;)
+(list 10.0 20.0 0.0)      ; → (10.0 20.0 0.0) — un point 3D !
+</code></pre>
+<p>Les éléments d'une liste peuvent être de <strong>types différents</strong> :</p>
+<pre><code class="language-lisp">(list &quot;AutoCAD&quot; 2025 3.14 T)  ; → (&quot;AutoCAD&quot; 2025 3.14 T)
+</code></pre>
+<h3 id="avec-lapostrophe-quote">Avec l'apostrophe <code>'</code> (quote)</h3>
+<p>L'apostrophe est un raccourci pour créer des listes de valeurs littérales :</p>
+<pre><code class="language-lisp">'(1 2 3)           ; → (1 2 3)
+'(&quot;a&quot; &quot;b&quot; &quot;c&quot;)     ; → (&quot;a&quot; &quot;b&quot; &quot;c&quot;)
+</code></pre>
+<p><strong>Attention</strong> : l'apostrophe empêche l'évaluation. Avec <code>list</code>, les arguments sont évalués :</p>
+<pre><code class="language-lisp">(setq x 5)
+(list x 10)   ; → (5 10) — x est évalué à 5
+'(x 10)       ; → (X 10) — x n'est PAS évalué, c'est le symbole X
+</code></pre>
+<p>Utilisez <code>list</code> quand vos éléments contiennent des variables ou des expressions, et <code>'</code> quand vous avez des valeurs constantes.</p>
+<p><img src="Content/fr/tutoriels/media/autolisp-listes-list-quote.png" alt="Différence entre list et quote" /></p>
+<h2 id="acceder-aux-elements">Accéder aux éléments</h2>
+<h3 id="car-le-premier-element"><code>car</code> : le premier élément</h3>
+<pre><code class="language-lisp">(car '(1 2 3))      ; → 1
+(car '(&quot;a&quot; &quot;b&quot;))     ; → &quot;a&quot;
+</code></pre>
+<h3 id="cdr-le-reste-de-la-liste-tout-sauf-le-premier"><code>cdr</code> : le reste de la liste (tout sauf le premier)</h3>
+<pre><code class="language-lisp">(cdr '(1 2 3))      ; → (2 3)
+(cdr '(&quot;a&quot; &quot;b&quot;))     ; → (&quot;b&quot;)
+(cdr '(1))           ; → nil (liste vide)
+</code></pre>
+<h3 id="pourquoi-car-et-cdr">Pourquoi <code>car</code> et <code>cdr</code> ?</h3>
+<p>Ces noms viennent de l'architecture de l'ordinateur IBM 704 sur lequel LISP a été créé en 1958. <code>car</code> signifie <em>Contents of the Address Register</em> et <code>cdr</code> <em>Contents of the Decrement Register</em>. Ces noms sont restés par tradition, même si plus personne ne programme sur un IBM 704 !</p>
+<p><img src="Content/fr/tutoriels/media/ibm-704.jpg" alt="IBM 704" /></p>
+<p><em>Lawrence Livermore National Laboratory, Attribution, via Wikimedia Commons</em></p>
+<h3 id="nth-acceder-par-index"><code>nth</code> : accéder par index</h3>
+<p>Pour accéder directement à un élément par sa position (commençant à 0) :</p>
+<pre><code class="language-lisp">(nth 0 '(10 20 30))   ; → 10
+(nth 1 '(10 20 30))   ; → 20
+(nth 2 '(10 20 30))   ; → 30
+</code></pre>
+<h3 id="last-le-dernier-element"><code>last</code> : le dernier élément</h3>
+<pre><code class="language-lisp">(last '(1 2 3))      ; → 3
+</code></pre>
+<h3 id="length-nombre-delements"><code>length</code> : nombre d'éléments</h3>
+<pre><code class="language-lisp">(length '(1 2 3))     ; → 3
+(length '())           ; → 0
+(length nil)           ; → 0
+</code></pre>
+<h2 id="combinaisons-de-car-et-cdr">Combinaisons de <code>car</code> et <code>cdr</code></h2>
+<p>AutoLISP propose des raccourcis pour les combinaisons fréquentes :</p>
+<pre><code class="language-lisp">(cadr '(1 2 3))     ; → 2 — équivalent à (car (cdr '(1 2 3)))
+(caddr '(1 2 3))    ; → 3 — équivalent à (car (cdr (cdr '(1 2 3))))
+(cddr '(1 2 3))     ; → (3)
+</code></pre>
+<p>En CAO, ces combinaisons sont omniprésentes, car les points sont des listes de coordonnées :</p>
+<pre><code class="language-lisp">(setq point '(10.0 20.0 5.0))
+
+(car point)    ; → 10.0 (coordonnée X)
+(cadr point)   ; → 20.0 (coordonnée Y)
+(caddr point)  ; → 5.0  (coordonnée Z)
+</code></pre>
+<p>Mais personnellement, je préfère utiliser <code>nth</code> pour accéder aux coordonnées d'un point — c'est plus facilement compréhensible :</p>
+<pre><code class="language-lisp">(nth 0 point)  ; → 10.0 (coordonnée X)
+(nth 1 point)  ; → 20.0 (coordonnée Y)
+(nth 2 point)  ; → 5.0  (coordonnée Z)
+</code></pre>
+<h2 id="construire-et-modifier-des-listes">Construire et modifier des listes</h2>
+<h3 id="cons-ajouter-au-debut"><code>cons</code> : ajouter au début</h3>
+<p><code>cons</code> ajoute un élément <strong>en tête</strong> d'une liste :</p>
+<pre><code class="language-lisp">(cons 0 '(1 2 3))     ; → (0 1 2 3)
+(cons &quot;x&quot; '(&quot;a&quot; &quot;b&quot;)) ; → (&quot;x&quot; &quot;a&quot; &quot;b&quot;)
+</code></pre>
+<p>Techniquement, <code>cons</code> crée une <strong>paire pointée</strong> (<em>dotted pair</em>) — une cellule qui contient exactement <strong>deux valeurs</strong>. Si le second argument est une liste, le résultat est une liste normale (la paire pointe vers le reste de la chaîne). Sinon, le résultat est une paire pointée, signalée par un <strong>point</strong> entre les deux éléments :</p>
+<pre><code class="language-lisp">(cons 1 2)             ; → (1 . 2) — paire pointée
+(cons 1 '(2 3))        ; → (1 2 3) — liste
+</code></pre>
+<p>Le point <code>.</code> n'est pas un opérateur — c'est la façon dont AutoLISP <strong>affiche</strong> une paire dont le second élément n'est pas une liste. Vous pouvez aussi écrire une paire pointée littérale avec la syntaxe quotée :</p>
+<pre><code class="language-lisp">'(8 . &quot;MonCalque&quot;)     ; Paire pointée : clé 8, valeur &quot;MonCalque&quot;
+</code></pre>
+<p>Ne confondez pas une paire pointée avec une liste à deux éléments :</p>
+<pre><code class="language-lisp">'(8 . &quot;MonCalque&quot;)     ; → (8 . &quot;MonCalque&quot;) — paire pointée (2 valeurs dans 1 cellule)
+'(8 &quot;MonCalque&quot;)       ; → (8 &quot;MonCalque&quot;)   — liste de 2 éléments (2 cellules chaînées)
+</code></pre>
+<p>La différence est importante quand on utilise <code>car</code> et <code>cdr</code> :</p>
+<pre><code class="language-lisp">;; Sur une paire pointée
+(car '(8 . &quot;MonCalque&quot;))   ; → 8
+(cdr '(8 . &quot;MonCalque&quot;))   ; → &quot;MonCalque&quot; (la valeur directement)
+
+;; Sur une liste
+(car '(8 &quot;MonCalque&quot;))     ; → 8
+(cdr '(8 &quot;MonCalque&quot;))     ; → (&quot;MonCalque&quot;) (une liste contenant la valeur)
+</code></pre>
+<p>Avec une paire pointée, <code>cdr</code> retourne directement la valeur. Avec une liste, <code>cdr</code> retourne une liste. C'est pour cette raison que les paires pointées sont préférées dans les <strong>listes d'association</strong> des entités AutoCAD : elles permettent d'extraire la valeur avec un simple <code>cdr</code>, sans devoir faire <code>car</code> en plus. Nous y reviendrons dans la section suivante.</p>
+<h3 id="append-concatener-des-listes"><code>append</code> : concaténer des listes</h3>
+<pre><code class="language-lisp">(append '(1 2) '(3 4))       ; → (1 2 3 4)
+(append '(&quot;a&quot;) '(&quot;b&quot;) '(&quot;c&quot;)) ; → (&quot;a&quot; &quot;b&quot; &quot;c&quot;)
+</code></pre>
+<h3 id="reverse-inverser-une-liste"><code>reverse</code> : inverser une liste</h3>
+<pre><code class="language-lisp">(reverse '(1 2 3))   ; → (3 2 1)
+</code></pre>
+<h2 id="parcourir-une-liste">Parcourir une liste</h2>
+<h3 id="avec-foreach">Avec <code>foreach</code></h3>
+<p><code>foreach</code> est la manière la plus simple de parcourir une liste :</p>
+<pre><code class="language-lisp">(foreach element '(&quot;AutoCAD&quot; &quot;Inventor&quot; &quot;Revit&quot;)
+  (princ (strcat &quot;\nProduit : &quot; element))
+)
+</code></pre>
+<p>Résultat :</p>
+<pre><code>Produit : AutoCAD
+Produit : Inventor
+Produit : Revit
+</code></pre>
+<p><img src="Content/fr/tutoriels/media/autolisp-listes-foreach-resultat.png" alt="Résultat de foreach" /></p>
+<h3 id="avec-while-et-cdr">Avec <code>while</code> et <code>cdr</code></h3>
+<p>La technique classique pour parcourir une liste en LISP :</p>
+<pre><code class="language-lisp">(setq maliste '(10 20 30 40 50))
+
+(while maliste
+  (princ (strcat &quot;\nÉlément : &quot; (itoa (car maliste))))
+  (setq maliste (cdr maliste))
+)
+</code></pre>
+<p>À chaque itération, <code>car</code> extrait le premier élément et <code>cdr</code> réduit la liste. Quand la liste est vide (<code>nil</code>), la boucle s'arrête.</p>
+<h2 id="les-listes-dassociation">Les listes d'association</h2>
+<p>Les listes d'association (<em>association lists</em> ou <em>alists</em>) sont un pattern très courant en AutoLISP. C'est l'équivalent LISP d'un <code>Dictionary</code> en C#/.NET ou d'un <code>dict</code> en Python : une structure qui associe des <strong>clés</strong> à des <strong>valeurs</strong>. Chaque élément est une paire pointée <code>(clé . valeur)</code> :</p>
+<pre><code class="language-lisp">(setq personne
+  (list
+    (cons 0 &quot;Jean&quot;)
+    (cons 1 35)
+    (cons 2 &quot;Ingénieur&quot;)
+  )
+)
+;; → ((0 . &quot;Jean&quot;) (1 . 35) (2 . &quot;Ingénieur&quot;))
+</code></pre>
+<h3 id="assoc-rechercher-par-cle"><code>assoc</code> : rechercher par clé</h3>
+<pre><code class="language-lisp">(assoc 0 personne)   ; → (0 . &quot;Jean&quot;)
+(assoc 1 personne)   ; → (1 . 35)
+(assoc 9 personne)   ; → nil (clé introuvable)
+</code></pre>
+<p>Pour obtenir juste la valeur :</p>
+<pre><code class="language-lisp">(cdr (assoc 0 personne))  ; → &quot;Jean&quot;
+</code></pre>
+<h3 id="les-listes-dassociation-dans-autocad">Les listes d'association dans AutoCAD</h3>
+<p>C'est exactement ce format que AutoLISP utilise pour représenter les <strong>entités AutoCAD</strong>. Chaque entité est une liste d'association où les codes DXF servent de clés :</p>
+<pre><code class="language-lisp">;; Sélectionner la dernière entité dessinée et lire ses données
+(setq donnees (entget (entlast)))
+</code></pre>
+<p>Le résultat ressemble à ceci :</p>
+<pre><code>((-1 . &lt;Entity name: ...&gt;)
+ (0 . &quot;LINE&quot;)
+ (10 1.0 2.0 0.0)
+ (11 5.0 8.0 0.0)
+ ...)
+</code></pre>
+<ul>
+<li>Le code <code>0</code> contient le type d'entité (<code>&quot;LINE&quot;</code>, <code>&quot;CIRCLE&quot;</code>, etc.)</li>
+<li>Le code <code>10</code> contient le point de départ</li>
+<li>Le code <code>11</code> contient le point d'arrivée</li>
+</ul>
+<h2 id="exemple-pratique-analyser-une-selection">Exemple pratique : analyser une sélection</h2>
+<pre><code class="language-lisp">(defun c:compter-types (/ selection index entite type-entite compteur)
+  (setq selection (ssget))  ; Demander une sélection
+  (if selection
+    (progn
+      (setq compteur '())
+      (setq index 0)
+      (repeat (sslength selection)
+        (setq entite (ssname selection index))
+        (setq type-entite (cdr (assoc 0 (entget entite))))
+
+        ;; Chercher si ce type existe déjà dans le compteur
+        (if (assoc type-entite compteur)
+          (setq compteur
+            (subst
+              (cons type-entite (1+ (cdr (assoc type-entite compteur))))
+              (assoc type-entite compteur)
+              compteur
+            )
+          )
+          (setq compteur (cons (cons type-entite 1) compteur))
+        )
+        (setq index (1+ index))
+      )
+
+      ;; Afficher les résultats
+      (foreach paire compteur
+        (princ (strcat &quot;\n&quot; (car paire) &quot; : &quot; (itoa (cdr paire))))
+      )
+    )
+    (princ &quot;\nAucune sélection.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<p>Ce programme compte les entités par type dans une sélection. Ne vous inquiétez pas si certaines fonctions (<code>ssget</code>, <code>sslength</code>, <code>ssname</code>, <code>entget</code>, <code>subst</code>, <code>1+</code>) sont nouvelles — l'objectif ici est de voir comment les listes d'association sont utilisées en contexte réel.</p>
+<h2 id="resume">Résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Fonction</th>
+<th>Rôle</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list</code></td>
+<td>Créer une liste</td>
+<td><code>(list 1 2 3)</code> → <code>(1 2 3)</code></td>
+</tr>
+<tr>
+<td><code>'</code></td>
+<td>Liste littérale</td>
+<td><code>'(1 2 3)</code> → <code>(1 2 3)</code></td>
+</tr>
+<tr>
+<td><code>car</code></td>
+<td>Premier élément</td>
+<td><code>(car '(1 2 3))</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>cdr</code></td>
+<td>Reste de la liste</td>
+<td><code>(cdr '(1 2 3))</code> → <code>(2 3)</code></td>
+</tr>
+<tr>
+<td><code>nth</code></td>
+<td>Élément par index</td>
+<td><code>(nth 1 '(1 2 3))</code> → <code>2</code></td>
+</tr>
+<tr>
+<td><code>last</code></td>
+<td>Dernier élément</td>
+<td><code>(last '(1 2 3))</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>Nombre d'éléments</td>
+<td><code>(length '(1 2 3))</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>cons</code></td>
+<td>Ajouter en tête</td>
+<td><code>(cons 0 '(1 2))</code> → <code>(0 1 2)</code></td>
+</tr>
+<tr>
+<td><code>append</code></td>
+<td>Concaténer</td>
+<td><code>(append '(1) '(2))</code> → <code>(1 2)</code></td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td>Inverser</td>
+<td><code>(reverse '(1 2 3))</code> → <code>(3 2 1)</code></td>
+</tr>
+<tr>
+<td><code>foreach</code></td>
+<td>Parcourir</td>
+<td><code>(foreach x lst ...)</code></td>
+</tr>
+<tr>
+<td><code>assoc</code></td>
+<td>Chercher par clé</td>
+<td><code>(assoc 0 alist)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Dans le prochain chapitre, nous allons voir comment <strong>interagir avec l'utilisateur</strong> : lui demander de cliquer un point, de saisir un nombre ou un texte, grâce aux fonctions <code>get*</code> d'AutoLISP.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Les structures de contr&#xF4;le</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Interagir avec l&#x27;utilisateur</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

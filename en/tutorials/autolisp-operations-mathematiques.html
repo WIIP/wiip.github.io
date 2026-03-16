@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Mathematical Operations - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Master AutoLISP&#x27;s arithmetic functions &#x2014; addition, subtraction, multiplication, division, and more. Discover the subtleties of calculations in LISP." />
+        <meta property="og:title" content="Mathematical Operations - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Master AutoLISP&#x27;s arithmetic functions &#x2014; addition, subtraction, multiplication, division, and more. Discover the subtleties of calculations in LISP." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-operations-mathematiques" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Mathematical Operations - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Master AutoLISP&#x27;s arithmetic functions &#x2014; addition, subtraction, multiplication, division, and more. Discover the subtleties of calculations in LISP." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-operations-mathematiques" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-operations-mathematiques" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Mathematical Operations",
+        "description": "Master AutoLISP\u0027s arithmetic functions \u2014 addition, subtraction, multiplication, division, and more. Discover the subtleties of calculations in LISP.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-operations-mathematiques",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none fw-bold">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 4 / 16</small>
+                    <h1>Mathematical Operations</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Mathematical operations are among the first things you use in any programming language. In AutoLISP, they follow the same prefix notation as all other functions — and they come with a few interesting quirks.</p>
+<h2 id="the-four-basic-operations">The Four Basic Operations</h2>
+<h3 id="addition">Addition: <code>+</code></h3>
+<pre><code class="language-lisp">(+ 2 3)       ; → 5
+(+ 10 20 30)  ; → 60 (you can add more than 2 numbers!)
+(+ 1.5 2.3)   ; → 3.8
+</code></pre>
+<p>One advantage of prefix notation: the <code>+</code> function accepts <strong>as many arguments as you want</strong>. No need to write <code>(+ (+ 10 20) 30)</code> — a simple <code>(+ 10 20 30)</code> is enough.</p>
+<h3 id="subtraction">Subtraction: <code>-</code></h3>
+<pre><code class="language-lisp">(- 10 3)      ; → 7
+(- 100 20 30) ; → 50 (100 - 20 - 30)
+(- 5)         ; → -5 (with a single argument, returns the opposite)
+</code></pre>
+<h3 id="multiplication">Multiplication: <code>*</code></h3>
+<pre><code class="language-lisp">(* 3 4)       ; → 12
+(* 2 3 4)     ; → 24
+(* 1.5 2)     ; → 3.0
+</code></pre>
+<h3 id="division">Division: <code>/</code></h3>
+<pre><code class="language-lisp">(/ 20 4)      ; → 5
+(/ 7 2)       ; → 3 (integer division!)
+(/ 7.0 2)     ; → 3.5 (real division)
+(/ 7 2.0)     ; → 3.5 (real division too)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-operations-mathematiques-division-resultat.png" alt="Division calculations in the AutoCAD command line" /></p>
+<h2 id="beware-integer-division">Beware: Integer Division</h2>
+<p>This is a classic pitfall in AutoLISP (and many other languages). When both operands are <strong>integers</strong>, the division returns an <strong>integer</strong> — the decimal part is truncated:</p>
+<pre><code class="language-lisp">(/ 7 2)     ; → 3 (not 3.5!)
+(/ 1 3)     ; → 0 (not 0.333...!)
+</code></pre>
+<p>To get a decimal result, <strong>at least one</strong> of the operands must be a real number (with a decimal point):</p>
+<pre><code class="language-lisp">(/ 7.0 2)   ; → 3.5
+(/ 7 2.0)   ; → 3.5
+</code></pre>
+<p>You can also use the <code>float</code> function to convert an integer to a real number:</p>
+<pre><code class="language-lisp">(/ (float 7) 2)  ; → 3.5
+</code></pre>
+<h2 id="division-remainder-rem">Division Remainder: <code>rem</code></h2>
+<p>The <code>rem</code> (<em>remainder</em>) function returns the remainder of integer division:</p>
+<pre><code class="language-lisp">(rem 7 2)    ; → 1 (7 = 2×3 + 1)
+(rem 10 3)   ; → 1 (10 = 3×3 + 1)
+(rem 8 4)    ; → 0 (exact division)
+</code></pre>
+<p>This is useful for checking whether a number is even:</p>
+<pre><code class="language-lisp">(rem 6 2)    ; → 0 (even)
+(rem 7 2)    ; → 1 (odd)
+</code></pre>
+<h2 id="advanced-mathematical-functions">Advanced Mathematical Functions</h2>
+<p>AutoLISP provides many additional mathematical functions:</p>
+<h3 id="absolute-value-abs">Absolute Value: <code>abs</code></h3>
+<pre><code class="language-lisp">(abs -5)     ; → 5
+(abs 3)      ; → 3
+(abs -3.14)  ; → 3.14
+</code></pre>
+<h3 id="power-expt">Power: <code>expt</code></h3>
+<pre><code class="language-lisp">(expt 2 3)   ; → 8 (2³)
+(expt 5 2)   ; → 25 (5²)
+(expt 9 0.5) ; → 3.0 (square root of 9)
+</code></pre>
+<h3 id="square-root-sqrt">Square Root: <code>sqrt</code></h3>
+<pre><code class="language-lisp">(sqrt 16)    ; → 4.0
+(sqrt 2)     ; → 1.41421
+</code></pre>
+<h3 id="minimum-and-maximum-min-max">Minimum and Maximum: <code>min</code>, <code>max</code></h3>
+<pre><code class="language-lisp">(min 3 7 1 9)  ; → 1
+(max 3 7 1 9)  ; → 9
+</code></pre>
+<h3 id="trigonometric-functions">Trigonometric Functions</h3>
+<p>AutoLISP works in <strong>radians</strong>, not degrees:</p>
+<pre><code class="language-lisp">(sin 0)            ; → 0.0 (sine)
+(cos 0)            ; → 1.0 (cosine)
+(atan 1)           ; → 0.785398 (arc tangent, i.e. π/4)
+</code></pre>
+<p>To convert degrees to radians, use this formula:</p>
+<pre><code class="language-lisp">;; Convert 90° to radians
+(* (/ 90.0 180) pi)  ; → 1.5708 (π/2)
+</code></pre>
+<p>The constant <code>pi</code> is predefined in AutoLISP and equals approximately <code>3.14159</code>.</p>
+<h3 id="logarithms-and-exponential">Logarithms and Exponential</h3>
+<pre><code class="language-lisp">(log 1)       ; → 0.0 (natural logarithm)
+(log 2.718)   ; → 0.999896
+(exp 1)       ; → 2.71828 (e¹)
+(exp 0)       ; → 1.0 (e⁰)
+</code></pre>
+<h2 id="type-conversions">Type Conversions</h2>
+<p>When mixing integers and real numbers, it is sometimes useful to convert explicitly:</p>
+<pre><code class="language-lisp">(float 5)    ; → 5.0 (integer → real)
+(fix 3.7)    ; → 3 (real → integer, truncates the decimal part)
+(fix 3.2)    ; → 3
+(fix -3.7)   ; → -3
+</code></pre>
+<p>The <code>fix</code> function <strong>truncates</strong> (it does not round). To round to the nearest integer, you can combine <code>fix</code> and <code>+</code>:</p>
+<pre><code class="language-lisp">;; Round to nearest integer
+(fix (+ 3.7 0.5))   ; → 4
+(fix (+ 3.2 0.5))   ; → 3
+</code></pre>
+<h2 id="a-practical-example-area-of-a-circle">A Practical Example: Area of a Circle</h2>
+<p>Let's calculate the area of a circle with radius 5:</p>
+<pre><code class="language-lisp">;; Area = π × r²
+(* pi (expt 5.0 2))  ; → 78.5398
+</code></pre>
+<p>Let's display the result in a dialog box:</p>
+<pre><code class="language-lisp">(alert
+  (strcat &quot;The area of the circle is: &quot;
+    (rtos (* pi (expt 5.0 2)) 2 2)
+  )
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-operations-mathematiques-aire-cercle-alert.png" alt="Message box displayed by the command" /></p>
+<p>Let's break down this expression:</p>
+<ol>
+<li><code>(expt 5.0 2)</code> → <code>25.0</code> (5²)</li>
+<li><code>(* pi 25.0)</code> → <code>78.5398</code> (π × 25)</li>
+<li><code>(rtos 78.5398 2 2)</code> → <code>&quot;78.54&quot;</code> (converts the number to a string with 2 decimal places)</li>
+<li><code>(strcat &quot;The area of the circle is: &quot; &quot;78.54&quot;)</code> → concatenates the two strings</li>
+<li><code>(alert ...)</code> → displays the result</li>
+</ol>
+<p>The <code>rtos</code> (<em>real to string</em>) and <code>strcat</code> (<em>string concatenate</em>) functions will be covered in detail later. For now, just remember that you can combine calculations and display by nesting expressions.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Addition</td>
+<td><code>(+ 2 3)</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Subtraction</td>
+<td><code>(- 10 3)</code> → <code>7</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td><code>(* 3 4)</code> → <code>12</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Division</td>
+<td><code>(/ 7.0 2)</code> → <code>3.5</code></td>
+</tr>
+<tr>
+<td><code>rem</code></td>
+<td>Remainder (modulo)</td>
+<td><code>(rem 7 2)</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>abs</code></td>
+<td>Absolute value</td>
+<td><code>(abs -5)</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>expt</code></td>
+<td>Power</td>
+<td><code>(expt 2 3)</code> → <code>8</code></td>
+</tr>
+<tr>
+<td><code>sqrt</code></td>
+<td>Square root</td>
+<td><code>(sqrt 16)</code> → <code>4.0</code></td>
+</tr>
+<tr>
+<td><code>min</code> / <code>max</code></td>
+<td>Minimum / Maximum</td>
+<td><code>(max 3 7)</code> → <code>7</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Integer → Real</td>
+<td><code>(float 5)</code> → <code>5.0</code></td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>Real → Integer</td>
+<td><code>(fix 3.7)</code> → <code>3</code></td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will see how to <strong>store values in variables</strong> and work with AutoLISP's different data types.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>AutoLISP Syntax</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Variables and Data Types</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

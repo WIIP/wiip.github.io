@@ -118,6 +118,11 @@ code {
     .container {
         max-width: 860px !important;
     }
+
+    /* Largeur étendue pour les pages avec sidebar (tutoriels) */
+    .container.container-wide {
+        max-width: 1100px !important;
+    }
 }
 
 /* Design responsive pour mobile - largeur complète sur petits écrans */

@@ -75,6 +75,12 @@
     <loc>https://wiip.fr/en/TermsOfUse</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tutoriels</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/developpement-vault</loc>
   </url>
   <url>
@@ -91,6 +97,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/autolisp-comments</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/autolisp-configuration</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/autolisp-localization</loc>
@@ -249,6 +258,63 @@
     <loc>https://wiip.fr/fr/tags/.NET</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-activex</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-dessin</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues-reactors</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-fichiers</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-fonctions</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-gestion-erreurs</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-introduction</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-listes</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-operations-mathematiques</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-premiers-pas</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-reactors</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-saisies-utilisateur</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-structures-controle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-symboles-lambda</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-syntaxe</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-variables-types</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/AutoLISP</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/AutoCAD</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/LISP</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/0x80004005</loc>
   </url>
   <url>
@@ -256,6 +322,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/autolisp-comments</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/autolisp-configuration</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/autolisp-localization</loc>
@@ -406,5 +475,62 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/.NET</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-activex</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-dessin</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-donnees-etendues-reactors</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-fichiers</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-fonctions</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-gestion-erreurs</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-introduction</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-listes</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-operations-mathematiques</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-premiers-pas</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-reactors</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-saisies-utilisateur</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-structures-controle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-symboles-lambda</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-syntaxe</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tutorials/autolisp-variables-types</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/AutoLISP</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/AutoCAD</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/LISP</loc>
   </url>
 </urlset>

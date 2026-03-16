@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Reading and Writing Files - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to manipulate text files in AutoLISP: open, read, write, and search for files using open, read-line, write-line, close, and findfile." />
+        <meta property="og:title" content="Reading and Writing Files - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to manipulate text files in AutoLISP: open, read, write, and search for files using open, read-line, write-line, close, and findfile." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-fichiers" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Reading and Writing Files - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to manipulate text files in AutoLISP: open, read, write, and search for files using open, read-line, write-line, close, and findfile." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-fichiers" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-fichiers" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Reading and Writing Files",
+        "description": "Learn how to manipulate text files in AutoLISP: open, read, write, and search for files using open, read-line, write-line, close, and findfile.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-fichiers",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none fw-bold">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 11 / 16</small>
+                    <h1>Reading and Writing Files</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>AutoLISP isn't limited to manipulating the AutoCAD drawing. It can also <strong>read and write text files</strong>, which opens up many possibilities: exporting data, generating reports, reading configuration files, importing coordinates from a CSV file, and more.</p>
+<h2 id="opening-a-file-with-open">Opening a file with <code>open</code></h2>
+<p>The <code>open</code> function opens a file and returns a <strong>file descriptor</strong> that you'll use to read or write:</p>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/my-file.txt&quot; &quot;r&quot;))
+</code></pre>
+<p>The second argument is the <strong>open mode</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;r&quot;</code></td>
+<td>Read — the file must exist</td>
+</tr>
+<tr>
+<td><code>&quot;w&quot;</code></td>
+<td>Write — creates the file or overwrites its contents</td>
+</tr>
+<tr>
+<td><code>&quot;a&quot;</code></td>
+<td>Append — creates the file or adds to the end</td>
+</tr>
+</tbody>
+</table>
+<p>If the file cannot be opened (for example, it doesn't exist in <code>&quot;r&quot;</code> mode), <code>open</code> returns <code>nil</code>.</p>
+<blockquote>
+<p><strong>Reminder</strong>: in AutoLISP file paths, use <strong>forward slashes</strong> <code>/</code> (not backslashes <code>\</code>), or double the backslashes <code>\\</code>.</p>
+</blockquote>
+<h2 id="writing-to-a-file">Writing to a file</h2>
+<h3 id="write-line-writing-a-line"><code>write-line</code>: writing a line</h3>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/export.txt&quot; &quot;w&quot;))
+
+(write-line &quot;First line&quot; file)
+(write-line &quot;Second line&quot; file)
+(write-line &quot;Third line&quot; file)
+
+(close file)
+</code></pre>
+<p>Each call to <code>write-line</code> writes a line followed by an automatic <strong>line break</strong>. The resulting file will contain:</p>
+<pre><code>First line
+Second line
+Third line
+</code></pre>
+<h3 id="princ-and-prin1-writing-without-a-line-break"><code>princ</code> and <code>prin1</code>: writing without a line break</h3>
+<p>If you need precise control over formatting, <code>princ</code> can write to a file without adding a line break:</p>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/export.csv&quot; &quot;w&quot;))
+
+(princ &quot;Name;X;Y;Z&quot; file)
+(princ &quot;\n&quot; file)  ; Manual line break
+(princ &quot;Point1;10.0;20.0;0.0&quot; file)
+(princ &quot;\n&quot; file)
+
+(close file)
+</code></pre>
+<h3 id="never-forget-close">Never forget <code>close</code></h3>
+<p>The <code>close</code> function is <strong>essential</strong>. If you don't close the file:</p>
+<ul>
+<li>Data in the buffer may not be written to disk</li>
+<li>The file remains locked by AutoCAD and cannot be opened by another program</li>
+<li>You risk losing data</li>
+</ul>
+<blockquote>
+<p><strong>Best practice</strong>: always write <code>close</code> immediately after <code>open</code>, then add your code between the two. This way, you won't forget it.</p>
+</blockquote>
+<h2 id="reading-a-file">Reading a file</h2>
+<h3 id="read-line-reading-a-line"><code>read-line</code>: reading a line</h3>
+<p><code>read-line</code> reads the next line from the file and returns its content as a string. When there are no more lines to read, it returns <code>nil</code>:</p>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/export.txt&quot; &quot;r&quot;))
+
+(read-line file)  ; → &quot;First line&quot;
+(read-line file)  ; → &quot;Second line&quot;
+(read-line file)  ; → &quot;Third line&quot;
+(read-line file)  ; → nil (end of file)
+
+(close file)
+</code></pre>
+<h3 id="reading-all-lines-from-a-file">Reading all lines from a file</h3>
+<p>The classic pattern for reading an entire file:</p>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/export.txt&quot; &quot;r&quot;))
+(setq line (read-line file))
+
+(while line
+  (princ (strcat &quot;\n&quot; line))  ; Process the line
+  (setq line (read-line file))
+)
+
+(close file)
+</code></pre>
+<p>The <code>while</code> loop continues as long as <code>read-line</code> returns a string (i.e., as long as the end of the file hasn't been reached).</p>
+<h2 id="practical-example-exporting-point-coordinates">Practical example: exporting point coordinates</h2>
+<p>This program exports the coordinates of all points in the drawing to a CSV file:</p>
+<pre><code class="language-lisp">(defun c:export-points (/ selection index entity data point file counter)
+  (setq selection (ssget &quot;_X&quot; '((0 . &quot;POINT&quot;))))  ; Select all points
+
+  (if selection
+    (progn
+      (setq file (open &quot;C:/temp/points.csv&quot; &quot;w&quot;))
+      (write-line &quot;X;Y;Z&quot; file)  ; Header
+
+      (setq index 0)
+      (setq counter 0)
+      (repeat (sslength selection)
+        (setq entity (ssname selection index))
+        (setq data (entget entity))
+        (setq point (cdr (assoc 10 data)))
+
+        (write-line
+          (strcat
+            (rtos (nth 0 point) 2 4) &quot;;&quot;
+            (rtos (nth 1 point) 2 4) &quot;;&quot;
+            (rtos (nth 2 point) 2 4)
+          )
+          file
+        )
+
+        (setq index (1+ index))
+        (setq counter (1+ counter))
+      )
+
+      (close file)
+      (princ (strcat &quot;\n&quot; (itoa counter) &quot; point(s) exported to C:/temp/points.csv&quot;))
+    )
+    (princ &quot;\nNo points found in the drawing.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<h2 id="practical-example-importing-points-from-a-csv">Practical example: importing points from a CSV</h2>
+<p>The reverse operation — reading a CSV file and creating points in the drawing:</p>
+<pre><code class="language-lisp">(defun c:import-points (/ file line separator-position x y z counter)
+  (setq file (open &quot;C:/temp/points.csv&quot; &quot;r&quot;))
+
+  (if file
+    (progn
+      (read-line file)  ; Skip the header
+      (setq line (read-line file))
+      (setq counter 0)
+
+      (while line
+        ;; Split the line at the &quot;;&quot; separator
+        (setq separator-position (vl-string-search &quot;;&quot; line))
+        (setq x (atof (substr line 1 separator-position)))
+
+        (setq line (substr line (+ separator-position 2)))
+        (setq separator-position (vl-string-search &quot;;&quot; line))
+        (setq y (atof (substr line 1 separator-position)))
+
+        (setq z (atof (substr line (+ separator-position 2))))
+
+        ;; Create the point
+        (entmake
+          (list
+            '(0 . &quot;POINT&quot;)
+            (list 10 x y z)
+          )
+        )
+
+        (setq counter (1+ counter))
+        (setq line (read-line file))
+      )
+
+      (close file)
+      (princ (strcat &quot;\n&quot; (itoa counter) &quot; point(s) imported.&quot;))
+    )
+    (princ &quot;\nUnable to open the file.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<h2 id="searching-for-a-file-with-findfile">Searching for a file with <code>findfile</code></h2>
+<p>The <code>findfile</code> function searches for a file in AutoCAD's <strong>support paths</strong> (those defined in Options, Files tab). If the file is found, it returns its full path. Otherwise, it returns <code>nil</code>:</p>
+<pre><code class="language-lisp">(findfile &quot;acad.pgp&quot;)      ; → &quot;C:\\Program Files\\Autodesk\\AutoCAD 2026\\Support\\acad.pgp&quot;
+(findfile &quot;my-file.lsp&quot;) ; → nil if the file is not in the support paths
+</code></pre>
+<p>This is very useful for locating configuration files or resources associated with your program, without having to hard-code an absolute path:</p>
+<pre><code class="language-lisp">(defun load-configuration (/ path file line)
+  (setq path (findfile &quot;my-program.cfg&quot;))
+  (if path
+    (progn
+      (setq file (open path &quot;r&quot;))
+      (setq line (read-line file))
+      (while line
+        (princ (strcat &quot;\nConfig: &quot; line))
+        (setq line (read-line file))
+      )
+      (close file)
+    )
+    (princ &quot;\nConfiguration file not found.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<p><code>findfile</code> also accepts a <strong>full path</strong> — in that case, it simply checks whether the file exists:</p>
+<pre><code class="language-lisp">(if (findfile &quot;C:/temp/data.csv&quot;)
+  (princ &quot;\nThe file exists.&quot;)
+  (princ &quot;\nThe file does not exist.&quot;)
+)
+</code></pre>
+<h2 id="appending-content-to-an-existing-file">Appending content to an existing file</h2>
+<p>The <code>&quot;a&quot;</code> (<em>append</em>) mode lets you add lines <strong>to the end</strong> of an existing file without overwriting its content:</p>
+<pre><code class="language-lisp">(setq file (open &quot;C:/temp/journal.log&quot; &quot;a&quot;))
+(write-line (strcat (rtos (getvar &quot;CDATE&quot;) 2 6) &quot; - Operation completed&quot;) file)
+(close file)
+</code></pre>
+<p>This is handy for maintaining an activity log or accumulating data across multiple executions.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Role</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>open</code></td>
+<td>Open a file</td>
+<td><code>(open &quot;file.txt&quot; &quot;r&quot;)</code></td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td>Close a file</td>
+<td><code>(close file)</code></td>
+</tr>
+<tr>
+<td><code>read-line</code></td>
+<td>Read a line</td>
+<td><code>(read-line file)</code></td>
+</tr>
+<tr>
+<td><code>write-line</code></td>
+<td>Write a line</td>
+<td><code>(write-line &quot;text&quot; file)</code></td>
+</tr>
+<tr>
+<td><code>princ</code></td>
+<td>Write without a line break</td>
+<td><code>(princ &quot;text&quot; file)</code></td>
+</tr>
+<tr>
+<td><code>findfile</code></td>
+<td>Search for a file</td>
+<td><code>(findfile &quot;acad.pgp&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;r&quot;</code></td>
+<td>Read</td>
+</tr>
+<tr>
+<td><code>&quot;w&quot;</code></td>
+<td>Write (overwrites)</td>
+</tr>
+<tr>
+<td><code>&quot;a&quot;</code></td>
+<td>Append (to the end)</td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we'll see how to <strong>handle errors</strong> with <code>*error*</code> to write robust programs that always restore their state, even when interrupted.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Interacting with the Drawing</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Error Handling</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

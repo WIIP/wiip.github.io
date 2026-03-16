@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les reactors - AutoLISP : le guide complet - WIIP</title><meta name="description" content="Apprenez &#xE0; r&#xE9;agir automatiquement aux &#xE9;v&#xE9;nements dans AutoCAD gr&#xE2;ce aux reactors : surveiller les modifications d&#x27;entit&#xE9;s, les sauvegardes du dessin et les commandes de l&#x27;utilisateur." />
+        <meta property="og:title" content="Les reactors - AutoLISP : le guide complet" />
+        <meta property="og:description" content="Apprenez &#xE0; r&#xE9;agir automatiquement aux &#xE9;v&#xE9;nements dans AutoCAD gr&#xE2;ce aux reactors : surveiller les modifications d&#x27;entit&#xE9;s, les sauvegardes du dessin et les commandes de l&#x27;utilisateur." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-reactors" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les reactors - AutoLISP : le guide complet" />
+        <meta name="twitter:description" content="Apprenez &#xE0; r&#xE9;agir automatiquement aux &#xE9;v&#xE9;nements dans AutoCAD gr&#xE2;ce aux reactors : surveiller les modifications d&#x27;entit&#xE9;s, les sauvegardes du dessin et les commandes de l&#x27;utilisateur." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-reactors" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutoriels/autolisp-reactors" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Les reactors",
+        "description": "Apprenez \u00E0 r\u00E9agir automatiquement aux \u00E9v\u00E9nements dans AutoCAD gr\u00E2ce aux reactors : surveiller les modifications d\u0027entit\u00E9s, les sauvegardes du dessin et les commandes de l\u0027utilisateur.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-reactors",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none fw-bold">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 15 / 16</small>
+                    <h1>Les reactors</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Dans le chapitre précédent, nous avons vu comment lier des entités entre elles par leurs handles. Cela ouvre une question naturelle : peut-on <strong>réagir automatiquement</strong> quand une entité liée est modifiée ou supprimée ? C'est exactement le rôle des <strong>reactors</strong>.</p>
+<p>Un reactor est un mécanisme qui <strong>surveille des événements</strong> dans AutoCAD et exécute une fonction de rappel (<em>callback</em>) quand l'événement se produit. Si vous connaissez les <strong>événements</strong> en C# (par exemple <code>button.Click += OnClick</code>) ou les <em>event listeners</em> en JavaScript, c'est le même concept : on s'abonne à un événement et on fournit une fonction qui sera appelée quand il se produit.</p>
+<h2 id="types-de-reactors">Types de reactors</h2>
+<p>AutoLISP propose plusieurs catégories de reactors via les fonctions <code>vlr-*</code> (Visual LISP Reactors) :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Fonction de création</th>
+<th>Surveille...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objet</td>
+<td><code>vlr-object-reactor</code></td>
+<td>Les modifications d'entités spécifiques</td>
+</tr>
+<tr>
+<td>Base de données</td>
+<td><code>vlr-dwg-reactor</code></td>
+<td>L'ouverture, la fermeture, la sauvegarde du dessin</td>
+</tr>
+<tr>
+<td>Éditeur</td>
+<td><code>vlr-editor-reactor</code></td>
+<td>Les commandes exécutées par l'utilisateur</td>
+</tr>
+<tr>
+<td>Commande</td>
+<td><code>vlr-command-reactor</code></td>
+<td>Le début et la fin de commandes spécifiques</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reactor-dobjet-surveiller-une-entite">Reactor d'objet : surveiller une entité</h2>
+<p>Le reactor d'objet est le plus courant. Il surveille une ou plusieurs entités et déclenche une fonction quand elles sont modifiées :</p>
+<pre><code class="language-lisp">(defun notifier-modification (proprietaire reactor liste-parametres)
+  (princ (strcat &quot;\nL'entité &quot; (vl-princ-to-string proprietaire) &quot; a été modifiée !&quot;))
+  (princ)
+)
+
+;; Créer un cercle
+(entmake
+  (list
+    '(0 . &quot;CIRCLE&quot;)
+    '(10 50.0 50.0 0.0)
+    '(40 . 25.0)
+  )
+)
+
+;; Attacher un reactor à ce cercle
+(setq mon-reactor
+  (vlr-object-reactor
+    (list (vlax-ename-&gt;vla-object (entlast)))  ; Liste d'entités à surveiller
+    &quot;Surveillance cercle&quot;                        ; Description (données utilisateur)
+    '((:vlr-modified . notifier-modification))   ; Liste d'événements et callbacks
+  )
+)
+</code></pre>
+<p>Désormais, chaque fois que le cercle est déplacé, redimensionné ou modifié de quelque façon que ce soit, le message s'affiche.</p>
+<h3 id="la-signature-des-callbacks">La signature des callbacks</h3>
+<p>Chaque fonction de rappel reçoit <strong>trois arguments</strong> :</p>
+<ol>
+<li><strong><code>proprietaire</code></strong> — l'objet VLA (pas un ename) de l'entité qui a déclenché l'événement</li>
+<li><strong><code>reactor</code></strong> — le reactor lui-même, utile pour accéder aux données utilisateur ou se supprimer</li>
+<li><strong><code>liste-parametres</code></strong> — une liste d'informations supplémentaires sur l'événement (souvent <code>nil</code>)</li>
+</ol>
+<p>Pour convertir l'objet VLA en ename (nécessaire pour <code>entget</code>), utilisez <code>vlax-vla-object-&gt;ename</code> :</p>
+<pre><code class="language-lisp">(defun mon-callback (proprietaire reactor liste-parametres / entite donnees)
+  (setq entite (vlax-vla-object-&gt;ename proprietaire))
+  (setq donnees (entget entite))
+  ;; Traiter les données...
+  (princ)
+)
+</code></pre>
+<blockquote>
+<p><strong>Attention</strong> : la fonction de rappel d'un reactor d'objet ne doit <strong>jamais modifier l'entité surveillée</strong> directement dans le callback <code>:vlr-modified</code>. Cela provoquerait une boucle infinie (la modification déclenche le reactor, qui modifie l'entité, ce qui déclenche le reactor...). Si vous devez modifier une entité en réponse à un événement, utilisez le callback <code>:vlr-objectClosed</code>.</p>
+</blockquote>
+<h3 id="evenements-disponibles-pour-les-reactors-dobjet">Événements disponibles pour les reactors d'objet</h3>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Se déclenche quand...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:vlr-modified</code></td>
+<td>L'entité est modifiée</td>
+</tr>
+<tr>
+<td><code>:vlr-erased</code></td>
+<td>L'entité est supprimée</td>
+</tr>
+<tr>
+<td><code>:vlr-copied</code></td>
+<td>L'entité est copiée</td>
+</tr>
+<tr>
+<td><code>:vlr-objectClosed</code></td>
+<td>L'entité est fermée après modification (moment sûr pour modifier)</td>
+</tr>
+</tbody>
+</table>
+<p>La distinction entre <code>:vlr-modified</code> et <code>:vlr-objectClosed</code> est importante. Le premier se déclenche <strong>pendant</strong> la modification (l'entité est encore « ouverte » en écriture), tandis que le second se déclenche <strong>après</strong> (l'entité est « fermée » et ses données sont à jour). C'est dans <code>:vlr-objectClosed</code> que vous pouvez lire les nouvelles valeurs et modifier d'autres entités en toute sécurité.</p>
+<h2 id="reactor-de-base-de-donnees-surveiller-le-dessin">Reactor de base de données : surveiller le dessin</h2>
+<p>Les reactors de base de données surveillent les événements au niveau du fichier DWG :</p>
+<pre><code class="language-lisp">(defun avant-sauvegarde (reactor arguments)
+  (princ &quot;\nSauvegarde en cours — vérification des données...&quot;)
+  ;; Ici, vous pourriez vérifier l'intégrité des liens entre entités
+  (princ)
+)
+
+(defun apres-sauvegarde (reactor arguments)
+  (princ &quot;\nSauvegarde terminée.&quot;)
+  (princ)
+)
+
+(vlr-dwg-reactor
+  nil
+  '((:vlr-beginSave . avant-sauvegarde)
+    (:vlr-saveComplete . apres-sauvegarde))
+)
+</code></pre>
+<h3 id="evenements-disponibles-pour-les-reactors-de-dessin">Événements disponibles pour les reactors de dessin</h3>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Se déclenche quand...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:vlr-beginSave</code></td>
+<td>Le dessin va être sauvegardé</td>
+</tr>
+<tr>
+<td><code>:vlr-saveComplete</code></td>
+<td>La sauvegarde est terminée</td>
+</tr>
+<tr>
+<td><code>:vlr-beginClose</code></td>
+<td>Le dessin va être fermé</td>
+</tr>
+<tr>
+<td><code>:vlr-databaseToBeDestroyed</code></td>
+<td>La base de données va être détruite</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reactor-de-commande-reagir-aux-commandes">Reactor de commande : réagir aux commandes</h2>
+<p>Les reactors de commande se déclenchent quand l'utilisateur (ou un programme) exécute une commande AutoCAD :</p>
+<pre><code class="language-lisp">(defun surveiller-effacement (reactor arguments)
+  (if (= (car arguments) &quot;ERASE&quot;)
+    (princ &quot;\nAttention : des entités vont être supprimées !&quot;)
+  )
+  (princ)
+)
+
+(vlr-command-reactor
+  nil
+  '((:vlr-commandWillStart . surveiller-effacement))
+)
+</code></pre>
+<h3 id="evenements-disponibles-pour-les-reactors-de-commande">Événements disponibles pour les reactors de commande</h3>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Se déclenche quand...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:vlr-commandWillStart</code></td>
+<td>Une commande est sur le point de démarrer</td>
+</tr>
+<tr>
+<td><code>:vlr-commandEnded</code></td>
+<td>Une commande vient de se terminer</td>
+</tr>
+<tr>
+<td><code>:vlr-commandCancelled</code></td>
+<td>Une commande a été annulée (Échap)</td>
+</tr>
+<tr>
+<td><code>:vlr-commandFailed</code></td>
+<td>Une commande a échoué</td>
+</tr>
+</tbody>
+</table>
+<p>Le premier argument de la liste <code>arguments</code> contient le <strong>nom de la commande</strong> en majuscules (par exemple <code>&quot;ERASE&quot;</code>, <code>&quot;MOVE&quot;</code>, <code>&quot;COPY&quot;</code>).</p>
+<h2 id="gerer-les-reactors">Gérer les reactors</h2>
+<h3 id="supprimer-un-reactor">Supprimer un reactor</h3>
+<p>Les reactors consomment des ressources et peuvent ralentir AutoCAD si vous en créez trop. Pensez à les supprimer quand ils ne sont plus nécessaires :</p>
+<pre><code class="language-lisp">;; Supprimer un reactor spécifique
+(vlr-remove mon-reactor)
+</code></pre>
+<h3 id="lister-les-reactors-actifs">Lister les reactors actifs</h3>
+<pre><code class="language-lisp">;; Lister tous les reactors actifs, groupés par type
+(vlr-reactors)
+</code></pre>
+<h3 id="acceder-aux-donnees-utilisateur">Accéder aux données utilisateur</h3>
+<p>Le deuxième argument de <code>vlr-object-reactor</code> (la chaîne <code>&quot;Surveillance cercle&quot;</code> dans notre exemple) est un champ libre. Vous pouvez y stocker n'importe quelle valeur AutoLISP — un handle, une liste, un nom de configuration. Pour le relire :</p>
+<pre><code class="language-lisp">(vlr-data mon-reactor)  ; → &quot;Surveillance cercle&quot;
+</code></pre>
+<p>C'est très utile pour transmettre du contexte à vos callbacks sans utiliser de variables globales.</p>
+<h2 id="exemple-pratique-maintenir-un-lien-entre-entites">Exemple pratique : maintenir un lien entre entités</h2>
+<p>Combinons les handles (vus au chapitre précédent) et les reactors pour maintenir un lien entre un cercle et un texte qui affiche son rayon. Quand l'utilisateur modifie le cercle, le texte se met à jour automatiquement :</p>
+<pre><code class="language-lisp">(defun mettre-a-jour-texte (proprietaire reactor liste-parametres /
+                             entite-cercle donnees-cercle rayon
+                             handle-texte entite-texte donnees-texte)
+  ;; Récupérer le rayon du cercle (après fermeture, donc les données sont à jour)
+  (setq entite-cercle (vlax-vla-object-&gt;ename proprietaire))
+  (setq donnees-cercle (entget entite-cercle))
+  (setq rayon (cdr (assoc 40 donnees-cercle)))
+
+  ;; Retrouver le texte lié via le handle dans les xdata
+  (setq donnees-cercle (entget entite-cercle '(&quot;WIIP_LIEN&quot;)))
+  (setq handle-texte (cdr (assoc 1005 (cdadr (assoc -3 donnees-cercle)))))
+
+  (if handle-texte
+    (progn
+      (setq entite-texte (handent handle-texte))
+      (if entite-texte
+        (progn
+          ;; Mettre à jour le contenu du texte
+          (setq donnees-texte (entget entite-texte))
+          (setq donnees-texte
+            (subst
+              (cons 1 (strcat &quot;R=&quot; (rtos rayon 2 2)))
+              (assoc 1 donnees-texte)
+              donnees-texte
+            )
+          )
+          (entmod donnees-texte)
+          (entupd entite-texte)
+        )
+      )
+    )
+  )
+  (princ)
+)
+
+(defun c:creer-cercle-avec-etiquette (/ centre rayon entite-cercle donnees-cercle
+                                        handle-cercle entite-texte donnees-texte
+                                        handle-texte)
+  (regapp &quot;WIIP_LIEN&quot;)
+
+  ;; Créer le cercle
+  (setq centre (getpoint &quot;\nCentre du cercle : &quot;))
+  (setq rayon (getreal &quot;\nRayon : &quot;))
+
+  (entmake
+    (list
+      '(0 . &quot;CIRCLE&quot;)
+      (cons 10 (append centre '(0.0)))
+      (cons 40 rayon)
+    )
+  )
+  (setq entite-cercle (entlast))
+  (setq handle-cercle (cdr (assoc 5 (entget entite-cercle))))
+
+  ;; Créer le texte d'étiquette
+  (entmake
+    (list
+      '(0 . &quot;TEXT&quot;)
+      (cons 10 (list (+ (car centre) rayon 5.0) (cadr centre) 0.0))
+      (cons 40 (* rayon 0.3))
+      (cons 1 (strcat &quot;R=&quot; (rtos rayon 2 2)))
+    )
+  )
+  (setq entite-texte (entlast))
+  (setq handle-texte (cdr (assoc 5 (entget entite-texte))))
+
+  ;; Lier le cercle au texte via xdata
+  (setq donnees-cercle (entget entite-cercle))
+  (setq donnees-cercle
+    (append donnees-cercle
+      (list
+        (list -3
+          (list &quot;WIIP_LIEN&quot;
+            (cons 1005 handle-texte)
+          )
+        )
+      )
+    )
+  )
+  (entmod donnees-cercle)
+
+  ;; Attacher un reactor au cercle
+  (vlr-object-reactor
+    (list (vlax-ename-&gt;vla-object entite-cercle))
+    &quot;Mise à jour étiquette rayon&quot;
+    '((:vlr-objectClosed . mettre-a-jour-texte))
+  )
+
+  (princ &quot;\nCercle créé avec étiquette liée.&quot;)
+  (princ)
+)
+</code></pre>
+<p>Quand l'utilisateur modifie le rayon du cercle (par étirement, mise à l'échelle, etc.), le texte se met à jour automatiquement. Notez l'utilisation de <code>:vlr-objectClosed</code> et non <code>:vlr-modified</code> — c'est le moment sûr pour lire les nouvelles données du cercle et modifier le texte.</p>
+<h2 id="resume">Résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Fonction / Syntaxe</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reactor d'objet</td>
+<td><code>vlr-object-reactor</code></td>
+<td>Surveille les modifications d'entités spécifiques</td>
+</tr>
+<tr>
+<td>Reactor de dessin</td>
+<td><code>vlr-dwg-reactor</code></td>
+<td>Surveille les événements du fichier DWG</td>
+</tr>
+<tr>
+<td>Reactor de commande</td>
+<td><code>vlr-command-reactor</code></td>
+<td>Surveille les commandes exécutées</td>
+</tr>
+<tr>
+<td>Supprimer un reactor</td>
+<td><code>vlr-remove</code></td>
+<td>Libère les ressources du reactor</td>
+</tr>
+<tr>
+<td>Lister les reactors</td>
+<td><code>vlr-reactors</code></td>
+<td>Retourne tous les reactors actifs</td>
+</tr>
+<tr>
+<td>Données utilisateur</td>
+<td><code>vlr-data</code></td>
+<td>Lit le champ libre du reactor</td>
+</tr>
+<tr>
+<td>VLA → ename</td>
+<td><code>vlax-vla-object-&gt;ename</code></td>
+<td>Convertit un objet VLA en ename pour <code>entget</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Événement clé</th>
+<th>Quand l'utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:vlr-modified</code></td>
+<td>Pour être notifié d'un changement (lecture seule)</td>
+</tr>
+<tr>
+<td><code>:vlr-objectClosed</code></td>
+<td>Pour modifier d'autres entités en réponse au changement</td>
+</tr>
+<tr>
+<td><code>:vlr-erased</code></td>
+<td>Pour nettoyer les liens quand une entité est supprimée</td>
+</tr>
+<tr>
+<td><code>:vlr-commandWillStart</code></td>
+<td>Pour intercepter une commande avant qu'elle ne s'exécute</td>
+</tr>
+</tbody>
+</table>
+<p>Dans le prochain chapitre, nous verrons comment communiquer avec des <strong>applications externes</strong> comme Microsoft Excel grâce à l'<strong>interopérabilité ActiveX</strong>.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Donn&#xE9;es &#xE9;tendues et dictionnaires</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Interop&#xE9;rabilit&#xE9; ActiveX</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

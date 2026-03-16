@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Interacting with the Drawing - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to create and modify AutoCAD entities in AutoLISP. Discover two approaches: command to simulate commands, and entmake/entmod to manipulate entities directly." />
+        <meta property="og:title" content="Interacting with the Drawing - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to create and modify AutoCAD entities in AutoLISP. Discover two approaches: command to simulate commands, and entmake/entmod to manipulate entities directly." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-dessin" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Interacting with the Drawing - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to create and modify AutoCAD entities in AutoLISP. Discover two approaches: command to simulate commands, and entmake/entmod to manipulate entities directly." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-dessin" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-dessin" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Interacting with the Drawing",
+        "description": "Learn how to create and modify AutoCAD entities in AutoLISP. Discover two approaches: command to simulate commands, and entmake/entmod to manipulate entities directly.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-dessin",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none fw-bold">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 10 / 16</small>
+                    <h1>Interacting with the Drawing</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>Now that we know how to gather information from the user, let's move on to the next step: <strong>interacting with the AutoCAD drawing</strong>. Creating lines, circles, modifying existing entities, automating plan production — this is where everything comes together. AutoLISP offers two fundamentally different approaches to achieve this.</p>
+<h2 id="approach-1-the-command-function">Approach 1: the <code>command</code> function</h2>
+<p>The <code>command</code> function lets you <strong>execute AutoCAD commands</strong> from your code, exactly as if you were typing them at the keyboard:</p>
+<pre><code class="language-lisp">(command &quot;_LINE&quot; &quot;0,0&quot; &quot;100,0&quot; &quot;&quot;)
+</code></pre>
+<p>This expression draws a line from point <code>(0,0)</code> to point <code>(100,0)</code>. The empty string <code>&quot;&quot;</code> simulates pressing Enter to end the command.</p>
+<h3 id="using-international-names">Using international names</h3>
+<p>AutoCAD commands have names translated according to the installation language. In French, the command to draw a line is <code>LIGNE</code>, in English it's <code>LINE</code>. To make your code work <strong>regardless of the language</strong>, prefix the command name with an underscore <code>_</code>:</p>
+<pre><code class="language-lisp">(command &quot;_LINE&quot; &quot;0,0&quot; &quot;100,0&quot; &quot;&quot;)    ; Works in all languages
+(command &quot;LIGNE&quot; &quot;0,0&quot; &quot;100,0&quot; &quot;&quot;)    ; Only works in French
+</code></pre>
+<p>Likewise, command options should be prefixed with <code>_</code>:</p>
+<pre><code class="language-lisp">(command &quot;_CIRCLE&quot; &quot;0,0&quot; &quot;_Diameter&quot; 50)  ; &quot;Diameter&quot; option in international form
+</code></pre>
+<blockquote>
+<p><strong>Golden rule</strong>: always prefix command and option names with <code>_</code> to ensure portability of your programs.</p>
+</blockquote>
+<blockquote>
+<p><strong>Best practice</strong>: in the command line, you often type the shortcut for an option (for example <code>_D</code> instead of <code>_Diameter</code>). In a program, prefer the <strong>full option name</strong>: it makes the code much more readable and self-documenting. Saving a few characters is not worth the loss of clarity when re-reading the code six months later.</p>
+</blockquote>
+<h3 id="passing-points-as-lists">Passing points as lists</h3>
+<p>Rather than using strings like <code>&quot;0,0&quot;</code>, you can pass <strong>coordinate lists</strong>, which is cleaner and allows the use of variables:</p>
+<pre><code class="language-lisp">(setq start-point '(0 0))
+(setq end-point '(100 50))
+
+(command &quot;_LINE&quot; start-point end-point &quot;&quot;)
+</code></pre>
+<h3 id="example-drawing-a-rectangle">Example: drawing a rectangle</h3>
+<pre><code class="language-lisp">(defun c:rect-simple (/ point1 width height point2 point3 point4)
+  (setq point1 (getpoint &quot;\nLower-left corner: &quot;))
+  (setq width (getreal &quot;\nWidth: &quot;))
+  (setq height (getreal &quot;\nHeight: &quot;))
+
+  (setq point2 (list (+ (car point1) width) (cadr point1)))
+  (setq point3 (list (+ (car point1) width) (+ (cadr point1) height)))
+  (setq point4 (list (car point1) (+ (cadr point1) height)))
+
+  (command &quot;_LINE&quot; point1 point2 point3 point4 &quot;_Close&quot;)
+  (princ)
+)
+</code></pre>
+<h3 id="pitfalls-of-command">Pitfalls of <code>command</code></h3>
+<p>The <code>command</code> approach is intuitive — it reproduces what you would do manually. But it comes with <strong>several pitfalls</strong> you need to be aware of.</p>
+<h4 id="command-echo">Command echo</h4>
+<p>By default, each command executed by <code>command</code> is displayed in the command line, as if the user typed it. In a script that executes dozens of commands, this slows down execution and clutters the display. You need to <strong>disable the echo</strong> with the <code>CMDECHO</code> system variable:</p>
+<pre><code class="language-lisp">(defun c:my-drawing (/ old-echo)
+  ;; Save and disable echo
+  (setq old-echo (getvar &quot;CMDECHO&quot;))
+  (setvar &quot;CMDECHO&quot; 0)
+
+  ;; Your commands here
+  (command &quot;_LINE&quot; &quot;0,0&quot; &quot;100,0&quot; &quot;&quot;)
+  (command &quot;_CIRCLE&quot; &quot;50,25&quot; 10)
+
+  ;; Restore echo
+  (setvar &quot;CMDECHO&quot; old-echo)
+  (princ)
+)
+</code></pre>
+<blockquote>
+<p><strong>Best practice</strong>: always save the original value of <code>CMDECHO</code> before modifying it, and restore it at the end of your function. If your program crashes before restoration, the echo will remain disabled for the user.</p>
+</blockquote>
+<h4 id="dependency-on-system-variables">Dependency on system variables</h4>
+<p>This is the most insidious pitfall. AutoCAD commands rely on the current <strong>system variables</strong>. Your program may behave differently depending on the user's configuration:</p>
+<ul>
+<li><strong><code>OSMODE</code></strong> (object snap): if the user has enabled midpoint snap, your points may be unintentionally altered</li>
+<li><strong><code>ANGDIR</code></strong> (angle direction): counterclockwise or clockwise? Your angle calculation may produce an inverted result</li>
+<li><strong><code>ANGBASE</code></strong> (base angle): angle 0 does not necessarily point east</li>
+<li><strong><code>AUNITS</code></strong> (angle units): degrees, radians, gradians?</li>
+<li><strong><code>CLAYER</code></strong> (current layer): the entity will be created on the active layer, not necessarily the one you expect</li>
+</ul>
+<p>To write a reliable program, you must <strong>save and force</strong> the critical system variables:</p>
+<pre><code class="language-lisp">(defun c:reliable-drawing (/ old-osmode old-cmdecho)
+  ;; Save variables
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+  (setq old-cmdecho (getvar &quot;CMDECHO&quot;))
+
+  ;; Force settings
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)  ; Disable object snaps
+
+  ;; Draw safely
+  (command &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+
+  ;; Restore variables
+  (setvar &quot;OSMODE&quot; old-osmode)
+  (setvar &quot;CMDECHO&quot; old-cmdecho)
+  (princ)
+)
+</code></pre>
+<p>This save/restore code is tedious, especially as the number of variables to manage grows. And if your program encounters an error before reaching the restoration, the variables will remain modified.</p>
+<h4 id="other-limitations">Other limitations</h4>
+<ul>
+<li><strong>Performance</strong>: each call to <code>command</code> goes through AutoCAD's command interpreter, which is slower than direct entity manipulation</li>
+<li><strong>Regeneration</strong>: some commands trigger a drawing regeneration, which further slows execution</li>
+<li><strong>Undo</strong>: each call to <code>command</code> creates an entry in the undo history, which can be problematic if your program executes 50 commands — the user will need to press <code>Ctrl+Z</code> 50 times to undo everything</li>
+</ul>
+<h3 id="the-command-s-variant">The <code>command-s</code> variant</h3>
+<p>Since AutoCAD 2015, the <code>command-s</code> function advantageously replaces <code>command</code> in most cases. Its syntax is identical:</p>
+<pre><code class="language-lisp">(command-s &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+</code></pre>
+<p>The difference is subtle but important: <code>command-s</code> <strong>suspends LISP execution</strong> until the command is completely finished. With <code>command</code>, there are cases where LISP execution resumes before the command has actually completed — particularly with commands that display a dialog box or launch a sub-command. This can cause hard-to-diagnose bugs: your program continues while the previous command hasn't finished yet.</p>
+<pre><code class="language-lisp">;; With command, the next line may execute before the block is inserted
+(command &quot;_INSERT&quot; &quot;MyBlock&quot; '(0 0) 1.0 1.0 0.0)
+(setq last-ent (entlast))  ; May not be the block!
+
+;; With command-s, insertion is guaranteed to be complete
+(command-s &quot;_INSERT&quot; &quot;MyBlock&quot; '(0 0) 1.0 1.0 0.0)
+(setq last-ent (entlast))  ; This is definitely the block
+</code></pre>
+<p>There is, however, one <strong>restriction</strong>: <code>command-s</code> does not support the <code>pause</code> keyword (which allows the user to provide interactive input in the middle of a command). If you need <code>pause</code>, stick with <code>command</code>.</p>
+<blockquote>
+<p><strong>Best practice</strong>: use <code>command-s</code> by default. Only fall back to <code>command</code> if you need <code>pause</code> for interactive user input, or if your program targets an AutoCAD version prior to 2015.</p>
+</blockquote>
+<h2 id="approach-2-entmake-creating-entities-directly">Approach 2: <code>entmake</code> — creating entities directly</h2>
+<p>The <code>entmake</code> function creates an entity <strong>directly in the drawing database</strong>, bypassing the command interpreter. It takes an <strong>association list</strong> in DXF format as its argument:</p>
+<pre><code class="language-lisp">(entmake
+  (list
+    '(0 . &quot;LINE&quot;)              ; Entity type
+    '(8 . &quot;MyLayer&quot;)           ; Layer
+    '(10 0.0 0.0 0.0)          ; Start point (X Y Z)
+    '(11 100.0 0.0 0.0)        ; End point (X Y Z)
+  )
+)
+</code></pre>
+<p>This expression creates a line from point <code>(0,0,0)</code> to point <code>(100,0,0)</code> on the layer <code>&quot;MyLayer&quot;</code>.</p>
+<h3 id="dxf-codes">DXF codes</h3>
+<p>Each entity property is identified by a <strong>DXF code</strong> (Drawing Exchange Format). Here are the most common codes:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Property</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Entity type (<code>&quot;LINE&quot;</code>, <code>&quot;CIRCLE&quot;</code>, <code>&quot;ARC&quot;</code>, <code>&quot;TEXT&quot;</code>, etc.)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Layer name</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Primary point (start for a line, center for a circle)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Secondary point (end for a line)</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Numeric value (radius for a circle, height for text)</td>
+</tr>
+<tr>
+<td>62</td>
+<td>Color number (1 = red, 2 = yellow, 3 = green, etc.)</td>
+</tr>
+</tbody>
+</table>
+<p>The complete list of DXF codes is available in the <a href="https://help.autodesk.com/view/OARX/2025/ENU/?guid=GUID-3F0380A5-1C15-464D-BC66-2C5F094BCFB9">official Autodesk DXF reference</a>.</p>
+<h3 id="entity-examples">Entity examples</h3>
+<h4 id="a-circle">A circle</h4>
+<pre><code class="language-lisp">(entmake
+  (list
+    '(0 . &quot;CIRCLE&quot;)
+    '(8 . &quot;Construction&quot;)
+    '(10 50.0 25.0 0.0)        ; Center
+    '(40 . 10.0)               ; Radius
+    '(62 . 1)                  ; Red color
+  )
+)
+</code></pre>
+<h4 id="a-text-entity">A text entity</h4>
+<pre><code class="language-lisp">(entmake
+  (list
+    '(0 . &quot;TEXT&quot;)
+    '(8 . &quot;Annotations&quot;)
+    '(10 0.0 0.0 0.0)          ; Insertion point
+    '(40 . 2.5)                ; Text height
+    '(1 . &quot;Hello AutoLISP&quot;)    ; Text content
+  )
+)
+</code></pre>
+<h4 id="a-point">A point</h4>
+<pre><code class="language-lisp">(entmake
+  (list
+    '(0 . &quot;POINT&quot;)
+    '(10 30.0 40.0 0.0)
+  )
+)
+</code></pre>
+<h3 id="advantages-of-entmake">Advantages of <code>entmake</code></h3>
+<p>Compared to <code>command</code>, the <code>entmake</code> approach is:</p>
+<ul>
+<li><strong>Independent of system variables</strong>: <code>OSMODE</code>, <code>ANGDIR</code>, <code>ANGBASE</code> have no influence. You explicitly specify each property — no unpleasant surprises</li>
+<li><strong>More performant</strong>: no round-trip through the command interpreter, no unnecessary regeneration</li>
+<li><strong>More predictable</strong>: the layer, color, and linetype are explicitly defined in the DXF list, not inherited from the current context</li>
+<li><strong>Clean undo</strong>: you can group multiple operations into a single undo block with <code>(command &quot;_.UNDO&quot; &quot;_Begin&quot;)</code> and <code>(command &quot;_.UNDO&quot; &quot;_End&quot;)</code></li>
+</ul>
+<h3 id="a-comparative-example">A comparative example</h3>
+<p>Drawing 100 random circles — let's compare the two approaches:</p>
+<pre><code class="language-lisp">;; With command (slower, context-dependent)
+(defun c:circles-command (/ old-osmode old-cmdecho index)
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+  (setq old-cmdecho (getvar &quot;CMDECHO&quot;))
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)
+
+  (setq index 0)
+  (repeat 100
+    (command &quot;_CIRCLE&quot;
+      (list (* (rem (* index 7) 100) 10.0) (* (rem (* index 13) 100) 10.0))
+      (+ 5.0 (rem (* index 3) 20))
+    )
+    (setq index (1+ index))
+  )
+
+  (setvar &quot;OSMODE&quot; old-osmode)
+  (setvar &quot;CMDECHO&quot; old-cmdecho)
+  (princ)
+)
+
+;; With entmake (faster, context-independent)
+(defun c:circles-entmake (/ index)
+  (setq index 0)
+  (repeat 100
+    (entmake
+      (list
+        '(0 . &quot;CIRCLE&quot;)
+        (cons 10 (list (* (rem (* index 7) 100) 10.0) (* (rem (* index 13) 100) 10.0) 0.0))
+        (cons 40 (+ 5.0 (rem (* index 3) 20)))
+      )
+    )
+    (setq index (1+ index))
+  )
+  (princ)
+)
+</code></pre>
+<p>The <code>entmake</code> version is more concise, faster, and requires no system variable save/restore.</p>
+<h2 id="reading-and-modifying-entities-entget-and-entmod">Reading and modifying entities: <code>entget</code> and <code>entmod</code></h2>
+<h3 id="reading-an-entity-with-entget">Reading an entity with <code>entget</code></h3>
+<p>The <code>entget</code> function returns the <strong>DXF association list</strong> of an existing entity:</p>
+<pre><code class="language-lisp">;; Retrieve the last created entity
+(setq data (entget (entlast)))
+</code></pre>
+<p>The result is an association list like the one you pass to <code>entmake</code>, enriched with additional information:</p>
+<pre><code class="language-lisp">;; Example result for a line
+((-1 . &lt;Entity name: 7ff...&gt;)  ; Internal reference
+ (0 . &quot;LINE&quot;)                   ; Type
+ (8 . &quot;0&quot;)                      ; Layer
+ (10 0.0 0.0 0.0)               ; Start point
+ (11 100.0 0.0 0.0)             ; End point
+ ...)
+</code></pre>
+<p>To extract a property, use <code>assoc</code> then <code>cdr</code>:</p>
+<pre><code class="language-lisp">(cdr (assoc 0 data))    ; -&gt; &quot;LINE&quot; (entity type)
+(cdr (assoc 8 data))    ; -&gt; &quot;0&quot; (layer)
+(assoc 10 data)          ; -&gt; (10 0.0 0.0 0.0) (start point)
+</code></pre>
+<h3 id="modifying-an-entity-with-entmod">Modifying an entity with <code>entmod</code></h3>
+<p>To modify an existing entity, follow three steps:</p>
+<ol>
+<li><strong>Read</strong> its data with <code>entget</code></li>
+<li><strong>Modify</strong> the association list with <code>subst</code></li>
+<li><strong>Apply</strong> the changes with <code>entmod</code></li>
+</ol>
+<pre><code class="language-lisp">;; Change the layer of the last entity
+(setq entity (entlast))
+(setq data (entget entity))
+
+;; Replace the layer
+(setq data
+  (subst
+    '(8 . &quot;NewLayer&quot;)          ; New value
+    (assoc 8 data)              ; Old value
+    data                        ; Full list
+  )
+)
+
+;; Apply the modification
+(entmod data)
+</code></pre>
+<p>The <code>subst</code> function replaces an occurrence in a list. Here, it replaces the pair <code>(8 . &quot;0&quot;)</code> with <code>(8 . &quot;NewLayer&quot;)</code>.</p>
+<h3 id="practical-example-moving-an-entity">Practical example: moving an entity</h3>
+<pre><code class="language-lisp">(defun c:move-last (/ entity data old-point new-point offset)
+  (setq offset (getpoint &quot;\nDisplacement vector (click two points): &quot;))
+
+  (setq entity (entlast))
+  (setq data (entget entity))
+  (setq old-point (assoc 10 data))
+
+  ;; Calculate the new point
+  (setq new-point
+    (list 10
+      (+ (nth 1 old-point) (car offset))
+      (+ (nth 2 old-point) (cadr offset))
+      (+ (nth 3 old-point) (caddr offset))
+    )
+  )
+
+  ;; Apply
+  (setq data (subst new-point old-point data))
+  (entmod data)
+
+  (princ)
+)
+</code></pre>
+<h2 id="selecting-entities">Selecting entities</h2>
+<p>To work with existing entities, you need to <strong>select</strong> them:</p>
+<h3 id="entlast-the-last-created-entity"><code>entlast</code> — the last created entity</h3>
+<pre><code class="language-lisp">(setq entity (entlast))
+(entget entity)  ; Read its data
+</code></pre>
+<h3 id="entsel-ask-the-user-to-click"><code>entsel</code> — ask the user to click</h3>
+<pre><code class="language-lisp">(setq selection (entsel &quot;\nSelect an entity: &quot;))
+;; Returns a list: (entity-name selection-point)
+
+(setq entity (car selection))   ; The entity name
+(entget entity)                  ; Its DXF data
+</code></pre>
+<h3 id="ssget-multiple-selection"><code>ssget</code> — multiple selection</h3>
+<pre><code class="language-lisp">(setq ss (ssget))               ; Prompts the user for a selection
+(sslength ss)                    ; Number of selected entities
+(ssname ss 0)                    ; First entity in the set
+(ssname ss 1)                    ; Second entity
+</code></pre>
+<h3 id="example-changing-the-color-of-a-selection">Example: changing the color of a selection</h3>
+<pre><code class="language-lisp">(defun c:colorize (/ ss color index entity data)
+  (setq color (getint &quot;\nColor number (1-255): &quot;))
+  (setq ss (ssget))
+
+  (if ss
+    (progn
+      (setq index 0)
+      (repeat (sslength ss)
+        (setq entity (ssname ss index))
+        (setq data (entget entity))
+
+        (if (assoc 62 data)
+          ;; Color already exists, replace it
+          (setq data (subst (cons 62 color) (assoc 62 data) data))
+          ;; No color defined, add it after the layer
+          (setq data (append data (list (cons 62 color))))
+        )
+
+        (entmod data)
+        (setq index (1+ index))
+      )
+      (princ (strcat &quot;\n&quot; (itoa (sslength ss)) &quot; entity(ies) modified.&quot;))
+    )
+    (princ &quot;\nNo selection.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<h2 id="which-approach-should-you-choose">Which approach should you choose?</h2>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th><code>command</code></th>
+<th><code>entmake</code> / <code>entmod</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ease of learning</td>
+<td>Simple, intuitive</td>
+<td>Requires knowledge of DXF codes</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Slow</td>
+<td>Fast</td>
+</tr>
+<tr>
+<td>Reliability</td>
+<td>Depends on system variables</td>
+<td>Context-independent</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>Language-sensitive (without <code>_</code>)</td>
+<td>Always portable</td>
+</tr>
+<tr>
+<td>Undo</td>
+<td>1 entry per command</td>
+<td>Full control</td>
+</tr>
+<tr>
+<td>Ideal use case</td>
+<td>Quick scripts, prototyping</td>
+<td>Robust, distributed programs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In summary</strong>: <code>command</code> is easier for getting started and for personal scripts. But as soon as your program needs to be <strong>reliable</strong>, <strong>performant</strong>, or <strong>shared with other users</strong>, prefer <code>entmake</code> and <code>entmod</code>. The extra effort of learning DXF codes pays off quickly.</p>
+<p>In the next chapter, we will see how to <strong>read and write text files</strong> to export data or import coordinates.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Interacting with the User</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Reading and Writing Files</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

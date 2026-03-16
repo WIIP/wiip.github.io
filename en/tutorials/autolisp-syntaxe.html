@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>AutoLISP Syntax - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Master prefix notation, understand the role of parentheses, and learn the basic rules of AutoLISP syntax. Learn to read and write LISP code with confidence." />
+        <meta property="og:title" content="AutoLISP Syntax - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Master prefix notation, understand the role of parentheses, and learn the basic rules of AutoLISP syntax. Learn to read and write LISP code with confidence." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-syntaxe" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="AutoLISP Syntax - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Master prefix notation, understand the role of parentheses, and learn the basic rules of AutoLISP syntax. Learn to read and write LISP code with confidence." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-syntaxe" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-syntaxe" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AutoLISP Syntax",
+        "description": "Master prefix notation, understand the role of parentheses, and learn the basic rules of AutoLISP syntax. Learn to read and write LISP code with confidence.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-syntaxe",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none fw-bold">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 3 / 16</small>
+                    <h1>AutoLISP Syntax</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>If you have already programmed in a language like Python, JavaScript, or C, LISP syntax may surprise you at first. But don't worry: it is actually <strong>simpler and more consistent</strong> than most other languages. Once you understand the few basic rules, everything will become clear.</p>
+<h2 id="prefix-notation">Prefix notation</h2>
+<p>In most programming languages, operations are written in <strong>infix notation</strong>: the operator is placed <em>between</em> its operands.</p>
+<pre><code>2 + 3
+</code></pre>
+<p>In AutoLISP, we use <strong>prefix notation</strong>: the operator (or function) comes <em>first</em>, followed by its arguments, all enclosed in parentheses.</p>
+<pre><code class="language-lisp">(+ 2 3)
+</code></pre>
+<p>This rule is <strong>universal</strong> in AutoLISP. Whether it is an addition, a function call, or a control structure, the form is always the same:</p>
+<pre><code class="language-lisp">(function argument1 argument2 ...)
+</code></pre>
+<p>A few examples:</p>
+<pre><code class="language-lisp">(+ 2 3)           ; Addition: 2 + 3 = 5
+(- 10 4)          ; Subtraction: 10 - 4 = 6
+(max 5 8 3)       ; Maximum: 8
+(strlen &quot;Hello&quot;)  ; String length: 5
+(alert &quot;Test&quot;)    ; Displays a dialog box
+</code></pre>
+<h2 id="the-role-of-parentheses">The role of parentheses</h2>
+<p>Parentheses are the heart of LISP. Each pair of parentheses <code>(</code> and <code>)</code> delimits a complete <strong>expression</strong>. An AutoLISP expression is always structured as follows:</p>
+<pre><code>( function  argument1  argument2  ...  argumentN )
+  ^         ^                          ^
+  first     function arguments
+  element
+</code></pre>
+<p>The first element after the opening parenthesis is always the <strong>function name</strong> to call. Everything else constitutes the <strong>arguments</strong> passed to that function.</p>
+<h3 id="no-superfluous-parentheses">No superfluous parentheses</h3>
+<p>In AutoLISP, every parenthesis has a meaning. Unlike languages where you can add parentheses for readability (such as <code>(2 + 3)</code> in mathematics), in LISP, writing <code>(5)</code> would be an error: AutoLISP would try to call <code>5</code> as a function!</p>
+<pre><code class="language-lisp">(5)   ; ERROR: 5 is not a function
+5     ; Correct: simply returns 5
+</code></pre>
+<h2 id="nested-expressions">Nested expressions</h2>
+<p>The true power of this syntax appears when you <strong>nest</strong> expressions. Since each expression returns a value, you can use it as an argument to another expression:</p>
+<pre><code class="language-lisp">(+ 2 (* 3 4))
+</code></pre>
+<p>Evaluation proceeds from the <strong>inside out</strong>:</p>
+<ol>
+<li><code>(* 3 4)</code> -&gt; <code>12</code></li>
+<li><code>(+ 2 12)</code> -&gt; <code>14</code></li>
+</ol>
+<p>A more complex example:</p>
+<pre><code class="language-lisp">(* (+ 1 2) (- 10 5))
+</code></pre>
+<ol>
+<li><code>(+ 1 2)</code> -&gt; <code>3</code></li>
+<li><code>(- 10 5)</code> -&gt; <code>5</code></li>
+<li><code>(* 3 5)</code> -&gt; <code>15</code></li>
+</ol>
+<p>In standard mathematical notation, this is equivalent to <code>(1 + 2) x (10 - 5)</code>.</p>
+<p><img src="Content/en/tutorials/media/autolisp-syntaxe-arbre-evaluation.png" alt="Evaluation tree of a nested expression" /></p>
+<h2 id="whitespace-and-line-breaks">Whitespace and line breaks</h2>
+<p>AutoLISP is very flexible with whitespace. You can write an expression on a single line:</p>
+<pre><code class="language-lisp">(+ 2 (* 3 4))
+</code></pre>
+<p>Or on multiple lines for better readability:</p>
+<pre><code class="language-lisp">(+
+  2
+  (* 3 4)
+)
+</code></pre>
+<p>Both forms are strictly equivalent. <strong>Line breaks</strong> and <strong>multiple spaces</strong> are treated as a single separator. Use them to make your code more readable when expressions become complex.</p>
+<h2 id="comments">Comments</h2>
+<p>In AutoLISP, comments start with a <strong>semicolon</strong> <code>;</code>. Everything after the semicolon until the end of the line is ignored by the interpreter:</p>
+<pre><code class="language-lisp">; This is a comment on a full line
+(+ 2 3) ; This is an end-of-line comment
+</code></pre>
+<p>For multi-line comments, use <code>;|</code> and <code>|;</code>:</p>
+<pre><code class="language-lisp">;| This is a comment
+   spanning multiple lines |;
+</code></pre>
+<h2 id="basic-data-types">Basic data types</h2>
+<p>Before going further, here are the data types you will encounter most often in AutoLISP:</p>
+<h3 id="integers">Integers</h3>
+<p>These are numbers without a decimal point:</p>
+<pre><code class="language-lisp">42
+-7
+0
+</code></pre>
+<h3 id="reals-floating-point-numbers">Reals (floating-point numbers)</h3>
+<p>Numbers with a decimal point:</p>
+<pre><code class="language-lisp">3.14
+-0.5
+2.0
+</code></pre>
+<h3 id="strings">Strings</h3>
+<p>Text enclosed in double quotes:</p>
+<pre><code class="language-lisp">&quot;Hello&quot;
+&quot;AutoLISP is awesome&quot;
+&quot;Line 1\nLine 2&quot;   ; \n inserts a line break
+</code></pre>
+<h3 id="nil">nil</h3>
+<p>The value for &quot;nothing&quot;, &quot;false&quot;, or &quot;no result&quot;. It is the equivalent of <code>null</code>, <code>None</code>, or <code>false</code> in other languages:</p>
+<pre><code class="language-lisp">nil
+</code></pre>
+<h3 id="t">T</h3>
+<p>The value for &quot;true&quot;:</p>
+<pre><code class="language-lisp">T
+</code></pre>
+<p>In AutoLISP, any value that is not <code>nil</code> is considered true. <code>T</code> is simply the explicit way of saying &quot;true&quot;.</p>
+<h2 id="case-sensitivity">Case sensitivity</h2>
+<p>AutoLISP is <strong>not case-sensitive</strong>. The following expressions are all equivalent:</p>
+<pre><code class="language-lisp">(ALERT &quot;Hello&quot;)
+(Alert &quot;Hello&quot;)
+(alert &quot;Hello&quot;)
+</code></pre>
+<p>By convention, function names are written in <strong>lowercase</strong>. However, strings preserve their case: <code>&quot;HELLO&quot;</code> and <code>&quot;hello&quot;</code> are two different strings.</p>
+<h2 id="syntax-summary">Syntax summary</h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prefix notation</td>
+<td><code>(+ 2 3)</code> instead of <code>2 + 3</code></td>
+</tr>
+<tr>
+<td>Parentheses = expression</td>
+<td><code>(function args...)</code></td>
+</tr>
+<tr>
+<td>Nesting</td>
+<td><code>(+ 2 (* 3 4))</code></td>
+</tr>
+<tr>
+<td>Line comment</td>
+<td><code>; comment</code></td>
+</tr>
+<tr>
+<td>Block comment</td>
+<td><code>;| comment |;</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td><code>42</code></td>
+</tr>
+<tr>
+<td>Real</td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td>String</td>
+<td><code>&quot;text&quot;</code></td>
+</tr>
+<tr>
+<td>True / False</td>
+<td><code>T</code> / <code>nil</code></td>
+</tr>
+</tbody>
+</table>
+<p>Now that you have mastered the basics of the syntax, let's move on to the serious stuff: <strong>mathematical operations</strong>!</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Getting Started &#x2014; The Command Line</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Mathematical Operations</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

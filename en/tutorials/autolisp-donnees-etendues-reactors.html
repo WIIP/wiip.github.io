@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Extended Data and Dictionaries - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to attach custom data to entities with xdata, store drawing-level information with extension dictionaries, and link entities together through their handles." />
+        <meta property="og:title" content="Extended Data and Dictionaries - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to attach custom data to entities with xdata, store drawing-level information with extension dictionaries, and link entities together through their handles." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-donnees-etendues-reactors" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Extended Data and Dictionaries - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to attach custom data to entities with xdata, store drawing-level information with extension dictionaries, and link entities together through their handles." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-donnees-etendues-reactors" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Extended Data and Dictionaries",
+        "description": "Learn how to attach custom data to entities with xdata, store drawing-level information with extension dictionaries, and link entities together through their handles.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-donnees-etendues-reactors",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none fw-bold">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 14 / 16</small>
+                    <h1>Extended Data and Dictionaries</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>So far, we have created, modified, and read entities with their standard geometric properties: points, radii, layers, colors. But in a real program, you will often need to <strong>attach your own information</strong> to an entity — a part number, a supplier reference, a link to another entity. AutoLISP offers several mechanisms for this, from the simplest to the most powerful.</p>
+<h2 id="extended-data-xdata">Extended Data (xdata)</h2>
+<p><strong>Extended data</strong> (<em>xdata</em>) allows you to attach custom information to any entity in the drawing. This data is invisible to the user — it does not display on screen — but your program can read and modify it.</p>
+<h3 id="registering-an-application">Registering an Application</h3>
+<p>Before attaching xdata, you must <strong>register an application name</strong> with <code>regapp</code>. This name serves as an identifier to group your data:</p>
+<pre><code class="language-lisp">(regapp &quot;WIIP_PIPING&quot;)
+</code></pre>
+<p><code>regapp</code> returns the application name if registration succeeds, or <code>nil</code> if the name is already registered (which is not an error). In practice, you call <code>regapp</code> at the beginning of your program without worrying about the return value.</p>
+<blockquote>
+<p><strong>Convention</strong>: choose a unique application name that clearly identifies your program. A prefix with your company name helps avoid collisions with other developers.</p>
+</blockquote>
+<h3 id="attaching-xdata-to-an-entity">Attaching xdata to an Entity</h3>
+<p>Xdata is added to the <code>-3</code> group of an entity's DXF list. Each piece of data has a specific <strong>DXF code</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Data Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>String</td>
+<td><code>(1000 . &quot;DN100&quot;)</code></td>
+</tr>
+<tr>
+<td>1001</td>
+<td>Application name (start of an xdata group)</td>
+<td><code>(1001 . &quot;WIIP_PIPING&quot;)</code></td>
+</tr>
+<tr>
+<td>1005</td>
+<td>Handle reference (link to another entity)</td>
+<td><code>(1005 . &quot;1A3F&quot;)</code></td>
+</tr>
+<tr>
+<td>1010</td>
+<td>3D point</td>
+<td><code>(1010 0.0 0.0 0.0)</code></td>
+</tr>
+<tr>
+<td>1040</td>
+<td>Real number</td>
+<td><code>(1040 . 114.3)</code></td>
+</tr>
+<tr>
+<td>1070</td>
+<td>16-bit integer, from -32,768 to 32,767 — typical for color indices and flags</td>
+<td><code>(1070 . 42)</code></td>
+</tr>
+<tr>
+<td>1071</td>
+<td>32-bit long integer, from -2,147,483,648 to 2,147,483,647 — for large values</td>
+<td><code>(1071 . 100000)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Here is how to attach xdata to the last entity created:</p>
+<pre><code class="language-lisp">;; Register the application
+(regapp &quot;WIIP_PIPING&quot;)
+
+;; Get the last entity
+(setq entity (entlast))
+(setq data (entget entity))
+
+;; Add the xdata
+(setq data
+  (append data
+    (list
+      (list -3
+        (list &quot;WIIP_PIPING&quot;
+          (cons 1000 &quot;DN100&quot;)           ; Nominal diameter
+          (cons 1040 114.3)             ; Outside diameter in mm
+          (cons 1070 10)                ; Nominal pressure (PN)
+        )
+      )
+    )
+  )
+)
+
+;; Apply the modification
+(entmod data)
+</code></pre>
+<p>The <code>-3</code> code tells AutoCAD that what follows is a block of extended data. Inside, the data is grouped by application name.</p>
+<h3 id="reading-xdata-from-an-entity">Reading xdata from an Entity</h3>
+<p>By default, <code>entget</code> does <strong>not</strong> return xdata. You must explicitly request the data for a given application:</p>
+<pre><code class="language-lisp">;; Read the entity WITH its xdata
+(setq data (entget (entlast) '(&quot;WIIP_PIPING&quot;)))
+
+;; Extract the xdata group
+(setq xdata (assoc -3 data))
+</code></pre>
+<p>The result of <code>(assoc -3 data)</code> looks like:</p>
+<pre><code class="language-lisp">(-3 (&quot;WIIP_PIPING&quot;
+      (1000 . &quot;DN100&quot;)
+      (1040 . 114.3)
+      (1070 . 10)
+    )
+)
+</code></pre>
+<p>To extract a specific value:</p>
+<pre><code class="language-lisp">;; Get the application data
+(setq app-data (cdadr (assoc -3 data)))
+
+;; Find the nominal diameter
+(cdr (assoc 1000 app-data))  ; → &quot;DN100&quot;
+
+;; Find the outside diameter
+(cdr (assoc 1040 app-data))  ; → 114.3
+</code></pre>
+<h3 id="complete-example-labeling-entities">Complete Example: Labeling Entities</h3>
+<p>This program attaches a unique identifier to each selected entity, then allows you to retrieve it:</p>
+<pre><code class="language-lisp">(defun c:label (/ selection-set index entity data identifier)
+  (regapp &quot;WIIP_ID&quot;)
+  (setq selection-set (ssget))
+
+  (if selection-set
+    (progn
+      (setq index 0)
+      (repeat (sslength selection-set)
+        (setq entity (ssname selection-set index))
+        (setq identifier (strcat &quot;ID-&quot; (itoa (1+ index))))
+
+        ;; Read the entity
+        (setq data (entget entity))
+
+        ;; Add the xdata
+        (setq data
+          (append data
+            (list
+              (list -3
+                (list &quot;WIIP_ID&quot;
+                  (cons 1000 identifier)
+                )
+              )
+            )
+          )
+        )
+
+        (entmod data)
+        (setq index (1+ index))
+      )
+
+      (princ (strcat &quot;\n&quot; (itoa (sslength selection-set)) &quot; entity(ies) labeled.&quot;))
+    )
+    (princ &quot;\nNo selection.&quot;)
+  )
+  (princ)
+)
+
+(defun c:read-label (/ selection entity data xdata)
+  (setq selection (entsel &quot;\nSelect an entity: &quot;))
+  (if selection
+    (progn
+      (setq entity (car selection))
+      (setq data (entget entity '(&quot;WIIP_ID&quot;)))
+      (setq xdata (assoc -3 data))
+
+      (if xdata
+        (princ (strcat &quot;\nIdentifier: &quot; (cdr (assoc 1000 (cdadr xdata)))))
+        (princ &quot;\nThis entity has no identifier.&quot;)
+      )
+    )
+    (princ &quot;\nNo selection.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<h2 id="extension-dictionaries">Extension Dictionaries</h2>
+<p>Xdata is perfect for attaching data <strong>to a specific entity</strong>. But what if you want to store information <strong>at the drawing level itself</strong> — for example, your program's configuration, a global counter, or a lookup table? That is the role of <strong>extension dictionaries</strong>.</p>
+<h3 id="the-named-object-dictionary">The Named Object Dictionary</h3>
+<p>Every AutoCAD drawing contains a <strong>Named Object Dictionary</strong> (<em>NOD</em>). It is the root of the dictionary tree. You access it with the <code>namedobjdict</code> function:</p>
+<pre><code class="language-lisp">(setq root-dictionary (namedobjdict))
+</code></pre>
+<p>This function returns the entity name of the root dictionary. You can then search in it or add entries to it.</p>
+<h3 id="searching-a-dictionary">Searching a Dictionary</h3>
+<p>The <code>dictsearch</code> function looks up an entry in a dictionary by name:</p>
+<pre><code class="language-lisp">;; Search for a dictionary named &quot;WIIP_CONFIG&quot;
+(setq result (dictsearch (namedobjdict) &quot;WIIP_CONFIG&quot;))
+</code></pre>
+<p>If the entry exists, <code>dictsearch</code> returns its DXF list. Otherwise, it returns <code>nil</code>.</p>
+<h3 id="storing-data-with-xrecords">Storing Data with Xrecords</h3>
+<p>An <strong>xrecord</strong> is a database object that can hold arbitrary data. It is the equivalent of a record in a database. You create it with <code>entmakex</code> (a variant of <code>entmake</code> that returns the entity name):</p>
+<pre><code class="language-lisp">;; Create an xrecord
+(setq xrecord
+  (entmakex
+    (list
+      '(0 . &quot;XRECORD&quot;)
+      '(100 . &quot;AcDbXrecord&quot;)
+      (cons 1 &quot;Industrial piping&quot;)        ; String
+      (cons 70 42)                         ; Integer
+      (cons 40 3.14)                       ; Real
+    )
+  )
+)
+</code></pre>
+<p>Standard DXF codes are used to type the data in an xrecord:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>String</td>
+</tr>
+<tr>
+<td>10</td>
+<td>3D point</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Real number</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>300-309</td>
+<td>Additional strings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="adding-an-xrecord-to-the-dictionary">Adding an Xrecord to the Dictionary</h3>
+<p>Once the xrecord is created, you attach it to the named object dictionary with <code>dictadd</code>:</p>
+<pre><code class="language-lisp">(dictadd (namedobjdict) &quot;WIIP_CONFIG&quot; xrecord)
+</code></pre>
+<h3 id="complete-example-persistent-configuration">Complete Example: Persistent Configuration</h3>
+<p>This program stores and reads a configuration in the drawing:</p>
+<pre><code class="language-lisp">(defun save-configuration (project-name scale / xrecord existing)
+  ;; Check if the configuration already exists
+  (setq existing (dictsearch (namedobjdict) &quot;WIIP_CONFIG&quot;))
+
+  (if existing
+    ;; Remove the old xrecord
+    (dictremove (namedobjdict) &quot;WIIP_CONFIG&quot;)
+  )
+
+  ;; Create a new xrecord
+  (setq xrecord
+    (entmakex
+      (list
+        '(0 . &quot;XRECORD&quot;)
+        '(100 . &quot;AcDbXrecord&quot;)
+        (cons 1 project-name)
+        (cons 40 scale)
+      )
+    )
+  )
+
+  ;; Add it to the dictionary
+  (dictadd (namedobjdict) &quot;WIIP_CONFIG&quot; xrecord)
+  (princ (strcat &quot;\nConfiguration saved for &quot; project-name))
+  (princ)
+)
+
+(defun read-configuration (/ result)
+  (setq result (dictsearch (namedobjdict) &quot;WIIP_CONFIG&quot;))
+
+  (if result
+    (progn
+      (princ (strcat &quot;\nProject: &quot; (cdr (assoc 1 result))))
+      (princ (strcat &quot;\nScale: &quot; (rtos (cdr (assoc 40 result)) 2 2)))
+    )
+    (princ &quot;\nNo configuration found.&quot;)
+  )
+  (princ)
+)
+
+;; Usage
+(defun c:save-config (/ name scale)
+  (setq name (getstring T &quot;\nProject name: &quot;))
+  (setq scale (getreal &quot;\nScale: &quot;))
+  (save-configuration name scale)
+)
+
+(defun c:read-config ()
+  (read-configuration)
+)
+</code></pre>
+<p>The decisive advantage of dictionaries is that the data is <strong>persistent</strong>: it is saved with the DWG file and survives across AutoCAD sessions.</p>
+<h3 id="xdata-or-dictionary-how-to-choose">Xdata or Dictionary: How to Choose?</h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Xdata</th>
+<th>Extension Dictionary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Attached to an entity</td>
+<td>At the drawing level</td>
+</tr>
+<tr>
+<td>Maximum size</td>
+<td>16 KB per application per entity</td>
+<td>No practical limit</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td>Simple</td>
+<td>More complex</td>
+</tr>
+<tr>
+<td>Use case</td>
+<td>Custom properties of an entity</td>
+<td>Global configuration, data tables</td>
+</tr>
+</tbody>
+</table>
+<p>As a general rule: if the data is tied to a specific entity, use xdata. If it concerns the drawing as a whole, use a dictionary.</p>
+<h2 id="linking-entities-together-through-handles">Linking Entities Together Through Handles</h2>
+<p>Every entity in the drawing has a <strong>handle</strong> — a unique identifier in the form of a hexadecimal string. You find it in DXF code <code>5</code>:</p>
+<pre><code class="language-lisp">(setq data (entget (entlast)))
+(cdr (assoc 5 data))  ; → &quot;1A3F&quot; (for example)
+</code></pre>
+<p>This handle remains <strong>stable</strong>: it does not change when you save and reopen the drawing. This is what makes it ideal for creating <strong>links between entities</strong>.</p>
+<h3 id="creating-a-link-between-two-entities">Creating a Link Between Two Entities</h3>
+<p>Imagine you want to link an annotation text to the line it describes. The idea is to store the line's handle in the text's xdata:</p>
+<pre><code class="language-lisp">(defun c:link-annotation (/ line-selection line line-data line-handle
+                            text-selection text text-data)
+  (regapp &quot;WIIP_LINK&quot;)
+
+  ;; Select the line
+  (setq line-selection (entsel &quot;\nSelect the line: &quot;))
+  (if (null line-selection)
+    (progn (princ &quot;\nNo selection.&quot;) (princ) (exit))
+  )
+  (setq line (car line-selection))
+  (setq line-data (entget line))
+  (setq line-handle (cdr (assoc 5 line-data)))
+
+  ;; Select the text
+  (setq text-selection (entsel &quot;\nSelect the text: &quot;))
+  (if (null text-selection)
+    (progn (princ &quot;\nNo selection.&quot;) (princ) (exit))
+  )
+  (setq text (car text-selection))
+  (setq text-data (entget text))
+
+  ;; Attach the line's handle to the text via xdata
+  (setq text-data
+    (append text-data
+      (list
+        (list -3
+          (list &quot;WIIP_LINK&quot;
+            (cons 1005 line-handle)    ; Code 1005 = handle reference
+          )
+        )
+      )
+    )
+  )
+  (entmod text-data)
+
+  (princ (strcat &quot;\nLink created to handle &quot; line-handle))
+  (princ)
+)
+</code></pre>
+<p>The xdata code <code>1005</code> is <strong>specifically designed</strong> to store handle references. This is not trivial — AutoCAD treats it differently from a plain string (code <code>1000</code>).</p>
+<h3 id="finding-the-linked-entity">Finding the Linked Entity</h3>
+<p>To find an entity from its handle, use <code>handent</code>:</p>
+<pre><code class="language-lisp">(defun c:follow-link (/ selection entity data xdata target-handle target)
+  (setq selection (entsel &quot;\nSelect the annotation: &quot;))
+  (if (null selection)
+    (progn (princ &quot;\nNo selection.&quot;) (princ) (exit))
+  )
+
+  (setq entity (car selection))
+  (setq data (entget entity '(&quot;WIIP_LINK&quot;)))
+  (setq xdata (assoc -3 data))
+
+  (if xdata
+    (progn
+      (setq target-handle (cdr (assoc 1005 (cdadr xdata))))
+      (setq target (handent target-handle))
+
+      (if target
+        (progn
+          (princ (strcat &quot;\nLinked entity found: &quot; target-handle))
+          ;; Highlight the target entity
+          (redraw target 3)
+        )
+        (princ &quot;\nThe linked entity no longer exists in the drawing.&quot;)
+      )
+    )
+    (princ &quot;\nThis entity has no link.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<h3 id="wblock-and-handle-translation">WBLOCK and Handle Translation</h3>
+<p>This is a crucial point to understand. When you use <strong>WBLOCK</strong> (write a block to an external file), AutoCAD <strong>translates the handles</strong>: entities receive new handles in the destination file. And thanks to code <code>1005</code>, AutoCAD knows that the stored value is a handle and <strong>automatically updates the reference</strong>. This is why you should not use code <code>1000</code> (ordinary string) to store a handle — AutoCAD would not know that it needs to translate it.</p>
+<p>However, during an <strong>internal copy</strong> (for example with <code>_COPY</code> or <code>(command &quot;_COPY&quot; ...)</code>), there is <strong>no handle translation</strong>. The copy retains the same xdata values as the original, including handle references. Both entities will therefore point to the same target. This is a behavior to keep in mind: after a copy, you may need to update the links manually.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Handle translation (code 1005)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WBLOCK (export to external file)</td>
+<td>Yes — references are updated</td>
+</tr>
+<tr>
+<td>INSERT (import from external file)</td>
+<td>Yes — references are updated</td>
+</tr>
+<tr>
+<td>Internal COPY (<code>_COPY</code>)</td>
+<td>No — references remain identical</td>
+</tr>
+<tr>
+<td>COPYCLIP / PASTECLIP</td>
+<td>Yes — similar treatment to WBLOCK/INSERT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Register an application</td>
+<td><code>regapp</code></td>
+<td>Declares an application name for xdata</td>
+</tr>
+<tr>
+<td>Read xdata</td>
+<td><code>(entget ename '(&quot;APP&quot;))</code></td>
+<td>Retrieves the extended data of an entity</td>
+</tr>
+<tr>
+<td>Root dictionary</td>
+<td><code>(namedobjdict)</code></td>
+<td>Accesses the named object dictionary</td>
+</tr>
+<tr>
+<td>Search a dictionary</td>
+<td><code>(dictsearch dict &quot;name&quot;)</code></td>
+<td>Looks up an entry by name</td>
+</tr>
+<tr>
+<td>Add to dictionary</td>
+<td><code>(dictadd dict &quot;name&quot; xrec)</code></td>
+<td>Attaches an xrecord to the dictionary</td>
+</tr>
+<tr>
+<td>Entity handle</td>
+<td><code>(cdr (assoc 5 data))</code></td>
+<td>Unique and stable identifier</td>
+</tr>
+<tr>
+<td>Entity from handle</td>
+<td><code>(handent &quot;1A3F&quot;)</code></td>
+<td>Finds an entity by its handle</td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will see how to <strong>automatically react</strong> to drawing modifications using <strong>reactors</strong>.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Symbols and Lambda Functions</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Reactors</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

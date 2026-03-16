@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>G&#xE9;rer un fichier de configuration en AutoLISP - WIIP</title><meta name="description" content="" />
+        <meta property="og:title" content="G&#xE9;rer un fichier de configuration en AutoLISP" />
+        <meta property="og:description" content="" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/autolisp-configuration" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="G&#xE9;rer un fichier de configuration en AutoLISP" />
+        <meta name="twitter:description" content="" /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autolisp-configuration" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autolisp-configuration" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "G\u00E9rer un fichier de configuration en AutoLISP",
+        "description": "",
+        "datePublished": "2026-03-16",
+        "url": "https://wiip.fr/fr/blog/autolisp-configuration",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>G&#xE9;rer un fichier de configuration en AutoLISP</h1>
+                    <small class="text-muted">lundi 16 mars 2026</small><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Quand on développe un programme <strong>AutoLISP</strong>, on a souvent besoin de stocker des paramètres de configuration : un répertoire de sortie, une unité de mesure, un préfixe de nommage, etc.</p>
+<p>Le premier réflexe est de penser à un format texte classique comme le <strong>.ini</strong> :</p>
+<pre><code class="language-ini">[general]
+unit=cm
+output-directory=C:\Output
+</code></pre>
+<p>Mais cela implique d'écrire un analyseur syntaxique (<em>parser</em>) pour lire les sections, les clés et les valeurs. C'est faisable, mais fastidieux.</p>
+<h2 id="tirer-parti-de-la-syntaxe-dautolisp">Tirer parti de la syntaxe d'AutoLISP</h2>
+<p><strong>AutoLISP</strong> est un dialecte de <strong>Lisp</strong>, et en Lisp, le code et les données partagent la même syntaxe : les <strong>listes</strong>. On peut donc écrire un fichier de configuration directement sous forme de liste associative, et le charger avec la fonction native <code>read</code>.</p>
+<p>Voici un exemple de fichier de configuration <code>Config.cfg</code> :</p>
+<pre><code class="language-lisp">(
+  (&quot;unit&quot; . &quot;cm&quot;)
+  (&quot;output-directory&quot; . &quot;C:\\Output&quot;)
+)
+</code></pre>
+<p>C'est une liste de <strong>paires pointées</strong> (<em>dotted pairs</em>). Chaque paire associe une clé (une chaîne) à une valeur. C'est l'équivalent d'un dictionnaire en Python ou d'un <code>Dictionary&lt;string, string&gt;</code> en .NET.</p>
+<h2 id="charger-la-configuration">Charger la configuration</h2>
+<p>La fonction <code>load-configuration</code> ouvre le fichier, lit toutes les lignes, les concatène, puis utilise <code>read</code> pour transformer le texte en une liste AutoLISP :</p>
+<pre><code class="language-lisp">;;; Charge une configuration depuis un fichier (liste associative).
+;;; path : chemin du fichier de configuration
+;;; Retourne la liste associative, ou nil en cas d'erreur
+(defun load-configuration (path / file content line configuration)
+  (setq file (open path &quot;r&quot;))
+  (if file
+    (progn
+      (setq content &quot;&quot;)
+      (while (setq line (read-line file))
+        (setq content (strcat content line))
+      )
+      (close file)
+      (setq configuration (read content))
+      configuration
+    )
+    (progn
+      (princ (strcat &quot;\nErreur : impossible d'ouvrir le fichier &quot; path))
+      nil
+    )
+  )
+)
+</code></pre>
+<p>La magie opère à la ligne <code>(read content)</code> : la fonction <code>read</code> d'AutoLISP analyse (<em>parse</em>) le texte et reconstruit la structure de données. Pas besoin d'écrire un analyseur : le langage s'en charge.</p>
+<h2 id="lire-et-modifier-des-valeurs">Lire et modifier des valeurs</h2>
+<p>Une fois la configuration chargée dans une variable globale <code>*CONFIG*</code>, on peut lire une valeur avec <code>assoc</code> et la modifier avec <code>subst</code>.</p>
+<blockquote>
+<p><strong>Convention de nommage</strong> : en AutoLISP, toute variable non déclarée après le <code>/</code> dans la liste des arguments est globale. Pour bien distinguer les variables globales des variables locales, on utilise une convention de nommage. Ici, les astérisques autour de <code>*CONFIG*</code> signalent immédiatement qu'il s'agit d'une variable globale. Cette notation s'inspire de <code>*error*</code>, la fonction globale bien connue d'AutoLISP qui permet d'installer un gestionnaire d'erreurs personnalisé. On peut aussi utiliser le préfixe <code>$</code>, par exemple <code>$config</code>. L'important est de choisir une convention et de s'y tenir.</p>
+</blockquote>
+<pre><code class="language-lisp">;;; Retourne la valeur associée à une clé dans la configuration
+(defun get-configuration-value (key)
+  (cdr (assoc key *CONFIG*))
+)
+
+;;; Modifie ou ajoute une valeur dans la configuration
+(defun set-configuration-value (key value / old)
+  (setq old (assoc key *CONFIG*))
+  (if old
+    (setq *CONFIG* (subst (cons key value) old *CONFIG*))
+    (setq *CONFIG* (cons (cons key value) *CONFIG*))
+  )
+)
+</code></pre>
+<p>La fonction <code>get-configuration-value</code> utilise <code>assoc</code> pour trouver la paire correspondant à la clé, puis <code>cdr</code> pour en extraire la valeur.</p>
+<p>La fonction <code>set-configuration-value</code> distingue deux cas :</p>
+<ul>
+<li>Si la clé existe déjà, <code>subst</code> remplace l'ancienne paire par la nouvelle.</li>
+<li>Sinon, <code>cons</code> ajoute la nouvelle paire en tête de liste.</li>
+</ul>
+<h2 id="exemple-dutilisation">Exemple d'utilisation</h2>
+<pre><code class="language-lisp">(defun C:TESTCONFIG ()
+  (setq *CONFIG* (load-configuration &quot;C:\\Temp\\Config.cfg&quot;))
+  (if *CONFIG*
+    (progn
+      (princ (strcat &quot;\nUnité : &quot; (get-configuration-value &quot;unit&quot;)))
+      (princ (strcat &quot;\nRépertoire de sortie : &quot; (get-configuration-value &quot;output-directory&quot;)))
+    )
+    (princ &quot;\nÉchec du chargement de la configuration.&quot;)
+  )
+  (princ)
+)
+</code></pre>
+<p>Résultat dans la console d'AutoCAD :</p>
+<pre><code>Unité : cm
+Répertoire de sortie : C:\Output
+</code></pre>
+<h2 id="sauvegarder-la-configuration">Sauvegarder la configuration</h2>
+<p>On peut aussi écrire une fonction pour sauvegarder la configuration modifiée :</p>
+<pre><code class="language-lisp">;;; Sauvegarde la configuration dans un fichier
+;;; path : chemin du fichier de configuration
+;;; Retourne T en cas de succès, nil sinon
+(defun save-configuration (path / file pair)
+  (setq file (open path &quot;w&quot;))
+  (if file
+    (progn
+      (write-line &quot;(&quot; file)
+      (foreach pair *CONFIG*
+        (write-line
+          (strcat &quot;  (\&quot;&quot; (car pair) &quot;\&quot; . \&quot;&quot; (cdr pair) &quot;\&quot;)&quot;)
+          file
+        )
+      )
+      (write-line &quot;)&quot; file)
+      (close file)
+      T
+    )
+    (progn
+      (princ (strcat &quot;\nErreur : impossible d'écrire dans le fichier &quot; path))
+      nil
+    )
+  )
+)
+</code></pre>
+<p>On écrit chaque paire sur une ligne séparée pour garder le fichier lisible.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>En utilisant la syntaxe native d'AutoLISP comme format de données, on obtient un système de configuration simple et efficace sans avoir besoin d'écrire d'analyseur syntaxique. La fonction <code>read</code> fait tout le travail.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/quicklook-cadimport" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

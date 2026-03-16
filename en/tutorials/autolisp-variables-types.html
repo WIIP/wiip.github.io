@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Variables and Data Types - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to store values in variables with setq, and discover the fundamental data types in AutoLISP &#x2014; integers, reals, strings, and lists." />
+        <meta property="og:title" content="Variables and Data Types - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to store values in variables with setq, and discover the fundamental data types in AutoLISP &#x2014; integers, reals, strings, and lists." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-variables-types" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Variables and Data Types - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to store values in variables with setq, and discover the fundamental data types in AutoLISP &#x2014; integers, reals, strings, and lists." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-variables-types" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-variables-types" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Variables and Data Types",
+        "description": "Learn how to store values in variables with setq, and discover the fundamental data types in AutoLISP \u2014 integers, reals, strings, and lists.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-variables-types",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none fw-bold">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 5 / 16</small>
+                    <h1>Variables and Data Types</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>So far, we have computed results that disappeared immediately after being displayed. To write useful programs, you need to be able to <strong>store values</strong> and reuse them. That is the purpose of variables.</p>
+<h2 id="creating-a-variable-with-setq">Creating a variable with <code>setq</code></h2>
+<p>In AutoLISP, you create (or modify) a variable using the <code>setq</code> function (<em>set quote</em>):</p>
+<pre><code class="language-lisp">(setq radius 5)
+</code></pre>
+<p>This expression creates a variable named <code>radius</code> and assigns it the value <code>5</code>. You can then use this variable in other expressions:</p>
+<pre><code class="language-lisp">(setq radius 5)
+(* pi (expt radius 2))  ; → 78.5398
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-variables-types-rayon-calcul.png" alt="Creating the radius variable and using it in a calculation" /></p>
+<h3 id="assigning-multiple-variables-at-once">Assigning multiple variables at once</h3>
+<p><code>setq</code> lets you assign <strong>multiple variables</strong> in a single call:</p>
+<pre><code class="language-lisp">(setq
+  width 10
+  height 5
+  depth 3
+)
+</code></pre>
+<p>This is equivalent to three separate calls, but more concise:</p>
+<pre><code class="language-lisp">(setq width 10)
+(setq height 5)
+(setq depth 3)
+</code></pre>
+<h3 id="the-exclamation-mark">The exclamation mark <code>!</code></h3>
+<p>In the AutoCAD command line, you can check the value of a variable by prefixing it with an exclamation mark:</p>
+<pre><code>!radius
+</code></pre>
+<p>AutoCAD displays: <code>5</code></p>
+<p>This is very handy for debugging. Note that this <code>!</code> syntax is specific to the AutoCAD command line and does not work inside a <code>.lsp</code> file.</p>
+<p><img src="Content/en/tutorials/media/autolisp-variables-types-rayon-valeur.png" alt="Value of the radius variable displayed by !rayon" /></p>
+<h2 id="variable-names">Variable names</h2>
+<p>Variable names in AutoLISP can contain:</p>
+<ul>
+<li>Letters (a-z, A-Z)</li>
+<li>Digits (0-9)</li>
+<li>Special characters such as <code>-</code>, <code>_</code>, <code>?</code>, <code>!</code>, <code>*</code></li>
+</ul>
+<p>Some common conventions:</p>
+<pre><code class="language-lisp">(setq number-of-sides 12)     ; Hyphens to separate words
+(setq start_point '(0 0 0))   ; Underscores also accepted
+(setq isValid T)               ; camelCase sometimes used
+</code></pre>
+<p>Variable names are <strong>not case-sensitive</strong>: <code>Radius</code>, <code>radius</code>, and <code>RADIUS</code> all refer to the same variable.</p>
+<h2 id="data-types-in-detail">Data types in detail</h2>
+<p>AutoLISP is a <strong>dynamically typed</strong> language: you do not need to declare a variable's type. The type is automatically determined by the assigned value.</p>
+<h3 id="integers-int">Integers (<code>INT</code>)</h3>
+<p>Whole numbers, positive or negative, with no decimal point:</p>
+<pre><code class="language-lisp">(setq counter 0)
+(setq age 42)
+(setq temperature -5)
+</code></pre>
+<p>AutoLISP integers are limited to the range <strong>-2,147,483,648</strong> to <strong>2,147,483,647</strong> (signed 32-bit integers).</p>
+<p>You can check a value's type using the <code>type</code> function:</p>
+<pre><code class="language-lisp">(type 42)    ; → INT
+</code></pre>
+<h3 id="reals-real">Reals (<code>REAL</code>)</h3>
+<p>Floating-point numbers:</p>
+<pre><code class="language-lisp">(setq pi-approx 3.14159)
+(setq tolerance 0.001)
+(setq ratio -2.5)
+</code></pre>
+<p>Important: always use a <strong>period</strong> as the decimal separator, never a comma.</p>
+<pre><code class="language-lisp">(type 3.14)  ; → REAL
+</code></pre>
+<h3 id="strings-str">Strings (<code>STR</code>)</h3>
+<p>Text enclosed in double quotes:</p>
+<pre><code class="language-lisp">(setq name &quot;AutoLISP&quot;)
+(setq message &quot;Hello world!&quot;)
+</code></pre>
+<p>To include a quote inside a string, escape it with a backslash:</p>
+<pre><code class="language-lisp">(setq quote &quot;He said \&quot;hello\&quot;&quot;)
+</code></pre>
+<p>Special characters in strings:</p>
+<table>
+<thead>
+<tr>
+<th>Sequence</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\n</code></td>
+<td>Newline</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>Literal backslash</td>
+</tr>
+<tr>
+<td><code>\&quot;</code></td>
+<td>Literal quote</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>Tab</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-lisp">(type &quot;text&quot;)  ; → STR
+</code></pre>
+<h4 id="string-operations">String operations</h4>
+<pre><code class="language-lisp">(strlen &quot;Hello&quot;)                ; → 5 (length)
+(strcat &quot;Hel&quot; &quot;lo&quot;)            ; → &quot;Hello&quot; (concatenation)
+(strcase &quot;hello&quot;)              ; → &quot;HELLO&quot; (uppercase)
+(strcase &quot;HELLO&quot; T)            ; → &quot;hello&quot; (lowercase)
+(substr &quot;Hello&quot; 1 3)           ; → &quot;Hel&quot; (substring)
+</code></pre>
+<h3 id="lists-list">Lists (<code>LIST</code>)</h3>
+<p>Lists are the fundamental data structure in LISP (it's in the name!). We will study them in detail in a dedicated chapter, but here is a preview:</p>
+<pre><code class="language-lisp">(setq point '(10.0 20.0 0.0))   ; A 3D point
+(setq colors '(&quot;red&quot; &quot;green&quot; &quot;blue&quot;))
+</code></pre>
+<p>The apostrophe <code>'</code> before the parenthesis prevents AutoLISP from trying to evaluate the list as an expression. We will revisit this essential mechanism later.</p>
+<pre><code class="language-lisp">(type '(1 2 3))  ; → LIST
+</code></pre>
+<h3 id="nil-and-t">nil and T</h3>
+<p><code>nil</code> represents the absence of a value, false, or an empty list. <code>T</code> represents true.</p>
+<pre><code class="language-lisp">(setq result nil)
+(setq isOpen T)
+</code></pre>
+<h2 id="checking-a-values-type">Checking a value's type</h2>
+<p>The <code>type</code> function returns the type of a value:</p>
+<pre><code class="language-lisp">(type 42)        ; → INT
+(type 3.14)      ; → REAL
+(type &quot;text&quot;)    ; → STR
+(type '(1 2))    ; → LIST
+(type nil)       ; → nil
+(type T)         ; → SYM
+(type +)         ; → SUBR (built-in function)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-variables-types-type-appels.png" alt="Calls to (type ...) in the command line" /></p>
+<h2 id="type-conversions">Type conversions</h2>
+<p>AutoLISP provides functions to convert between types:</p>
+<table>
+<thead>
+<tr>
+<th>Conversion</th>
+<th>Function</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integer → Real</td>
+<td><code>float</code></td>
+<td><code>(float 5)</code> → <code>5.0</code></td>
+</tr>
+<tr>
+<td>Real → Integer</td>
+<td><code>fix</code></td>
+<td><code>(fix 3.7)</code> → <code>3</code></td>
+</tr>
+<tr>
+<td>Integer → String</td>
+<td><code>itoa</code></td>
+<td><code>(itoa 42)</code> → <code>&quot;42&quot;</code></td>
+</tr>
+<tr>
+<td>String → Integer</td>
+<td><code>atoi</code></td>
+<td><code>(atoi &quot;42&quot;)</code> → <code>42</code></td>
+</tr>
+<tr>
+<td>Real → String</td>
+<td><code>rtos</code></td>
+<td><code>(rtos 3.14 2 2)</code> → <code>&quot;3.14&quot;</code></td>
+</tr>
+<tr>
+<td>String → Real</td>
+<td><code>atof</code></td>
+<td><code>(atof &quot;3.14&quot;)</code> → <code>3.14</code></td>
+</tr>
+</tbody>
+</table>
+<p>These function names come from the C language:</p>
+<ul>
+<li><em>itoa</em> = <em>integer to ASCII</em></li>
+<li><em>atoi</em> = <em>ASCII to integer</em></li>
+<li><em>atof</em> = <em>ASCII to float</em></li>
+<li><em>rtos</em> = <em>real to string</em></li>
+</ul>
+<h3 id="the-rtos-function-in-detail">The <code>rtos</code> function in detail</h3>
+<p><code>rtos</code> is particularly useful because it lets you control the output format:</p>
+<pre><code class="language-lisp">(rtos 3.14159 2 2)   ; → &quot;3.14&quot; (decimal mode, 2 decimal places)
+(rtos 3.14159 2 4)   ; → &quot;3.1416&quot; (decimal mode, 4 decimal places)
+</code></pre>
+<p>The second argument is the mode (2 = decimal) and the third is the precision (number of decimal places).</p>
+<h2 id="autocad-system-variables">AutoCAD system variables</h2>
+<p>AutoLISP can read and modify AutoCAD <strong>system variables</strong> using <code>getvar</code> and <code>setvar</code>:</p>
+<pre><code class="language-lisp">(getvar &quot;OSMODE&quot;)     ; Reads the object snap mode
+(setvar &quot;OSMODE&quot; 0)   ; Disables object snaps
+(getvar &quot;DWGNAME&quot;)    ; Name of the current drawing
+</code></pre>
+<h2 id="a-practical-example-volume-calculation">A practical example: volume calculation</h2>
+<p>Let's calculate and display the volume of a rectangular box:</p>
+<pre><code class="language-lisp">(setq
+  length 10.0
+  width 5.0
+  height 3.0
+)
+
+(setq volume (* length width height))
+
+(alert
+  (strcat
+    &quot;Dimensions: &quot;
+    (rtos length 2 1) &quot; x &quot;
+    (rtos width 2 1) &quot; x &quot;
+    (rtos height 2 1)
+    &quot;\nVolume: &quot;
+    (rtos volume 2 2)
+    &quot; units³&quot;
+  )
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-variables-types-volume-alert.png" alt="Dialog box displaying the dimensions and volume" /></p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Syntax</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a variable</td>
+<td><code>setq</code></td>
+<td><code>(setq x 10)</code></td>
+</tr>
+<tr>
+<td>Read a variable</td>
+<td>Use its name</td>
+<td><code>(+ x 5)</code></td>
+</tr>
+<tr>
+<td>Inspect (command line)</td>
+<td><code>!</code></td>
+<td><code>!x</code></td>
+</tr>
+<tr>
+<td>Check the type</td>
+<td><code>type</code></td>
+<td><code>(type x)</code> → <code>INT</code></td>
+</tr>
+<tr>
+<td>Integer → Real</td>
+<td><code>float</code></td>
+<td><code>(float 5)</code> → <code>5.0</code></td>
+</tr>
+<tr>
+<td>Integer → String</td>
+<td><code>itoa</code></td>
+<td><code>(itoa 42)</code> → <code>&quot;42&quot;</code></td>
+</tr>
+<tr>
+<td>Real → String</td>
+<td><code>rtos</code></td>
+<td><code>(rtos 3.14 2 2)</code> → <code>&quot;3.14&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will learn how to <strong>create our own functions</strong> with <code>defun</code> — this is where AutoLISP programming truly becomes powerful.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Mathematical Operations</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Defining Functions</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

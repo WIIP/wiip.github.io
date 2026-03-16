@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Control Structures - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to control the flow of your AutoLISP programs with if, cond, progn, while, and repeat. Discover comparison and logical operators." />
+        <meta property="og:title" content="Control Structures - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to control the flow of your AutoLISP programs with if, cond, progn, while, and repeat. Discover comparison and logical operators." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-structures-controle" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Control Structures - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to control the flow of your AutoLISP programs with if, cond, progn, while, and repeat. Discover comparison and logical operators." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-structures-controle" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-structures-controle" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Control Structures",
+        "description": "Learn how to control the flow of your AutoLISP programs with if, cond, progn, while, and repeat. Discover comparison and logical operators.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-structures-controle",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none fw-bold">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none ">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 7 / 16</small>
+                    <h1>Control Structures</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>A program that always executes the same instructions in the same order is quickly limited. <strong>Control structures</strong> allow your code to make decisions and repeat actions. In AutoLISP, they follow the same prefix syntax as everything else.</p>
+<h2 id="comparison-operators">Comparison Operators</h2>
+<p>Before you can make decisions, you need to be able to <strong>compare</strong> values. AutoLISP provides the following operators:</p>
+<pre><code class="language-lisp">(= 5 5)      ; → T (equality)
+(/= 5 3)     ; → T (not equal)
+(&lt; 3 5)      ; → T (less than)
+(&gt; 5 3)      ; → T (greater than)
+(&lt;= 3 3)     ; → T (less than or equal)
+(&gt;= 5 3)     ; → T (greater than or equal)
+</code></pre>
+<p>These functions return <code>T</code> (true) or <code>nil</code> (false).</p>
+<h3 id="comparing-strings-watch-out-for-case">Comparing Strings: Watch Out for Case!</h3>
+<p>String comparison with <code>=</code> is <strong>case-sensitive</strong>:</p>
+<pre><code class="language-lisp">(= &quot;hello&quot; &quot;hello&quot;)    ; → T
+(= &quot;hello&quot; &quot;Hello&quot;)    ; → nil (case-sensitive!)
+(= &quot;HELLO&quot; &quot;hello&quot;)    ; → nil
+</code></pre>
+<p>This is a common pitfall, especially when comparing user input or AutoCAD entity names. To perform a <strong>case-insensitive</strong> comparison, convert both strings to uppercase (or lowercase) with <code>strcase</code> before comparing:</p>
+<pre><code class="language-lisp">(= (strcase &quot;hello&quot;) (strcase &quot;Hello&quot;))  ; → T
+(= (strcase &quot;HELLO&quot;) (strcase &quot;hello&quot;))  ; → T
+</code></pre>
+<blockquote>
+<p><strong>Best practice</strong>: when comparing user input to an expected value, always normalize the case with <code>strcase</code>.</p>
+</blockquote>
+<h3 id="comparing-real-numbers-watch-out-for-rounding">Comparing Real Numbers: Watch Out for Rounding!</h3>
+<p>With real numbers (floating-point), comparison with <code>=</code> can produce surprising results due to <strong>rounding errors</strong> inherent in computer calculations:</p>
+<pre><code class="language-lisp">(setq result (+ 0.1 0.2))
+(= result 0.3)    ; → nil (!!)
+</code></pre>
+<p>The result of <code>(+ 0.1 0.2)</code> is not exactly <code>0.3</code> but something like <code>0.30000000000000004</code>. This is a classic problem that affects all programming languages, not just AutoLISP.</p>
+<p>The solution is to use the <code>equal</code> function with a <strong>tolerance argument</strong>:</p>
+<pre><code class="language-lisp">(equal (+ 0.1 0.2) 0.3 1e-10)  ; → T
+</code></pre>
+<p>The third argument (<code>1e-10</code>, i.e., 0.0000000001) is the tolerance: if the difference between the two values is less than this tolerance, <code>equal</code> considers them equal.</p>
+<blockquote>
+<p><strong>Golden rule</strong>: <strong>never</strong> compare two real numbers with <code>=</code>. Always use <code>equal</code> with an appropriate tolerance. This is particularly important in CAD where coordinates are real numbers and geometric calculations accumulate rounding errors.</p>
+</blockquote>
+<pre><code class="language-lisp">;; Compare two points (lists of reals) with tolerance
+(setq point1 '(10.0 20.0 0.0))
+(setq point2 '(10.0000001 19.9999999 0.0))
+(equal point1 point2 1e-6)  ; → T
+</code></pre>
+<p><code>equal</code> also works with lists: it compares elements one by one with the given tolerance, making it ideal for comparing points.</p>
+<h2 id="logical-operators">Logical Operators</h2>
+<p>To combine conditions:</p>
+<pre><code class="language-lisp">(and T T)          ; → T (logical AND)
+(and T nil)        ; → nil
+(or nil T)         ; → T (logical OR)
+(or nil nil)       ; → nil
+(not nil)          ; → T (negation)
+(not T)            ; → nil
+</code></pre>
+<p><code>and</code> and <code>or</code> accept multiple arguments:</p>
+<pre><code class="language-lisp">(and (&gt; 5 3) (&lt; 10 20) (= 1 1))  ; → T (all conditions are true)
+(or (&gt; 1 10) (&lt; 5 3) (= 2 2))    ; → T (at least one is true)
+</code></pre>
+<h2 id="the-if-condition">The <code>if</code> Condition</h2>
+<p>The <code>if</code> structure is the simplest decision-making structure:</p>
+<pre><code class="language-lisp">(if condition
+  expression-if-true
+  expression-if-false
+)
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-lisp">(setq age 25)
+
+(if (&gt;= age 18)
+  (alert &quot;You are an adult.&quot;)
+  (alert &quot;You are a minor.&quot;)
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-structures-controle-if-majeur.png" alt="Dialog box displaying &quot;You are an adult.&quot;" /></p>
+<h3 id="if-without-else">if Without <code>else</code></h3>
+<p>The &quot;if false&quot; expression is optional:</p>
+<pre><code class="language-lisp">(if (&gt; temperature 100)
+  (alert &quot;Warning: overheating!&quot;)
+)
+</code></pre>
+<p>If the condition is false and there is no &quot;else&quot; branch, <code>if</code> returns <code>nil</code>.</p>
+<h3 id="executing-multiple-expressions-progn">Executing Multiple Expressions: <code>progn</code></h3>
+<p><code>if</code> only accepts <strong>a single expression</strong> per branch. If you need to execute several, group them with <code>progn</code>:</p>
+<pre><code class="language-lisp">(if (&gt;= grade 10)
+  (progn
+    (princ &quot;\nWell done!&quot;)
+    (princ &quot;\nYou passed the exam.&quot;)
+    (setq result &quot;passed&quot;)
+  )
+  (progn
+    (princ &quot;\nToo bad.&quot;)
+    (princ &quot;\nYou will have to retake the exam.&quot;)
+    (setq result &quot;failed&quot;)
+  )
+)
+</code></pre>
+<p><code>progn</code> executes a sequence of expressions and returns the value of the last one.</p>
+<h2 id="the-multiple-condition-cond">The Multiple Condition <code>cond</code></h2>
+<p>When you have more than two cases to handle, <code>cond</code> is more readable than a cascade of nested <code>if</code> statements:</p>
+<pre><code class="language-lisp">(cond
+  (condition1 expression1)
+  (condition2 expression2)
+  (condition3 expression3)
+  (T defaultExpression)
+)
+</code></pre>
+<p><code>cond</code> evaluates the conditions from top to bottom and executes the first one whose condition is true. The last line with <code>T</code> as the condition serves as a <strong>default case</strong> (since <code>T</code> is always true).</p>
+<h3 id="example-angle-classification">Example: Angle Classification</h3>
+<pre><code class="language-lisp">(defun c:angle-type (/ angle)
+  (setq angle (getreal &quot;\nEnter an angle in degrees: &quot;))
+  (cond
+    ((= angle 0)   (alert &quot;Zero angle&quot;))
+    ((&lt; angle 90)  (alert &quot;Acute angle&quot;))
+    ((= angle 90)  (alert &quot;Right angle&quot;))
+    ((&lt; angle 180) (alert &quot;Obtuse angle&quot;))
+    ((= angle 180) (alert &quot;Straight angle&quot;))
+    ((&lt; angle 360) (alert &quot;Reflex angle&quot;))
+    (T              (alert &quot;Invalid or full angle&quot;))
+  )
+  (princ)
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-structures-controle-type-angle-aigu.png" alt="angle-type command in action with a 45-degree angle classified as &quot;acute&quot;" /></p>
+<h3 id="multiple-expressions-per-case">Multiple Expressions per Case</h3>
+<p>Each <code>cond</code> case can contain <strong>multiple expressions</strong> without needing <code>progn</code>:</p>
+<pre><code class="language-lisp">(cond
+  ((&lt; grade 10)
+    (princ &quot;\nFailed.&quot;)
+    (setq honors &quot;insufficient&quot;)
+  )
+  ((&lt; grade 12)
+    (princ &quot;\nPass.&quot;)
+    (setq honors &quot;pass&quot;)
+  )
+  ((&lt; grade 14)
+    (princ &quot;\nFairly good.&quot;)
+    (setq honors &quot;fairly-good&quot;)
+  )
+  (T
+    (princ &quot;\nGood or very good!&quot;)
+    (setq honors &quot;good&quot;)
+  )
+)
+</code></pre>
+<h2 id="the-while-loop">The <code>while</code> Loop</h2>
+<p><code>while</code> repeats a block of instructions <strong>as long as a condition is true</strong>:</p>
+<pre><code class="language-lisp">(while condition
+  expression1
+  expression2
+  ...
+)
+</code></pre>
+<h3 id="example-countdown">Example: Countdown</h3>
+<pre><code class="language-lisp">(setq counter 10)
+
+(while (&gt; counter 0)
+  (princ (strcat &quot;\n&quot; (itoa counter) &quot;...&quot;))
+  (setq counter (- counter 1))
+)
+
+(princ &quot;\nLiftoff!&quot;)
+</code></pre>
+<p>Result in the command line:</p>
+<pre><code>10...
+9...
+8...
+...
+1...
+Liftoff!
+</code></pre>
+<h3 id="practical-example-requesting-a-valid-value">Practical Example: Requesting a Valid Value</h3>
+<pre><code class="language-lisp">(defun c:valid-radius (/ radius)
+  (setq radius 0)
+  (while (&lt;= radius 0)
+    (setq radius (getreal &quot;\nEnter a positive radius: &quot;))
+    (if (&lt;= radius 0)
+      (princ &quot;\nError: the radius must be greater than 0.&quot;)
+    )
+  )
+  (alert (strcat &quot;Radius accepted: &quot; (rtos radius 2 2)))
+  (princ)
+)
+</code></pre>
+<p><img src="Content/en/tutorials/media/autolisp-structures-controle-validation-rayon.png" alt="Validation loop with error message then acceptance" /></p>
+<h2 id="the-repeat-loop">The <code>repeat</code> Loop</h2>
+<p><code>repeat</code> executes a block a <strong>fixed number of times</strong>:</p>
+<pre><code class="language-lisp">(repeat count
+  expression1
+  expression2
+  ...
+)
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-lisp">(setq total 0)
+(repeat 5
+  (setq total (+ total 10))
+)
+total  ; → 50
+</code></pre>
+<h3 id="example-drawing-a-regular-polygon">Example: Drawing a Regular Polygon</h3>
+<pre><code class="language-lisp">(defun c:polygon (/ side-count radius center angle increment current-point)
+  (setq side-count (getint &quot;\nNumber of sides: &quot;))
+  (setq radius (getreal &quot;\nRadius: &quot;))
+  (setq center (getpoint &quot;\nCenter: &quot;))
+  (setq increment (/ (* 2 pi) side-count))
+  (setq angle 0)
+
+  ;; Calculate the first point
+  (setq current-point
+    (list
+      (+ (car center) (* radius (cos angle)))
+      (+ (cadr center) (* radius (sin angle)))
+    )
+  )
+
+  (repeat side-count
+    (setq angle (+ angle increment))
+    (setq next-point
+      (list
+        (+ (car center) (* radius (cos angle)))
+        (+ (cadr center) (* radius (sin angle)))
+      )
+    )
+    ;; Draw a line between the two points
+    (command &quot;LINE&quot; current-point next-point &quot;&quot;)
+    (setq current-point next-point)
+  )
+
+  (princ)
+)
+</code></pre>
+<p>This program draws a regular polygon by calculating the vertices using trigonometry. Don't worry if you don't understand all the functions used (<code>car</code>, <code>cadr</code>, <code>list</code>, <code>command</code>) — we will study them in the following chapters.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Structure</th>
+<th>Purpose</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if</code></td>
+<td>Simple condition</td>
+<td><code>(if test true false)</code></td>
+</tr>
+<tr>
+<td><code>progn</code></td>
+<td>Group expressions</td>
+<td><code>(progn expr1 expr2 ...)</code></td>
+</tr>
+<tr>
+<td><code>cond</code></td>
+<td>Multiple conditions</td>
+<td><code>(cond (test1 expr) (test2 expr) ...)</code></td>
+</tr>
+<tr>
+<td><code>while</code></td>
+<td>Conditional loop</td>
+<td><code>(while test expr ...)</code></td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>Fixed loop</td>
+<td><code>(repeat n expr ...)</code></td>
+</tr>
+<tr>
+<td><code>and</code></td>
+<td>Logical AND</td>
+<td><code>(and cond1 cond2)</code></td>
+</tr>
+<tr>
+<td><code>or</code></td>
+<td>Logical OR</td>
+<td><code>(or cond1 cond2)</code></td>
+</tr>
+<tr>
+<td><code>not</code></td>
+<td>Negation</td>
+<td><code>(not condition)</code></td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we dive into the heart of LISP: <strong>lists</strong>, the most important data structure in the language.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Defining Functions</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Lists</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

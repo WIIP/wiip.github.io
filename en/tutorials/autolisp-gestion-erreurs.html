@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Error Handling - AutoLISP: The Complete Guide - WIIP</title><meta name="description" content="Learn how to handle errors in AutoLISP with the *error* function. Protect your programs from crashes and restore system variables when interrupted." />
+        <meta property="og:title" content="Error Handling - AutoLISP: The Complete Guide" />
+        <meta property="og:description" content="Learn how to handle errors in AutoLISP with the *error* function. Protect your programs from crashes and restore system variables when interrupted." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/tutorials/autolisp-gestion-erreurs" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Error Handling - AutoLISP: The Complete Guide" />
+        <meta name="twitter:description" content="Learn how to handle errors in AutoLISP with the *error* function. Protect your programs from crashes and restore system variables when interrupted." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutorials/autolisp-gestion-erreurs" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/autolisp-gestion-erreurs" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Error Handling",
+        "description": "Learn how to handle errors in AutoLISP with the *error* function. Protect your programs from crashes and restore system variables when interrupted.",
+        "url": "https://wiip.fr/en/tutorials/autolisp-gestion-erreurs",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP: The Complete Guide"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Table of contents</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP: The Complete Guide</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/en/tutorials/autolisp-introduction" class="text-decoration-none ">1. Introduction &#x2014; What Is AutoLISP?</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-premiers-pas" class="text-decoration-none ">2. Getting Started &#x2014; The Command Line</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-syntaxe" class="text-decoration-none ">3. AutoLISP Syntax</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-operations-mathematiques" class="text-decoration-none ">4. Mathematical Operations</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-variables-types" class="text-decoration-none ">5. Variables and Data Types</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fonctions" class="text-decoration-none ">6. Defining Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-structures-controle" class="text-decoration-none ">7. Control Structures</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-listes" class="text-decoration-none ">8. Lists</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interacting with the User</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-dessin" class="text-decoration-none ">10. Interacting with the Drawing</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none ">11. Reading and Writing Files</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-gestion-erreurs" class="text-decoration-none fw-bold">12. Error Handling</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none ">13. Symbols and Lambda Functions</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Extended Data and Dictionaries</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-reactors" class="text-decoration-none ">15. Reactors</a></li><li class="mb-1"><a href="/en/tutorials/autolisp-activex" class="text-decoration-none ">16. ActiveX Interoperability</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP: The Complete Guide — Chapter 12 / 16</small>
+                    <h1>Error Handling</h1><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p>When an AutoLISP program encounters an error — division by zero, file not found, or simply the user pressing <strong>Escape</strong> — execution stops abruptly. If your program had modified system variables like <code>CMDECHO</code> or <code>OSMODE</code>, they remain in their modified state, which can disrupt the user's workflow. Error handling prevents this problem.</p>
+<h2 id="the-problem-an-interruption-leaves-an-inconsistent-state">The Problem: An Interruption Leaves an Inconsistent State</h2>
+<p>Let's revisit the example from the chapter on interacting with drawings:</p>
+<pre><code class="language-lisp">(defun c:my-drawing (/ old-echo old-osmode)
+  ;; Save and modify variables
+  (setq old-echo (getvar &quot;CMDECHO&quot;))
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)
+
+  ;; Draw...
+  (command &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+  (command &quot;_CIRCLE&quot; '(50 50) 25)
+
+  ;; Restore variables
+  (setvar &quot;CMDECHO&quot; old-echo)
+  (setvar &quot;OSMODE&quot; old-osmode)
+  (princ)
+)
+</code></pre>
+<p>If the user presses <strong>Escape</strong> during execution, or if an error occurs in one of the commands, the program stops <strong>before</strong> reaching the restoration lines. The result: <code>CMDECHO</code> stays at <code>0</code> and <code>OSMODE</code> stays at <code>0</code>.</p>
+<h2 id="the-error-function">The <code>*error*</code> Function</h2>
+<p>AutoLISP automatically calls the <code>*error*</code> function whenever an error occurs. By default, this function simply displays the error message. But you can <strong>redefine</strong> it to run your own cleanup code.</p>
+<h3 id="basic-principle">Basic Principle</h3>
+<pre><code class="language-lisp">(defun *error* (message)
+  ;; Cleanup code here
+  (princ (strcat &quot;\nError: &quot; message))
+  (princ)
+)
+</code></pre>
+<p>The <code>*error*</code> function receives a single argument: the <strong>error message</strong> as a string. This message can be:</p>
+<ul>
+<li><code>&quot;Function cancelled&quot;</code> — the user pressed Escape</li>
+<li><code>&quot;divide by zero&quot;</code> — division by zero</li>
+<li><code>&quot;bad argument type&quot;</code> — incorrect argument type</li>
+<li><code>&quot;too few arguments&quot;</code> — not enough arguments</li>
+<li>etc.</li>
+</ul>
+<h3 id="the-standard-pattern">The Standard Pattern</h3>
+<p>The best practice is to:</p>
+<ol>
+<li><strong>Save</strong> the original <code>*error*</code> function at the beginning of your program</li>
+<li><strong>Redefine</strong> <code>*error*</code> with your cleanup code</li>
+<li><strong>Restore</strong> the original <code>*error*</code> function at the end (on success) and in your error handler (on failure)</li>
+</ol>
+<pre><code class="language-lisp">(defun c:my-drawing (/ old-error old-echo old-osmode)
+  ;; 1. Save the original error handler
+  (setq old-error *error*)
+
+  ;; 2. Save the system variables
+  (setq old-echo (getvar &quot;CMDECHO&quot;))
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+
+  ;; 3. Define our custom error handler
+  (defun *error* (message)
+    ;; Restore system variables
+    (setvar &quot;CMDECHO&quot; old-echo)
+    (setvar &quot;OSMODE&quot; old-osmode)
+
+    ;; Restore the original error handler
+    (setq *error* old-error)
+
+    ;; Display the error message (unless it's an Escape)
+    (if (/= message &quot;Function cancelled&quot;)
+      (princ (strcat &quot;\nError: &quot; message))
+    )
+    (princ)
+  )
+
+  ;; 4. Modify system variables
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)
+
+  ;; 5. Main code
+  (command &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+  (command &quot;_CIRCLE&quot; '(50 50) 25)
+
+  ;; 6. Restore (normal case, no error)
+  (setvar &quot;CMDECHO&quot; old-echo)
+  (setvar &quot;OSMODE&quot; old-osmode)
+  (setq *error* old-error)
+  (princ)
+)
+</code></pre>
+<p>Now, whether the program finishes normally or is interrupted, the system variables will always be restored.</p>
+<h2 id="factoring-out-the-restoration-code">Factoring Out the Restoration Code</h2>
+<p>You may notice that the restoration code is duplicated: once in <code>*error*</code> and once at the end of the program. To avoid this duplication, you can extract the restoration into a separate function:</p>
+<pre><code class="language-lisp">(defun c:my-drawing (/ old-error old-echo old-osmode)
+  ;; Cleanup function
+  (defun restore ()
+    (setvar &quot;CMDECHO&quot; old-echo)
+    (setvar &quot;OSMODE&quot; old-osmode)
+    (setq *error* old-error)
+  )
+
+  ;; Error handler
+  (setq old-error *error*)
+  (defun *error* (message)
+    (restore)
+    (if (/= message &quot;Function cancelled&quot;)
+      (princ (strcat &quot;\nError: &quot; message))
+    )
+    (princ)
+  )
+
+  ;; Save and modify
+  (setq old-echo (getvar &quot;CMDECHO&quot;))
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)
+
+  ;; Main code
+  (command &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+  (command &quot;_CIRCLE&quot; '(50 50) 25)
+
+  ;; Restore (normal case)
+  (restore)
+  (princ)
+)
+</code></pre>
+<h2 id="handling-open-files">Handling Open Files</h2>
+<p>Error handling is also essential when working with files. If the program crashes while a file is open, it will remain locked:</p>
+<pre><code class="language-lisp">(defun c:export-data (/ old-error file)
+  (setq old-error *error*)
+
+  (defun *error* (message)
+    ;; Close the file if it is open
+    (if file
+      (progn
+        (close file)
+        (setq file nil)
+      )
+    )
+    (setq *error* old-error)
+    (if (/= message &quot;Function cancelled&quot;)
+      (princ (strcat &quot;\nError: &quot; message))
+    )
+    (princ)
+  )
+
+  ;; Open and write
+  (setq file (open &quot;C:/temp/export.txt&quot; &quot;w&quot;))
+  (write-line &quot;Exported data&quot; file)
+
+  ;; ... code that might fail ...
+
+  ;; Close properly
+  (close file)
+  (setq file nil)
+  (setq *error* old-error)
+  (princ)
+)
+</code></pre>
+<h2 id="cancelling-commands-on-error">Cancelling Commands on Error</h2>
+<p>If your program uses <code>command</code> and an error occurs in the middle of an active command, it is wise to <strong>cancel the active command</strong> in the error handler:</p>
+<pre><code class="language-lisp">(defun *error* (message)
+  ;; Cancel any active command
+  (while (&gt; (getvar &quot;CMDACTIVE&quot;) 0)
+    (command &quot;&quot;)
+  )
+
+  ;; Restore variables...
+  (restore)
+  (princ)
+)
+</code></pre>
+<p>The <code>CMDACTIVE</code> system variable indicates whether a command is currently running. The loop sends empty strings (simulating Enter) until all commands have finished.</p>
+<h2 id="the-undo-block">The Undo Block</h2>
+<p>To allow the user to undo all of your program's operations with a single <strong>Ctrl+Z</strong>, wrap your code in an undo block:</p>
+<pre><code class="language-lisp">(defun c:my-drawing (/ old-error old-echo old-osmode)
+  (defun restore ()
+    (setvar &quot;CMDECHO&quot; old-echo)
+    (setvar &quot;OSMODE&quot; old-osmode)
+    (setq *error* old-error)
+  )
+
+  (setq old-error *error*)
+  (defun *error* (message)
+    (while (&gt; (getvar &quot;CMDACTIVE&quot;) 0)
+      (command &quot;&quot;)
+    )
+    ;; Undo everything that was done
+    (command &quot;_.UNDO&quot; &quot;_End&quot;)
+    (command &quot;_.UNDO&quot; &quot;&quot;)
+    (restore)
+    (if (/= message &quot;Function cancelled&quot;)
+      (princ (strcat &quot;\nError: &quot; message))
+    )
+    (princ)
+  )
+
+  (setq old-echo (getvar &quot;CMDECHO&quot;))
+  (setq old-osmode (getvar &quot;OSMODE&quot;))
+  (setvar &quot;CMDECHO&quot; 0)
+  (setvar &quot;OSMODE&quot; 0)
+
+  ;; Begin the undo block
+  (command &quot;_.UNDO&quot; &quot;_Begin&quot;)
+
+  ;; Main code
+  (command &quot;_LINE&quot; '(0 0) '(100 0) &quot;&quot;)
+  (command &quot;_CIRCLE&quot; '(50 50) 25)
+
+  ;; End the undo block
+  (command &quot;_.UNDO&quot; &quot;_End&quot;)
+
+  (restore)
+  (princ)
+)
+</code></pre>
+<p>With this pattern, if the program succeeds, the user can undo everything with a single Ctrl+Z. If the program fails, the error handler automatically undoes all partial modifications.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*error*</code></td>
+<td>Function called automatically when an error occurs</td>
+</tr>
+<tr>
+<td>Save <code>*error*</code></td>
+<td><code>(setq old-error *error*)</code></td>
+</tr>
+<tr>
+<td>Redefine <code>*error*</code></td>
+<td><code>(defun *error* (message) ...)</code></td>
+</tr>
+<tr>
+<td>Restore <code>*error*</code></td>
+<td><code>(setq *error* old-error)</code></td>
+</tr>
+<tr>
+<td>Cancel an active command</td>
+<td><code>(while (&gt; (getvar &quot;CMDACTIVE&quot;) 0) (command &quot;&quot;))</code></td>
+</tr>
+<tr>
+<td>Undo block</td>
+<td><code>(command &quot;_.UNDO&quot; &quot;_Begin&quot;)</code> ... <code>(command &quot;_.UNDO&quot; &quot;_End&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Restore system variables</td>
+<td>Always when modifying <code>CMDECHO</code>, <code>OSMODE</code>, etc.</td>
+</tr>
+<tr>
+<td>Close files</td>
+<td>Always when opening a file with <code>open</code></td>
+</tr>
+<tr>
+<td>Cancel active commands</td>
+<td>When using <code>command</code></td>
+</tr>
+<tr>
+<td>Undo block</td>
+<td>When the program creates or modifies multiple entities</td>
+</tr>
+</tbody>
+</table>
+<p>In the next chapter, we will cover advanced concepts: <strong>symbols</strong> and <strong>lambda functions</strong>.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/tutorials/autolisp-fichiers" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous chapter</small>
+                                    <span>Reading and Writing Files</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/tutorials/autolisp-symboles-lambda" class="text-decoration-none"><small class="text-muted d-block">Next chapter &#x2192;</small>
+                                    <span>Symbols and Lambda Functions</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

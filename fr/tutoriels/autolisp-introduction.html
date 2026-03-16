@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ? - AutoLISP : le guide complet - WIIP</title><meta name="description" content="D&#xE9;couvrez les origines d&#x27;AutoLISP, le langage de programmation int&#xE9;gr&#xE9; &#xE0; AutoCAD. De LISP &#xE0; AutoLISP, comprenez pourquoi Autodesk a fait ce choix audacieux en 1985." />
+        <meta property="og:title" content="Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ? - AutoLISP : le guide complet" />
+        <meta property="og:description" content="D&#xE9;couvrez les origines d&#x27;AutoLISP, le langage de programmation int&#xE9;gr&#xE9; &#xE0; AutoCAD. De LISP &#xE0; AutoLISP, comprenez pourquoi Autodesk a fait ce choix audacieux en 1985." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/autolisp-introduction" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ? - AutoLISP : le guide complet" />
+        <meta name="twitter:description" content="D&#xE9;couvrez les origines d&#x27;AutoLISP, le langage de programmation int&#xE9;gr&#xE9; &#xE0; AutoCAD. De LISP &#xE0; AutoLISP, comprenez pourquoi Autodesk a fait ce choix audacieux en 1985." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/autolisp-introduction" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutoriels/autolisp-introduction" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Introduction \u2014 Qu\u0027est-ce qu\u0027AutoLISP ?",
+        "description": "D\u00E9couvrez les origines d\u0027AutoLISP, le langage de programmation int\u00E9gr\u00E9 \u00E0 AutoCAD. De LISP \u00E0 AutoLISP, comprenez pourquoi Autodesk a fait ce choix audacieux en 1985.",
+        "url": "https://wiip.fr/fr/tutoriels/autolisp-introduction",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "AutoLISP : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">AutoLISP : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/autolisp-introduction" class="text-decoration-none fw-bold">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none ">2. Premiers pas &#x2014; La ligne de commande</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-syntaxe" class="text-decoration-none ">3. La syntaxe AutoLISP</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-operations-mathematiques" class="text-decoration-none ">4. Les op&#xE9;rations math&#xE9;matiques</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-variables-types" class="text-decoration-none ">5. Variables et types de donn&#xE9;es</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fonctions" class="text-decoration-none ">6. D&#xE9;finir des fonctions</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-structures-controle" class="text-decoration-none ">7. Les structures de contr&#xF4;le</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-listes" class="text-decoration-none ">8. Les listes</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-saisies-utilisateur" class="text-decoration-none ">9. Interagir avec l&#x27;utilisateur</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-dessin" class="text-decoration-none ">10. Interagir avec le dessin</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-fichiers" class="text-decoration-none ">11. Lire et &#xE9;crire des fichiers</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-gestion-erreurs" class="text-decoration-none ">12. La gestion des erreurs</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-symboles-lambda" class="text-decoration-none ">13. Symboles et fonctions lambda</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-donnees-etendues-reactors" class="text-decoration-none ">14. Donn&#xE9;es &#xE9;tendues et dictionnaires</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-reactors" class="text-decoration-none ">15. Les reactors</a></li><li class="mb-1"><a href="/fr/tutoriels/autolisp-activex" class="text-decoration-none ">16. Interop&#xE9;rabilit&#xE9; ActiveX</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">AutoLISP : le guide complet — Chapitre 1 / 16</small>
+                    <h1>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;AutoLISP ?</h1><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/LISP" class="badge bg-primary me-1 text-decoration-none">LISP</a></div></header>
+                <div class="mt-3"><p><strong>AutoLISP</strong> est le langage de programmation intégré à <strong>AutoCAD</strong> depuis 1986. Il permet d'automatiser des tâches, de créer des commandes personnalisées et d'étendre les fonctionnalités du logiciel. Avant de plonger dans la syntaxe et les exemples de code, prenons un moment pour comprendre d'où vient ce langage et pourquoi il a été choisi.</p>
+<h2 id="lisp-un-langage-ne-en-1958">LISP : un langage né en 1958</h2>
+<p>Le <strong>LISP</strong> (<em>LISt Processing</em>) a été inventé par John McCarthy au MIT en 1958. C'est le deuxième plus ancien langage de programmation encore utilisé aujourd'hui, juste après le FORTRAN (1957).</p>
+<p><img src="Content/fr/tutoriels/media/john-mccarthy.jpg" alt="John McCarthy" /></p>
+<p><em>Photo : null0, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></em></p>
+<p>À l'origine, LISP a été conçu pour la recherche en <strong>intelligence artificielle</strong>. Son nom — <em>traitement de listes</em> — reflète sa capacité à manipuler des structures de données complexes et hétérogènes, ce qui le distinguait fondamentalement des langages numériques de l'époque comme FORTRAN ou COBOL.</p>
+<p>LISP a introduit de nombreux concepts qui sont aujourd'hui omniprésents dans les langages modernes :</p>
+<ul>
+<li>Le <strong>ramasse-miettes</strong> (<em>garbage collector</em>) pour la gestion automatique de la mémoire</li>
+<li>Les <strong>fonctions de première classe</strong> : les fonctions peuvent être passées en argument ou retournées par d'autres fonctions</li>
+<li>La <strong>récursivité</strong> comme mécanisme central de programmation</li>
+<li>Le <strong>typage dynamique</strong></li>
+<li>Les <strong>expressions conditionnelles</strong> (l'ancêtre du <code>if/else</code>)</li>
+</ul>
+<h2 id="pourquoi-autodesk-a-choisi-lisp">Pourquoi Autodesk a choisi LISP</h2>
+<p>En février 1985, <strong>John Walker</strong>, cofondateur d'Autodesk, a rédigé un document interne expliquant le choix de LISP comme langage d'extension d'AutoCAD. Ce choix, qui a fait ses débuts dans <strong>AutoCAD 2.1</strong>, était à la fois stratégique et pragmatique.</p>
+<p><img src="Content/fr/tutoriels/media/autocad-annees-80.png" alt="AutoCAD dans les années 80" /></p>
+<p>Voici les raisons principales qui ont motivé cette décision :</p>
+<h3 id="un-langage-taille-pour-le-processus-de-conception">Un langage taillé pour le processus de conception</h3>
+<p>LISP excellait dans la manipulation d'<strong>objets hétérogènes</strong> organisés en groupes de taille variable — exactement ce qu'on retrouve dans un dessin CAO où coexistent des lignes, des arcs, des blocs, des attributs et des cotes. Les langages numériques comme FORTRAN, conçus pour le calcul scientifique, étaient beaucoup moins adaptés à ce type de travail.</p>
+<p>De plus, LISP se prêtait naturellement à l'<strong>interaction exploratoire</strong> qui caractérise le processus de conception. Un ingénieur ne sait pas toujours à l'avance quelle approche fonctionnera ; il a besoin d'essayer, de tester et d'ajuster rapidement. L'évaluation interactive de LISP correspondait parfaitement à cette façon de travailler.</p>
+<h3 id="un-langage-reconnu-en-intelligence-artificielle">Un langage reconnu en intelligence artificielle</h3>
+<p>En 1985, l'intelligence artificielle était au cœur de l'actualité technologique. LISP était <strong>le langage de référence dans ce domaine</strong>, avec des décennies de succès dans des systèmes complexes comme le programme de navigation de la navette spatiale (<em>NAVEX</em>). Autodesk souhaitait bénéficier de cette association positive.</p>
+<p>Cependant, l'équipe d'Autodesk avait aussi une crainte : que les utilisateurs perçoivent LISP comme un langage <em>ésotérique</em>, réservé aux spécialistes. C'est pourquoi AutoLISP a d'abord été présenté sous le nom de « <em>variables and expressions feature</em> » (fonctionnalité de variables et d'expressions), un nom volontairement plus accessible.</p>
+<h3 id="un-langage-facile-a-apprendre">Un langage facile à apprendre</h3>
+<p>Contrairement aux idées reçues, l'implémentation interactive d'AutoLISP avec ses outils de débogage intégrés le rendait <strong>comparable en difficulté à un interpréteur BASIC</strong>. L'utilisateur pouvait tester ses expressions directement dans la ligne de commande d'AutoCAD, sans avoir besoin d'un compilateur, d'un éditeur externe ou d'un environnement de développement complexe.</p>
+<h3 id="un-pari-sur-lavenir">Un pari sur l'avenir</h3>
+<p>En 1985, des entreprises comme Symbolics et Texas Instruments développaient du <strong>matériel spécialisé</strong> pour exécuter LISP à haute performance. Autodesk anticipait que les applications CAO pourraient un jour tirer parti de ces machines dédiées. Même si cette prédiction ne s'est pas réalisée comme prévu, le choix de LISP s'est avéré remarquablement durable.</p>
+<h2 id="dautolisp-a-visual-lisp">D'AutoLISP à Visual LISP</h2>
+<p>Au fil des versions d'AutoCAD, AutoLISP a évolué :</p>
+<table>
+<thead>
+<tr>
+<th>Période</th>
+<th>Évolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1986</td>
+<td>Introduction d'AutoLISP dans AutoCAD 2.1</td>
+</tr>
+<tr>
+<td>Années 90</td>
+<td>Ajout de fonctions d'accès aux entités et aux boîtes de dialogue (DCL)</td>
+</tr>
+<tr>
+<td>1997</td>
+<td>Apparition de <strong>Visual LISP</strong> (VLISP) avec un environnement de développement intégré (VLIDE)</td>
+</tr>
+<tr>
+<td>2000+</td>
+<td>Intégration de Visual LISP dans AutoCAD comme environnement standard</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>Extension officielle AutoLISP pour Visual Studio Code, alternative moderne à VLIDE</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>Support d'AutoLISP dans AutoCAD LT</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Visual LISP</strong> a apporté des fonctionnalités importantes comme l'accès aux objets ActiveX/COM, un débogueur visuel, la coloration syntaxique et la possibilité de compiler le code en fichiers <code>.fas</code> protégés. Aujourd'hui, l'éditeur VLIDE est considéré comme obsolète : Autodesk recommande d'utiliser <strong>Visual Studio Code</strong> avec l'extension officielle AutoLISP, qui offre un environnement de développement bien plus moderne (débogage, intégration Git, support de l'IA).</p>
+<h2 id="autolisp-aujourdhui">AutoLISP aujourd'hui</h2>
+<p>Aujourd'hui, AutoLISP reste un outil incontournable pour de nombreux utilisateurs d'AutoCAD. Même si Autodesk a ajouté d'autres interfaces de programmation (VBA, .NET/C#, ObjectARX en C++), AutoLISP conserve des avantages uniques :</p>
+<ul>
+<li><strong>Aucune installation supplémentaire</strong> : il est intégré à AutoCAD</li>
+<li><strong>Accès direct</strong> depuis la ligne de commande</li>
+<li><strong>Fichiers texte simples</strong> (<code>.lsp</code>) faciles à partager et à modifier</li>
+<li><strong>Courbe d'apprentissage douce</strong> pour les non-programmeurs</li>
+<li><strong>Communauté active</strong> avec des décennies de code et d'exemples disponibles</li>
+</ul>
+<p>AutoLISP n'est pas conçu pour développer des applications complexes avec des interfaces graphiques élaborées — pour cela, on préférera .NET ou ObjectARX. Mais pour <strong>automatiser des tâches répétitives</strong>, créer des <strong>commandes personnalisées</strong> ou <strong>manipuler des dessins par script</strong>, il reste le choix le plus efficace et le plus accessible.</p>
+<h2 id="ce-que-vous-allez-apprendre">Ce que vous allez apprendre</h2>
+<p>Dans ce tutoriel, nous allons explorer AutoLISP pas à pas :</p>
+<ol>
+<li><strong>Premiers pas</strong> : tester des expressions directement dans la ligne de commande d'AutoCAD</li>
+<li><strong>La syntaxe</strong> : comprendre la notation préfixée et l'imbrication des parenthèses</li>
+<li><strong>Les opérations mathématiques</strong> : calculer avec <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></li>
+<li><strong>Les variables et les types de données</strong> : stocker et manipuler des valeurs</li>
+<li><strong>Les fonctions</strong> : créer vos propres commandes</li>
+<li><strong>Les structures de contrôle</strong> : prendre des décisions dans votre code</li>
+<li><strong>Les listes</strong> : maîtriser la structure de données fondamentale de LISP</li>
+<li><strong>Interagir avec l'utilisateur</strong> : recueillir des points, des distances et du texte avec les fonctions <code>get*</code></li>
+<li><strong>Interagir avec le dessin</strong> : créer et modifier des entités AutoCAD</li>
+<li><strong>Lire et écrire des fichiers</strong> : exporter et importer des données</li>
+<li><strong>La gestion des erreurs</strong> : protéger vos programmes avec <code>*error*</code></li>
+<li><strong>Les symboles et les lambda</strong> : comprendre les concepts avancés</li>
+<li><strong>Les données étendues et les dictionnaires</strong> : attacher des données personnalisées aux entités</li>
+<li><strong>Les reactors</strong> : réagir automatiquement aux événements dans AutoCAD</li>
+<li><strong>L'interopérabilité ActiveX</strong> : piloter des applications externes depuis AutoLISP</li>
+</ol>
+<p>Aucune expérience en programmation n'est requise. Tout ce dont vous avez besoin, c'est d'une copie d'AutoCAD (ou une version d'AutoCAD LT égale ou postérieure à la 2024).</p>
+<p>Passons à la pratique !</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/autolisp-premiers-pas" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Premiers pas &#x2014; La ligne de commande</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
