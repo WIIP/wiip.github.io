@@ -81,7 +81,7 @@
 <p>And that's where things go wrong — the last function loaded overwrites the other. If you load <code>program1</code> first, then <code>program2</code>, you'll get <code>&quot;Hello, Universe!&quot;</code> in <code>program2</code> AND <code>program1</code>. The second program affects the first, and that's a problem. It's a source of bugs that will drive you crazy.</p>
 <p>The solution to this problem is to package your programs into a <strong>VLX</strong>, making sure to enable the <strong>Separate Namespace</strong> option when creating the VLX.</p>
 <h2 id="creating-a-vlx-with-a-separate-namespace">Creating a VLX with a separate namespace</h2>
-<p>To create a <strong>VLX</strong>, run the <code>FABLISPAPP</code> command in <strong>AutoCAD</strong>. The Make Application Wizard guides you through several steps. The option we're interested in is on the <strong>Application Options</strong> page: <strong>Separate Namespace</strong>.</p>
+<p>To create a <strong>VLX</strong>, run the <code>MAKELISPAPP</code> command in <strong>AutoCAD</strong>. The Make Application Wizard guides you through several steps. The option we're interested in is on the <strong>Application Options</strong> page: <strong>Separate Namespace</strong>.</p>
 <p><img src="Content/en/blog/media/vlx-namespaces-makelispapp.png" alt="Enabling separate namespace" /></p>
 <p>By checking this option, each <strong>VLX</strong> will have its own isolated namespace. Functions defined inside a <strong>VLX</strong> will no longer be visible from the other <strong>VLX</strong>, or from the command line. No more collision between the two <code>say-hello</code> functions.</p>
 <h2 id="the-catch-inaccessible-functions">The catch: inaccessible functions</h2>
