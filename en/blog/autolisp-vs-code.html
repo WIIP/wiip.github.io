@@ -84,6 +84,14 @@
 </code></pre>
 <p>Well, it's not very complicated, so it's not a big deal.</p>
 <p>To create a VLX, normally in <strong>VLIDE</strong>, you need to use the wizard that lets you create an application. At <strong>Autodesk</strong>, they thought of this, as they added a command to <strong>AutoCAD</strong> named <strong>MAKELISPAPP</strong> to launch this wizard without going through <strong>VLIDE</strong>.</p>
+<p>The <strong>MAKELISPAPP</strong> command (<em>Make Application</em>) defines the files and options used to build a VLX application. The wizard generates a <strong>.PRV</strong> file that contains the entire configuration for your application. From there, you can:</p>
+<ul>
+<li><strong>Edit the configuration</strong> of your application using the <strong>Properties</strong> option, which lets you reopen and modify the .PRV file.</li>
+<li><strong>Rebuild the VLX</strong> using the corresponding option, without having to go through all the wizard steps again.</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: do not confuse <strong>.PRV</strong> and <strong>.PRJ</strong> files. The <strong>.PRJ</strong> file is the <strong>VLIDE</strong> project definition file: it contains the location and names of all source files that make up the project, as well as certain parameters and rules for generating the final FAS files. The two formats are <strong>not compatible</strong>: .PRV is designed for the <strong>VS Code</strong> extension, while .PRJ is for <strong>VLIDE</strong>.</p>
+</blockquote>
 <h2 id="switching-back-to-vlide">Switching back to VLIDE</h2>
 <p>If you can't get used to the environment, you can switch to <strong>VLIDE</strong> by modifying the <strong>LISPSYS</strong> system variable. Set it to 0 and restart AutoCAD.</p>
 <p>To return to VS Code, set it to 1.</p>
