@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title> - WIIP</title><meta name="description" content="" />
-        <meta property="og:title" content="" />
+    <title>Les espaces de nom VLX - WIIP</title><meta name="description" content="" />
+        <meta property="og:title" content="Les espaces de nom VLX" />
         <meta property="og:description" content="" />
         <meta property="og:type" content="article">
         <meta property="og:url" content="https://wiip.fr/fr/blog/espaces-de-nom-vlx" />
         <meta property="og:site_name" content="WIIP">
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="" />
+        <meta name="twitter:title" content="Les espaces de nom VLX" />
         <meta name="twitter:description" content="" /></head>
 
 <body>
@@ -38,9 +38,9 @@
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "Les espaces de nom VLX",
         "description": "",
-        "datePublished": "0001-01-01",
+        "datePublished": "2026-03-17",
         "url": "https://wiip.fr/fr/blog/espaces-de-nom-vlx",
         "inLanguage": "fr",
         "publisher": {
@@ -49,8 +49,8 @@
             "url": "https://wiip.fr"
         }
     }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1></h1>
-                    <small class="text-muted">lundi 1 janvier 0001</small></header>
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Les espaces de nom VLX</h1>
+                    <small class="text-muted">mardi 17 mars 2026</small><div class="mt-2"><a href="/fr/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
                 <div class="mt-3"><p>Supposons que vous avez un premier programme AutoLISP  <code>program1</code> qui affiche un message : <code>&quot;Bonjour&quot;</code>.</p>
 <pre><code class="language-lisp">(defun say-hello ()
   (alert &quot;Hello, World!&quot;)
@@ -79,11 +79,56 @@
 )
 </code></pre>
 <p>Et là, c'est le drame, c'est la dernière fonction chargée qui va écraser l'autre. Si vous chargez d'abord <code>program1</code>, puis <code>program2</code>, vous obtiendrez <code>&quot;Hello, Universe!&quot;</code> dans <code>program2</code> ET <code>program1</code>. Le deuxième programme va affecter le premier et ça, c'est un problème. C'est une source de bug qui va vous faire arracher les cheveux.</p>
+<p>La solution à ce problème, c'est de packager vos programmes dans un <strong>VLX</strong> en prenant soin d'activer l'option <strong>Espace nom différent</strong> lors de la création du VLX.</p>
+<h2 id="creer-un-vlx-avec-un-espace-de-nom-separe">Créer un VLX avec un espace de nom séparé</h2>
+<p>Pour créer un <strong>VLX</strong>, lancez la commande <code>FABLISPAPP</code> dans <strong>AutoCAD</strong>. L'assistant de création d'application vous guide à travers plusieurs étapes. L'option qui nous intéresse ici se trouve dans la page <strong>Options d'application</strong> : <strong>Espace nom différent</strong>.</p>
+<p><img src="Content/fr/blog/media/espaces-de-nom-vlx-fablispapp.png" alt="Activation de l'espace de nom différent" /></p>
+<p>En cochant cette option, chaque <strong>VLX</strong> aura son propre espace de nom isolé. Les fonctions définies à l'intérieur d'un <strong>VLX</strong> ne seront plus visibles depuis l'autre <strong>VLX</strong>, ni depuis la ligne de commande. Plus de collision entre les deux fonctions <code>say-hello</code>.</p>
+<h2 id="le-piege-fonctions-inaccessibles">Le piège : fonctions inaccessibles</h2>
+<p>On empaquète nos deux programmes, on charge les deux <strong>VLX</strong>, et... surprise :</p>
+<pre><code>(program2)
+; erreur: no function definition: PROGRAM2
+</code></pre>
+<p>La fonction <code>program2</code> est introuvable. Et si on teste <code>program1</code>, même résultat. C'est logique quand on y pense : l'espace de nom séparé isole <strong>toutes</strong> les fonctions du <strong>VLX</strong>, y compris celles qu'on voudrait pouvoir appeler depuis la ligne de commande.</p>
+<h2 id="la-solution-vl-doc-export">La solution : <code>vl-doc-export</code></h2>
+<p>Pour rendre une fonction accessible depuis l'espace de nom du document (la ligne de commande), il faut l'exporter explicitement avec <code>vl-doc-export</code>. Voici nos deux programmes corrigés :</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun program1 ()
+  (say-hello)
+)
+(vl-doc-export 'program1)
+</code></pre>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, Universe!&quot;)
+)
+(defun program2 ()
+  (say-hello)
+)
+(vl-doc-export 'program2)
+</code></pre>
+<p>L'appel <code>(vl-doc-export 'program1)</code> exporte le symbole <code>program1</code> depuis l'espace de nom du <strong>VLX</strong> vers l'espace de nom du document. Après reconstruction des <strong>VLX</strong>, on peut maintenant appeler <code>(program1)</code> et <code>(program2)</code> depuis la ligne de commande, et chacun affichera bien son propre message.</p>
+<p>La fonction <code>say-hello</code>, elle, reste volontairement non exportée. Chaque <strong>VLX</strong> conserve sa propre version, isolée dans son espace de nom. C'est exactement ce qu'on voulait.</p>
+<h2 id="vl-doc-import-linverse"><code>vl-doc-import</code> : l'inverse</h2>
+<p>Il existe aussi la fonction <code>vl-doc-import</code> qui fait l'inverse : elle importe un symbole depuis l'espace de nom du document vers l'espace de nom du <strong>VLX</strong>. C'est utile si votre <strong>VLX</strong> a besoin d'appeler une fonction définie dans un autre <strong>VLX</strong> ou directement dans le document.</p>
+<pre><code class="language-lisp">(vl-doc-import 'une-fonction-du-document)
+</code></pre>
+<h2 id="en-resume">En résumé</h2>
+<ul>
+<li>Sans espace de nom séparé, tous les programmes partagent le même espace et les fonctions portant le même nom s'écrasent mutuellement.</li>
+<li>Avec l'option <strong>Espace de nom différent</strong>, chaque <strong>VLX</strong> est isolé, mais ses fonctions ne sont plus accessibles depuis la ligne de commande.</li>
+<li><code>vl-doc-export</code> permet d'exposer les fonctions que vous voulez rendre publiques.</li>
+<li><code>vl-doc-import</code> permet d'accéder depuis votre <strong>VLX</strong> à des fonctions définies dans le document.</li>
+</ul>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
 </div>
 
-                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
-                        <div class="col-6 text-end"><a href="/fr/blog/application-context-vs-document-context" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
-                                    <span></span></a></div></div></nav></article></div></div></main>
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autolisp-configuration" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>G&#xE9;rer un fichier de configuration en AutoLISP</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>VLX Namespaces - WIIP</title><meta name="description" content="" />
+        <meta property="og:title" content="VLX Namespaces" />
+        <meta property="og:description" content="" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/espaces-de-nom-vlx" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="VLX Namespaces" />
+        <meta name="twitter:description" content="" /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/espaces-de-nom-vlx" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/espaces-de-nom-vlx" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-reponses">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "VLX Namespaces",
+        "description": "",
+        "datePublished": "2026-03-17",
+        "url": "https://wiip.fr/en/blog/espaces-de-nom-vlx",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>VLX Namespaces</h1>
+                    <small class="text-muted">Tuesday, March 17, 2026</small><div class="mt-2"><a href="/en/tags/AutoLISP" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>Let's say you have a first AutoLISP program <code>program1</code> that displays a message: <code>&quot;Hello&quot;</code>.</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun program1 ()
+  (say-hello)
+)
+</code></pre>
+<p>The main function <code>program1</code> calls the <code>say-hello</code> function, which displays an alert message.</p>
+<p><img src="Content/en/blog/media/vlx-namespaces.png" alt="Running program1" /></p>
+<p>OK, nothing very interesting here. Now, you have a second AutoLISP program <code>program2</code>:</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun program2 ()
+  (say-hello)
+)
+</code></pre>
+<p>It's the exact same program here for the sake of this article, but imagine that program1 and program2 are two programs that do different things. The important thing is that they share the same <code>say-hello</code> function.</p>
+<p>As long as both <code>say-hello</code> functions are identical, there is no problem. But during development, you might need to modify the <code>say-hello</code> function in one of the programs. In <code>program2</code>, for example, you change say-hello to display <code>&quot;Hello, Universe!&quot;</code> instead of <code>&quot;Hello, World!&quot;</code>.</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, Universe!&quot;)
+)
+(defun program2 ()
+  (say-hello)
+)
+</code></pre>
+<p>And that's where things go wrong — the last function loaded overwrites the other. If you load <code>program1</code> first, then <code>program2</code>, you'll get <code>&quot;Hello, Universe!&quot;</code> in <code>program2</code> AND <code>program1</code>. The second program affects the first, and that's a problem. It's a source of bugs that will drive you crazy.</p>
+<p>The solution to this problem is to package your programs into a <strong>VLX</strong>, making sure to enable the <strong>Separate Namespace</strong> option when creating the VLX.</p>
+<h2 id="creating-a-vlx-with-a-separate-namespace">Creating a VLX with a separate namespace</h2>
+<p>To create a <strong>VLX</strong>, run the <code>FABLISPAPP</code> command in <strong>AutoCAD</strong>. The Make Application Wizard guides you through several steps. The option we're interested in is on the <strong>Application Options</strong> page: <strong>Separate Namespace</strong>.</p>
+<p><img src="Content/en/blog/media/vlx-namespaces-makelispapp.png" alt="Enabling separate namespace" /></p>
+<p>By checking this option, each <strong>VLX</strong> will have its own isolated namespace. Functions defined inside a <strong>VLX</strong> will no longer be visible from the other <strong>VLX</strong>, or from the command line. No more collision between the two <code>say-hello</code> functions.</p>
+<h2 id="the-catch-inaccessible-functions">The catch: inaccessible functions</h2>
+<p>We package our two programs, load both <strong>VLX</strong> files, and... surprise:</p>
+<pre><code>(program2)
+; error: no function definition: PROGRAM2
+</code></pre>
+<p>The <code>program2</code> function is nowhere to be found. And if we test <code>program1</code>, same result. It makes sense when you think about it: the separate namespace isolates <strong>all</strong> functions in the <strong>VLX</strong>, including the ones we'd like to call from the command line.</p>
+<h2 id="the-solution-vl-doc-export">The solution: <code>vl-doc-export</code></h2>
+<p>To make a function accessible from the document namespace (the command line), you need to explicitly export it with <code>vl-doc-export</code>. Here are our two fixed programs:</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun program1 ()
+  (say-hello)
+)
+(vl-doc-export 'program1)
+</code></pre>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, Universe!&quot;)
+)
+(defun program2 ()
+  (say-hello)
+)
+(vl-doc-export 'program2)
+</code></pre>
+<p>The call <code>(vl-doc-export 'program1)</code> exports the <code>program1</code> symbol from the <strong>VLX</strong> namespace to the document namespace. After rebuilding the <strong>VLX</strong> files, we can now call <code>(program1)</code> and <code>(program2)</code> from the command line, and each one will display its own message.</p>
+<p>The <code>say-hello</code> function intentionally remains unexported. Each <strong>VLX</strong> keeps its own version, isolated in its namespace. That's exactly what we wanted.</p>
+<h2 id="vl-doc-import-the-reverse"><code>vl-doc-import</code>: the reverse</h2>
+<p>There is also the <code>vl-doc-import</code> function which does the opposite: it imports a symbol from the document namespace into the <strong>VLX</strong> namespace. This is useful if your <strong>VLX</strong> needs to call a function defined in another <strong>VLX</strong> or directly in the document.</p>
+<pre><code class="language-lisp">(vl-doc-import 'a-function-from-the-document)
+</code></pre>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Without a separate namespace, all programs share the same space and functions with the same name overwrite each other.</li>
+<li>With the <strong>Separate Namespace</strong> option, each <strong>VLX</strong> is isolated, but its functions are no longer accessible from the command line.</li>
+<li><code>vl-doc-export</code> allows you to expose the functions you want to make public.</li>
+<li><code>vl-doc-import</code> allows your <strong>VLX</strong> to access functions defined in the document.</li>
+</ul>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/autolisp-configuration" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Managing Configuration Files in AutoLISP</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
