@@ -92,6 +92,44 @@
 <blockquote>
 <p><strong>Attention</strong> : ne confondez pas les fichiers <strong>.PRV</strong> et <strong>.PRJ</strong>. Le fichier <strong>.PRJ</strong> est le fichier de définition de projet de <strong>VLIDE</strong> : il contient l'emplacement et les noms de tous les fichiers source qui constituent le projet, ainsi que certains paramètres et règles pour générer les fichiers FAS finaux. Les deux formats ne sont <strong>pas compatibles</strong> : le .PRV est destiné à l'extension <strong>VS Code</strong>, le .PRJ à <strong>VLIDE</strong>.</p>
 </blockquote>
+<h3 id="travailler-avec-plusieurs-fichiers-source">Travailler avec plusieurs fichiers source</h3>
+<p>Si votre application est composée de plusieurs fichiers, une bonne pratique consiste à créer un fichier de <em>bootstrap</em> qui charge tous vos fichiers. Et justement, le fichier <strong>.PRV</strong> contient déjà la liste de tous les fichiers source de votre application dans la section <code>:load-file-list</code> :</p>
+<pre><code class="language-lisp">(:load-file-list (:lsp &quot;utils.lsp&quot;) (:lsp &quot;commands.lsp&quot;) (:lsp &quot;dialogs.lsp&quot;))
+</code></pre>
+<p>On peut donc écrire un loader qui lit directement le .prv pour en extraire les fichiers à charger :</p>
+<pre><code class="language-lisp">;; loader.lsp — charge les fichiers listés dans le .prv
+
+(defun load-from-prv ( prvFile / base file line position start
+                       endPosition name )
+  (setq base (vl-filename-directory prvFile))
+  (setq file (open prvFile &quot;r&quot;))
+  (while (setq line (read-line file))
+    (setq position 0)
+    (while (setq position (vl-string-search &quot;:lsp \&quot;&quot; line position))
+      (setq start (+ position 6))
+      (setq endPosition (vl-string-search &quot;\&quot;&quot; line start))
+      (if endPosition
+        (progn
+          (setq name (substr line (1+ start) (- endPosition start)))
+          (load (strcat base &quot;\\&quot; name))
+        )
+      )
+      (setq position (1+ endPosition))
+    )
+  )
+  (close file)
+  (princ &quot;\nApplication chargée.&quot;)
+  (princ)
+)
+
+(load-from-prv &quot;D:/Projets/MonApplication/Program1.prv&quot;)
+</code></pre>
+<p>Pour que la fonction puisse localiser le fichier .prv, vous avez deux possibilités :</p>
+<ul>
+<li><strong>Chemin absolu en dur</strong> : comme dans l'exemple ci-dessus, vous indiquez le chemin complet du fichier .prv.</li>
+<li><strong>Utiliser <code>findfile</code></strong> : si vous ajoutez le répertoire contenant le .prv au chemin de recherche d'<strong>AutoCAD</strong> (Options → Fichiers → Chemin de recherche des fichiers de support), vous pouvez simplement écrire <code>(load-from-prv (findfile &quot;Program1.prv&quot;))</code>.</li>
+</ul>
+<p>L'avantage de cette approche, c'est que vous n'avez qu'une seule source de vérité : le .prv. Quand vous ajoutez ou supprimez un fichier via <strong>FABLISPAPP</strong>, le loader le prend en compte automatiquement. À chaque fois que vous voulez tester votre application, il suffit de lancer le débogage sur ce fichier pour recharger l'ensemble du code.</p>
 <h2 id="repasser-a-vlide">Repasser à VLIDE</h2>
 <p>Si vous n'arrivez pas à vous faire à l'environnement, vous pouvez basculer à <strong>VLIDE</strong> en modifiant la variable système <strong>LISPSYS</strong>. Il faut la passer à 0 puis relancer <strong>AutoCAD</strong>.</p>
 <p>Pour revenir à <strong>VS Code</strong>, il faudra la passer à 1.</p>

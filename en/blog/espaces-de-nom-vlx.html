@@ -110,6 +110,16 @@
 </code></pre>
 <p>The call <code>(vl-doc-export 'program1)</code> exports the <code>program1</code> symbol from the <strong>VLX</strong> namespace to the document namespace. After rebuilding the <strong>VLX</strong> files, we can now call <code>(program1)</code> and <code>(program2)</code> from the command line, and each one will display its own message.</p>
 <p>The <code>say-hello</code> function intentionally remains unexported. Each <strong>VLX</strong> keeps its own version, isolated in its namespace. That's exactly what we wanted.</p>
+<h2 id="alternative-the-c-prefix">Alternative: the <code>C:</code> prefix</h2>
+<p>You can also prefix the names of functions you want to expose with <code>C:</code>. In that case, the function is turned into an AutoCAD command and automatically exported to the document namespace, without needing to call <code>vl-doc-export</code>:</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun C:program1 ()
+  (say-hello)
+)
+</code></pre>
+<p>Here, <code>program1</code> directly becomes an AutoCAD command that the user can type in the command line. Note that you should only use the <code>C:</code> prefix if you need the function to be callable as a command. If that's not the case, use <code>vl-doc-export</code> instead.</p>
 <h2 id="vl-doc-import-the-reverse"><code>vl-doc-import</code>: the reverse</h2>
 <p>There is also the <code>vl-doc-import</code> function which does the opposite: it imports a symbol from the document namespace into the <strong>VLX</strong> namespace. This is useful if your <strong>VLX</strong> needs to call a function defined in another <strong>VLX</strong> or directly in the document.</p>
 <pre><code class="language-lisp">(vl-doc-import 'a-function-from-the-document)
@@ -119,6 +129,7 @@
 <li>Without a separate namespace, all programs share the same space and functions with the same name overwrite each other.</li>
 <li>With the <strong>Separate Namespace</strong> option, each <strong>VLX</strong> is isolated, but its functions are no longer accessible from the command line.</li>
 <li><code>vl-doc-export</code> allows you to expose the functions you want to make public.</li>
+<li>The <code>C:</code> prefix is an alternative that turns the function into a command and automatically exports it.</li>
 <li><code>vl-doc-import</code> allows your <strong>VLX</strong> to access functions defined in the document.</li>
 </ul>
 <hr />

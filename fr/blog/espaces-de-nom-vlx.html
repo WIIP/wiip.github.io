@@ -110,6 +110,16 @@
 </code></pre>
 <p>L'appel <code>(vl-doc-export 'program1)</code> exporte le symbole <code>program1</code> depuis l'espace de nom du <strong>VLX</strong> vers l'espace de nom du document. Après reconstruction des <strong>VLX</strong>, on peut maintenant appeler <code>(program1)</code> et <code>(program2)</code> depuis la ligne de commande, et chacun affichera bien son propre message.</p>
 <p>La fonction <code>say-hello</code>, elle, reste volontairement non exportée. Chaque <strong>VLX</strong> conserve sa propre version, isolée dans son espace de nom. C'est exactement ce qu'on voulait.</p>
+<h2 id="alternative-le-prefixe-c">Alternative : le préfixe <code>C:</code></h2>
+<p>On peut également préfixer le nom des fonctions qu'on veut exposer avec <code>C:</code>. Dans ce cas, la fonction est transformée en commande AutoCAD et automatiquement exportée dans l'espace de nom du document, sans avoir besoin d'appeler <code>vl-doc-export</code> :</p>
+<pre><code class="language-lisp">(defun say-hello ()
+  (alert &quot;Hello, World!&quot;)
+)
+(defun C:program1 ()
+  (say-hello)
+)
+</code></pre>
+<p>Ici, <code>program1</code> devient directement une commande AutoCAD que l'utilisateur peut taper dans la ligne de commande. Attention, utilisez le préfixe <code>C:</code> uniquement si vous avez besoin que la fonction soit appelable sous forme de commande. Si ce n'est pas le cas, utilisez <code>vl-doc-export</code>.</p>
 <h2 id="vl-doc-import-linverse"><code>vl-doc-import</code> : l'inverse</h2>
 <p>Il existe aussi la fonction <code>vl-doc-import</code> qui fait l'inverse : elle importe un symbole depuis l'espace de nom du document vers l'espace de nom du <strong>VLX</strong>. C'est utile si votre <strong>VLX</strong> a besoin d'appeler une fonction définie dans un autre <strong>VLX</strong> ou directement dans le document.</p>
 <pre><code class="language-lisp">(vl-doc-import 'une-fonction-du-document)
@@ -119,6 +129,7 @@
 <li>Sans espace de nom séparé, tous les programmes partagent le même espace et les fonctions portant le même nom s'écrasent mutuellement.</li>
 <li>Avec l'option <strong>Espace de nom différent</strong>, chaque <strong>VLX</strong> est isolé, mais ses fonctions ne sont plus accessibles depuis la ligne de commande.</li>
 <li><code>vl-doc-export</code> permet d'exposer les fonctions que vous voulez rendre publiques.</li>
+<li>Le préfixe <code>C:</code> est une alternative qui transforme la fonction en commande et l'exporte automatiquement.</li>
 <li><code>vl-doc-import</code> permet d'accéder depuis votre <strong>VLX</strong> à des fonctions définies dans le document.</li>
 </ul>
 <hr />

@@ -92,6 +92,44 @@
 <blockquote>
 <p><strong>Note</strong>: do not confuse <strong>.PRV</strong> and <strong>.PRJ</strong> files. The <strong>.PRJ</strong> file is the <strong>VLIDE</strong> project definition file: it contains the location and names of all source files that make up the project, as well as certain parameters and rules for generating the final FAS files. The two formats are <strong>not compatible</strong>: .PRV is designed for the <strong>VS Code</strong> extension, while .PRJ is for <strong>VLIDE</strong>.</p>
 </blockquote>
+<h3 id="working-with-multiple-source-files">Working with multiple source files</h3>
+<p>If your application is made up of multiple files, a good practice is to create a bootstrap file that loads all your files. And conveniently, the <strong>.PRV</strong> file already contains the list of all your application's source files in the <code>:load-file-list</code> section:</p>
+<pre><code class="language-lisp">(:load-file-list (:lsp &quot;utils.lsp&quot;) (:lsp &quot;commands.lsp&quot;) (:lsp &quot;dialogs.lsp&quot;))
+</code></pre>
+<p>So we can write a loader that reads the .prv directly to extract the files to load:</p>
+<pre><code class="language-lisp">;; loader.lsp — loads files listed in the .prv
+
+(defun load-from-prv ( prvFile / base file line position start
+                       endPosition name )
+  (setq base (vl-filename-directory prvFile))
+  (setq file (open prvFile &quot;r&quot;))
+  (while (setq line (read-line file))
+    (setq position 0)
+    (while (setq position (vl-string-search &quot;:lsp \&quot;&quot; line position))
+      (setq start (+ position 6))
+      (setq endPosition (vl-string-search &quot;\&quot;&quot; line start))
+      (if endPosition
+        (progn
+          (setq name (substr line (1+ start) (- endPosition start)))
+          (load (strcat base &quot;\\&quot; name))
+        )
+      )
+      (setq position (1+ endPosition))
+    )
+  )
+  (close file)
+  (princ &quot;\nApplication loaded.&quot;)
+  (princ)
+)
+
+(load-from-prv &quot;D:/Projects/MyApplication/Program1.prv&quot;)
+</code></pre>
+<p>For the function to locate the .prv file, you have two options:</p>
+<ul>
+<li><strong>Hardcoded absolute path</strong>: as in the example above, you specify the full path to the .prv file.</li>
+<li><strong>Use <code>findfile</code></strong>: if you add the directory containing the .prv to <strong>AutoCAD</strong>'s search path (Options → Files → Support File Search Path), you can simply write <code>(load-from-prv (findfile &quot;Program1.prv&quot;))</code>.</li>
+</ul>
+<p>The advantage of this approach is that you have a single source of truth: the .prv file. When you add or remove a file via <strong>MAKELISPAPP</strong>, the loader picks it up automatically. Every time you want to test your application, just start debugging on this file to reload all the code.</p>
 <h2 id="switching-back-to-vlide">Switching back to VLIDE</h2>
 <p>If you can't get used to the environment, you can switch to <strong>VLIDE</strong> by modifying the <strong>LISPSYS</strong> system variable. Set it to 0 and restart AutoCAD.</p>
 <p>To return to VS Code, set it to 1.</p>
