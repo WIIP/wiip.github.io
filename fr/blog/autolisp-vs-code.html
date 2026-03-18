@@ -77,7 +77,8 @@
 <p>L'extension intègre un débogueur. Vous pouvez donc placer un point d'arrêt sur une ligne de code avec F9. Quand vous allez relancer votre commande <strong>HELLO</strong>, le débogueur va s'activer, <strong>VS Code</strong> va venir au premier plan et vous allez pouvoir inspecter les variables, la pile des appels, etc.</p>
 <p>Vous pouvez même utiliser la console intégrée de VS Code pour exécuter des commandes <strong>AutoLISP</strong>.</p>
 <h2 id="avantages-par-rapport-a-vlide">Avantages par rapport à VLIDE</h2>
-<p>Vous avez un éditeur de code bien plus moderne qui vous permet d'utiliser l'IA. <strong>VSCode</strong> propose de nombreuses fonctionnalités telles que les curseurs multiples, l'intégration avec <strong>Git</strong>, les <em>refactorings</em> (renommage de symboles par exemple) qui vous rendent plus productif.</p>
+<p>Vous avez un éditeur de code bien plus moderne qui vous permet d'utiliser l'IA. <strong>VS Code</strong> propose de nombreuses fonctionnalités telles que les curseurs multiples, l'intégration avec <strong>Git</strong>, les <em>refactorings</em> (renommage de symboles par exemple) qui vous rendent plus productif.</p>
+<p>Un autre gros avantage : <strong>VS Code</strong> propose une fonction de <strong>recherche et remplacement sur plusieurs fichiers</strong> (Ctrl + Shift + H). C'est extrêmement pratique quand vous devez renommer une variable ou une fonction utilisée dans tout votre projet. Sur <strong>VLIDE</strong>, vous devez ouvrir chaque fichier un par un et faire le remplacement manuellement.</p>
 <h2 id="limitations">Limitations</h2>
 <p>Pour compiler en fas, vous n'avez pas un bouton qui vous permet de le faire en un clic, vous devez utiliser <code>vlisp-compile</code> :</p>
 <pre><code class="language-lisp">(vlisp-compile 'st &quot;mon_programme.lsp&quot;)
