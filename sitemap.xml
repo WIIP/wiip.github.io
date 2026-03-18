@@ -123,6 +123,9 @@
     <loc>https://wiip.fr/fr/blog/quicklook-cadimport</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/revit-db-link</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/vault-data-api</loc>
   </url>
   <url>
@@ -169,6 +172,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/DXF</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/Revit</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Vault</loc>
@@ -348,6 +354,9 @@
     <loc>https://wiip.fr/en/blog/quicklook-cadimport</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/revit-db-link</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/vault-data-api</loc>
   </url>
   <url>
@@ -397,6 +406,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/DXF</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/Revit</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Vault</loc>
