@@ -48,7 +48,7 @@
     <loc>https://wiip.fr/fr/questions-reponses</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses</loc>
+    <loc>https://wiip.fr/en/questions-answers</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/Realizations</loc>
@@ -342,9 +342,6 @@
     <loc>https://wiip.fr/en/blog/custom_sys_var</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/blog/espaces-de-nom-vlx</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/en/blog/ilogic-rules-export-import</loc>
   </url>
   <url>
@@ -355,6 +352,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/vault-server-installation</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/vlx-namespaces</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/windows-and-dialogs</loc>
@@ -411,31 +411,31 @@
     <loc>https://wiip.fr/en/tags/.NET%2bFramework</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/autocad-launcher</loc>
+    <loc>https://wiip.fr/en/questions-answers/autocad-launcher</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/autocad-rotation-3d</loc>
+    <loc>https://wiip.fr/en/questions-answers/autocad-rotation-3d</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/autodesk-platform-services</loc>
+    <loc>https://wiip.fr/en/questions-answers/autodesk-platform-services</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/autolisp-acad-lt</loc>
+    <loc>https://wiip.fr/en/questions-answers/autolisp-acad-lt</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/autolisp</loc>
+    <loc>https://wiip.fr/en/questions-answers/autolisp</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/ilogic</loc>
+    <loc>https://wiip.fr/en/questions-answers/ilogic</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/line-plane-intersection-acad</loc>
+    <loc>https://wiip.fr/en/questions-answers/line-plane-intersection-acad</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/point-in-contour</loc>
+    <loc>https://wiip.fr/en/questions-answers/point-in-contour</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/questions-reponses/standardization-organizations</loc>
+    <loc>https://wiip.fr/en/questions-answers/standardization-organizations</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/AutoCAD</loc>
