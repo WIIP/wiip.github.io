@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Premier exercice &#x2014; La rondelle param&#xE9;trique - iLogic : le guide complet - WIIP</title><meta name="description" content="Cr&#xE9;ez votre premi&#xE8;re r&#xE8;gle iLogic en mod&#xE9;lisant une rondelle dont l&#x27;&#xE9;paisseur s&#x27;adapte automatiquement au diam&#xE8;tre int&#xE9;rieur, en respectant les &#xE9;paisseurs de t&#xF4;le disponibles." />
+        <meta property="og:title" content="Premier exercice &#x2014; La rondelle param&#xE9;trique - iLogic : le guide complet" />
+        <meta property="og:description" content="Cr&#xE9;ez votre premi&#xE8;re r&#xE8;gle iLogic en mod&#xE9;lisant une rondelle dont l&#x27;&#xE9;paisseur s&#x27;adapte automatiquement au diam&#xE8;tre int&#xE9;rieur, en respectant les &#xE9;paisseurs de t&#xF4;le disponibles." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-rondelle-parametrique" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Premier exercice &#x2014; La rondelle param&#xE9;trique - iLogic : le guide complet" />
+        <meta name="twitter:description" content="Cr&#xE9;ez votre premi&#xE8;re r&#xE8;gle iLogic en mod&#xE9;lisant une rondelle dont l&#x27;&#xE9;paisseur s&#x27;adapte automatiquement au diam&#xE8;tre int&#xE9;rieur, en respectant les &#xE9;paisseurs de t&#xF4;le disponibles." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-rondelle-parametrique" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Premier exercice \u2014 La rondelle param\u00E9trique",
+        "description": "Cr\u00E9ez votre premi\u00E8re r\u00E8gle iLogic en mod\u00E9lisant une rondelle dont l\u0027\u00E9paisseur s\u0027adapte automatiquement au diam\u00E8tre int\u00E9rieur, en respectant les \u00E9paisseurs de t\u00F4le disponibles.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-rondelle-parametrique",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none fw-bold">2. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">3. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">4. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">5. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">6. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">7. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 2 / 7</small>
+                    <h1>Premier exercice &#x2014; La rondelle param&#xE9;trique</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p>Pour découvrir iLogic, rien de mieux qu'un exercice concret. Nous allons modéliser une <strong>rondelle plate</strong> dont les dimensions sont pilotées par des règles. Ce cas simple illustre un problème très courant en conception mécanique : adapter une dimension à une <strong>contrainte industrielle</strong>.</p>
+<h2 id="le-probleme">Le problème</h2>
+<p>Notre rondelle est définie par trois paramètres :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Règle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Diamètre intérieur</strong></td>
+<td>Valeur libre, saisie par l'utilisateur</td>
+</tr>
+<tr>
+<td><strong>Diamètre extérieur</strong></td>
+<td>Diamètre intérieur × 2</td>
+</tr>
+<tr>
+<td><strong>Épaisseur</strong></td>
+<td>Diamètre intérieur / 10, arrondi à l'épaisseur de tôle supérieure disponible</td>
+</tr>
+</tbody>
+</table>
+<p>La formule du diamètre extérieur est simple : <code>diametre_interieur * 2</code>. L'épaisseur, en revanche, pose un problème. Si le diamètre intérieur vaut 20 mm, l'épaisseur calculée est de 2 mm — et on trouve bien des tôles de 2 mm. Mais si le diamètre intérieur vaut 14 mm, l'épaisseur calculée serait de 1.4 mm, et <strong>cette épaisseur de tôle n'existe pas</strong>.</p>
+<p>Les rondelles sont découpées dans des tôles, et les épaisseurs de tôle disponibles sont normalisées. Voici les épaisseurs que nous allons utiliser :</p>
+<table>
+<thead>
+<tr>
+<th>Épaisseur (mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.8</td>
+</tr>
+<tr>
+<td>1</td>
+</tr>
+<tr>
+<td>1.2</td>
+</tr>
+<tr>
+<td>1.5</td>
+</tr>
+<tr>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Pour un diamètre intérieur de 14 mm, il faut donc choisir l'épaisseur de tôle <strong>immédiatement supérieure ou égale</strong> à 1.4 mm, soit <strong>1.5 mm</strong>.</p>
+<h2 id="etape-1-modeliser-la-rondelle">Étape 1 : modéliser la rondelle</h2>
+<p>Commencez par créer une nouvelle pièce dans Inventor et modélisez une rondelle simple :</p>
+<ol>
+<li>Créez une <strong>esquisse</strong> sur le plan XY</li>
+<li>Dessinez <strong>deux cercles concentriques</strong> centrés sur l'origine</li>
+<li>Coter le cercle intérieur : c'est le <strong>diamètre intérieur</strong> (<code>diametre_interieur</code>)</li>
+<li>Coter le cercle extérieur : c'est le <strong>diamètre extérieur</strong> (<code>diametre_exterieur</code>)</li>
+<li><strong>Extrudez</strong> l'esquisse pour créer un anneau plein — la distance d'extrusion est l'<strong>épaisseur</strong> (<code>epaisseur</code>)</li>
+</ol>
+<p>Renommez les paramètres dans le gestionnaire de paramètres d'Inventor (<em>Gérer &gt; Paramètres</em>) pour qu'ils portent des noms explicites :</p>
+<ul>
+<li><code>diametre_interieur</code> (par exemple 20 mm pour commencer)</li>
+<li><code>diametre_exterieur</code> (40 mm)</li>
+<li><code>epaisseur</code> (2 mm)</li>
+</ul>
+<h2 id="etape-2-creer-la-regle-ilogic">Étape 2 : créer la règle iLogic</h2>
+<p>Ouvrez le navigateur iLogic (<em>Gérer &gt; iLogic &gt; Navigateur de règles</em>) et créez une nouvelle règle que vous nommerez <code>Calculer_Epaisseur</code>.</p>
+<p>Dans l'éditeur, commencez par la formule la plus simple — le diamètre extérieur :</p>
+<pre><code class="language-vb">diametre_exterieur = diametre_interieur * 2
+</code></pre>
+<p>C'est aussi simple que ça. iLogic reconnaît <code>diametre_interieur</code> et <code>diametre_exterieur</code> comme des paramètres du modèle. Quand la règle s'exécute, elle lit la valeur courante de <code>diametre_interieur</code> et affecte le double à <code>diametre_exterieur</code>.</p>
+<p>Cliquez sur <strong>Enregistrer et exécuter</strong> pour tester. Modifiez la valeur de <code>diametre_interieur</code> dans le gestionnaire de paramètres, puis relancez la règle : le diamètre extérieur se met à jour automatiquement.</p>
+<h2 id="etape-3-lepaisseur-calculee">Étape 3 : l'épaisseur calculée</h2>
+<p>Ajoutons maintenant le calcul de l'épaisseur. La formule brute est simple :</p>
+<pre><code class="language-vb">diametre_exterieur = diametre_interieur * 2
+epaisseur = diametre_interieur / 10
+</code></pre>
+<p>Testez avec un diamètre intérieur de 20 mm : l'épaisseur passe à 2 mm. Parfait. Mais essayez avec 14 mm : l'épaisseur passe à 1.4 mm, une valeur qui ne correspond à aucune tôle standard.</p>
+<h2 id="etape-4-les-epaisseurs-normalisees-avec-multivalue">Étape 4 : les épaisseurs normalisées avec MultiValue</h2>
+<p>C'est ici qu'intervient la fonction <code>MultiValue.FindValue</code>. Cette fonction cherche dans une liste de valeurs celle qui correspond le mieux à un critère donné.</p>
+<p>Sa syntaxe est :</p>
+<pre><code class="language-vb">MultiValue.FindValue(liste, opérateur, valeur_cible)
+</code></pre>
+<ul>
+<li><strong>liste</strong> : un tableau de valeurs dans lequel chercher</li>
+<li><strong>opérateur</strong> : <code>&quot;&gt;=&quot;</code> (supérieur ou égal), <code>&quot;&lt;=&quot;</code> (inférieur ou égal) ou <code>&quot;=&quot;</code> (égal)</li>
+<li><strong>valeur_cible</strong> : la valeur à approcher</li>
+</ul>
+<p>Pour notre rondelle, nous voulons trouver l'épaisseur de tôle <strong>supérieure ou égale</strong> à <code>diametre_interieur / 10</code>. Il nous faut d'abord définir la liste des épaisseurs disponibles avec <code>MultiValue.SetList</code>, puis utiliser <code>MultiValue.FindValue</code> pour trouver la bonne valeur.</p>
+<p>Voici la règle complète :</p>
+<pre><code class="language-vb">' Définir la liste des épaisseurs de tôle disponibles
+MultiValue.SetList(&quot;epaisseur&quot;, 0.8, 1, 1.2, 1.5, 2, 3)
+
+' Calculer le diamètre extérieur
+diametre_exterieur = diametre_interieur * 2
+
+' Calculer l'épaisseur idéale
+Dim epaisseur_ideale As Double = diametre_interieur / 10
+
+' Trouver l'épaisseur de tôle supérieure ou égale la plus proche
+epaisseur = MultiValue.FindValue(
+    MultiValue.List(&quot;epaisseur&quot;), &quot;&gt;= &quot;, epaisseur_ideale)
+</code></pre>
+<p>Décortiquons ce qui se passe :</p>
+<ol>
+<li><code>MultiValue.SetList</code> définit les valeurs autorisées pour le paramètre <code>epaisseur</code>. Dans Inventor, ce paramètre affichera désormais une liste déroulante avec ces six valeurs.</li>
+<li><code>diametre_interieur / 10</code> calcule l'épaisseur théorique (1.4 mm pour un diamètre de 14 mm).</li>
+<li><code>MultiValue.FindValue</code> parcourt la liste et retourne la première valeur <strong>supérieure ou égale</strong> à 1.4, soit <strong>1.5 mm</strong>.</li>
+</ol>
+<h2 id="tester-la-regle">Tester la règle</h2>
+<p>Enregistrez la règle et testez-la avec différentes valeurs de diamètre intérieur :</p>
+<table>
+<thead>
+<tr>
+<th>Diamètre intérieur</th>
+<th>Épaisseur idéale (÷ 10)</th>
+<th>Épaisseur retenue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8 mm</td>
+<td>0.8 mm</td>
+<td><strong>0.8 mm</strong></td>
+</tr>
+<tr>
+<td>10 mm</td>
+<td>1.0 mm</td>
+<td><strong>1 mm</strong></td>
+</tr>
+<tr>
+<td>11 mm</td>
+<td>1.1 mm</td>
+<td><strong>1.2 mm</strong></td>
+</tr>
+<tr>
+<td>14 mm</td>
+<td>1.4 mm</td>
+<td><strong>1.5 mm</strong></td>
+</tr>
+<tr>
+<td>20 mm</td>
+<td>2.0 mm</td>
+<td><strong>2 mm</strong></td>
+</tr>
+<tr>
+<td>25 mm</td>
+<td>2.5 mm</td>
+<td><strong>3 mm</strong></td>
+</tr>
+</tbody>
+</table>
+<p>La règle fonctionne : l'épaisseur est toujours arrondie à la valeur de tôle standard supérieure ou égale.</p>
+<h2 id="declencher-la-regle-automatiquement">Déclencher la règle automatiquement</h2>
+<p>Pour l'instant, la règle ne s'exécute que manuellement. Pour qu'elle se déclenche <strong>à chaque modification du diamètre intérieur</strong>, ouvrez les propriétés de la règle dans le navigateur iLogic (clic droit &gt; <em>Propriétés de la règle</em>) et activez le déclenchement sur le paramètre <code>diametre_interieur</code>.</p>
+<p>Vous pouvez aussi configurer la règle pour qu'elle se déclenche <strong>à chaque mise à jour du modèle</strong> (<em>Event Triggers</em>), ce qui garantit que les calculs sont toujours à jour.</p>
+<h2 id="resume">Résumé</h2>
+<p>Voici ce que nous avons appris dans ce chapitre :</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Code iLogic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Affecter un paramètre</td>
+<td><code>diametre_exterieur = diametre_interieur * 2</code></td>
+</tr>
+<tr>
+<td>Définir une liste de valeurs</td>
+<td><code>MultiValue.SetList(&quot;epaisseur&quot;, 0.8, 1, 1.2, 1.5, 2, 3)</code></td>
+</tr>
+<tr>
+<td>Lire une liste de valeurs</td>
+<td><code>MultiValue.List(&quot;epaisseur&quot;)</code></td>
+</tr>
+<tr>
+<td>Trouver la valeur la plus proche</td>
+<td><code>MultiValue.FindValue(liste, &quot;&gt;= &quot;, valeur)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Avec seulement quelques lignes de code, nous avons transformé une pièce statique en un modèle paramétrique intelligent qui respecte des contraintes industrielles. C'est toute la puissance d'iLogic : un effort minimal pour un résultat immédiatement utile en bureau d'études.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Les formulaires iLogic</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

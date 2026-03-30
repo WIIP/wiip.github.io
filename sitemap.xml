@@ -96,6 +96,9 @@
     <loc>https://wiip.fr/fr/blog/application-context-vs-document-context</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/autocad-2027</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/autolisp-comments</loc>
   </url>
   <url>
@@ -273,6 +276,9 @@
     <loc>https://wiip.fr/fr/tutoriels/autolisp-dessin</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues-reactors</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tutoriels/autolisp-donnees-etendues</loc>
   </url>
   <url>
@@ -315,6 +321,27 @@
     <loc>https://wiip.fr/fr/tutoriels/autolisp-variables-types</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-declencheurs</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-filetages</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-formulaires</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-goexcel</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-introduction</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-rondelle-parametrique</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-variables-parametres</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/AutoLISP</loc>
   </url>
   <url>
@@ -322,6 +349,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/LISP</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/iLogic</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/Inventor</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/0x80004005</loc>

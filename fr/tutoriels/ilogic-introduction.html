@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ? - iLogic : le guide complet - WIIP</title><meta name="description" content="D&#xE9;couvrez iLogic, le moteur de r&#xE8;gles int&#xE9;gr&#xE9; &#xE0; Inventor. Comprenez comment il permet d&#x27;automatiser la conception et de rendre vos mod&#xE8;les 3D intelligents, sans &#xEA;tre d&#xE9;veloppeur." />
+        <meta property="og:title" content="Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ? - iLogic : le guide complet" />
+        <meta property="og:description" content="D&#xE9;couvrez iLogic, le moteur de r&#xE8;gles int&#xE9;gr&#xE9; &#xE0; Inventor. Comprenez comment il permet d&#x27;automatiser la conception et de rendre vos mod&#xE8;les 3D intelligents, sans &#xEA;tre d&#xE9;veloppeur." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-introduction" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ? - iLogic : le guide complet" />
+        <meta name="twitter:description" content="D&#xE9;couvrez iLogic, le moteur de r&#xE8;gles int&#xE9;gr&#xE9; &#xE0; Inventor. Comprenez comment il permet d&#x27;automatiser la conception et de rendre vos mod&#xE8;les 3D intelligents, sans &#xEA;tre d&#xE9;veloppeur." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-introduction" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-introduction" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Introduction \u2014 Qu\u0027est-ce qu\u0027iLogic ?",
+        "description": "D\u00E9couvrez iLogic, le moteur de r\u00E8gles int\u00E9gr\u00E9 \u00E0 Inventor. Comprenez comment il permet d\u0027automatiser la conception et de rendre vos mod\u00E8les 3D intelligents, sans \u00EAtre d\u00E9veloppeur.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-introduction",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none fw-bold">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">2. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">3. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">4. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">5. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">6. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">7. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 1 / 7</small>
+                    <h1>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p><strong>iLogic</strong> est le moteur de règles intégré à <strong>Autodesk Inventor</strong>. Il permet d'ajouter de la <strong>logique conditionnelle</strong> à vos modèles 3D et de créer des <strong>formulaires de configuration</strong> pour vos assemblages. Avant de plonger dans le code, prenons un moment pour comprendre ce qu'apporte iLogic par rapport aux fonctionnalités paramétriques natives d'Inventor.</p>
+<h2 id="ce-quinventor-fait-deja-sans-ilogic">Ce qu'Inventor fait déjà sans iLogic</h2>
+<p>Inventor est un modeleur <strong>paramétrique</strong>. Vous pouvez lier des paramètres entre eux avec des formules : si le diamètre extérieur d'une rondelle vaut toujours le double du diamètre intérieur, il suffit d'écrire <code>diametre_interieur * 2</code> dans le gestionnaire de paramètres. Quand vous changez le diamètre intérieur, le diamètre extérieur suit automatiquement. Pas besoin d'iLogic pour ça.</p>
+<p>Mais les formules d'Inventor sont <strong>purement mathématiques</strong>. Elles ne permettent pas de dire : « <em>si</em> le diamètre est inférieur à 10, <em>alors</em> utilise une épaisseur de 1 mm, <em>sinon</em> utilise 2 mm ». Elles ne permettent pas non plus de supprimer automatiquement un perçage quand une option est désactivée.</p>
+<h2 id="la-ou-ilogic-entre-en-jeu">Là où iLogic entre en jeu</h2>
+<p>iLogic intervient quand vous avez besoin de <strong>prendre des décisions</strong> dans votre modèle. Ses cas d'usage principaux sont :</p>
+<ul>
+<li><strong>La logique conditionnelle</strong> : adapter la géométrie, les matériaux ou les fonctions de modélisation selon des conditions (<code>If...Then...Else</code>, <code>Select Case</code>)</li>
+<li><strong>Les listes de valeurs normalisées</strong> : restreindre un paramètre à des valeurs standards (épaisseurs de tôle, sections de profilés) et trouver automatiquement la valeur la plus adaptée</li>
+</ul>
+<p>Sans iLogic, la seule alternative pour ce type de logique serait de <strong>développer un programme</strong> en VB.NET ou C# avec l'API Inventor — puissant, mais bien plus complexe. iLogic offre un moyen <strong>simple et accessible</strong> d'ajouter cette intelligence, directement depuis l'environnement Inventor.</p>
+<p>Un système permettant de créer facilement des formulaires de configuration pour vos modèles est également intégré à iLogic. Vous pouvez ainsi fournir une interface utilisateur aux concepteurs pour configurer plus simplement vos produits.</p>
+<h2 id="ilogic-des-regles-pas-des-programmes">iLogic : des règles, pas des programmes</h2>
+<p>Le concept central d'iLogic est la <strong>règle</strong> (<em>rule</em>). Une règle est un petit bloc de code écrit en <strong>VB.NET</strong> qui s'exécute dans le contexte de votre document Inventor. Contrairement à un programme classique, une règle iLogic :</p>
+<ul>
+<li>S'écrit <strong>directement dans Inventor</strong>, dans un éditeur intégré qui fournit des <strong>extraits de code</strong> (<em>snippets</em>), des <strong>assistants</strong> et des outils pour aller chercher des éléments dans le modèle (paramètres, fonctions, composants…)</li>
+<li>Accède <strong>nativement</strong> aux paramètres du modèle, sans code d'initialisation</li>
+<li>Peut se déclencher <strong>automatiquement</strong> quand un paramètre change</li>
+<li>Ne nécessite <strong>aucune installation</strong> supplémentaire : iLogic est inclus dans Inventor</li>
+</ul>
+<p>Par exemple, cette règle choisit le nombre de nervures en fonction de la longueur d'une pièce :</p>
+<pre><code class="language-vb">If longueur &lt; 200 Then
+    nombre_nervures = 2
+ElseIf longueur &lt; 500 Then
+    nombre_nervures = 3
+Else
+    nombre_nervures = 5
+End If
+</code></pre>
+<p>Pas de <code>Imports</code>, pas de <code>Sub Main()</code>, pas de référence à l'API. iLogic reconnaît automatiquement <code>longueur</code> et <code>nombre_nervures</code> comme des paramètres du modèle Inventor.</p>
+<h2 id="exemples-concrets">Exemples concrets</h2>
+<p>Voici quelques situations typiques où iLogic fait la différence :</p>
+<h3 id="adapter-la-geometrie-selon-des-conditions">Adapter la géométrie selon des conditions</h3>
+<p>Vous concevez un support qui existe en trois variantes : court, moyen et long. Selon la longueur, le nombre de nervures de renfort change : 2 pour le court, 3 pour le moyen, 5 pour le long. Les formules d'Inventor ne savent pas faire ça — il faut un <code>If</code> ou un <code>Select Case</code> pour choisir le nombre de nervures en fonction de la variante.</p>
+<h3 id="supprimer-ou-activer-des-fonctions-de-modelisation">Supprimer ou activer des fonctions de modélisation</h3>
+<p>Une règle peut <strong>supprimer</strong> (<em>suppress</em>) ou <strong>activer</strong> des fonctions selon le contexte. Par exemple, ajouter des perçages de fixation uniquement quand l'utilisateur choisit l'option « fixation par vis » plutôt que « soudure ». Ce type de logique conditionnelle est impossible avec les seules formules paramétriques.</p>
+<h3 id="configurer-un-assemblage-par-formulaire">Configurer un assemblage par formulaire</h3>
+<p>C'est l'un des usages les plus puissants d'iLogic. Vous créez un <strong>formulaire</strong> (<em>iLogic Form</em>) qui présente des listes déroulantes, des cases à cocher et des champs de saisie. Un concepteur peut alors configurer un produit complet — choisir un modèle de moteur, une longueur de châssis, un type de finition — sans avoir besoin de connaître en détail la structure du modèle. L'assemblage se met à jour automatiquement, sans jamais ouvrir le gestionnaire de paramètres. C'est idéal pour permettre à un utilisateur de configurer un produit élaboré par un autre concepteur.</p>
+<h3 id="trouver-des-valeurs-normalisees">Trouver des valeurs normalisées</h3>
+<p>Les dimensions en bureau d'études ne sont pas toujours libres. L'épaisseur d'une tôle, le diamètre d'une vis, la section d'un profilé doivent correspondre à des <strong>valeurs standards</strong>. iLogic permet de définir des listes de valeurs autorisées et de trouver automatiquement la valeur normalisée la plus proche d'un résultat calculé.</p>
+<h3 id="mettre-a-jour-les-iproprietes-automatiquement">Mettre à jour les iPropriétés automatiquement</h3>
+<p>Un usage très répandu d'iLogic est la <strong>mise à jour automatique des iPropriétés</strong> (désignation, numéro de pièce, matériau, masse…) avant l'enregistrement du document. Grâce aux <strong>déclencheurs d'événements</strong> (<em>Event Triggers</em>), vous pouvez associer une règle à l'événement « avant enregistrement ». À chaque fois que l'utilisateur enregistre son fichier, la règle s'exécute et met à jour les propriétés du document — par exemple en composant automatiquement la désignation à partir du type de pièce et de ses dimensions. Cela garantit que les iPropriétés sont toujours cohérentes avec le modèle, sans intervention manuelle.</p>
+<p>Autre exemple : <strong>calculer la masse après galvanisation</strong> et la stocker dans une iPropriété personnalisée :</p>
+<pre><code class="language-vb">iProperties.Value(&quot;Custom&quot;, &quot;Masse galva&quot;) = Round(iProperties.Mass * 1.05, 1)
+</code></pre>
+<blockquote>
+<p><strong>Note</strong> : l'augmentation de masse due à la galvanisation varie de <strong>3 à 12 %</strong> selon l'épaisseur des parois, la composition de l'acier et la composition du bain de zinc. Le coefficient de 1.05 utilisé ici est une approximation — adaptez-le à votre contexte.</p>
+</blockquote>
+<h3 id="exporter-automatiquement-apres-enregistrement">Exporter automatiquement après enregistrement</h3>
+<p>Les déclencheurs ne se limitent pas à « avant enregistrement ». En associant une règle à l'événement « <strong>après enregistrement</strong> », vous pouvez par exemple <strong>exporter automatiquement le document dans un format neutre</strong> (STEP, PDF…) à chaque sauvegarde. C'est particulièrement utile pour maintenir à jour des fichiers d'échange destinés à des partenaires ou à la fabrication, sans que l'utilisateur ait à y penser.</p>
+<h2 id="ilogic-et-vb.net">iLogic et VB.NET</h2>
+<p>Le langage utilisé dans les règles iLogic est le <strong>VB.NET</strong> (Visual Basic .NET). iLogic ajoute une couche de simplification importante : les <strong>paramètres Inventor sont directement accessibles comme des variables</strong>. Quand vous écrivez <code>longueur</code> dans une règle, iLogic comprend que c'est un paramètre du modèle. Il lit sa valeur au début de la règle et met à jour le modèle à la fin de l'exécution.</p>
+<p>Vous pouvez aussi utiliser la syntaxe explicite :</p>
+<pre><code class="language-vb">Parameter(&quot;longueur&quot;) = 200
+</code></pre>
+<p>Cette syntaxe est utile quand le nom du paramètre contient des caractères spéciaux ou quand vous accédez aux paramètres d'un autre composant dans un assemblage.</p>
+<p>Au-delà de cette simplification, vous avez accès à tout le langage VB.NET : variables, conditions (<code>If...Then...Else</code>, <code>Select Case</code>), boucles (<code>For</code>, <code>While</code>), fonctions, et même les classes du framework .NET.</p>
+<h2 id="ilogic-et-lapi-inventor">iLogic et l'API Inventor</h2>
+<p>iLogic n'est pas un remplacement de l'API Inventor. C'est un <strong>complément</strong>. Pour les cas simples — piloter des paramètres, supprimer des fonctions, afficher un message — iLogic fournit des fonctions dédiées (<em>snippets</em>) qui évitent de manipuler directement les objets COM de l'API.</p>
+<p>Mais quand vous avez besoin d'aller plus loin, vous pouvez mélanger iLogic et l'API dans la même règle. C'est cette flexibilité qui fait la force d'iLogic : simple pour commencer, extensible quand vos besoins grandissent.</p>
+<h2 id="ce-que-vous-allez-apprendre">Ce que vous allez apprendre</h2>
+<p>Dans ce guide, nous allons explorer iLogic pas à pas :</p>
+<ol>
+<li><strong>Introduction</strong> : comprendre ce qu'est iLogic et à quoi il sert (vous êtes ici)</li>
+<li><strong>Premier exercice</strong> : créer une rondelle paramétrique avec des épaisseurs normalisées</li>
+<li><strong>Les formulaires</strong> : créer des interfaces de configuration pour vos modèles</li>
+<li><strong>Les déclencheurs</strong> : exécuter automatiquement des règles en réponse à des événements</li>
+<li><strong>Les variables de paramètres</strong> : comprendre la différence entre variables bleues et <code>Parameter()</code>, et leur impact sur l'exécution automatique</li>
+<li><strong>Lire et écrire dans Excel</strong> : exploiter des données Excel depuis vos règles avec GoExcel</li>
+</ol>
+<p>Aucune expérience en programmation n'est requise. Tout ce dont vous avez besoin, c'est d'une copie d'Inventor (iLogic est inclus dans toutes les éditions depuis Inventor 2010).</p>
+<p>Passons à la pratique !</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Premier exercice &#x2014; La rondelle param&#xE9;trique</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements - iLogic : le guide complet - WIIP</title><meta name="description" content="Configurez vos r&#xE8;gles iLogic pour qu&#x27;elles s&#x27;ex&#xE9;cutent automatiquement en r&#xE9;ponse &#xE0; des &#xE9;v&#xE9;nements Inventor &#x2014; modification de param&#xE8;tre, enregistrement du document, ouverture d&#x27;un fichier, et bien d&#x27;autres." />
+        <meta property="og:title" content="Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements - iLogic : le guide complet" />
+        <meta property="og:description" content="Configurez vos r&#xE8;gles iLogic pour qu&#x27;elles s&#x27;ex&#xE9;cutent automatiquement en r&#xE9;ponse &#xE0; des &#xE9;v&#xE9;nements Inventor &#x2014; modification de param&#xE8;tre, enregistrement du document, ouverture d&#x27;un fichier, et bien d&#x27;autres." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-declencheurs" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements - iLogic : le guide complet" />
+        <meta name="twitter:description" content="Configurez vos r&#xE8;gles iLogic pour qu&#x27;elles s&#x27;ex&#xE9;cutent automatiquement en r&#xE9;ponse &#xE0; des &#xE9;v&#xE9;nements Inventor &#x2014; modification de param&#xE8;tre, enregistrement du document, ouverture d&#x27;un fichier, et bien d&#x27;autres." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-declencheurs" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-declencheurs" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Les d\u00E9clencheurs d\u0027\u00E9v\u00E9nements",
+        "description": "Configurez vos r\u00E8gles iLogic pour qu\u0027elles s\u0027ex\u00E9cutent automatiquement en r\u00E9ponse \u00E0 des \u00E9v\u00E9nements Inventor \u2014 modification de param\u00E8tre, enregistrement du document, ouverture d\u0027un fichier, et bien d\u0027autres.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-declencheurs",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">2. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">3. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none fw-bold">4. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">5. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">6. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">7. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 4 / 7</small>
+                    <h1>Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p>Jusqu'ici, nous avons exécuté nos règles manuellement : un clic sur <em>Exécuter</em> dans le navigateur iLogic. Mais la vraie puissance d'iLogic apparaît quand les règles se déclenchent <strong>toutes seules</strong>, en réaction à un événement. C'est le rôle des <strong>déclencheurs</strong> (<em>Event Triggers</em>).</p>
+<h2 id="le-principe">Le principe</h2>
+<p>Un déclencheur associe une <strong>règle</strong> à un <strong>événement</strong>. Quand l'événement se produit, Inventor exécute automatiquement la règle. L'utilisateur n'a rien à faire — le modèle se met à jour de lui-même.</p>
+<p>Pour configurer les déclencheurs, allez dans <em>Gérer &gt; iLogic &gt; Déclencheurs d'événements</em> (<em>Event Triggers</em>).</p>
+<h2 id="les-types-de-declencheurs">Les types de déclencheurs</h2>
+<p>Inventor propose plusieurs catégories de déclencheurs :</p>
+<h3 id="declencheurs-sur-les-parametres">Déclencheurs sur les paramètres</h3>
+<p>C'est le déclencheur le plus intuitif : la règle s'exécute <strong>quand un paramètre change de valeur</strong>. Vous sélectionnez le ou les paramètres à surveiller, et la règle associée se déclenche à chaque modification.</p>
+<p><strong>Important</strong> : pour les <strong>règles internes</strong>, iLogic gère déjà ce déclenchement automatiquement. Quand une règle utilise un paramètre directement par son nom (une <em>variable bleue</em>), iLogic détecte la dépendance et réexécute la règle dès que ce paramètre change — sans aucune configuration de déclencheur. Ce mécanisme est détaillé dans le chapitre <a href="../ilogic-variables-parametres/">Les variables de paramètres</a>.</p>
+<p>La configuration manuelle d'un déclencheur sur paramètre est donc surtout utile dans deux cas :</p>
+<ul>
+<li>Pour les <strong>règles externes</strong> (fichiers <code>.vb</code> séparés), qui n'ont pas accès aux variables bleues et ne bénéficient pas de l'exécution automatique</li>
+<li>Pour les règles internes dont l'<strong>exécution automatique a été désactivée</strong> (<em>Suppress Auto-Run</em>), mais qui doivent quand même réagir à certains paramètres spécifiques</li>
+</ul>
+<p>Dans la boîte de dialogue des déclencheurs, sous l'onglet <strong>Paramètres</strong>, vous associez une règle à un ou plusieurs paramètres. Chaque colonne représente une règle, et vous cochez les paramètres qui doivent la déclencher.</p>
+<h3 id="declencheurs-sur-les-evenements-du-document">Déclencheurs sur les événements du document</h3>
+<p>Ces déclencheurs réagissent aux actions effectuées sur le document lui-même :</p>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Se déclenche quand…</th>
+<th>Cas d'usage typique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Avant enregistrement</strong> (<em>Before Save</em>)</td>
+<td>L'utilisateur enregistre le fichier</td>
+<td>Mettre à jour les iPropriétés</td>
+</tr>
+<tr>
+<td><strong>Après ouverture</strong> (<em>After Open</em>)</td>
+<td>Le document vient d'être ouvert</td>
+<td>Vérifier la cohérence, afficher un formulaire</td>
+</tr>
+<tr>
+<td><strong>Avant fermeture</strong> (<em>Before Close</em>)</td>
+<td>L'utilisateur ferme le document</td>
+<td>Vérifications de dernière minute</td>
+</tr>
+<tr>
+<td><strong>Après mise à jour du modèle</strong> (<em>After Model Update</em>)</td>
+<td>Le modèle vient d'être recalculé</td>
+<td>Recalculer des valeurs dérivées</td>
+</tr>
+</tbody>
+</table>
+<p>Le déclencheur <strong>avant enregistrement</strong> est l'un des plus utilisés en bureau d'études, comme nous allons le voir en détail.</p>
+<h3 id="declencheurs-sur-le-formulaire">Déclencheurs sur le formulaire</h3>
+<p>Une règle peut aussi se déclencher quand l'utilisateur <strong>interagit avec un formulaire iLogic</strong> — par exemple quand il change une valeur dans une liste déroulante. Ce type de déclencheur est configuré dans l'éditeur de formulaires plutôt que dans la boîte de dialogue des déclencheurs.</p>
+<h2 id="cas-pratique-mettre-a-jour-les-iproprietes-avant-lenregistrement">Cas pratique : mettre à jour les iPropriétés avant l'enregistrement</h2>
+<p>C'est l'un des usages les plus répandus des déclencheurs. L'objectif : garantir que les iPropriétés du document (désignation, numéro de pièce, masse…) sont <strong>toujours à jour</strong> quand le fichier est enregistré.</p>
+<h3 id="pourquoi-cest-important">Pourquoi c'est important</h3>
+<p>Les iPropriétés sont utilisées partout : dans les cartouches de mise en plan, dans les nomenclatures, dans le système de gestion documentaire (Vault, par exemple). Si elles ne sont pas à jour, les nomenclatures affichent des informations obsolètes et les cartouches sont faux. Mettre à jour manuellement les iPropriétés de chaque fichier est fastidieux et source d'oublis.</p>
+<h3 id="la-regle">La règle</h3>
+<p>Créez une règle nommée <code>Mettre_A_Jour_iProprietes</code> :</p>
+<pre><code class="language-vb">' Composer la désignation à partir des paramètres du modèle
+iProperties.Value(&quot;Project&quot;, &quot;Description&quot;) = _
+    &quot;Rondelle Ø&quot; &amp; diametre_interieur &amp; &quot; x &quot; &amp; epaisseur
+
+' Mettre à jour le numéro de pièce
+iProperties.Value(&quot;Project&quot;, &quot;Part Number&quot;) = _
+    &quot;RON-&quot; &amp; CStr(diametre_interieur) &amp; &quot;-&quot; &amp; CStr(epaisseur)
+
+' Stocker la masse calculée
+iProperties.Value(&quot;Project&quot;, &quot;Custom&quot;, &quot;Masse&quot;) = iProperties.Mass
+</code></pre>
+<p>Cette règle :</p>
+<ol>
+<li>Compose une <strong>désignation</strong> lisible (par exemple : « Rondelle Ø14 x 1.5 »)</li>
+<li>Génère un <strong>numéro de pièce</strong> normalisé (par exemple : « RON-14-1.5 »)</li>
+<li>Enregistre la <strong>masse</strong> calculée par Inventor dans une iPropriété personnalisée</li>
+</ol>
+<h3 id="associer-la-regle-au-declencheur">Associer la règle au déclencheur</h3>
+<ol>
+<li>Ouvrez <em>Gérer &gt; iLogic &gt; Déclencheurs d'événements</em></li>
+<li>Allez à l'onglet qui contient les événements du document</li>
+<li>Sur la ligne <strong>Avant enregistrement</strong> (<em>Before Save Document Event</em>), cochez la colonne correspondant à la règle <code>Mettre_A_Jour_iProprietes</code></li>
+<li>Validez</li>
+</ol>
+<p>Désormais, à chaque fois que l'utilisateur fait <em>Ctrl+S</em>, Inventor exécute la règle <strong>avant</strong> d'écrire le fichier sur le disque. Les iPropriétés sont mises à jour juste à temps.</p>
+<h2 id="lordre-dexecution">L'ordre d'exécution</h2>
+<p>Quand plusieurs règles sont associées au même événement, elles s'exécutent dans l'ordre affiché dans la boîte de dialogue des déclencheurs. Vous pouvez réordonner les règles si l'une dépend du résultat d'une autre.</p>
+<p>De plus, un déclencheur peut provoquer une <strong>réaction en chaîne</strong> : si la règle A modifie un paramètre surveillé par la règle B, alors B s'exécute automatiquement après A. C'est un comportement puissant mais qui peut aussi créer des boucles infinies si vous n'y prenez pas garde. iLogic détecte et interrompt ces boucles, mais il vaut mieux les éviter dès la conception.</p>
+<h2 id="forcer-une-mise-a-jour-dans-la-regle">Forcer une mise à jour dans la règle</h2>
+<p>Par défaut, iLogic met à jour le modèle <strong>à la fin</strong> de l'exécution de la règle. Si vous avez besoin que le modèle se recalcule <strong>au milieu</strong> de la règle (par exemple pour lire la masse après avoir changé le matériau), utilisez :</p>
+<pre><code class="language-vb">' Appliquer les changements de paramètres au modèle
+RuleParametersOutput()
+
+' Forcer le recalcul du modèle
+InventorVb.DocumentUpdate()
+
+' Maintenant la masse est à jour
+masse_actuelle = iProperties.Mass
+</code></pre>
+<p>Vous pouvez aussi demander une mise à jour unique à la fin de la règle avec :</p>
+<pre><code class="language-vb">iLogicVb.UpdateWhenDone = True
+</code></pre>
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+<h3 id="garder-les-regles-declenchees-rapides">Garder les règles déclenchées rapides</h3>
+<p>Une règle associée à « avant enregistrement » s'exécute <strong>à chaque Ctrl+S</strong>. Si elle prend plusieurs secondes, l'utilisateur percevra un délai gênant. Limitez-vous à des opérations légères : mise à jour de propriétés, vérifications simples, affectations de paramètres.</p>
+<h3 id="separer-les-responsabilites">Séparer les responsabilités</h3>
+<p>Plutôt qu'une seule règle qui fait tout, créez des règles spécialisées :</p>
+<ul>
+<li><code>Calculer_Dimensions</code> → déclenchée par le changement de paramètre</li>
+<li><code>Mettre_A_Jour_iProprietes</code> → déclenchée avant l'enregistrement</li>
+<li><code>Verifier_Coherence</code> → déclenchée après la mise à jour du modèle</li>
+</ul>
+<p>Chaque règle a une responsabilité claire, ce qui facilite le débogage.</p>
+<h3 id="documenter-les-declencheurs">Documenter les déclencheurs</h3>
+<p>Les déclencheurs sont configurés dans une boîte de dialogue séparée des règles. Il est facile d'oublier quel événement déclenche quelle règle. Ajoutez un commentaire en tête de chaque règle pour indiquer son déclencheur :</p>
+<pre><code class="language-vb">' Déclencheur : avant enregistrement (Before Save Document Event)
+' Met à jour les iPropriétés à partir des paramètres du modèle
+
+iProperties.Value(&quot;Project&quot;, &quot;Description&quot;) = _
+    &quot;Rondelle Ø&quot; &amp; diametre_interieur &amp; &quot; x &quot; &amp; epaisseur
+</code></pre>
+<h2 id="resume">Résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Déclencheur sur paramètre</td>
+<td>Exécute une règle quand un paramètre change</td>
+</tr>
+<tr>
+<td>Avant enregistrement</td>
+<td>Exécute une règle avant chaque <em>Ctrl+S</em> — idéal pour les iPropriétés</td>
+</tr>
+<tr>
+<td>Après ouverture</td>
+<td>Exécute une règle à l'ouverture du document</td>
+</tr>
+<tr>
+<td>Après mise à jour</td>
+<td>Exécute une règle après chaque recalcul du modèle</td>
+</tr>
+<tr>
+<td>RuleParametersOutput()</td>
+<td>Applique les paramètres modifiés au modèle en cours de règle</td>
+</tr>
+<tr>
+<td>InventorVb.DocumentUpdate()</td>
+<td>Force le recalcul du modèle en cours de règle</td>
+</tr>
+</tbody>
+</table>
+<p>Les déclencheurs transforment vos règles iLogic en <strong>automatismes permanents</strong>. L'utilisateur travaille normalement — il modélise, il enregistre, il change des paramètres — et les règles s'exécutent en arrière-plan pour maintenir la cohérence du modèle.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Les formulaires iLogic</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Les variables de param&#xE8;tres</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

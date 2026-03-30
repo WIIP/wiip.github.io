@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les formulaires iLogic - iLogic : le guide complet - WIIP</title><meta name="description" content="Cr&#xE9;ez des interfaces de configuration pour vos mod&#xE8;les Inventor. Les formulaires iLogic permettent &#xE0; n&#x27;importe quel utilisateur de configurer une pi&#xE8;ce ou un assemblage sans manipuler les param&#xE8;tres directement." />
+        <meta property="og:title" content="Les formulaires iLogic - iLogic : le guide complet" />
+        <meta property="og:description" content="Cr&#xE9;ez des interfaces de configuration pour vos mod&#xE8;les Inventor. Les formulaires iLogic permettent &#xE0; n&#x27;importe quel utilisateur de configurer une pi&#xE8;ce ou un assemblage sans manipuler les param&#xE8;tres directement." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-formulaires" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les formulaires iLogic - iLogic : le guide complet" />
+        <meta name="twitter:description" content="Cr&#xE9;ez des interfaces de configuration pour vos mod&#xE8;les Inventor. Les formulaires iLogic permettent &#xE0; n&#x27;importe quel utilisateur de configurer une pi&#xE8;ce ou un assemblage sans manipuler les param&#xE8;tres directement." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-formulaires" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-formulaires" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Les formulaires iLogic",
+        "description": "Cr\u00E9ez des interfaces de configuration pour vos mod\u00E8les Inventor. Les formulaires iLogic permettent \u00E0 n\u0027importe quel utilisateur de configurer une pi\u00E8ce ou un assemblage sans manipuler les param\u00E8tres directement.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-formulaires",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">2. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none fw-bold">3. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">4. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">5. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">6. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">7. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 3 / 7</small>
+                    <h1>Les formulaires iLogic</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p>Un modèle paramétrique piloté par des règles, c'est puissant. Mais si l'utilisateur doit ouvrir le gestionnaire de paramètres pour changer une valeur, saisir un nombre, puis relancer une règle… l'expérience reste technique. Les <strong>formulaires iLogic</strong> résolvent ce problème en offrant une <strong>interface visuelle</strong> que n'importe qui peut utiliser.</p>
+<h2 id="deux-approches-pour-creer-un-formulaire">Deux approches pour créer un formulaire</h2>
+<p>Inventor propose deux façons de créer des formulaires avec iLogic :</p>
+<table>
+<thead>
+<tr>
+<th>Approche</th>
+<th>Complexité</th>
+<th>Cas d'usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Formulaire iLogic</strong> (éditeur intégré)</td>
+<td>Simple</td>
+<td>La majorité des cas : listes déroulantes, cases à cocher, champs numériques</td>
+</tr>
+<tr>
+<td><strong>Formulaire VB.NET personnalisé</strong> (Windows Forms)</td>
+<td>Avancé</td>
+<td>Interfaces complexes avec validation, onglets, images, contrôles spécifiques</td>
+</tr>
+</tbody>
+</table>
+<p>Dans ce chapitre, nous nous concentrons sur la première approche : les formulaires intégrés. Ils couvrent la grande majorité des besoins et ne nécessitent aucune connaissance en développement d'interfaces graphiques.</p>
+<h2 id="creer-un-formulaire-ilogic">Créer un formulaire iLogic</h2>
+<p>Pour créer un formulaire, ouvrez le <strong>navigateur iLogic</strong> (<em>Gérer &gt; iLogic</em>), basculez sur l'onglet <strong>Formulaires</strong> et cliquez sur <strong>Ajouter un formulaire</strong>.</p>
+<p>L'éditeur de formulaires s'ouvre. Il fonctionne par glisser-déposer : vous faites glisser des <strong>paramètres</strong> depuis la liste de gauche vers la zone de conception du formulaire. Inventor crée automatiquement le contrôle approprié :</p>
+<ul>
+<li>Un <strong>paramètre numérique</strong> apparaît comme un champ de saisie avec un curseur (<em>slider</em>) ou une zone de texte</li>
+<li>Un <strong>paramètre texte</strong> apparaît comme un champ de saisie libre</li>
+<li>Un <strong>paramètre avec une liste MultiValue</strong> apparaît comme une <strong>liste déroulante</strong> — c'est le cas le plus courant et le plus utile</li>
+</ul>
+<h2 id="preparer-les-parametres-pour-le-formulaire">Préparer les paramètres pour le formulaire</h2>
+<p>Avant de construire le formulaire, il faut que vos paramètres soient prêts. En particulier, les paramètres qui offrent un choix doivent avoir une <strong>liste de valeurs</strong> définie. Vous pouvez la définir de deux façons :</p>
+<h3 id="dans-le-gestionnaire-de-parametres">Dans le gestionnaire de paramètres</h3>
+<p>Faites un clic droit sur un paramètre et choisissez <em>Créer une multi-valeur</em>. Saisissez les valeurs autorisées. Le paramètre affichera ensuite une liste déroulante dans le formulaire.</p>
+<h3 id="par-une-regle-ilogic">Par une règle iLogic</h3>
+<p>Vous pouvez aussi définir la liste par code avec <code>MultiValue.SetList</code>. C'est utile quand la liste dépend d'une condition :</p>
+<pre><code class="language-vb">' Épaisseurs disponibles selon le matériau
+If materiau = &quot;Acier&quot; Then
+    MultiValue.SetList(&quot;epaisseur&quot;, 0.8, 1, 1.2, 1.5, 2, 3)
+ElseIf materiau = &quot;Aluminium&quot; Then
+    MultiValue.SetList(&quot;epaisseur&quot;, 1, 1.5, 2, 3, 4)
+End If
+</code></pre>
+<p>Dans cet exemple, les épaisseurs proposées dans la liste déroulante changent selon le matériau choisi. L'utilisateur voit toujours une liste adaptée à son contexte.</p>
+<h2 id="organiser-le-formulaire">Organiser le formulaire</h2>
+<p>L'éditeur de formulaires permet de structurer l'interface :</p>
+<ul>
+<li><strong>Groupes</strong> (<em>Group Box</em>) : regroupez les paramètres par thème (dimensions, matériau, options)</li>
+<li><strong>Onglets</strong> : séparez les sections quand le formulaire devient complexe</li>
+<li><strong>Libellés</strong> : ajoutez du texte explicatif pour guider l'utilisateur</li>
+<li><strong>Images</strong> : insérez des illustrations pour montrer à quoi correspond chaque option</li>
+</ul>
+<p>Un formulaire bien organisé fait toute la différence. L'utilisateur doit comprendre chaque choix <strong>sans connaître la structure du modèle</strong>.</p>
+<h3 id="exemple-de-structure">Exemple de structure</h3>
+<p>Pour un assemblage de convoyeur, le formulaire pourrait être organisé ainsi :</p>
+<pre><code>📋 Configuration du convoyeur
+├── Dimensions
+│   ├── Longueur : [liste déroulante : 1000, 1500, 2000, 3000 mm]
+│   ├── Largeur de bande : [liste déroulante : 400, 500, 650, 800 mm]
+│   └── Hauteur : [champ numérique]
+├── Motorisation
+│   ├── Type de moteur : [liste déroulante : Standard, Frein, Variateur]
+│   └── Position : [liste déroulante : Gauche, Droite]
+└── Options
+    ├── Pieds réglables : [case à cocher]
+    ├── Capot de protection : [case à cocher]
+    └── Type de finition : [liste déroulante : Brut, Peint, Galvanisé]
+</code></pre>
+<p>Chaque choix correspond à un paramètre Inventor. Quand l'utilisateur valide le formulaire, les paramètres sont mis à jour et les règles iLogic s'exécutent pour adapter le modèle.</p>
+<h2 id="parametres-texte-pour-les-choix">Paramètres texte pour les choix</h2>
+<p>Pour les options qui ne sont pas des dimensions (type de moteur, finition, position…), utilisez des <strong>paramètres texte</strong> (<em>Text Parameters</em>) avec des listes MultiValue. Par exemple :</p>
+<pre><code class="language-vb">' Définir les choix possibles
+MultiValue.SetList(&quot;type_moteur&quot;, &quot;Standard&quot;, &quot;Frein&quot;, &quot;Variateur&quot;)
+MultiValue.SetList(&quot;position_moteur&quot;, &quot;Gauche&quot;, &quot;Droite&quot;)
+MultiValue.SetList(&quot;finition&quot;, &quot;Brut&quot;, &quot;Peint&quot;, &quot;Galvanisé&quot;)
+</code></pre>
+<p>Dans une règle séparée, vous exploitez ces choix :</p>
+<pre><code class="language-vb">' Adapter le modèle selon le type de moteur
+Select Case type_moteur
+    Case &quot;Standard&quot;
+        Component.IsActive(&quot;Moteur_frein&quot;) = False
+        Component.IsActive(&quot;Moteur_standard&quot;) = True
+    Case &quot;Frein&quot;
+        Component.IsActive(&quot;Moteur_standard&quot;) = False
+        Component.IsActive(&quot;Moteur_frein&quot;) = True
+    Case &quot;Variateur&quot;
+        Component.IsActive(&quot;Moteur_standard&quot;) = False
+        Component.IsActive(&quot;Moteur_frein&quot;) = False
+        Component.IsActive(&quot;Moteur_variateur&quot;) = True
+End Select
+</code></pre>
+<h2 id="afficher-le-formulaire">Afficher le formulaire</h2>
+<p>Une fois le formulaire créé, il est accessible depuis le <strong>navigateur iLogic</strong> (double-clic sur le formulaire) ou depuis un <strong>bouton dans le ruban</strong> si vous l'avez configuré. Vous pouvez aussi l'afficher par code dans une règle :</p>
+<pre><code class="language-vb">iLogicForm.Show(&quot;Configuration&quot;)
+</code></pre>
+<p>Où <code>&quot;Configuration&quot;</code> est le nom que vous avez donné au formulaire.</p>
+<h2 id="les-boites-de-dialogue-rapides">Les boîtes de dialogue rapides</h2>
+<p>Pour les cas simples où un formulaire complet n'est pas nécessaire, iLogic fournit des <strong>fonctions de dialogue</strong> prêtes à l'emploi :</p>
+<h3 id="inputlistbox-choisir-dans-une-liste">InputListBox : choisir dans une liste</h3>
+<pre><code class="language-vb">materiau = InputListBox(&quot;Choisissez le matériau&quot;, _
+    MultiValue.List(&quot;materiau&quot;), materiau, _
+    Title := &quot;Sélection du matériau&quot;, _
+    ListName := &quot;Matériaux disponibles&quot;)
+</code></pre>
+<p>Cette fonction affiche une boîte de dialogue avec une liste de sélection. L'utilisateur choisit une valeur et elle est affectée au paramètre.</p>
+<h3 id="inputradiobox-choisir-entre-deux-options">InputRadioBox : choisir entre deux options</h3>
+<pre><code class="language-vb">avec_capot = InputRadioBox( _
+    &quot;Faut-il un capot de protection ?&quot;, _
+    &quot;Oui&quot;, &quot;Non&quot;, True, _
+    Title := &quot;Option capot&quot;)
+</code></pre>
+<p>La fonction retourne <code>True</code> si l'utilisateur choisit la première option, <code>False</code> sinon.</p>
+<h3 id="inputbox-saisir-une-valeur-libre">InputBox : saisir une valeur libre</h3>
+<pre><code class="language-vb">designation = InputBox( _
+    &quot;Entrez la désignation de la pièce&quot;, _
+    &quot;Désignation&quot;, &quot;Support standard&quot;)
+</code></pre>
+<h3 id="messagebox-informer-lutilisateur">MessageBox : informer l'utilisateur</h3>
+<pre><code class="language-vb">MessageBox.Show( _
+    &quot;La configuration est terminée.&quot; &amp; vbCrLf &amp; _
+    &quot;Longueur : &quot; &amp; longueur &amp; &quot; mm&quot; &amp; vbCrLf &amp; _
+    &quot;Matériau : &quot; &amp; materiau, _
+    &quot;Résumé&quot;)
+</code></pre>
+<p>Ces boîtes de dialogue sont utiles pour des interactions ponctuelles. Pour une configuration complète avec plusieurs paramètres, préférez un formulaire iLogic.</p>
+<h2 id="resume">Résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Formulaire iLogic</td>
+<td>Interface visuelle créée par glisser-déposer dans l'éditeur intégré</td>
+</tr>
+<tr>
+<td>MultiValue.SetList</td>
+<td>Définit les valeurs autorisées pour un paramètre (liste déroulante)</td>
+</tr>
+<tr>
+<td>Paramètre texte</td>
+<td>Permet de proposer des choix non numériques (matériau, type, position)</td>
+</tr>
+<tr>
+<td>InputListBox</td>
+<td>Boîte de dialogue rapide pour choisir dans une liste</td>
+</tr>
+<tr>
+<td>InputRadioBox</td>
+<td>Boîte de dialogue rapide pour un choix binaire</td>
+</tr>
+<tr>
+<td>iLogicForm.Show</td>
+<td>Affiche un formulaire par code</td>
+</tr>
+</tbody>
+</table>
+<p>Les formulaires sont la clé pour transformer un modèle paramétrique en un <strong>configurateur de produit</strong>. Combinés aux règles conditionnelles, ils permettent à un utilisateur non-expert de produire des variantes de conception en quelques clics.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Premier exercice &#x2014; La rondelle param&#xE9;trique</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

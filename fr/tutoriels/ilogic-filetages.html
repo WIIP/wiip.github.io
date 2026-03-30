@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>G&#xE9;rer les filetages avec Feature - iLogic : le guide complet - WIIP</title><meta name="description" content="Contr&#xF4;lez les filetages de vos per&#xE7;ages et fonctions filet&#xE9;es depuis vos r&#xE8;gles iLogic &#x2014; d&#xE9;signation, type, classe &#x2014; et automatisez leur mise &#xE0; jour en fonction de vos param&#xE8;tres." />
+        <meta property="og:title" content="G&#xE9;rer les filetages avec Feature - iLogic : le guide complet" />
+        <meta property="og:description" content="Contr&#xF4;lez les filetages de vos per&#xE7;ages et fonctions filet&#xE9;es depuis vos r&#xE8;gles iLogic &#x2014; d&#xE9;signation, type, classe &#x2014; et automatisez leur mise &#xE0; jour en fonction de vos param&#xE8;tres." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-filetages" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="G&#xE9;rer les filetages avec Feature - iLogic : le guide complet" />
+        <meta name="twitter:description" content="Contr&#xF4;lez les filetages de vos per&#xE7;ages et fonctions filet&#xE9;es depuis vos r&#xE8;gles iLogic &#x2014; d&#xE9;signation, type, classe &#x2014; et automatisez leur mise &#xE0; jour en fonction de vos param&#xE8;tres." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-filetages" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-filetages" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "G\u00E9rer les filetages avec Feature",
+        "description": "Contr\u00F4lez les filetages de vos per\u00E7ages et fonctions filet\u00E9es depuis vos r\u00E8gles iLogic \u2014 d\u00E9signation, type, classe \u2014 et automatisez leur mise \u00E0 jour en fonction de vos param\u00E8tres.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-filetages",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">2. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">3. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">4. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">5. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">6. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none fw-bold">7. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 7 / 7</small>
+                    <h1>G&#xE9;rer les filetages avec Feature</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                <div class="mt-3"><p>Quand vous modélisez des pièces mécaniques, les filetages sont rarement fixes : le diamètre d'un perçage taraudé dépend d'un paramètre, et la désignation du filetage doit suivre. iLogic propose un ensemble de fonctions dans l'interface <strong>Feature</strong> pour lire et modifier les propriétés de filetage directement depuis vos règles.</p>
+<h2 id="lire-et-ecrire-la-designation-dun-filetage">Lire et écrire la désignation d'un filetage</h2>
+<p>La fonction <code>Feature.ThreadDesignation</code> permet de lire ou de définir la désignation du filetage d'une fonction filetée ou d'un perçage taraudé. La désignation doit correspondre <strong>exactement</strong> à la chaîne affichée dans le champ <em>Désignation</em> de la boîte de dialogue de modification de la fonction.</p>
+<pre><code class="language-vb">' Lire la désignation actuelle
+designation_actuelle = Feature.ThreadDesignation(&quot;Filetage1&quot;)
+
+' Définir une nouvelle désignation
+Feature.ThreadDesignation(&quot;Filetage1&quot;) = &quot;M10x1.5&quot;
+</code></pre>
+<p>Quand vous définissez la désignation d'un perçage taraudé, <strong>la taille du perçage s'ajuste automatiquement</strong> pour correspondre au filetage. Vous n'avez pas besoin de recalculer le diamètre de perçage vous-même.</p>
+<p>Pour une tige filetée, vous pouvez modifier le diamètre et la désignation en même temps, à condition que le diamètre soit compatible avec la désignation :</p>
+<pre><code class="language-vb">If type_tige = &quot;petite&quot; Then
+    Feature.ThreadDesignation(&quot;Filetage1&quot;) = &quot;M8x1.25&quot;
+    diametre_tige = 8
+ElseIf type_tige = &quot;grande&quot; Then
+    Feature.ThreadDesignation(&quot;Filetage1&quot;) = &quot;M12x1.75&quot;
+    diametre_tige = 12
+End If
+</code></pre>
+<h2 id="modifier-le-type-la-designation-et-la-classe-en-une-seule-operation">Modifier le type, la désignation et la classe en une seule opération</h2>
+<p><code>Feature.ThreadDesignation</code> ne modifie que la désignation. Si vous devez aussi changer le <strong>type</strong> de filetage (par exemple passer d'un filetage en pouces à un filetage métrique) ou la <strong>classe</strong>, utilisez <code>Feature.SetThread</code>. Cette fonction prend quatre arguments :</p>
+<pre><code class="language-vb">Feature.SetThread(&quot;nom de la fonction&quot;, &quot;type de filetage&quot;, &quot;désignation&quot;, &quot;classe&quot;)
+</code></pre>
+<p>Par exemple, pour définir un filetage ISO métrique M10x1.5 avec une classe 6H sur un perçage :</p>
+<pre><code class="language-vb">Feature.SetThread(&quot;Perçage1&quot;, &quot;Profil métrique ISO&quot;, &quot;M10x1.5&quot;, &quot;6H&quot;)
+</code></pre>
+<p><code>SetThread</code> est la seule fonction qui permet de <strong>basculer entre les systèmes de filetage</strong> (pouces vers métrique ou inversement). En revanche, vous ne pouvez pas passer d'un filetage droit à un filetage conique (ni l'inverse) avec cette fonction.</p>
+<blockquote>
+<p><strong>Filetages coniques</strong> — Pour un filetage conique, passez une chaîne vide <code>&quot;&quot;</code> pour la classe de filetage. Vous pouvez aussi utiliser la <em>taille</em> au lieu de la désignation complète.</p>
+</blockquote>
+<h2 id="lire-le-type-et-la-classe-dun-filetage">Lire le type et la classe d'un filetage</h2>
+<p>Deux fonctions complémentaires permettent de consulter les propriétés d'un filetage existant :</p>
+<pre><code class="language-vb">' Lire le type de filetage (ex. : &quot;Profil métrique ISO&quot;)
+type_actuel = Feature.ThreadType(&quot;Filetage1&quot;)
+
+' Lire la classe de filetage (ex. : &quot;6H&quot;)
+classe_actuelle = Feature.ThreadClass(&quot;Filetage1&quot;)
+</code></pre>
+<p>Ces fonctions sont utiles pour <strong>vérifier l'état actuel</strong> avant d'appliquer une modification, ou pour afficher des informations dans un formulaire iLogic.</p>
+<h2 id="modifier-la-classe-seule">Modifier la classe seule</h2>
+<p>Si le type et la désignation restent inchangés et que seule la classe doit évoluer, utilisez <code>Feature.ThreadClass</code> en écriture :</p>
+<pre><code class="language-vb">' Passer à une classe plus précise
+Feature.ThreadClass(&quot;Filetage1&quot;) = &quot;6g&quot;
+</code></pre>
+<p>Plus le chiffre de la classe est élevé, plus le filetage est précis. Cette fonction ne s'applique pas aux filetages coniques.</p>
+<h2 id="travailler-au-niveau-de-lassemblage">Travailler au niveau de l'assemblage</h2>
+<p>Toutes les fonctions Feature acceptent un argument supplémentaire pour cibler une fonction dans un <strong>composant</strong> de l'assemblage. Vous pouvez identifier le composant par son nom d'occurrence ou par son nom de fichier :</p>
+<pre><code class="language-vb">' Par nom d'occurrence
+Feature.ThreadDesignation(&quot;Plaque:1&quot;, &quot;Perçage1&quot;) = &quot;M6x1&quot;
+Feature.SetThread(&quot;Plaque:1&quot;, &quot;Perçage1&quot;, &quot;Profil métrique ISO&quot;, &quot;M6x1&quot;, &quot;6H&quot;)
+
+' Par nom de fichier
+Feature.ThreadDesignation(&quot;Plaque.ipt&quot;, &quot;Perçage1&quot;) = &quot;M6x1&quot;
+
+' Lire le type et la classe d'un composant
+type_actuel = Feature.ThreadType(&quot;Plaque:1&quot;, &quot;Perçage1&quot;)
+classe_actuelle = Feature.ThreadClass(&quot;Plaque:1&quot;, &quot;Perçage1&quot;)
+</code></pre>
+<p>Cela permet de piloter les filetages de toutes les pièces d'un assemblage depuis une <strong>règle unique au niveau de l'ensemble</strong>.</p>
+<h2 id="masquer-et-afficher-des-fonctions-filetees">Masquer et afficher des fonctions filetées</h2>
+<p>Comme pour toute fonction Inventor, vous pouvez masquer ou afficher une fonction filetée avec <code>Feature.IsActive</code> :</p>
+<pre><code class="language-vb">' Masquer un perçage taraudé selon une condition
+If option_filetage = False Then
+    Feature.IsActive(&quot;Perçage1&quot;) = False
+Else
+    Feature.IsActive(&quot;Perçage1&quot;) = True
+End If
+</code></pre>
+<p>Quand vous masquez une fonction, ses fonctions dépendantes sont également masquées automatiquement.</p>
+<h2 id="exemple-complet-adapter-le-filetage-au-diametre">Exemple complet : adapter le filetage au diamètre</h2>
+<p>Voici un exemple concret de règle interne qui surveille le paramètre <code>diametre</code> et met à jour automatiquement le filetage ISO métrique d'un perçage. La règle utilise un <code>Select Case</code> pour associer chaque diamètre standard à sa désignation normalisée :</p>
+<pre><code class="language-vb">' Règle iLogic : Adapter le filetage ISO métrique au diamètre du perçage
+' Déclencheur : modification du paramètre &quot;diametre&quot; (variable bleue)
+
+Dim diam As Double = diametre
+Dim designation As String = &quot;&quot;
+
+Select Case diam
+    Case 1    : designation = &quot;M1x0.25&quot;
+    Case 1.2  : designation = &quot;M1.2x0.25&quot;
+    Case 1.4  : designation = &quot;M1.4x0.3&quot;
+    Case 1.6  : designation = &quot;M1.6x0.35&quot;
+    Case 1.8  : designation = &quot;M1.8x0.35&quot;
+    Case 2    : designation = &quot;M2x0.4&quot;
+    Case 2.5  : designation = &quot;M2.5x0.45&quot;
+    Case 3    : designation = &quot;M3x0.5&quot;
+    Case 3.5  : designation = &quot;M3.5x0.6&quot;
+    Case 4    : designation = &quot;M4x0.7&quot;
+    Case 5    : designation = &quot;M5x0.8&quot;
+    Case 6    : designation = &quot;M6x1&quot;
+    Case 7    : designation = &quot;M7x1&quot;
+    Case 8    : designation = &quot;M8x1.25&quot;
+    Case 10   : designation = &quot;M10x1.5&quot;
+    Case 12   : designation = &quot;M12x1.75&quot;
+    Case 14   : designation = &quot;M14x2&quot;
+    Case 16   : designation = &quot;M16x2&quot;
+    Case 18   : designation = &quot;M18x2.5&quot;
+    Case 20   : designation = &quot;M20x2.5&quot;
+    Case 22   : designation = &quot;M22x2.5&quot;
+    Case 24   : designation = &quot;M24x3&quot;
+    Case 27   : designation = &quot;M27x3&quot;
+    Case 30   : designation = &quot;M30x3.5&quot;
+    Case 33   : designation = &quot;M33x3.5&quot;
+    Case 36   : designation = &quot;M36x4&quot;
+    Case 39   : designation = &quot;M39x4&quot;
+    Case 42   : designation = &quot;M42x4.5&quot;
+    Case 45   : designation = &quot;M45x4.5&quot;
+    Case 48   : designation = &quot;M48x5&quot;
+    Case Else
+        designation = &quot;&quot;
+End Select
+
+If designation = &quot;&quot; Then
+    MsgBox(&quot;Le diamètre &quot; &amp; diam.ToString() &amp; &quot; mm ne correspond à aucun filetage ISO métrique standard.&quot;, vbExclamation, &quot;Filetage non trouvé&quot;)
+Else
+    Feature.SetThread(&quot;Perçage1&quot;, &quot;Profil métrique ISO&quot;, designation, &quot;6H&quot;)
+End If
+</code></pre>
+<p>Puisque <code>diametre</code> est utilisé comme variable bleue (via <code>Dim diam As Double = diametre</code>), la règle se déclenche <strong>automatiquement</strong> chaque fois que ce paramètre change — sans avoir besoin de configurer un déclencheur d'événement.</p>
+<p>Si l'utilisateur saisit un diamètre qui ne correspond à aucun filetage normalisé — par exemple 11 mm — la règle affiche un message d'avertissement au lieu de modifier le filetage. Cela évite d'appliquer silencieusement une désignation incorrecte.</p>
+<p><img src="Content/fr/tutoriels/media/ilogic-filetages-automatique.webp" alt="Modification automatique du filetage" /></p>
+<h2 id="recapitulatif-des-fonctions">Récapitulatif des fonctions</h2>
+<table>
+<thead>
+<tr>
+<th>Fonction</th>
+<th>Lecture</th>
+<th>Écriture</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Feature.ThreadDesignation</code></td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Désignation du filetage (ex. : <code>&quot;M10x1.5&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>Feature.SetThread</code></td>
+<td>—</td>
+<td>Oui</td>
+<td>Type + désignation + classe en une opération</td>
+</tr>
+<tr>
+<td><code>Feature.ThreadType</code></td>
+<td>Oui</td>
+<td>—</td>
+<td>Type de filetage (ex. : <code>&quot;Profil métrique ISO&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>Feature.ThreadClass</code></td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Classe de filetage (ex. : <code>&quot;6H&quot;</code>, <code>&quot;6g&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>Feature.IsActive</code></td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Masquer / afficher la fonction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Lire et &#xE9;crire dans Excel avec GoExcel</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
