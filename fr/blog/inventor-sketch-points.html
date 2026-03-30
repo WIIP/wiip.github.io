@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Comprendre le r&#xF4;le des points dans les esquisses Inventor - WIIP</title><meta name="description" content="Dans une esquisse Inventor, chaque entit&#xE9; repose sur des points. Comprendre leur r&#xF4;le est essentiel pour ma&#xEE;triser les contraintes g&#xE9;om&#xE9;triques." />
+        <meta property="og:title" content="Comprendre le r&#xF4;le des points dans les esquisses Inventor" />
+        <meta property="og:description" content="Dans une esquisse Inventor, chaque entit&#xE9; repose sur des points. Comprendre leur r&#xF4;le est essentiel pour ma&#xEE;triser les contraintes g&#xE9;om&#xE9;triques." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/inventor-sketch-points" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Comprendre le r&#xF4;le des points dans les esquisses Inventor" />
+        <meta name="twitter:description" content="Dans une esquisse Inventor, chaque entit&#xE9; repose sur des points. Comprendre leur r&#xF4;le est essentiel pour ma&#xEE;triser les contraintes g&#xE9;om&#xE9;triques." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/inventor-sketch-points" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/inventor-sketch-points" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Comprendre le r\u00F4le des points dans les esquisses Inventor",
+        "description": "Dans une esquisse Inventor, chaque entit\u00E9 repose sur des points. Comprendre leur r\u00F4le est essentiel pour ma\u00EEtriser les contraintes g\u00E9om\u00E9triques.",
+        "datePublished": "2026-03-30",
+        "url": "https://wiip.fr/fr/blog/inventor-sketch-points",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Comprendre le r&#xF4;le des points dans les esquisses Inventor</h1>
+                    <small class="text-muted">lundi 30 mars 2026</small><div class="mt-2"><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Quand on dessine dans une esquisse <strong>Inventor</strong>, on manipule des lignes, des cercles, des arcs… Mais en coulisses, toutes ces entités reposent sur un élément plus fondamental : <strong>les points</strong>.</p>
+<p>Comprendre comment Inventor gère ces points permet de mieux comprendre le comportement des contraintes géométriques et d'éviter bien des frustrations.</p>
+<h2 id="chaque-entite-est-construite-sur-des-points">Chaque entité est construite sur des points</h2>
+<p>Quand vous tracez une ligne avec l'outil dédié, Inventor ne se contente pas de dessiner un trait : il crée <strong>deux points</strong> et les relie par un segment. De la même façon, quand vous utilisez l'outil <strong>Rectangle</strong>, Inventor crée <strong>quatre points</strong> et les relie par des lignes.</p>
+<p><img src="Content/fr/blog/media/inventor-sketch-points-rectangle.webp" alt="Un rectangle dans une esquisse Inventor avec ses quatre points aux coins" /></p>
+<p>C'est le même principe pour toutes les entités :</p>
+<ul>
+<li>Un <strong>cercle</strong> est défini par un point central et un rayon.</li>
+<li>Un <strong>arc</strong> est défini par un point central, un point de début et un point de fin.</li>
+<li>Une <strong>ellipse</strong> est définie par un point central et deux axes.</li>
+</ul>
+<p>Ces points sont la base sur laquelle tout le reste est construit.</p>
+<h2 id="pourquoi-des-points">Pourquoi des points ?</h2>
+<p>Inventor utilise un <strong>solveur de contraintes</strong>, c'est-à-dire un moteur mathématique qui résout un système d'équations pour déterminer la position de chaque entité. Ce solveur ne travaille pas directement avec des lignes ou des cercles : il travaille avec des <strong>points</strong> et des <strong>relations entre ces points</strong>.</p>
+<p>Chaque contrainte que vous posez (coïncidence, tangence, perpendicularité, cote…) ajoute une équation au système. Quand l'esquisse est entièrement contrainte — c'est-à-dire quand les degrés de liberté sont à zéro — le système est résolu et chaque point a une position définie.</p>
+<p>C'est pour cette raison qu'Inventor <strong>doit</strong> créer ces points : sans eux, le solveur n'aurait rien sur quoi travailler.</p>
+<h2 id="les-points-sont-geres-automatiquement">Les points sont gérés automatiquement</h2>
+<p>Vous n'avez pas de contrôle direct sur ces points. Vous ne pouvez pas les créer, les supprimer ou les déplacer indépendamment de leur entité. Inventor les gère automatiquement.</p>
+<p>En revanche, vous pouvez les <strong>utiliser</strong> : ce sont eux que vous ciblez quand vous posez une contrainte de coïncidence entre deux entités, ou quand vous accrochez une cote au centre d'un cercle.</p>
+<p><img src="Content/fr/blog/media/inventor-sketch-points-center-circle.webp" alt="Survol du centre d'un cercle montrant le point utilisable pour poser des contraintes" /></p>
+<h2 id="exemple-les-coins-dun-rectangle">Exemple : les coins d'un rectangle</h2>
+<p>Quand vous survolez le coin d'un rectangle, vous pouvez sélectionner le point qui s'y trouve. En l'examinant, vous verrez qu'il porte <strong>deux contraintes de coïncidence</strong>, une pour chaque ligne :</p>
+<ul>
+<li>Point ↔ Extrémité de la ligne 1</li>
+<li>Point ↔ Extrémité de la ligne 2</li>
+</ul>
+<p><img src="Content/fr/blog/media/inventor-sketch-points-corner-constraints.webp" alt="Sélection d'un point au coin d'un rectangle affichant les deux contraintes de coïncidence" /></p>
+<p>C'est ce point partagé qui <strong>solidarise</strong> les deux lignes. La chaîne est la suivante :</p>
+<p>Ligne 1 ↔ <strong>Point</strong> ↔ Ligne 2</p>
+<p>Si vous supprimez une de ces deux contraintes, Inventor crée un deuxième point. On obtient alors :</p>
+<ul>
+<li>Point 1 ↔ Extrémité de la ligne 1</li>
+<li>Point 2 ↔ Extrémité de la ligne 2</li>
+</ul>
+<p><img src="Content/fr/blog/media/inventor-sketch-points-separation.webp" alt="Après suppression d'une contrainte de coïncidence, les deux lignes sont désolidarisées" /></p>
+<p>La chaîne est brisée : les deux lignes sont maintenant indépendantes. C'est exactement le même mécanisme que quand vous &quot;cassez&quot; un lien entre deux entités quelconques dans une esquisse.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/revit-db-link" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Revit DB Link : exporter les donn&#xE9;es d&#x27;un mod&#xE8;le vers une base de donn&#xE9;es</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/blog/autocad-2027" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
+                                    <span>AutoCAD 2027 est sorti</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
