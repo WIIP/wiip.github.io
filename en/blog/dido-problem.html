@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River - WIIP</title><meta name="description" content="With a fixed length of fencing and a river as a natural boundary, what dimensions should you choose to maximize the area? A hands-on introduction to optimization problems." />
+        <meta property="og:title" content="Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River" />
+        <meta property="og:description" content="With a fixed length of fencing and a river as a natural boundary, what dimensions should you choose to maximize the area? A hands-on introduction to optimization problems." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/dido-problem" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River" />
+        <meta name="twitter:description" content="With a fixed length of fencing and a river as a natural boundary, what dimensions should you choose to maximize the area? A hands-on introduction to optimization problems." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/dido-problem" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/dido-problem" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Dido\u0027s Problem: Optimizing a Rectangular Enclosure Along a River",
+        "description": "With a fixed length of fencing and a river as a natural boundary, what dimensions should you choose to maximize the area? A hands-on introduction to optimization problems.",
+        "datePublished": "2026-04-01",
+        "url": "https://wiip.fr/en/blog/dido-problem",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River</h1>
+                    <small class="text-muted">Wednesday, April 1, 2026</small><div class="mt-2"><a href="/en/tags/Mathematics" class="badge bg-primary me-1 text-decoration-none">Mathematics</a><a href="/en/tags/Optimization" class="badge bg-primary me-1 text-decoration-none">Optimization</a></div></header>
+                <div class="mt-3"><p>Imagine a farmer who has a fixed length of fencing — say <strong>120 meters</strong> — and wants to enclose a rectangular field along a river. The river acts as a natural boundary, so only <strong>three sides</strong> need fencing.</p>
+<p><img src="Content/en/blog/media/dido-problem.svg" alt="The field" /></p>
+<p>What shape should the rectangle be to achieve the <strong>largest possible area</strong>?</p>
+<p>This seemingly simple problem is a simplified version of the famous <strong>Dido's problem</strong>. It is also an excellent introduction to optimization techniques.</p>
+<h2 id="setting-up-the-equations">Setting Up the Equations</h2>
+<p>Let's define:</p>
+<ul>
+<li><strong>x</strong> as the width of the rectangle (the two sides perpendicular to the river)</li>
+<li><strong>y</strong> as the length of the rectangle (the side parallel to the river)</li>
+</ul>
+<p>The constraint is that the total fencing equals 120 m:</p>
+<p><span class="math">\(2x + y = 120\)</span></p>
+<p>The area to maximize is:</p>
+<p><span class="math">\(A = x \times y\)</span></p>
+<p>Substituting <em>y</em> using the constraint:</p>
+<p><span class="math">\(A(x) = x \times (120 - 2x) = 120x - 2x^2\)</span></p>
+<p>We obtain a function of the <strong>single parameter x</strong>. It is a downward-opening parabola, so it does have a maximum.</p>
+<p><img src="Content/en/blog/media/dido-problem-parabola.svg" alt="Graph of the parabola A(x) = 120x − 2x² with the maximum at x = 30" /></p>
+<h2 id="solving-with-the-derivative">Solving with the Derivative</h2>
+<p>The <strong>derivative</strong> of a function measures its slope at each point. Geometrically, it is the slope of the <strong>tangent line</strong> to the curve. When the derivative is positive, the function is increasing; when negative, it is decreasing. And at the peak? The tangent is <strong>horizontal</strong>: its slope is zero. This is exactly what we see in the graph above.</p>
+<p>Finding the maximum therefore comes down to finding where the derivative equals zero. We differentiate:</p>
+<p><span class="math">\(A'(x) = 120 - 4x\)</span></p>
+<p>Then we solve <span class="math">\(A'(x) = 0\)</span>:</p>
+<p><span class="math">\(120 - 4x = 0 \implies x = 30\)</span></p>
+<p>The optimal width is therefore <strong>x = 30 m</strong>, which gives:</p>
+<p><span class="math">\(y = 120 - 2 \times 30 = 60 \text{ m}\)</span></p>
+<p>The maximum area is:</p>
+<p><span class="math">\(A = 30 \times 60 = 1{,}800 \text{ m}^2\)</span></p>
+<h2 id="verification-it-is-indeed-a-maximum">Verification: It Is Indeed a Maximum</h2>
+<p>When the derivative equals zero, we have found a <strong>critical point</strong> — but is it a maximum or a minimum? The <strong>second derivative</strong> tells us. The second derivative measures how the slope itself changes:</p>
+<ul>
+<li>If <span class="math">\(A''(x) &lt; 0\)</span>, the slope is <strong>decreasing</strong>: the curve bends downward, we are on a hill → it is a <strong>maximum</strong>.</li>
+<li>If <span class="math">\(A''(x) &gt; 0\)</span>, the slope is <strong>increasing</strong>: the curve bends upward, we are in a valley → it is a <strong>minimum</strong>.</li>
+</ul>
+<p>Let's compute:</p>
+<p><span class="math">\(A''(x) = -4\)</span></p>
+<p>The second derivative is <strong>constant and negative</strong>. The curve bends downward everywhere — it is indeed an &quot;upside-down&quot; parabola. The critical point <span class="math">\(x = 30\)</span> is therefore a <strong>global maximum</strong> on the interval <span class="math">\([0, 60]\)</span>.</p>
+<h2 id="why-isnt-a-square-optimal">Why Isn't a Square Optimal?</h2>
+<p>Intuition might suggest a square (three sides of 40 m each). Let's calculate:</p>
+<p><span class="math">\(A_{\text{square}} = 40 \times 40 = 1{,}600 \text{ m}^2\)</span></p>
+<p>That's <strong>200 m² less</strong> than the optimal solution. The asymmetry of the problem — one side is free thanks to the river — breaks the symmetry of the solution. The side parallel to the river must be <strong>twice as long</strong> as the perpendicular sides.</p>
+<h2 id="generalization">Generalization</h2>
+<p>For any fencing length <strong>L</strong>, the optimal dimensions are:</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Width (x)</td>
+<td>L / 4</td>
+</tr>
+<tr>
+<td>Length (y)</td>
+<td>L / 2</td>
+</tr>
+<tr>
+<td>Maximum area</td>
+<td>L² / 8</td>
+</tr>
+</tbody>
+</table>
+<p>The length is always twice the width. This is an elegant result that does not depend on the value of L.</p>
+<h2 id="what-about-the-real-didos-problem">What About the Real Dido's Problem?</h2>
+<p>The problem we just solved is a simplification. The real Dido's problem, rooted in Phoenician mythology, asks the following question: <strong>which closed curve of a given length encloses the largest area?</strong></p>
+<p>The answer is the <strong>circle</strong> — or, in the variant with a straight boundary (like our river), a <strong>semicircle</strong>. The rigorous proof required centuries of mathematical work and is one of the foundations of the <strong>calculus of variations</strong>.</p>
+<p>Our rectangular version, by restricting to rectangular shapes, turns a complex problem into an exercise accessible with high school tools. That is the key insight: optimization often begins by <strong>simplifying the problem</strong> before solving it.</p>
+<h2 id="why-this-matters-in-engineering">Why This Matters in Engineering</h2>
+<p>Optimization problems are ubiquitous in engineering: minimizing a part's mass while meeting strength constraints, maximizing the interior volume of a tank with a fixed amount of material, or finding the fastest machining path.</p>
+<p>The approach is always the same:</p>
+<ol>
+<li><strong>Identify</strong> the quantity to optimize (objective function)</li>
+<li><strong>Express</strong> the constraints</li>
+<li><strong>Reduce</strong> the problem to a single variable when possible</li>
+<li><strong>Solve</strong> by finding critical points</li>
+<li><strong>Verify</strong> the nature of the critical point (minimum or maximum)</li>
+</ol>
+<p>The rectangular field along the river is a first step in that direction.</p>
+</div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/inventor-sketch-points" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Understanding the Role of Points in Inventor Sketches</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

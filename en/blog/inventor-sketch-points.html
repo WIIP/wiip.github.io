@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Understanding the Role of Points in Inventor Sketches - WIIP</title><meta name="description" content="In an Inventor sketch, every entity relies on points. Understanding their role is essential to mastering geometric constraints." />
         <meta property="og:title" content="Understanding the Role of Points in Inventor Sketches" />
@@ -98,7 +99,8 @@
                     <small class="text-muted ms-2">Q&amp;A</small></li><li class="mb-2"><a href="/en/questions-answers/autodesk-platform-services" class="text-decoration-none">What is APS?</a>
                     <small class="text-muted ms-2">Q&amp;A</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/revit-db-link" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
                                     <span>Revit DB Link: Export Model Data to a Database</span></a></div>
-                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+                        <div class="col-6 text-end"><a href="/en/blog/dido-problem" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River</span></a></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
@@ -116,7 +118,16 @@
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
 <script>
 (function() {
     if (window.location.pathname === '/' || window.location.pathname === '') {

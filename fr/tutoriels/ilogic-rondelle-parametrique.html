@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Premier exercice &#x2014; La rondelle param&#xE9;trique - iLogic : le guide complet - WIIP</title><meta name="description" content="Cr&#xE9;ez votre premi&#xE8;re r&#xE8;gle iLogic en mod&#xE9;lisant une rondelle dont l&#x27;&#xE9;paisseur s&#x27;adapte automatiquement au diam&#xE8;tre int&#xE9;rieur, en respectant les &#xE9;paisseurs de t&#xF4;le disponibles." />
         <meta property="og:title" content="Premier exercice &#x2014; La rondelle param&#xE9;trique - iLogic : le guide complet" />
@@ -278,7 +279,16 @@ epaisseur = MultiValue.FindValue(
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
 <script>
 (function() {
     if (window.location.pathname === '/' || window.location.pathname === '') {

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>WIIP - D&#xE9;veloppement de logiciels CAO pour Autodesk</title><meta name="description" content="WIIP - D&#xE9;veloppement de logiciels CAO pour Autodesk (AutoCAD, Inventor, Revit, Vault). D&#xE9;veloppeur sp&#xE9;cialis&#xE9; en C#/.NET bas&#xE9; en France." />
     <meta property="og:title" content="WIIP - D&#xE9;veloppement de logiciels CAO pour Autodesk" />
@@ -72,13 +73,13 @@
             <img src="/img/photo-maxence.jpg" class="img-fluid" width="300" height="399" alt="Maxence DELANNOY"></picture>
 
         <div class="mt-4"><h5>Derni&#xE8;res publications</h5><h6 class="text-muted mt-3">Articles de blog</h6>
-        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/dido-problem" class="text-decoration-none">Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re</a>
+                    <br>
+                    <small class="text-muted">01/04/2026</small></li><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
                     <br>
                     <small class="text-muted">30/03/2026</small></li><li class="mb-2"><a href="/fr/blog/inventor-sketch-points" class="text-decoration-none">Comprendre le r&#xF4;le des points dans les esquisses Inventor</a>
                     <br>
-                    <small class="text-muted">30/03/2026</small></li><li class="mb-2"><a href="/fr/blog/revit-db-link" class="text-decoration-none">Revit DB Link : exporter les donn&#xE9;es d&#x27;un mod&#xE8;le vers une base de donn&#xE9;es</a>
-                    <br>
-                    <small class="text-muted">18/03/2026</small></li></ul><h6 class="text-muted mt-3">Questions / R&#xE9;ponses</h6>
+                    <small class="text-muted">30/03/2026</small></li></ul><h6 class="text-muted mt-3">Questions / R&#xE9;ponses</h6>
         <ul class="list-unstyled"><li class="mb-2"><a href="/fr/questions-reponses/profile-standards" class="text-decoration-none">O&#xF9; est ce que je trouve les profil&#xE9;s standards comme les HEA, les UPN dans le centre de contenu d&#x27;Inventor ?</a>
                     <br>
                     <small class="text-muted">14/01/2026</small></li><li class="mb-2"><a href="/fr/questions-reponses/autocad-rotation-3d" class="text-decoration-none">Comment faire une rotation 3D dans AutoCAD ?</a>
@@ -105,7 +106,16 @@
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded', function() { Prism.highlightAll(); });</script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
 <script>
 (function() {
     if (window.location.pathname === '/' || window.location.pathname === '') {

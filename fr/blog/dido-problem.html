@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re - WIIP</title><meta name="description" content="Avec une longueur de cl&#xF4;ture fixe et une rivi&#xE8;re comme bordure naturelle, quelles dimensions choisir pour maximiser la surface ? Une introduction concr&#xE8;te aux probl&#xE8;mes d&#x27;optimisation." />
+        <meta property="og:title" content="Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re" />
+        <meta property="og:description" content="Avec une longueur de cl&#xF4;ture fixe et une rivi&#xE8;re comme bordure naturelle, quelles dimensions choisir pour maximiser la surface ? Une introduction concr&#xE8;te aux probl&#xE8;mes d&#x27;optimisation." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/dido-problem" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re" />
+        <meta name="twitter:description" content="Avec une longueur de cl&#xF4;ture fixe et une rivi&#xE8;re comme bordure naturelle, quelles dimensions choisir pour maximiser la surface ? Une introduction concr&#xE8;te aux probl&#xE8;mes d&#x27;optimisation." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/dido-problem" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/dido-problem" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Le probl\u00E8me de Didon : optimiser un enclos rectangulaire le long d\u0027une rivi\u00E8re",
+        "description": "Avec une longueur de cl\u00F4ture fixe et une rivi\u00E8re comme bordure naturelle, quelles dimensions choisir pour maximiser la surface ? Une introduction concr\u00E8te aux probl\u00E8mes d\u0027optimisation.",
+        "datePublished": "2026-04-01",
+        "url": "https://wiip.fr/fr/blog/dido-problem",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re</h1>
+                    <small class="text-muted">mercredi 1 avril 2026</small><div class="mt-2"><a href="/fr/tags/Math%C3%A9matiques" class="badge bg-primary me-1 text-decoration-none">Math&#xE9;matiques</a><a href="/fr/tags/Optimisation" class="badge bg-primary me-1 text-decoration-none">Optimisation</a></div></header>
+                <div class="mt-3"><p>Imaginons un fermier qui dispose d'une longueur fixe de clôture — disons <strong>120 mètres</strong> — et qui souhaite délimiter un pré rectangulaire le long d'une rivière. La rivière forme une bordure naturelle : il n'a donc besoin de clôturer que <strong>trois côtés</strong>.</p>
+<p><img src="Content/fr/blog/media/dido-problem.svg" alt="Le pré" /></p>
+<p>Quelle forme donner au rectangle pour obtenir la <strong>plus grande surface possible</strong> ?</p>
+<p>Ce problème, en apparence simple, est une version simplifiée du célèbre <strong>problème de Didon</strong>. C'est aussi une excellente introduction aux techniques d'optimisation.</p>
+<h2 id="mise-en-equation">Mise en équation</h2>
+<p>Appelons :</p>
+<ul>
+<li><strong>x</strong> la largeur du rectangle (les deux côtés perpendiculaires à la rivière)</li>
+<li><strong>y</strong> la longueur du rectangle (le côté parallèle à la rivière)</li>
+</ul>
+<p>La contrainte est que la clôture totale vaut 120 m :</p>
+<p><span class="math">\(2x + y = 120\)</span></p>
+<p>La surface à maximiser est :</p>
+<p><span class="math">\(A = x \times y\)</span></p>
+<p>En remplaçant <em>y</em> par son expression tirée de la contrainte :</p>
+<p><span class="math">\(A(x) = x \times (120 - 2x) = 120x - 2x^2\)</span></p>
+<p>On obtient une fonction du <strong>seul paramètre x</strong>. C'est une parabole tournée vers le bas : elle admet bien un maximum.</p>
+<p><img src="Content/fr/blog/media/dido-problem-parabola.svg" alt="Graphique de la parabole A(x) = 120x − 2x² avec le maximum en x = 30" /></p>
+<h2 id="resolution-par-la-derivee">Résolution par la dérivée</h2>
+<p>La <strong>dérivée</strong> d'une fonction mesure sa pente en chaque point. Géométriquement, c'est la pente de la <strong>tangente</strong> à la courbe. Quand la dérivée est positive, la fonction monte ; quand elle est négative, la fonction descend. Et au sommet ? La tangente est <strong>horizontale</strong> : sa pente vaut zéro. C'est exactement ce qu'on voit sur le graphique ci-dessus.</p>
+<p>Trouver le maximum revient donc à chercher où la dérivée s'annule. On dérive :</p>
+<p><span class="math">\(A'(x) = 120 - 4x\)</span></p>
+<p>Puis on résout <span class="math">\(A'(x) = 0\)</span> :</p>
+<p><span class="math">\(120 - 4x = 0 \implies x = 30\)</span></p>
+<p>La largeur optimale est donc <strong>x = 30 m</strong>, ce qui donne :</p>
+<p><span class="math">\(y = 120 - 2 \times 30 = 60 \text{ m}\)</span></p>
+<p>La surface maximale vaut :</p>
+<p><span class="math">\(A = 30 \times 60 = 1\,800 \text{ m}^2\)</span></p>
+<h2 id="verification-cest-bien-un-maximum">Vérification : c'est bien un maximum</h2>
+<p>Quand la dérivée s'annule, on a trouvé un <strong>point critique</strong> — mais est-ce un maximum ou un minimum ? C'est la <strong>dérivée seconde</strong> qui nous le dit. La dérivée seconde mesure comment la pente elle-même évolue :</p>
+<ul>
+<li>Si <span class="math">\(A''(x) &lt; 0\)</span>, la pente <strong>diminue</strong> : la courbe se courbe vers le bas, on est sur une bosse → c'est un <strong>maximum</strong>.</li>
+<li>Si <span class="math">\(A''(x) &gt; 0\)</span>, la pente <strong>augmente</strong> : la courbe se courbe vers le haut, on est dans un creux → c'est un <strong>minimum</strong>.</li>
+</ul>
+<p>Calculons :</p>
+<p><span class="math">\(A''(x) = -4\)</span></p>
+<p>La dérivée seconde est <strong>constante et négative</strong>. La courbe se courbe vers le bas partout — c'est bien une parabole &quot;chapeau&quot;. Le point critique <span class="math">\(x = 30\)</span> est donc un <strong>maximum global</strong> sur l'intervalle <span class="math">\([0, 60]\)</span>.</p>
+<h2 id="pourquoi-le-carre-nest-il-pas-optimal">Pourquoi le carré n'est-il pas optimal ?</h2>
+<p>L'intuition pourrait suggérer un carré (trois côtés de 40 m chacun). Calculons :</p>
+<p><span class="math">\(A_{\text{carré}} = 40 \times 40 = 1\,600 \text{ m}^2\)</span></p>
+<p>C'est <strong>200 m² de moins</strong> que la solution optimale. L'asymétrie du problème — un côté gratuit grâce à la rivière — brise la symétrie de la solution. Le côté parallèle à la rivière doit être <strong>deux fois plus long</strong> que les côtés perpendiculaires.</p>
+<h2 id="generalisation">Généralisation</h2>
+<p>Avec une longueur de clôture quelconque <strong>L</strong>, les dimensions optimales sont :</p>
+<table>
+<thead>
+<tr>
+<th>Grandeur</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Largeur (x)</td>
+<td>L / 4</td>
+</tr>
+<tr>
+<td>Longueur (y)</td>
+<td>L / 2</td>
+</tr>
+<tr>
+<td>Surface maximale</td>
+<td>L² / 8</td>
+</tr>
+</tbody>
+</table>
+<p>La longueur est toujours le double de la largeur. C'est un résultat élégant qui ne dépend pas de la valeur de L.</p>
+<h2 id="et-le-vrai-probleme-de-didon">Et le vrai problème de Didon ?</h2>
+<p>Le problème que nous venons de résoudre est une simplification. Le véritable problème de Didon, issu de la mythologie phénicienne, pose la question suivante : <strong>quelle courbe fermée de longueur donnée enferme la plus grande surface ?</strong></p>
+<p>La réponse est le <strong>cercle</strong> — ou, dans la variante avec une bordure droite (comme notre rivière), un <strong>demi-cercle</strong>. La démonstration rigoureuse a nécessité des siècles de travail mathématique et constitue l'un des fondements du <strong>calcul des variations</strong>.</p>
+<p>Notre version rectangulaire, en se limitant aux formes rectangulaires, transforme un problème complexe en un exercice accessible avec les outils du lycée. C'est là tout l'intérêt : l'optimisation commence souvent par <strong>simplifier le problème</strong> avant de le résoudre.</p>
+<h2 id="pourquoi-cest-utile-en-ingenierie">Pourquoi c'est utile en ingénierie</h2>
+<p>Les problèmes d'optimisation sont omniprésents en ingénierie : minimiser la masse d'une pièce tout en respectant des contraintes de résistance, maximiser le volume intérieur d'un réservoir avec une quantité fixe de matériau, ou encore trouver la trajectoire d'usinage la plus rapide.</p>
+<p>La démarche est toujours la même :</p>
+<ol>
+<li><strong>Identifier</strong> la grandeur à optimiser (fonction objectif)</li>
+<li><strong>Exprimer</strong> les contraintes</li>
+<li><strong>Réduire</strong> le problème à une seule variable quand c'est possible</li>
+<li><strong>Résoudre</strong> en cherchant les points critiques</li>
+<li><strong>Vérifier</strong> la nature du point critique (minimum ou maximum)</li>
+</ol>
+<p>Le pré rectangulaire le long de la rivière est un premier pas dans cette direction.</p>
+</div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autocad-2027" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>AutoCAD 2027 est sorti</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
