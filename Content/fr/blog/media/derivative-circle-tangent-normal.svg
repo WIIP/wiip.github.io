@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="500" height="500" fill="#ffffff"/>
+
+  <!-- Centre du cercle à (250, 250), rayon 150 -->
+
+  <!-- Axes légers -->
+  <line x1="40" y1="250" x2="460" y2="250" stroke="#ddd" stroke-width="1"/>
+  <line x1="250" y1="40" x2="250" y2="460" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Cercle -->
+  <circle cx="250" cy="250" r="150" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+
+  <!-- Point sur le cercle : t = π/4 → (250 + 150·cos45°, 250 - 150·sin45°) = (356, 144) -->
+  <!-- cos(45°) ≈ 0.707, sin(45°) ≈ 0.707 -->
+  <!-- Point P = (356.07, 143.93) arrondi à (356, 144) -->
+
+  <!-- Rayon vers le point -->
+  <line x1="250" y1="250" x2="356" y2="144" stroke="#999" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- Vecteur tangent en t=π/4 : C'(t) = (-r·sin t, r·cos t) = (-106, 106) -->
+  <!-- Direction normalisée puis mise à l'échelle : (-0.707, 0.707) * 100 = (-71, 71) -->
+  <!-- En coordonnées SVG (y inversé) : (-71, -71) -->
+  <!-- De (356, 144) vers (285, 73) -->
+  <line x1="356" y1="144" x2="271" y2="59" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Vecteur normal : perpendiculaire à la tangente, pointant vers l'extérieur -->
+  <!-- Normal = (cos t, sin t) en SVG = (0.707, -0.707) * 100 = (71, -71) -->
+  <!-- De (356, 144) vers (427, 73) -->
+  <line x1="356" y1="144" x2="441" y2="59" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Point P -->
+  <circle cx="356" cy="144" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+
+  <!-- Centre O -->
+  <circle cx="250" cy="250" r="3" fill="#666"/>
+
+  <!-- Labels -->
+  <text x="365" y="140" font-family="serif" font-style="italic" font-size="16" fill="#333">P</text>
+  <text x="240" y="272" font-family="serif" font-style="italic" font-size="14" fill="#666">O</text>
+
+  <!-- Label vecteur tangent -->
+  <text x="248" y="52" font-family="serif" font-size="15" fill="#2563eb">C'(t)</text>
+  <text x="248" y="70" font-family="sans-serif" font-size="12" fill="#2563eb">tangente</text>
+
+  <!-- Label vecteur normal -->
+  <text x="440" y="52" font-family="serif" font-size="15" fill="#dc2626">n(t)</text>
+  <text x="434" y="70" font-family="sans-serif" font-size="12" fill="#dc2626">normale</text>
+
+  <!-- Label rayon -->
+  <text x="280" y="210" font-family="serif" font-style="italic" font-size="14" fill="#999">r</text>
+
+  <!-- Angle droit entre tangente et normale -->
+  <g fill="none" stroke="#666" stroke-width="1">
+    <polyline points="368,132 380,144 368,156"/>
+  </g>
+
+  <!-- Indication du sens de parcours (petite flèche sur le cercle) -->
+  <path d="M 390,180 A 150,150 0 0,0 400,160" fill="none" stroke="#999" stroke-width="1.2" marker-end="url(#arrow-gray)"/>
+  <text x="405" y="178" font-family="serif" font-style="italic" font-size="12" fill="#999">t</text>
+</svg>

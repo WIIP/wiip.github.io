@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles - WIIP</title><meta name="description" content="De Newton et Leibniz &#xE0; vos cours de math&#xE9;matiques : comment la notion de d&#xE9;riv&#xE9;e est n&#xE9;e, ce qu&#x27;elle signifie rigoureusement, et les formules &#xE0; conna&#xEE;tre pour la calculer." />
+        <meta property="og:title" content="Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles" />
+        <meta property="og:description" content="De Newton et Leibniz &#xE0; vos cours de math&#xE9;matiques : comment la notion de d&#xE9;riv&#xE9;e est n&#xE9;e, ce qu&#x27;elle signifie rigoureusement, et les formules &#xE0; conna&#xEE;tre pour la calculer." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/derivatives-definition-formulas" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles" />
+        <meta name="twitter:description" content="De Newton et Leibniz &#xE0; vos cours de math&#xE9;matiques : comment la notion de d&#xE9;riv&#xE9;e est n&#xE9;e, ce qu&#x27;elle signifie rigoureusement, et les formules &#xE0; conna&#xEE;tre pour la calculer." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/derivatives-definition-formulas" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/derivatives-definition-formulas" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Les d\u00E9riv\u00E9es : histoire, d\u00E9finition et formules essentielles",
+        "description": "De Newton et Leibniz \u00E0 vos cours de math\u00E9matiques : comment la notion de d\u00E9riv\u00E9e est n\u00E9e, ce qu\u0027elle signifie rigoureusement, et les formules \u00E0 conna\u00EEtre pour la calculer.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/fr/blog/derivatives-definition-formulas",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles</h1>
+                    <small class="text-muted">samedi 4 avril 2026</small><div class="mt-2"><a href="/fr/tags/Math%C3%A9matiques" class="badge bg-primary me-1 text-decoration-none">Math&#xE9;matiques</a></div></header>
+                <div class="mt-3"><p>La dérivée est l'un des concepts fondamentaux du calcul infinitésimal. Elle apparaît partout : en physique pour décrire la vitesse, en économie pour mesurer des taux de variation, en ingénierie pour optimiser des systèmes. Mais d'où vient cette idée ? Et comment passe-t-on de l'intuition à une définition rigoureuse ?</p>
+<h2 id="un-peu-dhistoire">Un peu d'histoire</h2>
+<h3 id="lintuition-des-anciens">L'intuition des Anciens</h3>
+<p>L'idée de tangente à une courbe remonte à l'Antiquité. <strong>Euclide</strong> (vers 300 av. J.-C.) définissait déjà la tangente à un cercle comme la droite qui le touche en un seul point. Mais cette définition ne fonctionne pas pour les courbes quelconques — une tangente à une parabole, par exemple, peut recouper la courbe ailleurs.</p>
+<p><strong>Archimède</strong> (vers 250 av. J.-C.) alla plus loin en calculant des tangentes à des spirales, en utilisant des raisonnements géométriques ingénieux proches de la notion de limite.</p>
+<h3 id="le-xviie-siecle-la-revolution">Le XVIIe siècle : la révolution</h3>
+<p>C'est au XVIIe siècle que tout s'accélère. <strong>Pierre de Fermat</strong> (vers 1637) développe une méthode pour trouver les maxima et minima d'une fonction, en cherchant les points où une petite variation de <span class="math">\(x\)</span> ne change &quot;presque pas&quot; la valeur de <span class="math">\(f(x)\)</span>. Sa technique revenait, sans le formaliser, à annuler la dérivée — exactement ce que nous avons fait dans <a href="../dido-problem">l'article sur le problème de Didon</a>.</p>
+<p>Puis, dans les années 1660–1680, deux mathématiciens développent indépendamment le calcul infinitésimal :</p>
+<ul>
+<li><p><strong>Isaac Newton</strong> (1643–1727), en Angleterre, développe sa méthode des <em>fluxions</em>. Pour lui, les courbes sont des trajectoires et la dérivée représente la <strong>vitesse instantanée</strong> d'un point qui se déplace.</p>
+</li>
+<li><p><strong>Gottfried Wilhelm Leibniz</strong> (1646–1716), en Allemagne, adopte une approche plus algébrique fondée sur les <strong>infiniment petits</strong> — des quantités infiniment proches de zéro mais pas tout à fait nulles. C'est lui qui introduit la notation <span class="math">\(\frac{dy}{dx}\)</span> que nous utilisons encore aujourd'hui.</p>
+</li>
+</ul>
+<p>La querelle de priorité entre Newton et Leibniz fut l'une des plus célèbres de l'histoire des sciences. Aujourd'hui, on reconnaît que les deux ont fait des découvertes indépendantes et complémentaires.</p>
+<h3 id="la-rigueur-au-xixe-siecle">La rigueur au XIXe siècle</h3>
+<p>Pendant plus d'un siècle, le calcul infinitésimal fonctionne remarquablement bien… mais repose sur des fondations floues. Que signifie exactement un &quot;infiniment petit&quot; ? Au XIXe siècle, <strong>Augustin-Louis Cauchy</strong> (1821) puis <strong>Karl Weierstrass</strong> (années 1860) mettent fin à cette ambiguïté en définissant rigoureusement la dérivée à l'aide de la notion de <strong>limite</strong> — la définition que nous utilisons encore aujourd'hui.</p>
+<h2 id="definition-rigoureuse">Définition rigoureuse</h2>
+<h3 id="le-taux-daccroissement">Le taux d'accroissement</h3>
+<p>Partons d'une idée simple : mesurer comment une fonction <span class="math">\(f\)</span> varie entre deux points.</p>
+<p>Entre <span class="math">\(x\)</span> et <span class="math">\(x + h\)</span>, le <strong>taux d'accroissement</strong> est :</p>
+<p><span class="math">\(\frac{f(x + h) - f(x)}{h}\)</span></p>
+<p>C'est la pente de la droite qui relie les points <span class="math">\((x, f(x))\)</span> et <span class="math">\((x+h, f(x+h))\)</span> — la <strong>sécante</strong>.</p>
+<p><img src="Content/fr/blog/media/derivative-secant-to-tangent.svg" alt="Droite sécante entre deux points d'une courbe, puis passage à la tangente quand h tend vers 0" /></p>
+<h3 id="le-passage-a-la-limite">Le passage à la limite</h3>
+<p>Quand <span class="math">\(h\)</span> se rapproche de zéro, la sécante pivote et se rapproche de la <strong>tangente</strong>. La dérivée est la pente de cette tangente — c'est la valeur vers laquelle tend le taux d'accroissement :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}\)</span></p>
+<p>Cette limite, quand elle existe, est la <strong>dérivée de <span class="math">\(f\)</span> au point <span class="math">\(x\)</span></strong>.</p>
+<h3 id="exemple-derivee-de">Exemple : dérivée de <span class="math">\(x^2\)</span></h3>
+<p>Appliquons la définition à <span class="math">\(f(x) = x^2\)</span> :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{(x + h)^2 - x^2}{h}\)</span></p>
+<p>On développe le numérateur :</p>
+<p><span class="math">\((x + h)^2 - x^2 = x^2 + 2xh + h^2 - x^2 = 2xh + h^2\)</span></p>
+<p>On simplifie :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{2xh + h^2}{h} = \lim_{h \to 0} (2x + h) = 2x\)</span></p>
+<p>On retrouve bien <span class="math">\(f'(x) = 2x\)</span>, le résultat que nous avions utilisé dans <a href="../derivatives-tangents-curvature">l'article sur les tangentes en CAO</a>.</p>
+<h3 id="exemple-derivee-de-1">Exemple : dérivée de <span class="math">\(x^3\)</span></h3>
+<p>Même démarche avec <span class="math">\(f(x) = x^3\)</span> :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{(x + h)^3 - x^3}{h}\)</span></p>
+<p>On développe :</p>
+<p><span class="math">\((x+h)^3 = x^3 + 3x^2h + 3xh^2 + h^3\)</span></p>
+<p>Donc :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{3x^2h + 3xh^2 + h^3}{h} = \lim_{h \to 0} (3x^2 + 3xh + h^2) = 3x^2\)</span></p>
+<p>Le motif commence à apparaître : la dérivée de <span class="math">\(x^n\)</span> semble être <span class="math">\(nx^{n-1}\)</span>.</p>
+<h2 id="les-formules-de-derivation">Les formules de dérivation</h2>
+<p>En pratique, on ne revient pas à la définition par la limite à chaque fois. On utilise des <strong>formules</strong> démontrées une fois pour toutes. Voici les principales.</p>
+<h3 id="derivees-des-fonctions-de-reference">Dérivées des fonctions de référence</h3>
+<table>
+<thead>
+<tr>
+<th>Fonction <span class="math">\(f(x)\)</span></th>
+<th>Dérivée <span class="math">\(f'(x)\)</span></th>
+<th>Domaine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(c\)</span> (constante)</td>
+<td><span class="math">\(0\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(x\)</span></td>
+<td><span class="math">\(1\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(x^n\)</span> (<span class="math">\(n\)</span> entier, <span class="math">\(n \geq 1\)</span>)</td>
+<td><span class="math">\(nx^{n-1}\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\frac{1}{x}\)</span></td>
+<td><span class="math">\(-\frac{1}{x^2}\)</span></td>
+<td><span class="math">\(\mathbb{R}^*\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\sqrt{x}\)</span></td>
+<td><span class="math">\(\frac{1}{2\sqrt{x}}\)</span></td>
+<td><span class="math">\(]0, +\infty[\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(x^{\alpha}\)</span> (<span class="math">\(\alpha\)</span> réel)</td>
+<td><span class="math">\(\alpha x^{\alpha - 1}\)</span></td>
+<td><span class="math">\(]0, +\infty[\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(e^x\)</span></td>
+<td><span class="math">\(e^x\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\ln x\)</span></td>
+<td><span class="math">\(\frac{1}{x}\)</span></td>
+<td><span class="math">\(]0, +\infty[\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\sin x\)</span></td>
+<td><span class="math">\(\cos x\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\cos x\)</span></td>
+<td><span class="math">\(-\sin x\)</span></td>
+<td><span class="math">\(\mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><span class="math">\(\tan x\)</span></td>
+<td><span class="math">\(1 + \tan^2 x = \frac{1}{\cos^2 x}\)</span></td>
+<td><span class="math">\(x \neq \frac{\pi}{2} + k\pi\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="regles-de-calcul">Règles de calcul</h3>
+<p>Ces règles permettent de dériver des combinaisons de fonctions. Dans le tableau ci-dessous, <span class="math">\(u\)</span> et <span class="math">\(v\)</span> désignent des fonctions dérivables de <span class="math">\(x\)</span>, et <span class="math">\(\lambda\)</span> une constante réelle.</p>
+<table>
+<thead>
+<tr>
+<th>Opération</th>
+<th>Formule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multiplication par une constante</td>
+<td><span class="math">\((\lambda \, u)' = \lambda \, u'\)</span></td>
+</tr>
+<tr>
+<td>Somme</td>
+<td><span class="math">\((u + v)' = u' + v'\)</span></td>
+</tr>
+<tr>
+<td>Produit</td>
+<td><span class="math">\((uv)' = u'v + uv'\)</span></td>
+</tr>
+<tr>
+<td>Quotient</td>
+<td><span class="math">\(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\)</span></td>
+</tr>
+<tr>
+<td>Composition</td>
+<td><span class="math">\((f \circ g)'(x) = g'(x) \times f'(g(x))\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="exemple-dapplication">Exemple d'application</h3>
+<p>Dérivons <span class="math">\(f(x) = 3x^2 \sin x\)</span> en utilisant la règle du produit avec <span class="math">\(u = 3x^2\)</span> et <span class="math">\(v = \sin x\)</span> :</p>
+<p><span class="math">\(f'(x) = u'v + uv' = 6x \sin x + 3x^2 \cos x\)</span></p>
+<p>Autre exemple avec la règle de composition : dérivons <span class="math">\(f(x) = e^{x^2}\)</span>. On pose <span class="math">\(g(x) = x^2\)</span> et <span class="math">\(f(u) = e^u\)</span> :</p>
+<p><span class="math">\(f'(x) = g'(x) \times e^{g(x)} = 2x \, e^{x^2}\)</span></p>
+<h2 id="notations">Notations</h2>
+<p>Plusieurs notations coexistent pour la dérivée, héritées des différentes traditions :</p>
+<table>
+<thead>
+<tr>
+<th>Notation</th>
+<th>Origine</th>
+<th>Usage courant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(f'(x)\)</span></td>
+<td>Lagrange</td>
+<td>Fonctions d'une variable</td>
+</tr>
+<tr>
+<td><span class="math">\(\frac{dy}{dx}\)</span></td>
+<td>Leibniz</td>
+<td>Physique, changements de variable</td>
+</tr>
+<tr>
+<td><span class="math">\(\dot{y}\)</span></td>
+<td>Newton</td>
+<td>Mécanique (dérivée par rapport au temps)</td>
+</tr>
+<tr>
+<td><span class="math">\(Df(x)\)</span></td>
+<td>Cauchy</td>
+<td>Analyse fonctionnelle</td>
+</tr>
+</tbody>
+</table>
+<p>La notation de Lagrange <span class="math">\(f'(x)\)</span> est la plus courante dans l'enseignement français. Celle de Leibniz <span class="math">\(\frac{dy}{dx}\)</span> est particulièrement utile quand on travaille avec des courbes paramétriques, comme nous l'avons vu dans <a href="../derivatives-tangents-curvature">l'article sur les tangentes en CAO</a>.</p>
+<h2 id="ce-quil-faut-retenir">Ce qu'il faut retenir</h2>
+<p>La dérivée est née d'une question géométrique — tracer la tangente à une courbe — et d'une question physique — mesurer une vitesse instantanée. Sa définition repose sur un passage à la limite :</p>
+<p><span class="math">\(f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}\)</span></p>
+<p>En pratique, les formules de dérivation et les règles de calcul permettent de dériver rapidement n'importe quelle expression, sans revenir à cette définition à chaque fois. Ce sont ces formules que les logiciels de calcul formel utilisent en coulisses — et que nous avons appliquées, parfois sans le savoir, dans nos articles sur <a href="../dido-problem">l'optimisation</a> et <a href="../derivatives-tangents-curvature">les courbes en CAO</a>.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/dido-problem" class="text-decoration-none">Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/dido-problem" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/blog/derivatives-tangents-curvature" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
+                                    <span>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
