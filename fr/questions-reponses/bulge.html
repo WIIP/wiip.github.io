@@ -7,15 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>C&#x27;est quoi la courbure sur un sommet de polyligne ? - WIIP</title><meta name="description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" />
-        <meta property="og:title" content="C&#x27;est quoi la courbure sur un sommet de polyligne ?" />
-        <meta property="og:description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" />
-        <meta property="og:type" content="article">
-        <meta property="og:url" content="https://wiip.fr/fr/questions-reponses/bulge" />
-        <meta property="og:site_name" content="WIIP">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="C&#x27;est quoi la courbure sur un sommet de polyligne ?" />
-        <meta name="twitter:description" content="Sur les sommets d&#x27;une polyligne, on a un r&#xE9;el qui indique la courbure. Comment est-ce que &#xE7;a fonctionne ?" /></head>
+    <link rel="canonical" href="https://wiip.fr/fr/questions-reponses/bulge" />
+    <link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/questions-reponses/bulge" />
+    <link rel="alternate" hreflang="en" href="https://wiip.fr/en/questions-answers/bulge" /></head>
 
 <body>
 
@@ -34,83 +28,8 @@
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
-        <main>
-    <div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>C&#x27;est quoi la courbure sur un sommet de polyligne ?</h1>
-                    <small class="text-muted">Derni&#xE8;re mise &#xE0; jour : lundi 1 janvier 0001</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/DXF" class="badge bg-primary me-1 text-decoration-none">DXF</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
-                <div class="mt-3"><p>Une polyligne, c'est une série de sommets (<em>vertex</em>), donc des points et sur chaque point, on a un réel qu'on appelle la courbure (<em>bulge</em> en anglais ; code 42 dans les DXF).</p>
-<p>La courbure est égale à la tangente de 1/4 de l'angle parcouru par l'arc.</p>
-<p>Si un sommet a une courbure de zéro, le segment qui suit est une ligne droite. Si la courbure est différente de zéro, c'est un arc.</p>
-<p>Une valeur de 1 correspond à un demi-tour ou 180°. En effet, 180° / 4 = 45° et la tangente de 45° est 1.</p>
-<p><img src="Content/fr/questions-reponses/media/bulge.png" alt="Courbure sur un sommet de polyligne" /></p>
-<p>Si la courbure est positive, on tourne dans le sens trigonométrique. Si elle est négative, on tourne dans le sens horaire.</p>
-<p>On ne peut pas décrire un arc de 360° car tan(360°/4) = infini</p>
-<p>Le dernier sommet de la polyligne a une courbure, mais elle n'est pas prise en compte si la polyligne est ouverte. Si par contre la polyligne est fermée, alors le dernier segment est un arc.</p>
-<p>On peut noter également que dans une polyligne, tous les arcs sont tangents au segment précédent.</p>
-<h2 id="determiner-la-position-du-centre-et-le-rayon-de-larc">Déterminer la position du centre et le rayon de l'arc</h2>
-<h3 id="avec-lapi.net-dautocad">Avec l'API .NET d'AutoCAD</h3>
-<p>Si vous êtes dans AutoCAD, c'est très simple, il y a une méthode <code>GetArcSegment2dAt()</code> dans la classe <code>Polyline</code> qui permet de récupérer l'arc correspondant à un sommet donné.</p>
-<p>Mais bon, si vous n'avez pas accès à l'API .NET d'AutoCAD, vous pouvez toujours calculer ça vous-même.</p>
-<h3 id="calcul-de-la-longueur-de-corde">Calcul de la longueur de corde</h3>
-<p>On peut commencer par calculer la longueur de corde. C'est la distance qui sépare les deux sommets adjacents sur la polyligne. C'est une simple distance euclidienne entre deux points.</p>
-<p><img src="Content/fr/questions-reponses/media/bulge0.svg" alt="Longueur de corde" /></p>
-<pre><code class="language-csharp">double cordLength = Math.Sqrt(Math.Pow(point2.X - point1.X, 2) + Math.Pow(point2.Y - point1.Y, 2));
-</code></pre>
-<h3 id="calcul-du-rayon-de-larc">Calcul du rayon de l'arc</h3>
-<p>Ensuite pour calculer le rayon, on observe que p1, p2 et le centre de l'arc C forment un triangle isocèle.</p>
-<p>Les côtés p1 → C et p2 → C sont égaux et correspondent au rayon R de l'arc.</p>
-<p>Si on coupe ce triangle en deux, on obtient deux triangles rectangles avec un angle droit au milieu de la corde (point M). Sur ce triangle, R est l'hypoténuse. On connait la longueur M → p2 c'est la moitié de la longueur de la corde L.</p>
-<p><img src="Content/fr/questions-reponses/media/bulge1.svg" alt="Les deux triangles rectangles" /></p>
-<p>Donc <code>sin(alpha/2)</code> = côté opposé / hypoténuse = <code>(L/2) / R</code>.</p>
-<p>On multiplie par R des deux côtés : <code>R * sin(alpha/2) = L/2</code>.</p>
-<p>Et pour finir, on divise par <code>sin(alpha/2)</code> des deux côtés : <code>R = L / (2 * sin(alpha/2))</code>.</p>
-<pre><code class="language-csharp">double angle = Math.Atan(bulge);
-double radius = cordLength / (2 * Math.Sin(angle / 2));
-</code></pre>
-<h3 id="calcul-du-centre-de-larc">Calcul du centre de l'arc</h3>
-<p>Là ça se complique un peu. On doit utiliser des vecteurs.</p>
-<p>Il nous faut une structure comme celle-ci pour représenter un vecteur dans le plan :</p>
-<pre><code class="language-csharp">public readonly struct Vector2d
-{
-    public double X { get; }
-    
-    public double Y { get; }
-    
-    public Vector2d(double x, double y)
-    {
-        X = x;
-        Y = y;
-    }
-}
-</code></pre>
-<p>Pour commencer, il faut calculer le vecteur entre les deux sommets p1 et p2 :</p>
-<pre><code class="language-csharp">Vector2d vector = new Vector2d(point2.X - point1.X, point2.Y - point1.Y);
-</code></pre>
-<p>On divise ce vecteur par sa longueur pour obtenir un vecteur unitaire :</p>
-<pre><code class="language-csharp">Vector2d unitVector = vector / Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-</code></pre>
-<p>On détermine la position du milieu de la corde (point M) :</p>
-<pre><code class="language-csharp">Vector2d midPoint = new Vector2d((point1.X + point2.X) / 2, (point1.Y + point2.Y) / 2);
-</code></pre>
-<p>Si la courbure est égale à un, alors l'arc est un demi-tour et le centre est situé sur la corde donc on a notre centre.</p>
-<p>La distance CM, avec un peu de trigonométrie :</p>
-<pre><code class="language-csharp">double distanceCM = radius * Math.Cos(angle / 2);
-</code></pre>
-<p>Ensuite, on peut calculer le centre de l'arc en ajoutant le vecteur perpendiculaire à la moitié de la corde :</p>
-<pre><code class="language-csharp">Vector2d perpendicularVector = new Vector2d(-unitVector.Y, unitVector.X);
-Vector2d center = new Vector2d(midPoint.X + perpendicularVector.X * distanceCM, midPoint.Y + perpendicularVector.Y * distanceCM);
-</code></pre>
-<p>Pour avoir un vecteur perpendiculaire au vecteur (x, y), on peut prendre (-y, x).</p>
-<p>On n'a pas fini parce que si la courbure est égale à un,</p>
-<p>{{bloc:AutoCAD}}</p>
-</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
-        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/espaces-de-nom-vlx" class="text-decoration-none">Les espaces de nom VLX</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-configuration" class="text-decoration-none">G&#xE9;rer un fichier de configuration en AutoLISP</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/quicklook-cadimport" class="text-decoration-none">Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-comments" class="text-decoration-none">Les commentaires en AutoLISP</a>
-                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
-                        <div class="col-6 text-end"><a href="/fr/questions-reponses/autodesk-platform-services" class="text-decoration-none"><small class="text-muted d-block">Question suivante &#x2192;</small>
-                                    <span>C&#x27;est quoi APS ?</span></a></div></div></nav></article></div></div></main>
+        <main><div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Question non trouv&#xE9;e</h1>
+            <p>La question demand&#xE9;e n&#x27;existe pas.</p></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr

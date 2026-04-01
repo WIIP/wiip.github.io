@@ -1,76 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="700" height="400">
+<svg viewBox="0 0 700 400" width="700" height="400" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="ax-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
     </marker>
   </defs>
-
-  <!-- Fond -->
   <rect width="700" height="400" fill="#ffffff"/>
-
-  <!-- Axes -->
-  <!-- Origine à (80, 320) -->
+  <line x1="104.989" y1="277.301" x2="420.482" y2="82.256" stroke="#16a34a" stroke-width="2.2"/>
   <line x1="60" y1="320" x2="660" y2="320" stroke="#333" stroke-width="1.5" marker-end="url(#ax-arrow)"/>
   <line x1="80" y1="350" x2="80" y2="30" stroke="#333" stroke-width="1.5" marker-end="url(#ax-arrow)"/>
-  <text x="665" y="335" font-family="serif" font-style="italic" font-size="16" fill="#333">x</text>
-  <text x="88" y="35" font-family="serif" font-style="italic" font-size="16" fill="#333">y</text>
-
-  <!-- Courbe f(x) — une fonction croissante concave -->
-  <!-- Points : approximation de f(x) = 2*sqrt(x) mise à l'échelle -->
-  <!-- Origine (80,320), échelle x: 100px/unité, y: 50px/unité -->
-  <path d="M 80,320 C 130,280 180,230 230,200 C 280,170 340,140 400,118 C 460,96 520,80 600,65"
-        fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- Point A : x=1.5 → pixel (230, 200) -->
-  <circle cx="230" cy="200" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
-
-  <!-- Point B (sécante lointaine) : x=4.5 → pixel (530, 76) -->
-  <circle cx="530" cy="76" r="4" fill="#ef4444" stroke="#fff" stroke-width="1" opacity="0.5"/>
-
-  <!-- Point B' (sécante intermédiaire) : x=3.2 → pixel (400, 118) -->
-  <circle cx="400" cy="118" r="4" fill="#ef4444" stroke="#fff" stroke-width="1" opacity="0.7"/>
-
-  <!-- Point B'' (sécante proche) : x=2.2 → pixel (300, 164) -->
-  <circle cx="300" cy="164" r="4" fill="#ef4444" stroke="#fff" stroke-width="1" opacity="0.9"/>
-
-  <!-- Sécante lointaine (la plus pâle) -->
-  <line x1="140" y1="238" x2="600" y2="47" stroke="#ef4444" stroke-width="1.2" opacity="0.3"/>
-
-  <!-- Sécante intermédiaire -->
-  <line x1="130" y1="248" x2="530" y2="56" stroke="#ef4444" stroke-width="1.2" opacity="0.5"/>
-
-  <!-- Sécante proche -->
-  <line x1="120" y1="244" x2="460" y2="87" stroke="#ef4444" stroke-width="1.5" opacity="0.7"/>
-
-  <!-- Tangente (limite) -->
-  <line x1="100" y1="262" x2="440" y2="100" stroke="#16a34a" stroke-width="2.2"/>
-
-  <!-- Labels des points -->
-  <text x="210" y="225" font-family="serif" font-size="14" fill="#333">
-    <tspan font-style="italic">x</tspan>, <tspan font-style="italic">f</tspan>(<tspan font-style="italic">x</tspan>)
-  </text>
-
-  <!-- Accolades h pour la sécante proche -->
-  <!-- Segment horizontal de x=230 à x=300 sur y=200 -->
-  <line x1="230" y1="205" x2="300" y2="205" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
-  <!-- Segment vertical de y=200 à y=164 sur x=300 -->
-  <line x1="300" y1="205" x2="300" y2="164" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
-
-  <text x="255" y="220" font-family="serif" font-style="italic" font-size="13" fill="#666">h</text>
-  <text x="306" y="190" font-family="serif" font-size="12" fill="#666">f(x+h) − f(x)</text>
-
-  <!-- Label sécantes -->
-  <text x="530" y="50" font-family="sans-serif" font-size="12" fill="#ef4444" opacity="0.6">sécantes</text>
-
-  <!-- Label tangente -->
-  <text x="445" y="100" font-family="sans-serif" font-weight="bold" font-size="13" fill="#16a34a">tangente</text>
-
-  <!-- Flèche courbée indiquant h → 0 -->
-  <path d="M 510,62 C 490,80 460,95 430,108" fill="none" stroke="#999" stroke-width="1.2"/>
-  <polygon points="430,108 436,100 440,110" fill="#999"/>
-  <text x="495" y="72" font-family="serif" font-style="italic" font-size="13" fill="#999">h → 0</text>
-
-  <!-- Label courbe -->
-  <text x="605" y="58" font-family="serif" font-style="italic" font-size="15" fill="#2563eb">f</text>
+  <text x="665" y="335" font-family="serif" font-style="italic" font-size="16" fill="#333" style="white-space: pre;">x</text>
+  <text x="88" y="35" font-family="serif" font-style="italic" font-size="16" fill="#333" style="white-space: pre;">y</text>
+  <path d="M 80,320 C 130,280 180,230 230,200 C 280,170 340,140 400,118 C 460,96 520,80 600,65" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="230" y1="205" x2="369.356" y2="204.459" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="369.221" y1="205" x2="369.491" y2="129.795" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="293.5" y="219.408" font-family="serif" font-style="italic" font-size="13" fill="#666" style="white-space: pre; font-size: 13px;">h</text>
+  <text x="374.409" y="171.748" font-family="serif" font-size="12" fill="#666" style="white-space: pre; font-size: 12px;">f(x+h) − f(x)</text>
+  <text x="305.496" y="104.471" font-family="sans-serif" font-weight="bold" font-size="13" fill="#16a34a" style="white-space: pre; font-size: 13px;" transform="matrix(0.85122, -0.524808, 0.524808, 0.85122, 55.430325, 176.990646)">tangente</text>
+  <line style="stroke: rgb(239, 68, 68); stroke-width: 2.2px;" x1="534.386" y1="44.249" x2="103.891" y2="266.518"/>
+  <circle cx="369.626" cy="129.525" r="4" stroke="#fff" stroke-width="1" opacity="1" style="fill: rgb(239, 68, 68);"/>
+  <circle cx="223.451" cy="205" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <text style="fill: rgb(239, 68, 68); font-size: 13px; font-weight: 700; white-space: pre;" x="450.594" y="82.791" font-family="sans-serif" transform="matrix(0.891468, -0.453084, 0.453084, 0.891468, 35.338646, 199.403061)">séquante</text>
 </svg>

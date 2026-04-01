@@ -7,15 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO - WIIP</title><meta name="description" content="La d&#xE9;riv&#xE9;e ne sert pas qu&#x27;&#xE0; optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures &#x2014; trois notions essentielles pour concevoir des surfaces de qualit&#xE9;." />
-        <meta property="og:title" content="D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO" />
-        <meta property="og:description" content="La d&#xE9;riv&#xE9;e ne sert pas qu&#x27;&#xE0; optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures &#x2014; trois notions essentielles pour concevoir des surfaces de qualit&#xE9;." />
-        <meta property="og:type" content="article">
-        <meta property="og:url" content="https://wiip.fr/fr/blog/derivatives-tangents-curvature" />
-        <meta property="og:site_name" content="WIIP">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO" />
-        <meta name="twitter:description" content="La d&#xE9;riv&#xE9;e ne sert pas qu&#x27;&#xE0; optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures &#x2014; trois notions essentielles pour concevoir des surfaces de qualit&#xE9;." /></head>
+    <link rel="canonical" href="https://wiip.fr/fr/blog/derivatives-tangents-curvature" />
+    <link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/derivatives-tangents-curvature" />
+    <link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/derivatives-tangents-curvature" /></head>
 
 <body>
 
@@ -34,143 +28,8 @@
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
-        <main>
-    <script type="application/ld&#x2B;json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": "D\u00E9riv\u00E9es, tangentes et courbures : les maths derri\u00E8re les courbes en CAO",
-        "description": "La d\u00E9riv\u00E9e ne sert pas qu\u0027\u00E0 optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures \u2014 trois notions essentielles pour concevoir des surfaces de qualit\u00E9.",
-        "datePublished": "2026-04-08",
-        "url": "https://wiip.fr/fr/blog/derivatives-tangents-curvature",
-        "inLanguage": "fr",
-        "publisher": {
-            "@type": "Organization",
-            "name": "WIIP",
-            "url": "https://wiip.fr"
-        }
-    }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO</h1>
-                    <small class="text-muted">mercredi 8 avril 2026</small><div class="mt-2"><a href="/fr/tags/Math%C3%A9matiques" class="badge bg-primary me-1 text-decoration-none">Math&#xE9;matiques</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
-                <div class="mt-3"><p>Dans notre <a href="../dido-problem">article précédent sur le problème de Didon</a>, nous avons utilisé la dérivée pour trouver le maximum d'une fonction. Mais la dérivée a un sens géométrique bien plus riche : elle décrit la <strong>direction</strong> dans laquelle une courbe avance en chaque point. En CAO, cette information est fondamentale. Elle permet de calculer des <strong>tangentes</strong>, des <strong>normales</strong> et des <strong>courbures</strong> — trois ingrédients essentiels pour concevoir des pièces aux surfaces lisses et fonctionnelles.</p>
-<h2 id="la-derivee-cest-la-pente-de-la-tangente">La dérivée, c'est la pente de la tangente</h2>
-<p>Reprenons les bases. Pour une fonction <span class="math">\(y = f(x)\)</span>, la dérivée <span class="math">\(f'(x)\)</span> donne la <strong>pente de la tangente</strong> à la courbe au point <span class="math">\(x\)</span>.</p>
-<p>Prenons un exemple concret : la parabole <span class="math">\(f(x) = x^2\)</span>. Sa dérivée est <span class="math">\(f'(x) = 2x\)</span>. Au point <span class="math">\(x = 1\)</span> :</p>
-<ul>
-<li>La pente de la tangente vaut <span class="math">\(f'(1) = 2\)</span></li>
-<li>Le point de tangence est <span class="math">\((1, 1)\)</span></li>
-</ul>
-<p>On connaît un point et une pente : c'est suffisant pour écrire l'équation de la tangente. On utilise la formule de la droite passant par <span class="math">\((x_0, y_0)\)</span> avec une pente <span class="math">\(m\)</span> :</p>
-<p><span class="math">\(y - y_0 = m(x - x_0)\)</span></p>
-<p><span class="math">\(y - 1 = 2(x - 1) \implies y = 2x - 1\)</span></p>
-<p><img src="Content/fr/blog/media/derivative-tangent-parabola.svg" alt="Parabole y = x² avec sa tangente au point (1, 1)" /></p>
-<p>La tangente &quot;effleure&quot; la courbe : elle suit exactement la direction de la courbe en ce point. C'est une <strong>approximation linéaire locale</strong> — la meilleure droite possible pour représenter la courbe au voisinage du point.</p>
-<h2 id="des-fonctions-aux-courbes-parametriques">Des fonctions aux courbes paramétriques</h2>
-<p>En CAO, on travaille rarement avec des fonctions sous <strong>forme explicite</strong> <span class="math">\(y = f(x)\)</span>, où <span class="math">\(y\)</span> est directement exprimé en fonction de <span class="math">\(x\)</span>. Les courbes que manipule un logiciel comme Inventor utilisent la <strong>forme paramétrique</strong> : chaque point est décrit par un paramètre <span class="math">\(t\)</span>. Cette représentation est bien plus souple — elle permet de décrire des courbes fermées, des boucles ou des trajectoires quelconques, ce que la forme explicite ne permet pas.</p>
-<p>En 2D, une courbe paramétrique s'écrit :</p>
-<p><span class="math">\(\mathbf{C}(t) = \big(x(t),\; y(t)\big)\)</span></p>
-<p>Par exemple, un cercle de rayon <span class="math">\(r\)</span> centré à l'origine :</p>
-<p><span class="math">\(\mathbf{C}(t) = \big(r\cos t,\; r\sin t\big), \quad t \in [0, 2\pi[\)</span></p>
-<p>Pour obtenir la tangente, on dérive <strong>chaque composante</strong> par rapport à <span class="math">\(t\)</span> :</p>
-<p><span class="math">\(\mathbf{C}'(t) = \big(x'(t),\; y'(t)\big)\)</span></p>
-<p>Pour le cercle :</p>
-<p><span class="math">\(\mathbf{C}'(t) = \big(-r\sin t,\; r\cos t\big)\)</span></p>
-<p>Ce vecteur <span class="math">\(\mathbf{C}'(t)\)</span> est le <strong>vecteur tangent</strong>. Il pointe dans la direction du mouvement le long de la courbe. Au point <span class="math">\(t = 0\)</span> (le sommet droit du cercle), le vecteur tangent vaut <span class="math">\((0, r)\)</span> : il pointe vers le haut, ce qui est bien perpendiculaire au rayon — exactement ce qu'on attend.</p>
-<p><img src="Content/fr/blog/media/derivative-circle-tangent-normal.svg" alt="Cercle avec vecteur tangent et vecteur normal en un point" /></p>
-<h2 id="le-vecteur-normal">Le vecteur normal</h2>
-<p>Le <strong>vecteur normal</strong> est perpendiculaire à la tangente. En 2D, on l'obtient en faisant tourner le vecteur tangent de 90 degrés :</p>
-<p><span class="math">\(\mathbf{n}(t) = \big(-y'(t),\; x'(t)\big)\)</span></p>
-<p>Le vecteur normal est essentiel en CAO : il définit la direction dans laquelle une surface &quot;regarde&quot;. C'est lui qui détermine comment la lumière se réfléchit sur une pièce, comment un outil d'usinage doit s'orienter, ou dans quelle direction extruder un profil.</p>
-<h2 id="la-courbure-mesurer-comment-une-courbe-tourne">La courbure : mesurer comment une courbe tourne</h2>
-<p>La tangente nous dit <strong>où va</strong> la courbe. Mais à quelle vitesse <strong>change-t-elle de direction</strong> ? C'est la question à laquelle répond la <strong>courbure</strong>, notée <span class="math">\(\kappa\)</span> (kappa).</p>
-<p>La courbure mesure l'inverse du rayon du cercle qui épouse le mieux la courbe en un point donné — le <strong>cercle osculateur</strong>. Plus la courbe tourne brusquement, plus le cercle osculateur est petit, et plus la courbure est grande.</p>
-<p><span class="math">\(\kappa = \frac{1}{R}\)</span></p>
-<p>où <span class="math">\(R\)</span> est le rayon du cercle osculateur.</p>
-<p><img src="Content/fr/blog/media/derivative-osculating-circle.svg" alt="Courbe avec son cercle osculateur en un point, montrant le rayon de courbure R" /></p>
-<p>Pour une courbe paramétrique en 2D, la courbure se calcule avec les dérivées première et seconde :</p>
-<p><span class="math">\(\kappa(t) = \frac{\left| x'(t)\, y''(t) - y'(t)\, x''(t) \right|}{\left( x'(t)^2 + y'(t)^2 \right)^{3/2}}\)</span></p>
-<p>La formule peut sembler intimidante, mais elle ne fait que combiner deux informations : la direction de la tangente (dérivée première) et la vitesse à laquelle cette direction change (dérivée seconde).</p>
-<p>Vérifions sur le cercle de rayon <span class="math">\(r\)</span> :</p>
-<ul>
-<li><span class="math">\(x(t) = r\cos t\)</span>, donc <span class="math">\(x'(t) = -r\sin t\)</span> et <span class="math">\(x''(t) = -r\cos t\)</span></li>
-<li><span class="math">\(y(t) = r\sin t\)</span>, donc <span class="math">\(y'(t) = r\cos t\)</span> et <span class="math">\(y''(t) = -r\sin t\)</span></li>
-</ul>
-<p>En injectant dans la formule :</p>
-<p><span class="math">\(\kappa = \frac{|(-r\sin t)(-r\sin t) - (r\cos t)(-r\cos t)|}{(r^2\sin^2 t + r^2\cos^2 t)^{3/2}} = \frac{r^2(\sin^2 t + \cos^2 t)}{(r^2)^{3/2}} = \frac{r^2}{r^3} = \frac{1}{r}\)</span></p>
-<p>La courbure d'un cercle est constante et vaut <span class="math">\(1/r\)</span>. C'est rassurant : un cercle tourne toujours de la même façon.</p>
-<h2 id="continuite-g0-g1-g2-les-niveaux-de-raccordement">Continuité G0, G1, G2 : les niveaux de raccordement</h2>
-<p>En CAO, les courbes et surfaces sont souvent constituées de <strong>plusieurs morceaux</strong> raccordés entre eux. La qualité du raccordement se mesure en niveaux de continuité géométrique :</p>
-<h3 id="g0-continuite-de-position">G0 — Continuité de position</h3>
-<p>Les deux morceaux se <strong>touchent</strong> au point de jonction, mais peuvent former un angle. C'est le minimum pour que la géométrie soit connexe.</p>
-<h3 id="g1-continuite-de-tangente">G1 — Continuité de tangente</h3>
-<p>Les deux morceaux partagent la même <strong>direction de tangente</strong> au point de jonction. Il n'y a plus d'angle visible, mais la courbure peut changer brutalement.</p>
-<h3 id="g2-continuite-de-courbure">G2 — Continuité de courbure</h3>
-<p>Les deux morceaux partagent la même <strong>courbure</strong> au point de jonction. La transition est imperceptible — c'est le standard pour les surfaces de classe A en design automobile et aéronautique.</p>
-<p><img src="Content/fr/blog/media/derivative-continuity-g0-g1-g2.svg" alt="Trois raccordements : G0 (angle visible), G1 (tangente continue, cassure de courbure), G2 (transition lisse)" /></p>
-<p>La différence entre G1 et G2 est subtile visuellement, mais elle se révèle immédiatement dans un <strong>peigne de courbure</strong> — un outil d'analyse courant en CAO qui affiche la courbure le long d'une courbe sous forme de barres perpendiculaires. En G1, le peigne présente un saut brusque au raccordement. En G2, il est continu.</p>
-<h2 id="pourquoi-cest-important-en-cao">Pourquoi c'est important en CAO</h2>
-<p>Ces notions mathématiques ont des conséquences très concrètes en conception :</p>
-<ul>
-<li><p><strong>Esthétique</strong> : sur une carrosserie automobile, un défaut de continuité G2 crée des reflets irréguliers visibles à l'oeil nu. Les lignes de lumière qui se reflètent sur la surface révèlent impitoyablement les discontinuités de courbure.</p>
-</li>
-<li><p><strong>Usinage</strong> : une trajectoire d'outil avec des discontinuités de tangente provoque des à-coups mécaniques. La machine doit décélérer puis réaccélérer à chaque angle, ce qui augmente le temps d'usinage et l'usure de l'outil.</p>
-</li>
-<li><p><strong>Aérodynamique</strong> : en conception aéronautique, la continuité de courbure influence directement l'écoulement de l'air. Une discontinuité peut provoquer un décollement de la couche limite.</p>
-</li>
-<li><p><strong>Injection plastique</strong> : les raccordements anguleux concentrent les contraintes mécaniques et perturbent l'écoulement du plastique fondu dans le moule.</p>
-</li>
-</ul>
-<h2 id="en-resume">En résumé</h2>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Ce qu'il mesure</th>
-<th>Outil mathématique</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tangente</td>
-<td>Direction de la courbe</td>
-<td>Dérivée première</td>
-</tr>
-<tr>
-<td>Normale</td>
-<td>Direction perpendiculaire</td>
-<td>Rotation de la tangente</td>
-</tr>
-<tr>
-<td>Courbure</td>
-<td>Vitesse de changement de direction</td>
-<td>Dérivées première et seconde</td>
-</tr>
-<tr>
-<td>Continuité G0</td>
-<td>Position</td>
-<td>Valeur de la courbe</td>
-</tr>
-<tr>
-<td>Continuité G1</td>
-<td>Direction</td>
-<td>Dérivée première</td>
-</tr>
-<tr>
-<td>Continuité G2</td>
-<td>Courbure</td>
-<td>Dérivée seconde</td>
-</tr>
-</tbody>
-</table>
-<p>La dérivée n'est pas qu'un outil de calcul abstrait : elle est au coeur des algorithmes qui permettent aux logiciels de CAO de représenter, analyser et fabriquer des formes complexes. Chaque fois qu'Inventor calcule une tangente, affiche un peigne de courbure ou vérifie la continuité entre deux surfaces, ce sont ces mêmes formules qui travaillent en coulisses.</p>
-<hr />
-<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
-
-</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
-        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/dido-problem" class="text-decoration-none">Le probl&#xE8;me de Didon : optimiser un enclos rectangulaire le long d&#x27;une rivi&#xE8;re</a>
-                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/derivatives-definition-formulas" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
-                                    <span>Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles</span></a></div>
-                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <main><div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Article non trouv&#xE9;</h1>
+            <p>L&#x27;article demand&#xE9; n&#x27;existe pas.</p></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 300" width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ax-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="lim-arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="lim-arrow-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="500" height="300" fill="#ffffff"/>
+  <line x1="40" y1="200" x2="470" y2="200" stroke="#333" stroke-width="1.5" marker-end="url(#ax-arrow)"/>
+  <line x1="250" y1="270" x2="250" y2="20" stroke="#333" stroke-width="1.5" marker-end="url(#ax-arrow)"/>
+  <text x="475" y="215" font-family="serif" font-style="italic" font-size="16" fill="#333" style="white-space: pre;">x</text>
+  <text x="258" y="25" font-family="serif" font-style="italic" font-size="16" fill="#333" style="white-space: pre;">y</text>
+  <line x1="246" y1="100" x2="254" y2="100" stroke="#333" stroke-width="1"/>
+  <text x="232" y="105" font-family="serif" font-size="13" fill="#333" style="white-space: pre;">1</text>
+  <line x1="254" y1="100" x2="460" y2="100" stroke="#ccc" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="50" y1="200" x2="250" y2="200" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="250" y1="100" x2="460" y2="100" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="250" cy="200" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <circle cx="250" cy="100" r="5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+  <line x1="244" y1="195" x2="244" y2="105" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="212.359" y="150.818" font-family="sans-serif" font-size="13" fill="#ef4444" style="white-space: pre; font-size: 13px;">saut</text>
+  <line x1="169.366" y1="211.196" x2="237.366" y2="211.196" stroke="#16a34a" stroke-width="1.8" marker-end="url(#lim-arrow-green)"/>
+  <text x="174.499" y="235.212" font-family="serif" font-size="13" fill="#16a34a" style="white-space: pre; font-size: 13px;">lim = 0</text>
+  <text x="184.499" y="250.212" font-family="serif" font-size="11" fill="#16a34a" style="white-space: pre; font-size: 11px;">h → 0⁻</text>
+  <line x1="330.211" y1="110.351" x2="262.211" y2="110.351" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#lim-arrow-purple)"/>
+  <text x="276.698" y="133.31" font-family="serif" font-size="13" fill="#7c3aed" style="white-space: pre; font-size: 13px;">lim = 1</text>
+  <text x="286.698" y="148.31" font-family="serif" font-size="11" fill="#7c3aed" style="white-space: pre; font-size: 11px;">h → 0⁺</text>
+  <text x="270" y="280" font-family="sans-serif" font-size="12" fill="#ef4444" style="white-space: pre;">0 ≠ 1 → pas de limite → non continue</text>
+  <text x="370" y="88" font-family="serif" font-style="italic" font-size="15" fill="#2563eb" style="white-space: pre;">f(x) = 1</text>
+  <text x="55" y="192" font-family="serif" font-style="italic" font-size="15" fill="#2563eb" style="white-space: pre;">f(x) = 0</text>
+</svg>

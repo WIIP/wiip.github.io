@@ -7,15 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title> - WIIP</title><meta name="description" content="" />
-        <meta property="og:title" content="" />
-        <meta property="og:description" content="" />
-        <meta property="og:type" content="article">
-        <meta property="og:url" content="https://wiip.fr/fr/blog/application-context-vs-document-context" />
-        <meta property="og:site_name" content="WIIP">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="" />
-        <meta name="twitter:description" content="" /></head>
+    <link rel="canonical" href="https://wiip.fr/fr/blog/application-context-vs-document-context" />
+    <link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/application-context-vs-document-context" />
+    <link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/application-context-vs-document-context" /></head>
 
 <body>
 
@@ -34,52 +28,8 @@
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
-        <main>
-    <script type="application/ld&#x2B;json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": "",
-        "description": "",
-        "datePublished": "0001-01-01",
-        "url": "https://wiip.fr/fr/blog/application-context-vs-document-context",
-        "inLanguage": "fr",
-        "publisher": {
-            "@type": "Organization",
-            "name": "WIIP",
-            "url": "https://wiip.fr"
-        }
-    }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1></h1>
-                    <small class="text-muted">lundi 1 janvier 0001</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a></div></header>
-                <div class="mt-3"><p>Par défaut, on est dans le contexte d'application. Mais on peut aussi être dans le contexte du document (on parle aussi de contexte de commande).</p>
-<h2 id="contexte-dapplication">Contexte d'application</h2>
-<p>C'est l'état normal d'AutoCAD quand aucune commande n'est en cours d'exécution.</p>
-<p>On est dans ce contexte quand la commande est marquée avec le drapeau <code>CommandFlags.Session</code>. Voici ce que dit la documentation :</p>
-<blockquote>
-<p>The command will be run in the application execution context rather than the current document context, with the different capabilities and limitations that entails. It should be used sparingly.</p>
-</blockquote>
-<p>Les fonctions qui créent un nouveau document (comme Add, Open ou Recover) ne peuvent être exécutées que dans le contexte d'application.</p>
-<p>ExecuteInApplicationContext</p>
-<blockquote>
-<p>If your application is operating from the application execution context, it must lock and unlock the current document to modify anything associated with it. It can do so by directly invoking the AcApDocManager::lockDocument() and unlockDocument() member function</p>
-</blockquote>
-<p>Quand vous êtes dans le contexte d'application, et que vous souhaitez modifier un document, vous devez le verrouiller sinon vous obtiendrez une erreur <code>eLockViolation</code>.</p>
-<h2 id="contexte-de-commande">Contexte de commande</h2>
-<p>C'est l'état dans lequel une commande est en cours d'exécution. Par exemple, si vous tapez la commande <strong>LIGNE</strong>, vous êtes dans le contexte de commande <strong>LIGNE</strong>.</p>
-<p>Un document doit être verrouillé par un contexte d'exécution avant que celui-ci ou sa base de données et son gestionnaire de transactions associés puissent être modifiés.</p>
-<blockquote>
-<p>AutoCAD stores graphics information on a per-document basis. The document context for the database must be current during appending new entities to the database to ensure that the graphics are updated correctly</p>
-</blockquote>
-</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
-        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/espaces-de-nom-vlx" class="text-decoration-none">Les espaces de nom VLX</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-configuration" class="text-decoration-none">G&#xE9;rer un fichier de configuration en AutoLISP</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/quicklook-cadimport" class="text-decoration-none">Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-comments" class="text-decoration-none">Les commentaires en AutoLISP</a>
-                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
-                        <div class="col-6 text-end"><a href="/fr/blog/ai_developers_limitations" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
-                                    <span>Pourquoi l&#x27;IA ne peut pas encore remplacer les d&#xE9;veloppeurs</span></a></div></div></nav></article></div></div></main>
+        <main><div class="row mt-4 justify-content-center"><div class="col text-center"><h1>Article non trouv&#xE9;</h1>
+            <p>L&#x27;article demand&#xE9; n&#x27;existe pas.</p></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
