@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Claude Code &#x2014; Fournir les commandes appropri&#xE9;es pour l&#x27;outil Bash sur Windows - WIIP</title><meta name="description" content="Comprendre comment fonctionne Bash sur Windows" />
-        <meta property="og:title" content="Claude Code &#x2014; Fournir les commandes appropri&#xE9;es pour l&#x27;outil Bash sur Windows" />
-        <meta property="og:description" content="Comprendre comment fonctionne Bash sur Windows" />
+    <title>Claude Code &#x2014; Providing the Right Commands for the Bash Tool on Windows - WIIP</title><meta name="description" content="Understanding how Bash works on Windows" />
+        <meta property="og:title" content="Claude Code &#x2014; Providing the Right Commands for the Bash Tool on Windows" />
+        <meta property="og:description" content="Understanding how Bash works on Windows" />
         <meta property="og:type" content="article">
         <meta property="og:url" content="https://wiip.fr/en/blog/claude-code-bash" />
         <meta property="og:site_name" content="WIIP">
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="Claude Code &#x2014; Fournir les commandes appropri&#xE9;es pour l&#x27;outil Bash sur Windows" />
-        <meta name="twitter:description" content="Comprendre comment fonctionne Bash sur Windows" /></head>
+        <meta name="twitter:title" content="Claude Code &#x2014; Providing the Right Commands for the Bash Tool on Windows" />
+        <meta name="twitter:description" content="Understanding how Bash works on Windows" /></head>
 
 <body>
 
@@ -38,8 +38,8 @@
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "Claude Code \u2014 Fournir les commandes appropri\u00E9es pour l\u0027outil Bash sur Windows",
-        "description": "Comprendre comment fonctionne Bash sur Windows",
+        "headline": "Claude Code \u2014 Providing the Right Commands for the Bash Tool on Windows",
+        "description": "Understanding how Bash works on Windows",
         "datePublished": "2025-08-29",
         "url": "https://wiip.fr/en/blog/claude-code-bash",
         "inLanguage": "en",
@@ -49,31 +49,31 @@
             "url": "https://wiip.fr"
         }
     }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Claude Code &#x2014; Fournir les commandes appropri&#xE9;es pour l&#x27;outil Bash sur Windows</h1>
-                    <small class="text-muted">Friday, August 29, 2025</small><div class="mt-2"><a href="/en/tags/IA" class="badge bg-primary me-1 text-decoration-none">IA</a><a href="/en/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/en/tags/Programmation" class="badge bg-primary me-1 text-decoration-none">Programmation</a></div></header>
-                <div class="mt-3"><p>Linux et Mac OS sont bien plus populaires que Windows pour les développeurs. Il faut dire qu'un grand nombre d'entre eux travaillent sur des projets Web et la plupart des serveurs utilisent Linux.</p>
-<p>Personnellement, comme je travaille essentiellement sur des compléments aux logiciels <strong>Autodesk</strong>, qui fonctionnent le plus souvent exclusivement sur Windows, je suis fidèle à la plateforme de la firme de Redmond.</p>
-<p>Depuis quelques semaines, j'utilise <strong>Claude Code</strong>, un assistant de programmation développé par <strong>Anthropic</strong>. Je le trouve plus performant que ces concurrents : les modèles <strong>Claude</strong> ne sont pas forcément plus capables, mais <strong>Claude Code</strong> sait particulièrement bien comment collecter le contexte et utiliser les outils qui sont mis à sa disposition.</p>
-<p>Le problème, c'est que chez <strong>Anthropic</strong>, ils doivent tous utiliser des <strong>Macs</strong> et donc le support de <strong>Windows</strong> laisse à désirer.</p>
-<p>Pour toutes les commandes <em>shell</em>, pour supprimer des fichiers, créer des dossiers, etc. <strong>Claude Code</strong> passe en fait par <strong>Git Bash</strong>.</p>
-<p><strong>Git Bash</strong> est un outil installé avec <strong>Git for Windows</strong> qui fournit un environnement <strong>Bash</strong> sur <strong>Windows</strong>. Vous avez peut être déjà remarqué que <strong>Claude Code</strong> utilise par exemple <code>rm</code> pour supprimer des fichiers, au lieu de <code>del</code>.</p>
-<p>Donc pour toutes les commandes émises par <strong>Claude Code</strong>, il se débrouille tout seul. Mais si vous voulez lui indiquer des commandes dans une invite ou dans un fichier <code>CLAUDE.md</code>, il faut tenir compte de ce détail.</p>
-<p>Vous pouvez tester par vous-même. Si par exemple, vous demandez :</p>
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Claude Code &#x2014; Providing the Right Commands for the Bash Tool on Windows</h1>
+                    <small class="text-muted">Friday, August 29, 2025</small><div class="mt-2"><a href="/en/tags/AI" class="badge bg-primary me-1 text-decoration-none">AI</a><a href="/en/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>Linux and macOS are far more popular than Windows among developers. It must be said that a large number of them work on web projects, and most servers run Linux.</p>
+<p>Personally, since I mainly work on add-ins for <strong>Autodesk</strong> software, which most often run exclusively on Windows, I remain loyal to the Redmond-based company's platform.</p>
+<p>For the past few weeks, I've been using <strong>Claude Code</strong>, a programming assistant developed by <strong>Anthropic</strong>. I find it more capable than its competitors: <strong>Claude</strong> models aren't necessarily more powerful, but <strong>Claude Code</strong> is particularly good at gathering context and using the tools at its disposal.</p>
+<p>The problem is that at <strong>Anthropic</strong>, they must all use <strong>Macs</strong>, so <strong>Windows</strong> support leaves something to be desired.</p>
+<p>For all shell commands — deleting files, creating folders, etc. — <strong>Claude Code</strong> actually goes through <strong>Git Bash</strong>.</p>
+<p><strong>Git Bash</strong> is a tool installed with <strong>Git for Windows</strong> that provides a <strong>Bash</strong> environment on <strong>Windows</strong>. You may have already noticed that <strong>Claude Code</strong> uses <code>rm</code> to delete files, for example, instead of <code>del</code>.</p>
+<p>So for all commands issued by <strong>Claude Code</strong>, it handles things on its own. But if you want to provide commands in a prompt or in a <code>CLAUDE.md</code> file, you need to keep this detail in mind.</p>
+<p>You can test this yourself. If, for example, you ask:</p>
 <blockquote>
-<p>Affiche moi le jour de l'année</p>
+<p>Show me the day of the year</p>
 </blockquote>
-<p><strong>Claude Code</strong> va probablement (il n'est pas déterministe donc la réponse peut varier chez vous) utiliser la <em>cmdlet</em> <code>Get-Date</code> de PowerShell :</p>
+<p><strong>Claude Code</strong> will probably (it's not deterministic, so the answer may vary for you) use the PowerShell <em>cmdlet</em> <code>Get-Date</code>:</p>
 <pre><code>Bash(powershell -Command &quot;Get-Date -UFormat %j&quot;)
   ⎿ 241
 </code></pre>
-<p>Et là, on voit qu'il préfixe par la commande <code>powershell</code>. C'est normal parce que c'est un <em>shell</em> <strong>Bash</strong> et pas <strong>PowerShell</strong> (même si votre session de <strong>Claude Code</strong> a été lancé depuis un terminal <strong>PowerShell</strong>).</p>
-<p>Comme le répertoire de <strong>PowerShell</strong> est dans la variable d'environnement <code>PATH</code>, ça fonctionne. <strong>Bash</strong> c'est qu'il doit examiner les binaires avec une extension <code>.exe</code>.</p>
+<p>And here, you can see it prefixes with the <code>powershell</code> command. This is normal because it's a <strong>Bash</strong> shell, not <strong>PowerShell</strong> (even if your <strong>Claude Code</strong> session was launched from a <strong>PowerShell</strong> terminal).</p>
+<p>Since the <strong>PowerShell</strong> directory is in the <code>PATH</code> environment variable, it works. <strong>Bash</strong> just needs to look for binaries with a <code>.exe</code> extension.</p>
 </div>
 
                 <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/custom_sys_var" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
-                                    <span>Ajouter des variables syst&#xE8;mes &#xE0; AutoCAD</span></a></div>
+                                    <span>Adding Custom System Variables to AutoCAD</span></a></div>
                         <div class="col-6 text-end"><a href="/en/blog/vault-server-installation" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
-                                    <span>Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)</span></a></div></div></nav></article></div></div></main>
+                                    <span>Vault Server Installation Issue (Hard Drive Sector Size)</span></a></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
