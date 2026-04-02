@@ -1,61 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+<svg viewBox="0 0 600 400" width="600" height="400" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
     </marker>
+    <marker id="arr-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="rgb(218, 163, 51)"/>
+    </marker>
   </defs>
-
-  <!-- Fond -->
-  <rect width="600" height="400" fill="#ffffff"/>
-
-  <!-- Courbe principale : une courbe en S douce -->
-  <!-- Points approximatifs d'une cubique -->
-  <path d="M 60,320 C 120,310 180,100 300,180 C 420,260 480,60 560,80"
-        fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- Point de tangence P sur la courbe (environ 300, 180) -->
-  <circle cx="300" cy="180" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
-
-  <!-- Cercle osculateur -->
-  <!-- Centre du cercle osculateur : au-dessus et à droite du point -->
-  <!-- Le cercle osculateur épouse la courbe au point P -->
-  <!-- Centre approximatif C = (350, 95), rayon ≈ 100 -->
-  <circle cx="345" cy="90" r="102" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.8"/>
-
-  <!-- Centre du cercle osculateur -->
-  <circle cx="345" cy="90" r="3" fill="#dc2626"/>
-
-  <!-- Rayon de courbure R : du centre au point P -->
-  <line x1="345" y1="90" x2="300" y2="180" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4,3"/>
-
-  <!-- Vecteur tangent au point P -->
-  <!-- Direction approximative de la courbe en P : vers la droite et légèrement vers le bas -->
-  <line x1="300" y1="180" x2="390" y2="195" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
-
-  <!-- Labels -->
-  <text x="310" y="175" font-family="serif" font-style="italic" font-size="16" fill="#333">P</text>
-  <text x="352" y="85" font-family="serif" font-style="italic" font-size="14" fill="#dc2626">C</text>
-
-  <!-- Label R (rayon de courbure) -->
-  <text x="305" y="130" font-family="serif" font-style="italic" font-size="16" fill="#dc2626">R</text>
-
-  <!-- Label tangente -->
-  <text x="393" y="190" font-family="serif" font-size="13" fill="#2563eb">tangente</text>
-
-  <!-- Légende -->
-  <g transform="translate(50, 30)">
+  <rect width="600" height="400" fill="#ffffff" style=""/>
+  <path d="M 60 372.811 C 120 362.811 180 152.811 300 232.811 C 420 312.811 480 112.811 560 132.811" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="299.575" cy="233.342" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <circle cx="345" cy="142.811" r="102" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.8"/>
+  <circle cx="345" cy="142.811" r="3" fill="#dc2626"/>
+  <line x1="345" y1="142.811" x2="300" y2="232.811" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="300" y1="233.98" x2="377.833" y2="274.582" stroke-width="2" marker-end="url(#arr-orange)" style="fill: rgb(218, 163, 51); stroke: rgb(218, 163, 51);"/>
+  <text x="310" y="227.811" font-family="serif" font-style="italic" font-size="16" fill="#333" style="white-space: pre; font-size: 16px;">P</text>
+  <text x="352" y="137.811" font-family="serif" font-style="italic" font-size="14" fill="#dc2626" style="white-space: pre; font-size: 14px;">C</text>
+  <text x="305" y="182.811" font-family="serif" font-style="italic" font-size="16" fill="#dc2626" style="white-space: pre; font-size: 16px;">R</text>
+  <text style="fill: rgb(218, 163, 51); font-family: serif; font-size: 13px; white-space: pre;" x="335.636" y="298.157">tangente</text>
+  <g transform="matrix(1, 0, 0, 1, 56.20467, 41.507431)">
     <line x1="0" y1="0" x2="25" y2="0" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4"/>
-    <text x="32" y="5" font-family="sans-serif" font-size="13" fill="#666">Cercle osculateur (rayon R = 1/κ)</text>
+    <text x="32" y="5" font-family="sans-serif" font-size="13" fill="#666" style="white-space: pre;">Cercle osculateur (rayon R = 1/κ)</text>
   </g>
-
-  <!-- Annotation κ -->
-  <g transform="translate(50, 55)">
-    <text x="0" y="0" font-family="sans-serif" font-size="13" fill="#666">Plus la courbe tourne → plus R est petit → plus κ est grand</text>
+  <g transform="matrix(1, 0, 0, 1, 182.847321, 335.232941)">
+    <text x="0" y="0" font-family="sans-serif" font-size="13" fill="#666" style="white-space: pre;">Plus la courbe tourne → plus R est petit → plus κ est grand</text>
   </g>
-
-  <!-- Zone de courbure forte : partie gauche de la courbe -->
-  <!-- Petit cercle osculateur pour montrer la différence -->
-  <!-- Point sur la partie gauche, vers (150, 180) -->
-  <!-- La courbe monte fortement ici, courbure plus forte -->
 </svg>

@@ -1,99 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 836 320" width="836" height="320">
-  <!-- Fond -->
+<svg viewBox="0 0 836 320" width="836" height="320" xmlns="http://www.w3.org/2000/svg">
   <rect width="836" height="320" fill="#ffffff"/>
-
-  <!-- === G0 : Continuité de position (angle visible) === -->
-  <g transform="translate(20, 20)">
-    <!-- Titre -->
-    <text x="110" y="20" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle">G0 — Position</text>
-
-    <!-- Deux courbes qui se touchent avec un angle -->
-    <path d="M 20,240 C 60,240 90,160 110,140"
-          fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M 110,140 C 130,160 170,100 200,60"
-          fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-
-    <!-- Point de jonction -->
-    <circle cx="110" cy="140" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
-
-    <!-- Indication de l'angle -->
-    <path d="M 97,152 A 18,18 0 0,1 118,152" fill="none" stroke="#dc2626" stroke-width="1.5"/>
-
-    <!-- Description -->
-    <text x="110" y="272" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle">Les courbes se touchent</text>
-    <text x="110" y="288" font-family="sans-serif" font-size="12" fill="#dc2626" text-anchor="middle">mais forment un angle</text>
-  </g>
-
-  <!-- === G1 : Continuité de tangente === -->
-  <g transform="translate(285, 20)">
-    <!-- Titre -->
-    <text x="120" y="20" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle">G1 — Tangente</text>
-
-    <!-- Deux courbes tangentes au point de jonction (même direction) -->
-    <path d="M 20,240 C 60,220 90,160 120,140"
-          fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M 120,140 C 150,120 190,100 220,60"
-          fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-
-    <!-- Point de jonction -->
-    <circle cx="120" cy="140" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
-
-    <!-- Tangente commune (ligne tiretée) -->
-    <line x1="70" y1="180" x2="175" y2="96" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="5,3"/>
-
-    <!-- Peigne de courbure simplifié : discontinuité visible -->
-    <!-- Barres de courbure sur la courbe bleue -->
-    <g stroke="#999" stroke-width="0.8" opacity="0.6">
-      <line x1="50" y1="225" x2="42" y2="215"/>
-      <line x1="65" y1="210" x2="55" y2="196"/>
-      <line x1="80" y1="193" x2="67" y2="176"/>
-      <line x1="95" y1="174" x2="80" y2="154"/>
-      <line x1="110" y1="155" x2="92" y2="132"/>
-      <!-- Saut brusque -->
-      <line x1="130" y1="127" x2="120" y2="140"/>
-      <line x1="145" y1="116" x2="137" y2="126"/>
-      <line x1="160" y1="108" x2="153" y2="115"/>
-      <line x1="175" y1="97" x2="170" y2="102"/>
-    </g>
-
-    <!-- Description -->
-    <text x="120" y="272" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle">Même direction de tangente</text>
-    <text x="120" y="288" font-family="sans-serif" font-size="12" fill="#dc2626" text-anchor="middle">mais saut de courbure</text>
-  </g>
-
-  <!-- === G2 : Continuité de courbure === -->
-  <g transform="translate(560, 20)">
-    <!-- Titre -->
-    <text x="120" y="20" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle">G2 — Courbure</text>
-
-    <!-- Deux courbes avec continuité de courbure (transition douce) -->
-    <path d="M 20,240 C 50,230 85,180 120,140"
-          fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M 120,140 C 155,100 190,85 230,60"
-          fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-
-    <!-- Point de jonction -->
-    <circle cx="120" cy="140" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
-
-    <!-- Tangente commune -->
-    <line x1="70" y1="190" x2="175" y2="87" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="5,3"/>
-
-    <!-- Cercle osculateur commun (même courbure des deux côtés) -->
-    <circle cx="175" cy="195" r="80" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
-
-    <!-- Description -->
-    <text x="120" y="272" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle">Même tangente et courbure</text>
-    <text x="120" y="288" font-family="sans-serif" font-size="12" fill="#16a34a" text-anchor="middle">transition imperceptible</text>
-  </g>
-
-  <!-- Légende couleurs en bas -->
+  <text x="130" y="40" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle" style="white-space: pre; font-size: 16px;">G0 — Position</text>
+  <path d="M 40 260 C 80 260 110 180 130 160" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 130 160 C 150 180 190 120 220 80" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="130" cy="160" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <path d="M 121.676 174.018 C 127.951 169.512 136.401 169.512 142.676 174.018" fill="none" stroke="#dc2626" stroke-width="1.5" transform="matrix(-0.940227, 0.340549, -0.340549, -0.940227, 315.137606, 289.3435)"/>
+  <text x="130" y="292" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle" style="white-space: pre; font-size: 12px;">Les courbes se touchent</text>
+  <text x="130" y="308" font-family="sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" style="white-space: pre; font-size: 12px;">mais forment un angle</text>
+  <text x="405" y="40" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle" style="white-space: pre; font-size: 16px;">G1 — Tangente</text>
+  <path d="M 305 260 C 345 240 375 180 405 160" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 405 160 C 435 140 475 120 505 80" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="355" y1="200" x2="460" y2="116" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <circle cx="405" cy="160" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <text x="419.122" y="265.521" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle" style="white-space: pre; font-size: 12px;">Même direction de tangente</text>
+  <text x="419.122" y="281.521" font-family="sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" style="white-space: pre; font-size: 12px;">mais saut de courbure</text>
+  <text x="680" y="40" font-family="sans-serif" font-weight="bold" font-size="16" fill="#333" text-anchor="middle" style="white-space: pre; font-size: 16px;">G2 — Courbure</text>
+  <path d="M 580 260 C 610 250 645 200 680 160" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 680 160 C 715 120 750 105 790 80" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="630" y1="210" x2="735" y2="107" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <circle cx="736.765" cy="215.883" r="80" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <circle cx="680" cy="160" r="5" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <text x="654.604" y="85.343" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle" style="white-space: pre; font-size: 12px;">Même tangente et courbure</text>
+  <text x="655.382" y="101.516" font-family="sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" style="white-space: pre; font-size: 12px;">transition imperceptible</text>
   <g transform="translate(270, 308)">
     <line x1="0" y1="0" x2="20" y2="0" stroke="#2563eb" stroke-width="2.5"/>
-    <text x="25" y="4" font-family="sans-serif" font-size="11" fill="#666">Courbe 1</text>
+    <text x="25" y="4" font-family="sans-serif" font-size="11" fill="#666" style="white-space: pre;">Courbe 1</text>
     <line x1="90" y1="0" x2="110" y2="0" stroke="#16a34a" stroke-width="2.5"/>
-    <text x="115" y="4" font-family="sans-serif" font-size="11" fill="#666">Courbe 2</text>
+    <text x="115" y="4" font-family="sans-serif" font-size="11" fill="#666" style="white-space: pre;">Courbe 2</text>
     <circle cx="195" cy="0" r="4" fill="#333" stroke="#fff" stroke-width="1"/>
-    <text x="205" y="4" font-family="sans-serif" font-size="11" fill="#666">Jonction</text>
+    <text x="205" y="4" font-family="sans-serif" font-size="11" fill="#666" style="white-space: pre;">Jonction</text>
   </g>
 </svg>
