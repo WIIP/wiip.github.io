@@ -114,6 +114,9 @@
     <loc>https://wiip.fr/fr/blog/claude-code-bash</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/claude-code-powershell-tool</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/custom_sys_var</loc>
   </url>
   <url>
@@ -181,6 +184,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Programmation</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/PowerShell</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Math%25C3%25A9matiques</loc>
@@ -363,6 +369,9 @@
     <loc>https://wiip.fr/fr/tutoriels/ilogic-variables-parametres</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tutoriels/ilogic-vbnet</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/AutoLISP</loc>
   </url>
   <url>
@@ -376,6 +385,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Inventor</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/VB.NET</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/0x80004005</loc>
@@ -397,6 +409,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/claude-code-bash</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/claude-code-powershell-tool</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/custom_sys_var</loc>
@@ -457,6 +472,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Programming</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/PowerShell</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Mathematics</loc>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Les bases de VB.NET pour iLogic - iLogic : le guide complet - WIIP</title><meta name="description" content="Apprenez les fondamentaux du langage VB.NET utilis&#xE9; dans les r&#xE8;gles iLogic &#x2014; variables, conditions, boucles et fonctions &#x2014; pour &#xE9;crire vos premi&#xE8;res r&#xE8;gles en toute confiance." />
+        <meta property="og:title" content="Les bases de VB.NET pour iLogic - iLogic : le guide complet" />
+        <meta property="og:description" content="Apprenez les fondamentaux du langage VB.NET utilis&#xE9; dans les r&#xE8;gles iLogic &#x2014; variables, conditions, boucles et fonctions &#x2014; pour &#xE9;crire vos premi&#xE8;res r&#xE8;gles en toute confiance." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/tutoriels/ilogic-vbnet" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les bases de VB.NET pour iLogic - iLogic : le guide complet" />
+        <meta name="twitter:description" content="Apprenez les fondamentaux du langage VB.NET utilis&#xE9; dans les r&#xE8;gles iLogic &#x2014; variables, conditions, boucles et fonctions &#x2014; pour &#xE9;crire vos premi&#xE8;res r&#xE8;gles en toute confiance." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/tutoriels/ilogic-vbnet" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/tutorials/ilogic-vbnet" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main><style>@media (min-width: 768px) {
+        .container {
+            max-width: 1100px !important;
+        }
+    }
+</style>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Les bases de VB.NET pour iLogic",
+        "description": "Apprenez les fondamentaux du langage VB.NET utilis\u00E9 dans les r\u00E8gles iLogic \u2014 variables, conditions, boucles et fonctions \u2014 pour \u00E9crire vos premi\u00E8res r\u00E8gles en toute confiance.",
+        "url": "https://wiip.fr/fr/tutoriels/ilogic-vbnet",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "Course",
+            "name": "iLogic : le guide complet"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col-md-3"><nav class="tutorial-toc sticky-top" style="top: 1rem;"><h5>Sommaire</h5>
+                <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
+                <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-vbnet" class="text-decoration-none fw-bold">2. Les bases de VB.NET pour iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">3. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">4. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">5. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">6. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none ">7. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">8. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
+        <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 2 / 8</small>
+                    <h1>Les bases de VB.NET pour iLogic</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/VB.NET" class="badge bg-primary me-1 text-decoration-none">VB.NET</a></div></header>
+                <div class="mt-3"><p>Les règles iLogic sont écrites en <strong>VB.NET</strong> (Visual Basic .NET). Pas besoin de maîtriser tout le langage pour commencer : quelques notions de base suffisent pour écrire des règles utiles. Ce chapitre vous donne les fondamentaux nécessaires avant de passer à la pratique.</p>
+<h2 id="les-commentaires">Les commentaires</h2>
+<p>Un <strong>commentaire</strong> est une ligne (ou une partie de ligne) que le programme ignore complètement. Il sert à expliquer votre code, pour vous-même ou pour un collègue qui le relira plus tard.</p>
+<p>En VB.NET, un commentaire commence par une apostrophe <code>'</code> :</p>
+<pre><code class="language-vb">' Cette règle calcule l'épaisseur en fonction du diamètre
+epaisseur = 2  ' Valeur par défaut en mm
+</code></pre>
+<p>Tout ce qui suit l'apostrophe est ignoré à l'exécution. Il est conseillé de commenter vos règles, particulièrement lorsque leur raisonnement n'est pas clair ou pour inclure des détails impossibles à discerner par la seule lecture du code.</p>
+<h2 id="les-variables">Les variables</h2>
+<p>Une <strong>variable</strong> est un espace de stockage nommé qui contient une valeur. En VB.NET, vous déclarez une variable avec le mot-clé <code>Dim</code> :</p>
+<pre><code class="language-vb">Dim longueurMax As Double = 500.0
+Dim nombreDeVis As Integer = 4
+Dim designation As String = &quot;Support moteur&quot;
+Dim estValide As Boolean = True
+</code></pre>
+<p>Dans iLogic, la déclaration avec <code>Dim</code> n'est <strong>pas obligatoire</strong>. Vous pouvez utiliser une variable sans la déclarer :</p>
+<pre><code class="language-vb">longueurMax = 500.0
+designation = &quot;Support moteur&quot;
+</code></pre>
+<p>Le code fonctionne, mais cette pratique est <strong>déconseillée</strong>. Sans déclaration, VB.NET ne peut pas vérifier les types ni détecter les fautes de frappe. Par exemple, si vous écrivez <code>designaton</code> au lieu de <code>designation</code>, iLogic créera silencieusement une nouvelle variable vide au lieu de signaler l'erreur. Déclarer vos variables avec <code>Dim</code> vous protège de ce genre de bug.</p>
+<h3 id="les-types-courants">Les types courants</h3>
+<p>Le <strong>type</strong> d'une variable indique la nature de la donnée qu'elle peut contenir. Un <code>Integer</code> ne peut stocker qu'un nombre entier, un <code>String</code> que du texte, etc. Cela permet à VB.NET de détecter les erreurs — par exemple, vous empêcher d'écrire <code>&quot;Bonjour&quot; * 2</code> — et d'optimiser l'utilisation de la mémoire.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Integer</code></td>
+<td>Nombre entier</td>
+<td><code>42</code></td>
+</tr>
+<tr>
+<td><code>Double</code></td>
+<td>Nombre décimal</td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td>Texte</td>
+<td><code>&quot;Bonjour&quot;</code></td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td>Vrai ou faux</td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong> : dans iLogic, les <strong>paramètres Inventor</strong> sont directement accessibles par leur nom, sans <code>Dim</code>. Quand vous écrivez <code>longueur</code> dans une règle et que ce paramètre existe dans le modèle, iLogic le reconnaît automatiquement et l'affiche en bleu. Le mot-clé <code>Dim</code> sert à créer des variables <strong>locales</strong> supplémentaires, qui n'existent que dans la règle.</p>
+</blockquote>
+<h3 id="constantes">Constantes</h3>
+<p>Si une valeur ne doit jamais changer, déclarez-la comme <strong>constante</strong> avec <code>Const</code> :</p>
+<pre><code class="language-vb">Const COEFFICIENT_GALVA As Double = 1.05
+Const EPAISSEUR_MINI As Double = 0.5
+</code></pre>
+<p>L'avantage d'une constante est double : le compilateur vous empêche de la modifier par erreur, et le nom rend le code plus lisible qu'un nombre « magique » écrit en dur.</p>
+<h2 id="les-operateurs">Les opérateurs</h2>
+<h3 id="operateurs-arithmetiques">Opérateurs arithmétiques</h3>
+<table>
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Addition</td>
+<td><code>a + b</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Soustraction</td>
+<td><code>a - b</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td><code>a * b</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Division</td>
+<td><code>a / b</code></td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>Division entière</td>
+<td><code>7 \ 2</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>Mod</code></td>
+<td>Reste de la division</td>
+<td><code>7 Mod 2</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Puissance</td>
+<td><code>2 ^ 3</code> → <code>8</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="operateurs-de-comparaison">Opérateurs de comparaison</h3>
+<table>
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>Égal à</td>
+<td><code>a = b</code></td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code></td>
+<td>Différent de</td>
+<td><code>a &lt;&gt; b</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Inférieur à</td>
+<td><code>a &lt; b</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Supérieur à</td>
+<td><code>a &gt; b</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Inférieur ou égal</td>
+<td><code>a &lt;= b</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Supérieur ou égal</td>
+<td><code>a &gt;= b</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Attention aux comparaisons de nombres décimaux</strong> : les <code>Double</code> sont stockés en virgule flottante, ce qui entraîne de minuscules erreurs d'arrondi. Par exemple, <code>0.1 + 0.2</code> ne vaut pas exactement <code>0.3</code> — le résultat réel est <code>0.30000000000000004</code>. Une comparaison avec <code>=</code> peut donc échouer alors que les valeurs semblent identiques.</p>
+<p>iLogic fournit la fonction <code>DoubleForEquals</code> qui compare deux nombres avec une <strong>tolérance</strong> (par défaut 0.000001) :</p>
+<pre><code class="language-vb">' Risqué : peut échouer à cause des arrondis
+If longueur = 25.4 Then
+
+' Fiable : compare avec une tolérance
+If DoubleForEquals.IsEqual(longueur, 25.4) Then
+</code></pre>
+</blockquote>
+<h3 id="operateurs-logiques">Opérateurs logiques</h3>
+<table>
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>And</code></td>
+<td>ET logique</td>
+<td><code>a &gt; 0 And b &gt; 0</code></td>
+</tr>
+<tr>
+<td><code>Or</code></td>
+<td>OU logique</td>
+<td><code>a &gt; 0 Or b &gt; 0</code></td>
+</tr>
+<tr>
+<td><code>Not</code></td>
+<td>Négation</td>
+<td><code>Not estValide</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-conditions">Les conditions</h2>
+<p>Les conditions permettent d'exécuter du code différent selon une situation. C'est le cœur d'iLogic.</p>
+<h3 id="if.then.else">If...Then...Else</h3>
+<p>La structure la plus courante :</p>
+<pre><code class="language-vb">If diametre &lt; 10 Then
+    epaisseur = 1
+ElseIf diametre &lt; 20 Then
+    epaisseur = 1.5
+Else
+    epaisseur = 2
+End If
+</code></pre>
+<p>Pour une condition simple sur une seule ligne, vous pouvez écrire :</p>
+<pre><code class="language-vb">If diametre &lt; 10 Then epaisseur = 1
+</code></pre>
+<h3 id="select-case">Select Case</h3>
+<p>Quand vous comparez une même valeur à plusieurs cas, <code>Select Case</code> est plus lisible qu'une cascade de <code>If</code> :</p>
+<pre><code class="language-vb">Select Case type_fixation
+    Case &quot;Vis&quot;
+        nombre_percages = 4
+    Case &quot;Boulon&quot;
+        nombre_percages = 6
+    Case &quot;Soudure&quot;
+        nombre_percages = 0
+    Case Else
+        MessageBox.Show(&quot;Type de fixation inconnu : &quot; &amp; type_fixation, &quot;Erreur&quot;)
+End Select
+</code></pre>
+<p><code>Case Else</code> gère tous les cas non prévus — c'est une bonne pratique de toujours l'inclure.</p>
+<h2 id="les-boucles">Les boucles</h2>
+<p>Les boucles répètent un bloc de code plusieurs fois.</p>
+<h3 id="for.next">For...Next</h3>
+<p>Quand vous connaissez le nombre d'itérations à l'avance :</p>
+<pre><code class="language-vb">Dim somme As Double = 0
+
+For i = 1 To 10
+    somme = somme + i
+Next
+</code></pre>
+<p>Vous pouvez spécifier un pas avec <code>Step</code> :</p>
+<pre><code class="language-vb">' Parcourir les valeurs paires de 0 à 20
+For i = 0 To 20 Step 2
+    ' ...
+Next
+</code></pre>
+<h3 id="for-each">For Each</h3>
+<p>Pour parcourir une collection (un tableau, une liste…) :</p>
+<pre><code class="language-vb">Dim epaisseurs() As Double = {0.5, 0.8, 1.0, 1.5, 2.0}
+
+For Each ep As Double In epaisseurs
+    If ep &gt;= epaisseurCalculee Then
+        epaisseur = ep
+        Exit For  ' On sort de la boucle dès qu'on a trouvé
+    End If
+Next
+</code></pre>
+<h3 id="while.end-while">While...End While</h3>
+<p>Quand la condition de sortie n'est pas liée à un compteur :</p>
+<pre><code class="language-vb">Dim tentatives As Integer = 0
+
+While resultat &gt; tolerance And tentatives &lt; 100
+    ' ... ajuster le calcul ...
+    tentatives = tentatives + 1
+End While
+</code></pre>
+<h2 id="les-chaines-de-caracteres">Les chaînes de caractères</h2>
+<p>Le texte se manipule avec le type <code>String</code>. Voici les opérations les plus utiles :</p>
+<pre><code class="language-vb">' Concaténation avec &amp;
+Dim designation As String = &quot;Support &quot; &amp; type_piece &amp; &quot; - &quot; &amp; CStr(longueur) &amp; &quot; mm&quot;
+
+' Longueur
+Dim nombre As Integer = designation.Length
+
+' Conversion en majuscules / minuscules
+Dim majuscules As String = designation.ToUpper()
+Dim minuscules As String = designation.ToLower()
+
+' Vérifier si une chaîne contient un texte
+If designation.Contains(&quot;moteur&quot;) Then
+    ' ...
+End If
+
+' Extraire une partie (à partir de la position 8, sur 5 caractères)
+Dim extrait As String = designation.Substring(8, 5)
+</code></pre>
+<blockquote>
+<p><strong>Note</strong> : utilisez <code>&amp;</code> (et non <code>+</code>) pour concaténer des chaînes. L'opérateur <code>+</code> fonctionne aussi, mais <code>&amp;</code> est plus sûr car il convertit automatiquement les nombres en texte.</p>
+</blockquote>
+<h2 id="les-conversions-de-types">Les conversions de types</h2>
+<p>Vous aurez souvent besoin de convertir une valeur d'un type à un autre :</p>
+<pre><code class="language-vb">' Nombre vers texte
+Dim texte As String = CStr(42)
+
+' Texte vers nombre
+Dim nombre As Double = CDbl(&quot;3.14&quot;)
+Dim entier As Integer = CInt(&quot;42&quot;)
+
+' Arrondir un nombre décimal
+Dim arrondi As Double = Math.Round(3.14159, 2)  ' → 3.14
+</code></pre>
+<h2 id="les-tableaux">Les tableaux</h2>
+<p>Un <strong>tableau</strong> stocke plusieurs valeurs du même type :</p>
+<pre><code class="language-vb">' Déclarer et initialiser un tableau
+Dim epaisseurs() As Double = {0.5, 0.8, 1.0, 1.5, 2.0, 3.0}
+
+' Accéder à un élément (l'index commence à 0)
+Dim premiere As Double = epaisseurs(0)   ' → 0.5
+Dim troisieme As Double = epaisseurs(2)  ' → 1.0
+
+' Nombre d'éléments
+Dim nombre As Integer = epaisseurs.Length  ' → 6
+</code></pre>
+<p>Les tableaux sont particulièrement utiles en iLogic pour stocker des <strong>listes de valeurs normalisées</strong> (épaisseurs de tôle, diamètres de vis, sections de profilés…).</p>
+<h2 id="les-fonctions-mathematiques">Les fonctions mathématiques</h2>
+<p>VB.NET donne accès aux fonctions mathématiques courantes via la classe <code>Math</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Fonction</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Math.Round(x, n)</code></td>
+<td>Arrondir à n décimales</td>
+<td><code>Math.Round(3.146, 2)</code> → <code>3.15</code></td>
+</tr>
+<tr>
+<td><code>Math.Abs(x)</code></td>
+<td>Valeur absolue</td>
+<td><code>Math.Abs(-5)</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>Math.Max(a, b)</code></td>
+<td>Le plus grand des deux</td>
+<td><code>Math.Max(3, 7)</code> → <code>7</code></td>
+</tr>
+<tr>
+<td><code>Math.Min(a, b)</code></td>
+<td>Le plus petit des deux</td>
+<td><code>Math.Min(3, 7)</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>Math.Sqrt(x)</code></td>
+<td>Racine carrée</td>
+<td><code>Math.Sqrt(9)</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>Math.PI</code></td>
+<td>La constante pi</td>
+<td><code>3.14159…</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="afficher-un-message">Afficher un message</h2>
+<p>Pour communiquer avec l'utilisateur depuis une règle, utilisez <code>MessageBox.Show</code> :</p>
+<pre><code class="language-vb">MessageBox.Show(&quot;Le diamètre calculé est &quot; &amp; CStr(diametre) &amp; &quot; mm.&quot;, &quot;Résultat&quot;)
+</code></pre>
+<p>Le premier argument est le message, le second est le titre de la boîte de dialogue. C'est utile pendant le développement pour vérifier les valeurs, ou en production pour alerter l'utilisateur.</p>
+<h2 id="ce-quil-faut-retenir">Ce qu'il faut retenir</h2>
+<p>Vous n'avez pas besoin de tout mémoriser. Voici l'essentiel pour écrire vos premières règles :</p>
+<ul>
+<li><strong>Variables</strong> : <code>Dim nom As Type = valeur</code> pour les variables locales ; les paramètres Inventor s'utilisent directement par leur nom</li>
+<li><strong>Conditions</strong> : <code>If...Then...ElseIf...Else...End If</code> et <code>Select Case</code></li>
+<li><strong>Boucles</strong> : <code>For...Next</code> pour compter, <code>For Each</code> pour parcourir une collection</li>
+<li><strong>Texte</strong> : concaténer avec <code>&amp;</code>, convertir avec <code>CStr()</code>, <code>CDbl()</code>, <code>CInt()</code></li>
+<li><strong>Commentaires</strong> : <code>'</code> pour expliquer votre code</li>
+</ul>
+<p>Le reste viendra naturellement avec la pratique. Dans le chapitre suivant, nous allons mettre ces bases en application en créant notre première règle iLogic.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div>
+
+                <nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Chapitre pr&#xE9;c&#xE9;dent</small>
+                                    <span>Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none"><small class="text-muted d-block">Chapitre suivant &#x2192;</small>
+                                    <span>Premier exercice &#x2014; La rondelle param&#xE9;trique</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
