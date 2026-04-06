@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Curves - WIIP</title><meta name="description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Curves" />
+        <meta property="og:description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-curves" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Curves" />
+        <meta name="twitter:description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-curves" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-curves" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Curves",
+        "description": "Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-curves",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Curves</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>In the previous articles, we built the fundamental building blocks of our library: <a href="../geometry-library-point">points</a>, <a href="../geometry-library-vector">vectors</a>, <a href="../geometry-library-operators">operators</a>, <a href="../geometry-library-unit-vector">unit vectors</a>, and <a href="../geometry-library-transforms">transformations</a>. All these types are immutable structs that represent simple values.</p>
+<p>We're now moving to a higher level of abstraction: <strong>curves</strong>. A line, a segment, a circular arc — all of these are curves. They share common behaviors (evaluating a point, computing a tangent, measuring a distance), but differ in nature: some are infinite, others are bounded, some are open, others closed.</p>
+<p>The central question is: how do we model this hierarchy in C#?</p>
+<h2 id="from-structs-to-classes">From structs to classes</h2>
+<p>Until now, we've used <code>readonly struct</code> for all our types. A point, a vector, a matrix — these are <strong>values</strong>: small, immutable, copied on every assignment.</p>
+<p>Curves are different:</p>
+<ul>
+<li>They are <strong>polymorphic</strong>: we want to manipulate a line and an arc through the same <code>ICurve2d</code> interface.</li>
+<li>They are <strong>more complex</strong>: a curve carries more state than a simple pair of coordinates.</li>
+<li>They have <strong>identity</strong>: two segments connecting the same points may be distinct objects in a CAD model, each carrying its own attributes.</li>
+</ul>
+<p>For all these reasons, our curves will be <strong>classes</strong> (reference types), not structs. Interfaces will define the common contract.</p>
+<h2 id="the-parametric-curve">The parametric curve</h2>
+<h3 id="the-concept">The concept</h3>
+<p>All our curves will be <strong>parametric curves</strong>. The idea is simple: a curve is a function that maps a <strong>parameter</strong> <span class="math">\(t\)</span> (a real number) to a <strong>point</strong> in space:</p>
+<p><span class="math">\(C(t) = \text{Point2d}\)</span></p>
+<p>As <span class="math">\(t\)</span> varies, we traverse the curve. The parameter <span class="math">\(t\)</span> isn't necessarily the arc length — it's an abstract coordinate that identifies each point on the curve.</p>
+<p>Each curve defines a <strong>parametric domain</strong>: the interval <span class="math">\([t_{\min}, t_{\max}]\)</span> over which the parameter is valid.</p>
+<h3 id="unbounded-and-bounded-curves">Unbounded and bounded curves</h3>
+<p>This is where the fundamental distinction appears:</p>
+<table>
+<thead>
+<tr>
+<th>Curve type</th>
+<th>Parametric domain</th>
+<th>Length</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unbounded</td>
+<td><span class="math">\((-\infty, +\infty)\)</span></td>
+<td>Infinite</td>
+<td>Line</td>
+</tr>
+<tr>
+<td>Bounded open</td>
+<td><span class="math">\([t_{\min}, t_{\max}]\)</span></td>
+<td>Finite</td>
+<td>Segment, arc</td>
+</tr>
+<tr>
+<td>Bounded closed</td>
+<td><span class="math">\([t_{\min}, t_{\max}]\)</span> (periodic)</td>
+<td>Finite</td>
+<td>Circle, ellipse</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>line</strong> extends to infinity in both directions. You can't talk about its &quot;start point&quot; or its length.</p>
+<p>A <strong>segment</strong> is a piece of a line between two points. It has a length, a start, and an end.</p>
+<p>A <strong>circle</strong> is a special case: it's bounded (finite length) but <strong>closed</strong> — its start and end points coincide, and the curve is periodic.</p>
+<p>This distinction naturally dictates our interface hierarchy.</p>
+<h2 id="the-icurve2d-interface">The ICurve2d interface</h2>
+<p>The base interface defines the minimal contract every curve must satisfy:</p>
+<pre><code class="language-csharp">public interface ICurve2d
+{
+    double StartParameter { get; }
+
+    double EndParameter { get; }
+
+    Point2d GetPointAtParameter(double parameter);
+
+    double GetParameterAtPoint(Point2d point, double tolerance = 1e-10);
+
+    UnitVector2d GetTangentAtParameter(double parameter);
+
+    Point2d GetClosestPointTo(Point2d point);
+
+    double GetDistanceTo(Point2d point);
+
+    ICurve2d CreateReversed();
+}
+</code></pre>
+<p>Let's detail each member:</p>
+<ul>
+<li><p><strong><code>StartParameter</code> / <code>EndParameter</code></strong> define the parametric domain. For a line, these will be <code>double.NegativeInfinity</code> and <code>double.PositiveInfinity</code>. For a segment, <code>0</code> and the segment's length.</p>
+</li>
+<li><p><strong><code>GetPointAtParameter</code></strong> evaluates the curve: given a parameter <span class="math">\(t\)</span>, it returns the corresponding point on the curve. This is the function <span class="math">\(C(t)\)</span>.</p>
+</li>
+<li><p><strong><code>GetParameterAtPoint</code></strong> is the inverse operation: given a point on the curve, it returns the corresponding parameter <span class="math">\(t\)</span>. If the point isn't on the curve (within tolerance), an exception is thrown. This method is essential for composite curves, where a point must be converted to a global parameter.</p>
+</li>
+<li><p><strong><code>GetTangentAtParameter</code></strong> returns the curve's direction at a given parameter. The tangent is a unit vector: only the direction matters, not the magnitude.</p>
+</li>
+<li><p><strong><code>GetClosestPointTo</code></strong> returns the point on the curve closest to a given point. This is the core operation for snapping and proximity detection.</p>
+</li>
+<li><p><strong><code>GetDistanceTo</code></strong> computes the minimum distance between a point and the curve. In practice, it delegates to <code>GetClosestPointTo</code> and then measures the distance between the found point and the given point.</p>
+</li>
+<li><p><strong><code>CreateReversed</code></strong> returns a new curve traversed in the opposite direction. We return a new instance rather than modifying the existing object, to stay consistent with the immutable approach adopted throughout the library.</p>
+</li>
+</ul>
+<h3 id="why-gettangentatparameter-and-not-gettangentatpoint">Why <code>GetTangentAtParameter</code> and not <code>GetTangentAtPoint</code>?</h3>
+<p>We could have defined the tangent as a function of a point rather than a parameter. But the same point can appear <strong>multiple times</strong> on a curve (think of a figure eight, or a cusp point). The parameter, however, unambiguously identifies a specific location on the curve.</p>
+<p>Moreover, the caller often already has the parameter at hand (because they traversed the curve or solved an intersection), which avoids a costly reverse lookup.</p>
+<h2 id="the-iboundedcurve2d-interface">The IBoundedCurve2d interface</h2>
+<p>For curves with finite length, we extend the base interface:</p>
+<pre><code class="language-csharp">public interface IBoundedCurve2d : ICurve2d
+{
+    Point2d StartPoint { get; }
+
+    Point2d EndPoint { get; }
+
+    double Length { get; }
+
+    bool IsClosed { get; }
+
+    IBoundedCurve2d GetSubCurve(double startParameter, double endParameter);
+
+    new IBoundedCurve2d CreateReversed();
+}
+</code></pre>
+<ul>
+<li><p><strong><code>StartPoint</code> / <code>EndPoint</code></strong> are the points at the curve's extremities. For a closed curve (circle), they are identical.</p>
+</li>
+<li><p><strong><code>Length</code></strong> is the curve's total length.</p>
+</li>
+<li><p><strong><code>IsClosed</code></strong> indicates whether the curve is closed. This tells you whether the parameter is periodic (a circle) or the endpoints are distinct (a segment).</p>
+</li>
+<li><p><strong><code>GetSubCurve</code></strong> extracts a portion of the curve between two parameters. This is the <em>trimming</em> operation: we &quot;cut&quot; the curve to keep only a piece. The result is always a bounded curve. This method is essential for boolean operations, clipping, and building composite curves from pieces of existing curves.</p>
+</li>
+<li><p><strong><code>CreateReversed</code></strong> is redeclared with a more precise return type (<code>IBoundedCurve2d</code> instead of <code>ICurve2d</code>). This is <em>return type covariance</em> — reversing a bounded curve always gives a bounded curve.</p>
+</li>
+</ul>
+<h3 id="arent-startpoint-and-endpoint-redundant">Aren't <code>StartPoint</code> and <code>EndPoint</code> redundant?</h3>
+<p>One could argue that <code>StartPoint</code> is just <code>GetPointAtParameter(StartParameter)</code>. That's true. But these properties exist for two reasons:</p>
+<ol>
+<li><strong>Readability</strong>: <code>segment.StartPoint</code> is clearer than <code>segment.GetPointAtParameter(segment.StartParameter)</code>.</li>
+<li><strong>Performance</strong>: for some curves, the start point is stored directly and doesn't need to be recomputed.</li>
+</ol>
+<h2 id="example-the-line-segment">Example: the line segment</h2>
+<p>To illustrate these interfaces, let's implement a segment — the simplest bounded curve:</p>
+<pre><code class="language-csharp">public sealed class LineSegment2d : IBoundedCurve2d
+{
+    public Point2d StartPoint { get; }
+
+    public Point2d EndPoint { get; }
+
+    public UnitVector2d Direction { get; }
+
+    public double Length { get; }
+
+    public bool IsClosed =&gt; false;
+
+    public double StartParameter =&gt; 0;
+
+    public double EndParameter =&gt; Length;
+
+    public LineSegment2d(Point2d startPoint, Point2d endPoint, double tolerance = 1e-10)
+    {
+        double length = startPoint.GetDistanceTo(endPoint);
+
+        if (length &lt; tolerance)
+            throw new ArgumentException(&quot;The two points are too close to define a segment.&quot;);
+
+        StartPoint = startPoint;
+        EndPoint = endPoint;
+        Length = length;
+        Direction = UnitVector2d.CreateFromVector(endPoint - startPoint);
+    }
+
+    public Point2d GetPointAtParameter(double parameter)
+    {
+        return StartPoint + Direction * parameter;
+    }
+
+    public double GetParameterAtPoint(Point2d point, double tolerance = 1e-10)
+    {
+        double parameter = (point - StartPoint).DotProduct(Direction);
+
+        if (GetPointAtParameter(parameter).GetDistanceTo(point) &gt; tolerance)
+            throw new ArgumentException(&quot;The point does not lie on the segment.&quot;, nameof(point));
+
+        return parameter;
+    }
+
+    public UnitVector2d GetTangentAtParameter(double parameter)
+    {
+        return Direction;
+    }
+
+    public Point2d GetClosestPointTo(Point2d point)
+    {
+        Vector2d toPoint = point - StartPoint;
+        double projection = toPoint.DotProduct(Direction);
+
+        if (projection &lt;= 0)
+            return StartPoint;
+
+        if (projection &gt;= Length)
+            return EndPoint;
+
+        return StartPoint + Direction * projection;
+    }
+
+    public double GetDistanceTo(Point2d point)
+    {
+        return point.GetDistanceTo(GetClosestPointTo(point));
+    }
+
+    public IBoundedCurve2d GetSubCurve(double startParameter, double endParameter)
+    {
+        return new LineSegment2d(
+            GetPointAtParameter(startParameter),
+            GetPointAtParameter(endParameter));
+    }
+
+    public IBoundedCurve2d CreateReversed()
+    {
+        return new LineSegment2d(EndPoint, StartPoint);
+    }
+
+    ICurve2d ICurve2d.CreateReversed()
+    {
+        return CreateReversed();
+    }
+}
+</code></pre>
+<p>A few observations:</p>
+<ul>
+<li>The <strong>parametric domain</strong> goes from <code>0</code> to <code>Length</code>. The parameter directly corresponds to the distance traveled from the start point.</li>
+<li>The <strong>tangent</strong> is constant across the entire segment: it's the segment's direction.</li>
+<li><strong><code>GetClosestPointTo</code></strong> projects the point onto the segment's supporting line. If the projection falls before the start or after the end, it returns the nearest endpoint. <code>GetDistanceTo</code> then simply measures the distance between the given point and the closest point.</li>
+<li><strong><code>CreateReversed</code></strong> returns a new segment with swapped points. The direction, tangent — everything is recomputed automatically by the constructor.</li>
+</ul>
+<h2 id="example-the-line">Example: the line</h2>
+<p>The line illustrates the unbounded case:</p>
+<pre><code class="language-csharp">public sealed class Line2d : ICurve2d
+{
+    public Point2d Origin { get; }
+
+    public UnitVector2d Direction { get; }
+
+    public double StartParameter =&gt; double.NegativeInfinity;
+
+    public double EndParameter =&gt; double.PositiveInfinity;
+
+    public Line2d(Point2d origin, UnitVector2d direction)
+    {
+        Origin = origin;
+        Direction = direction;
+    }
+
+    public Point2d GetPointAtParameter(double parameter)
+    {
+        return Origin + Direction * parameter;
+    }
+
+    public double GetParameterAtPoint(Point2d point, double tolerance = 1e-10)
+    {
+        double parameter = (point - Origin).DotProduct(Direction);
+
+        if (GetPointAtParameter(parameter).GetDistanceTo(point) &gt; tolerance)
+            throw new ArgumentException(&quot;The point does not lie on the line.&quot;, nameof(point));
+
+        return parameter;
+    }
+
+    public UnitVector2d GetTangentAtParameter(double parameter)
+    {
+        return Direction;
+    }
+
+    public Point2d GetClosestPointTo(Point2d point)
+    {
+        Vector2d toPoint = point - Origin;
+        double projection = toPoint.DotProduct(Direction);
+        return Origin + Direction * projection;
+    }
+
+    public double GetDistanceTo(Point2d point)
+    {
+        return point.GetDistanceTo(GetClosestPointTo(point));
+    }
+
+    public ICurve2d CreateReversed()
+    {
+        return new Line2d(Origin, -Direction);
+    }
+}
+</code></pre>
+<p>Compared to the segment:</p>
+<ul>
+<li>The parametric bounds are <strong>infinite</strong>.</li>
+<li><code>GetClosestPointTo</code> has <strong>no clamping</strong> at endpoints — the projection is always valid.</li>
+<li><code>CreateReversed</code> reverses the <strong>direction</strong>, not the points.</li>
+<li><code>Line2d</code> does <strong>not</strong> implement <code>IBoundedCurve2d</code>: it has no length, no start or end point.</li>
+</ul>
+<h2 id="hierarchy-overview">Hierarchy overview</h2>
+<pre><code>ICurve2d
+├── Line2d                 (unbounded)
+└── IBoundedCurve2d
+    ├── LineSegment2d      (bounded, open)
+    ├── Arc2d              (bounded, open)
+    └── Circle2d           (bounded, closed)
+</code></pre>
+<p>All curves share parametric evaluation, tangent, distance, and reversal. Bounded curves add endpoints, length, trimming, and the notion of closure.</p>
+<h2 id="what-about-3d">What about 3D?</h2>
+<p>The 3D interfaces follow exactly the same pattern:</p>
+<pre><code class="language-csharp">public interface ICurve3d
+{
+    double StartParameter { get; }
+
+    double EndParameter { get; }
+
+    Point3d GetPointAtParameter(double parameter);
+
+    double GetParameterAtPoint(Point3d point, double tolerance = 1e-10);
+
+    UnitVector3d GetTangentAtParameter(double parameter);
+
+    Point3d GetClosestPointTo(Point3d point);
+
+    double GetDistanceTo(Point3d point);
+
+    ICurve3d CreateReversed();
+}
+
+public interface IBoundedCurve3d : ICurve3d
+{
+    Point3d StartPoint { get; }
+
+    Point3d EndPoint { get; }
+
+    double Length { get; }
+
+    bool IsClosed { get; }
+
+    IBoundedCurve3d GetSubCurve(double startParameter, double endParameter);
+
+    new IBoundedCurve3d CreateReversed();
+}
+</code></pre>
+<p>The 3D implementations (lines, segments, arcs, circles in a 3D plane) are more complex in their calculations, but the architecture remains identical.</p>
+<h2 id="whats-next">What's next</h2>
+<p>Our interfaces are in place. In the next articles, we'll implement the concrete geometric entities: the <strong>circle</strong> and the <strong>arc</strong>, then we'll see how these interfaces enable building <strong>NURBS curves</strong> and <strong>composite curves</strong>.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Composite Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none">Geometry Library in C# &#x2014; Intersections</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-point" class="text-decoration-none">Geometry Library in C# &#x2014; Creating a Point Type</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; Intersections</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Geometry Library in C# &#x2014; Composite Curves</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

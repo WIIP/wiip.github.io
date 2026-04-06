@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Creating a Vector Type - WIIP</title><meta name="description" content="Second article in the series: after the point, it&#x27;s the vector&#x27;s turn. Direction, length, dot product, perpendicularity&#x2026; the foundations for working with directions in 2D and 3D." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Creating a Vector Type" />
+        <meta property="og:description" content="Second article in the series: after the point, it&#x27;s the vector&#x27;s turn. Direction, length, dot product, perpendicularity&#x2026; the foundations for working with directions in 2D and 3D." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-vector" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Creating a Vector Type" />
+        <meta name="twitter:description" content="Second article in the series: after the point, it&#x27;s the vector&#x27;s turn. Direction, length, dot product, perpendicularity&#x2026; the foundations for working with directions in 2D and 3D." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-vector" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-vector" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Creating a Vector Type",
+        "description": "Second article in the series: after the point, it\u0027s the vector\u0027s turn. Direction, length, dot product, perpendicularity\u2026 the foundations for working with directions in 2D and 3D.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-vector",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Creating a Vector Type</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>In the <a href="../geometry-library-point">previous article</a>, we built the <code>Point2d</code> and <code>Point3d</code> types. A point represents a <strong>position</strong> in space. But to describe a displacement, a direction, or a force, we need another concept: the <strong>vector</strong>.</p>
+<h2 id="point-vs.vector-whats-the-difference">Point vs. vector: what's the difference?</h2>
+<p>The confusion between points and vectors is common, because both are represented by coordinates. But their meanings are radically different:</p>
+<ul>
+<li>A <strong>point</strong> designates a <strong>location</strong>: &quot;I am here.&quot;</li>
+<li>A <strong>vector</strong> designates a <strong>displacement</strong>: &quot;I'm going that way, for this distance.&quot;</li>
+</ul>
+<p>A point has no length. A vector has no position. You can add two vectors (two successive displacements), but adding two points has no geometric meaning. On the other hand, the difference between two points yields a vector — the one going from the first to the second.</p>
+<p>This distinction is found in all serious geometry libraries. Separating the two types prevents nonsensical operations from compiling and makes the code more expressive.</p>
+<h2 id="the-vector2d-struct">The Vector2d struct</h2>
+<p>As with <code>Point2d</code>, we use a <code>readonly struct</code>:</p>
+<pre><code class="language-csharp">public readonly struct Vector2d
+{
+    public double X { get; }
+
+    public double Y { get; }
+
+    public Vector2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Vector2d(double[] components)
+    {
+        ArgumentNullException.ThrowIfNull(components);
+
+        if (components.Length != 2)
+            throw new ArgumentException(&quot;The array must contain exactly 2 elements.&quot;, nameof(components));
+
+        X = components[0];
+        Y = components[1];
+    }
+}
+</code></pre>
+<p>The same reasons as for <code>Point2d</code> apply: value semantics, immutability, <code>readonly</code> to avoid defensive copies.</p>
+<h3 id="building-a-vector-from-two-points">Building a vector from two points</h3>
+<p>One of the most common operations is building the vector going from point <span class="math">\(A\)</span> to point <span class="math">\(B\)</span>:</p>
+<p><span class="math">\(\vec{AB} = B - A = (B_x - A_x,\; B_y - A_y)\)</span></p>
+<pre><code class="language-csharp">public Vector2d(Point2d from, Point2d to)
+{
+    X = to.X - from.X;
+    Y = to.Y - from.Y;
+}
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-csharp">var a = new Point2d(1.0, 2.0);
+var b = new Point2d(4.0, 6.0);
+var displacement = new Vector2d(a, b); // (3, 4)
+</code></pre>
+<h2 id="vector-length">Vector length</h2>
+<p>The length (or <strong>magnitude</strong>) of a vector is computed like the distance between the origin and the corresponding point:</p>
+<p><span class="math">\(\|\vec{v}\| = \sqrt{x^2 + y^2}\)</span></p>
+<pre><code class="language-csharp">public double Length =&gt; Math.Sqrt(X * X + Y * Y);
+</code></pre>
+<p>We also expose the squared length, for the same performance reasons as <code>GetSquaredDistanceTo</code> in <code>Point2d</code> — avoiding a <code>Math.Sqrt</code> when only a comparison is needed:</p>
+<pre><code class="language-csharp">public double SquaredLength =&gt; X * X + Y * Y;
+</code></pre>
+<h2 id="normalizing-a-vector">Normalizing a vector</h2>
+<p><strong>Normalizing</strong> a vector means obtaining a vector with the <strong>same direction</strong> but a <strong>length of 1</strong> — a unit vector. We divide each component by the length:</p>
+<p><span class="math">\(\hat{v} = \frac{\vec{v}}{\|\vec{v}\|} = \left(\frac{x}{\|\vec{v}\|},\; \frac{y}{\|\vec{v}\|}\right)\)</span></p>
+<pre><code class="language-csharp">public Vector2d GetNormal(double tolerance = 1e-10)
+{
+    double length = Length;
+
+    if (length &lt; tolerance)
+        throw new InvalidOperationException(&quot;Cannot normalize a zero-length vector.&quot;);
+
+    return new Vector2d(X / length, Y / length);
+}
+</code></pre>
+<p>We check that the length isn't (nearly) zero, because dividing by zero would produce a vector with infinite components — a silently wrong result that would contaminate all downstream calculations.</p>
+<p>Example:</p>
+<pre><code class="language-csharp">var v = new Vector2d(3.0, 4.0);
+Vector2d unit = v.GetNormal(); // (0.6, 0.8)
+// unit.Length equals 1.0
+</code></pre>
+<h2 id="the-dot-product">The dot product</h2>
+<p>The <strong>dot product</strong> is the most widely used operation in computational geometry. Its algebraic formula is simple:</p>
+<p><span class="math">\(\vec{a} \cdot \vec{b} = a_x \cdot b_x + a_y \cdot b_y\)</span></p>
+<pre><code class="language-csharp">public double DotProduct(Vector2d other)
+{
+    return X * other.X + Y * other.Y;
+}
+</code></pre>
+<p>But its geometric interpretation is what makes it so powerful. The dot product is related to the <strong>angle</strong> <span class="math">\(\theta\)</span> between the two vectors by:</p>
+<p><span class="math">\(\vec{a} \cdot \vec{b} = \|\vec{a}\| \cdot \|\vec{b}\| \cdot \cos\theta\)</span></p>
+<p>From this formula, we can extract several immediate insights:</p>
+<table>
+<thead>
+<tr>
+<th>Dot product sign</th>
+<th>Angle between vectors</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math">\(&gt; 0\)</span></td>
+<td>Acute (<span class="math">\(&lt; 90°\)</span>)</td>
+<td>The vectors point roughly in the same direction</td>
+</tr>
+<tr>
+<td><span class="math">\(= 0\)</span></td>
+<td>Right (<span class="math">\(= 90°\)</span>)</td>
+<td>The vectors are perpendicular</td>
+</tr>
+<tr>
+<td><span class="math">\(&lt; 0\)</span></td>
+<td>Obtuse (<span class="math">\(&gt; 90°\)</span>)</td>
+<td>The vectors point roughly in opposite directions</td>
+</tr>
+</tbody>
+</table>
+<p>It's through the dot product that we'll be able to determine whether two vectors are parallel, perpendicular, or pointing in the same direction.</p>
+<h2 id="the-perpendicular-vector">The perpendicular vector</h2>
+<p>In 2D, each vector has exactly <strong>two</strong> perpendicular vectors of the same length. For a vector <span class="math">\((x, y)\)</span>, they are <span class="math">\((-y, x)\)</span> and <span class="math">\((y, -x)\)</span>. By convention, we return the one obtained by a 90° counterclockwise rotation:</p>
+<pre><code class="language-csharp">public Vector2d GetPerpendicularVector()
+{
+    return new Vector2d(-Y, X);
+}
+</code></pre>
+<p>We can verify the result is correct using the dot product — two perpendicular vectors have a zero dot product:</p>
+<pre><code class="language-csharp">var v = new Vector2d(3.0, 4.0);
+Vector2d perpendicular = v.GetPerpendicularVector(); // (-4, 3)
+double dot = v.DotProduct(perpendicular);             // 0.0
+</code></pre>
+<p>In 2D, the choice is unambiguous: there's only one perpendicular vector in the counterclockwise direction. In 3D, the situation is different — there are <strong>infinitely many</strong> vectors perpendicular to a given vector (they form an entire plane). There's no canonical choice. But it's still possible to pick one deterministically, as we'll see in the 3D section.</p>
+<h2 id="parallelism-and-codirectionality">Parallelism and codirectionality</h2>
+<p>Two vectors are <strong>parallel</strong> if they point in the same direction or in exactly opposite directions. In 2D, this can be checked using the <strong>cross product</strong> (also called the 2D determinant):</p>
+<p><span class="math">\(\vec{a} \times \vec{b} = a_x \cdot b_y - a_y \cdot b_x\)</span></p>
+<p>If this product is zero (or nearly zero, tolerance-wise), the vectors are parallel:</p>
+<pre><code class="language-csharp">public bool IsParallelTo(Vector2d other, double tolerance = 1e-10)
+{
+    double crossProduct = X * other.Y - Y * other.X;
+    return Math.Abs(crossProduct) &lt;= tolerance * Length * other.Length;
+}
+</code></pre>
+<p>We multiply the tolerance by the lengths of both vectors to make the comparison <strong>relative</strong>: two large-magnitude vectors have a naturally larger cross product, even if they're nearly parallel. Without this normalization, the tolerance would need to be adjusted based on scale, which would be impractical.</p>
+<p>Two vectors are <strong>codirectional</strong> if they are parallel <strong>and</strong> point in the same direction. We simply check additionally that the dot product is positive:</p>
+<pre><code class="language-csharp">public bool IsCodirectionalTo(Vector2d other, double tolerance = 1e-10)
+{
+    return IsParallelTo(other, tolerance) &amp;&amp; DotProduct(other) &gt; 0;
+}
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-csharp">var a = new Vector2d(2.0, 3.0);
+var b = new Vector2d(4.0, 6.0);
+var c = new Vector2d(-2.0, -3.0);
+
+a.IsParallelTo(b);       // True  — same direction
+a.IsParallelTo(c);       // True  — opposite directions
+a.IsCodirectionalTo(b);  // True  — same sense
+a.IsCodirectionalTo(c);  // False — opposite sense
+</code></pre>
+<h2 id="the-complete-vector2d-code">The complete Vector2d code</h2>
+<pre><code class="language-csharp">public readonly struct Vector2d
+{
+    public double X { get; }
+
+    public double Y { get; }
+
+    public double Length =&gt; Math.Sqrt(X * X + Y * Y);
+
+    public double SquaredLength =&gt; X * X + Y * Y;
+
+    public Vector2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Vector2d(double[] components)
+    {
+        ArgumentNullException.ThrowIfNull(components);
+
+        if (components.Length != 2)
+            throw new ArgumentException(&quot;The array must contain exactly 2 elements.&quot;, nameof(components));
+
+        X = components[0];
+        Y = components[1];
+    }
+
+    public Vector2d(Point2d from, Point2d to)
+    {
+        X = to.X - from.X;
+        Y = to.Y - from.Y;
+    }
+
+    public double DotProduct(Vector2d other)
+    {
+        return X * other.X + Y * other.Y;
+    }
+
+    public Vector2d GetNormal()
+    {
+        double length = Length;
+
+        if (length &lt; 1e-10)
+            throw new InvalidOperationException(&quot;Cannot normalize a zero-length vector.&quot;);
+
+        return new Vector2d(X / length, Y / length);
+    }
+
+    public Vector2d GetPerpendicularVector()
+    {
+        return new Vector2d(-Y, X);
+    }
+
+    public bool IsParallelTo(Vector2d other, double tolerance = 1e-10)
+    {
+        double crossProduct = X * other.Y - Y * other.X;
+        return Math.Abs(crossProduct) &lt;= tolerance * Length * other.Length;
+    }
+
+    public bool IsCodirectionalTo(Vector2d other, double tolerance = 1e-10)
+    {
+        return IsParallelTo(other, tolerance) &amp;&amp; DotProduct(other) &gt; 0;
+    }
+}
+</code></pre>
+<h2 id="going-3d-with-vector3d">Going 3D with Vector3d</h2>
+<p>As with points, going 3D adds a <code>Z</code> component. The formulas extend naturally — length, dot product, and normalization work the same way.</p>
+<p>The big novelty in 3D is the <strong>cross product</strong>. Where the dot product yields a <strong>number</strong>, the cross product yields a <strong>vector</strong>, perpendicular to both input vectors:</p>
+<p><span class="math">\(\vec{a} \times \vec{b} = \begin{pmatrix} a_y \cdot b_z - a_z \cdot b_y \\ a_z \cdot b_x - a_x \cdot b_z \\ a_x \cdot b_y - a_y \cdot b_x \end{pmatrix}\)</span></p>
+<p>The length of this resulting vector equals <span class="math">\(\|\vec{a}\| \cdot \|\vec{b}\| \cdot \sin\theta\)</span>, which allows checking parallelism: if the vectors are parallel, the cross product is the zero vector.</p>
+<p>In 3D, <code>IsParallelTo</code> uses the cross product's length instead of the scalar cross product.</p>
+<p><code>GetPerpendicularVector</code> remains useful in 3D, even though the result is no longer unique. The trick is to compute the cross product with a reference axis. If the vector is (nearly) collinear with that reference, we pick a different one.</p>
+<p>Rather than inventing our own heuristic, we adopt the <strong>Arbitrary Axis Algorithm</strong> defined in AutoCAD's <a href="https://help.autodesk.com/view/OARX/2025/ENU/?guid=GUID-E19E5B42-0CC7-4EBA-B29F-74E1B7C6AFAB">DXF specification</a>. This algorithm is used internally by AutoCAD to build an Object Coordinate System (OCS) from a normal vector. It solves exactly our problem: given an arbitrary Z vector, find a perpendicular X vector deterministically.</p>
+<p>The algorithm examines the X and Y components of the normalized vector. If both are close to zero (meaning the vector is nearly parallel to the world Z axis), it uses the cross product with the world Y axis. Otherwise, it uses the world Z axis. The threshold is set to <span class="math">\(\frac{1}{64}\)</span> — a value chosen because it's exactly representable in both decimal (0.015625) and binary, guaranteeing identical behavior across all machines:</p>
+<pre><code class="language-csharp">public Vector3d GetPerpendicularVector(double tolerance = 1e-10)
+{
+    double length = Length;
+
+    if (length &lt; tolerance)
+        throw new InvalidOperationException(&quot;Cannot get a perpendicular vector from a zero-length vector.&quot;);
+
+    double normalizedX = X / length;
+    double normalizedY = Y / length;
+
+    Vector3d reference = Math.Abs(normalizedX) &lt; 1.0 / 64.0 &amp;&amp; Math.Abs(normalizedY) &lt; 1.0 / 64.0
+        ? new Vector3d(0.0, 1.0, 0.0)
+        : new Vector3d(0.0, 0.0, 1.0);
+
+    return reference.CrossProduct(this).GetNormal(tolerance);
+}
+</code></pre>
+<p>Note the cross product order: <code>reference.CrossProduct(this)</code>, not the reverse. This is the order defined by the DXF specification (<span class="math">\(W \times N\)</span>) — swapping it would give a perpendicular vector pointing in the opposite direction.</p>
+<pre><code class="language-csharp">public readonly struct Vector3d
+{
+    public double X { get; }
+
+    public double Y { get; }
+
+    public double Z { get; }
+
+    public double Length =&gt; Math.Sqrt(X * X + Y * Y + Z * Z);
+
+    public double SquaredLength =&gt; X * X + Y * Y + Z * Z;
+
+    public Vector3d(double x, double y, double z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+    }
+
+    public Vector3d(double[] components)
+    {
+        ArgumentNullException.ThrowIfNull(components);
+
+        if (components.Length != 3)
+            throw new ArgumentException(&quot;The array must contain exactly 3 elements.&quot;, nameof(components));
+
+        X = components[0];
+        Y = components[1];
+        Z = components[2];
+    }
+
+    public Vector3d(Point3d from, Point3d to)
+    {
+        X = to.X - from.X;
+        Y = to.Y - from.Y;
+        Z = to.Z - from.Z;
+    }
+
+    public double DotProduct(Vector3d other)
+    {
+        return X * other.X + Y * other.Y + Z * other.Z;
+    }
+
+    public Vector3d CrossProduct(Vector3d other)
+    {
+        return new Vector3d(
+            Y * other.Z - Z * other.Y,
+            Z * other.X - X * other.Z,
+            X * other.Y - Y * other.X);
+    }
+
+    public Vector3d GetNormal(double tolerance = 1e-10)
+    {
+        double length = Length;
+
+        if (length &lt; tolerance)
+            throw new InvalidOperationException(&quot;Cannot normalize a zero-length vector.&quot;);
+
+        return new Vector3d(X / length, Y / length, Z / length);
+    }
+
+    public Vector3d GetPerpendicularVector()
+    {
+        double length = Length;
+
+        if (length &lt; 1e-10)
+            throw new InvalidOperationException(&quot;Cannot get a perpendicular vector from a zero-length vector.&quot;);
+
+        double normalizedX = X / length;
+        double normalizedY = Y / length;
+
+        Vector3d reference = Math.Abs(normalizedX) &lt; 1.0 / 64.0 &amp;&amp; Math.Abs(normalizedY) &lt; 1.0 / 64.0
+            ? new Vector3d(0.0, 1.0, 0.0)
+            : new Vector3d(0.0, 0.0, 1.0);
+
+        return reference.CrossProduct(this).GetNormal();
+    }
+
+    public bool IsParallelTo(Vector3d other, double tolerance = 1e-10)
+    {
+        Vector3d cross = CrossProduct(other);
+        return cross.SquaredLength &lt;= tolerance * tolerance * SquaredLength * other.SquaredLength;
+    }
+
+    public bool IsCodirectionalTo(Vector3d other, double tolerance = 1e-10)
+    {
+        return IsParallelTo(other, tolerance) &amp;&amp; DotProduct(other) &gt; 0;
+    }
+}
+</code></pre>
+<h2 id="whats-next">What's next</h2>
+<p>Our library now has points and vectors — the two foundational building blocks of geometry. In the next article, we'll see how to combine them with <strong>operators</strong> (<code>+</code>, <code>-</code>, <code>*</code>) to write geometric expressions as naturally as mathematical ones.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Composite Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none">Geometry Library in C# &#x2014; Intersections</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/claude-code-powershell-tool" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Claude Code integrates a new PowerShell tool</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/blog/geometry-library-unit-vector" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Geometry Library in C# &#x2014; The Unit Vector</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

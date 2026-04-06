@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 700 420" width="700" height="420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="420" fill="#ffffff"/>
+
+  <!-- Légende -->
+  <rect x="480" y="12" width="210" height="80" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="496" y1="34" x2="526" y2="34" stroke="#3b82f6" stroke-width="2.5"/>
+  <text x="534" y="38" font-family="sans-serif" font-size="12" fill="#334155">Courbe 0</text>
+  <line x1="496" y1="56" x2="526" y2="56" stroke="#10b981" stroke-width="2.5"/>
+  <text x="534" y="60" font-family="sans-serif" font-size="12" fill="#334155">Courbe 1</text>
+  <rect x="496" y="72" width="30" height="12" rx="2" fill="rgba(249, 115, 22, 0.15)" stroke="#f97316" stroke-width="1"/>
+  <text x="534" y="82" font-family="sans-serif" font-size="12" fill="#334155">Paire candidate</text>
+
+  <!-- Courbe 0 (bleue) - une courbe lisse passant du bas-gauche vers le haut-droit -->
+  <path d="M 60,340 C 120,330 160,280 210,230 C 260,180 310,120 380,100 C 450,80 530,110 620,80"
+        fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Courbe 1 (verte) - une courbe lisse passant du haut-gauche vers le bas-droit, croisant la courbe 0 -->
+  <path d="M 80,110 C 140,130 190,180 250,220 C 310,260 380,300 440,290 C 500,280 560,230 630,260"
+        fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Points de subdivision sur la courbe 0 (8 subdivisions) -->
+  <!-- t0=0.000 --> <circle cx="60"  cy="340" r="4" fill="#3b82f6"/>
+  <!-- t1=0.143 --> <circle cx="138" cy="296" r="4" fill="#3b82f6"/>
+  <!-- t2=0.286 --> <circle cx="202" cy="238" r="4" fill="#3b82f6"/>
+  <!-- t3=0.429 --> <circle cx="270" cy="178" r="4" fill="#3b82f6"/>
+  <!-- t4=0.571 --> <circle cx="346" cy="108" r="4" fill="#3b82f6"/>
+  <!-- t5=0.714 --> <circle cx="424" cy="88"  r="4" fill="#3b82f6"/>
+  <!-- t6=0.857 --> <circle cx="520" cy="100" r="4" fill="#3b82f6"/>
+  <!-- t7=1.000 --> <circle cx="620" cy="80"  r="4" fill="#3b82f6"/>
+
+  <!-- Labels t sur courbe 0 -->
+  <text x="50"  y="362" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₀</text>
+  <text x="128" y="316" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₁</text>
+  <text x="188" y="256" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₂</text>
+  <text x="256" y="196" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₃</text>
+  <text x="332" y="130" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₄</text>
+  <text x="410" y="76"  font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₅</text>
+  <text x="528" y="92"  font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₆</text>
+  <text x="628" y="76"  font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic">t₇</text>
+
+  <!-- Points de subdivision sur la courbe 1 (8 subdivisions) -->
+  <!-- u0=0.000 --> <circle cx="80"  cy="110" r="4" fill="#10b981"/>
+  <!-- u1=0.143 --> <circle cx="148" cy="140" r="4" fill="#10b981"/>
+  <!-- u2=0.286 --> <circle cx="216" cy="192" r="4" fill="#10b981"/>
+  <!-- u3=0.429 --> <circle cx="282" cy="238" r="4" fill="#10b981"/>
+  <!-- u4=0.571 --> <circle cx="358" cy="276" r="4" fill="#10b981"/>
+  <!-- u5=0.714 --> <circle cx="434" cy="290" r="4" fill="#10b981"/>
+  <!-- u6=0.857 --> <circle cx="530" cy="268" r="4" fill="#10b981"/>
+  <!-- u7=1.000 --> <circle cx="630" cy="260" r="4" fill="#10b981"/>
+
+  <!-- Labels u sur courbe 1 -->
+  <text x="68"  y="104" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₀</text>
+  <text x="136" y="134" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₁</text>
+  <text x="222" y="186" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₂</text>
+  <text x="288" y="232" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₃</text>
+  <text x="364" y="296" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₄</text>
+  <text x="440" y="310" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₅</text>
+  <text x="536" y="262" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₆</text>
+  <text x="636" y="254" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic">u₇</text>
+
+  <!-- Zone candidate 1 : segments [t2,t3] et [u1,u2] sont proches -->
+  <rect x="134" y="132" width="152" height="132" rx="8"
+        fill="rgba(249, 115, 22, 0.10)" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- Ligne de distance entre milieux des segments candidats 1 -->
+  <line x1="170" y1="267" x2="182" y2="166" stroke="#f97316" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <circle cx="170" cy="267" r="3" fill="#f97316"/>
+  <circle cx="182" cy="166" r="3" fill="#f97316"/>
+  <text x="125" y="224" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold">d &lt; tol</text>
+
+  <!-- Zone candidate 2 : segments [t3,t4] et [u2,u3] sont proches (la vraie intersection) -->
+  <rect x="200" y="102" width="166" height="148" rx="8"
+        fill="rgba(249, 115, 22, 0.10)" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- Ligne de distance entre milieux des segments candidats 2 -->
+  <line x1="308" y1="143" x2="249" y2="215" stroke="#f97316" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <circle cx="308" cy="143" r="3" fill="#f97316"/>
+  <circle cx="249" cy="215" r="3" fill="#f97316"/>
+  <text x="310" y="190" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold">d &lt; tol</text>
+
+  <!-- Point d'intersection réel (approximatif) -->
+  <circle cx="275" cy="195" r="7" fill="none" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="275" cy="195" r="2.5" fill="#ef4444"/>
+  <text x="266" y="398" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold">✱ Intersection réelle</text>
+
+  <!-- Segments éloignés — exemple : [t5,t6] et [u4,u5] -->
+  <!-- Pas de zone orange = pas de candidat -->
+
+  <!-- Annotation pour les paires non retenues -->
+  <line x1="480" y1="190" x2="540" y2="190" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="480" cy="190" r="3" fill="#94a3b8"/>
+  <circle cx="540" cy="190" r="3" fill="#94a3b8"/>
+  <text x="478" y="208" font-family="sans-serif" font-size="11" fill="#94a3b8">d &gt; tol → rejeté</text>
+
+</svg>

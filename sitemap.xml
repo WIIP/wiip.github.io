@@ -120,6 +120,9 @@
     <loc>https://wiip.fr/fr/blog/custom_sys_var</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/dassault-systemes-perd-proces</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/derivatives-definition-formulas</loc>
   </url>
   <url>
@@ -130,6 +133,48 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/espaces-de-nom-vlx</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-composite-curves</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-curves</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-3d</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-circle-circle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-line-circle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-numerical</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-segment-segment</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-intersections</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-nurbs</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-operators</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-point</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-transforms</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-unit-vector</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/geometry-library-vector</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/ilogic-rules-export-import</loc>
@@ -189,10 +234,19 @@
     <loc>https://wiip.fr/fr/tags/PowerShell</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/Dassault%2bSyst%25C3%25A8mes</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/Math%25C3%25A9matiques</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Optimisation</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/C%2523</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/G%25C3%25A9om%25C3%25A9trie</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/iLogic</loc>
@@ -420,6 +474,48 @@
     <loc>https://wiip.fr/en/blog/dido-problem</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-composite-curves</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-curves</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersection-3d</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersection-circle-circle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersection-line-circle</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersection-numerical</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersection-segment-segment</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-intersections</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-nurbs</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-operators</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-point</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-transforms</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-unit-vector</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/geometry-library-vector</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/ilogic-rules-export-import</loc>
   </url>
   <url>
@@ -481,6 +577,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Optimization</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/C%2523</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/Geometry</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/iLogic</loc>

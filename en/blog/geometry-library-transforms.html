@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Transformations - WIIP</title><meta name="description" content="Fifth article in the series: we implement geometric transformations using homogeneous matrices, then explore a lighter alternative with quaternions." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Transformations" />
+        <meta property="og:description" content="Fifth article in the series: we implement geometric transformations using homogeneous matrices, then explore a lighter alternative with quaternions." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-transforms" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Transformations" />
+        <meta name="twitter:description" content="Fifth article in the series: we implement geometric transformations using homogeneous matrices, then explore a lighter alternative with quaternions." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-transforms" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-transforms" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Transformations",
+        "description": "Fifth article in the series: we implement geometric transformations using homogeneous matrices, then explore a lighter alternative with quaternions.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-transforms",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Transformations</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>In the previous articles, we built <a href="../geometry-library-point">points</a>, <a href="../geometry-library-vector">vectors</a>, <a href="../geometry-library-operators">operators</a>, and <a href="../geometry-library-unit-vector">unit vectors</a>. Our types can describe themselves and interact with each other, but they're static — we can't yet <strong>move</strong>, <strong>rotate</strong>, or <strong>resize</strong> them.</p>
+<p>That's the role of <strong>geometric transformations</strong>.</p>
+<h2 id="three-fundamental-transformations">Three fundamental transformations</h2>
+<p>Before discussing implementation, let's identify the three basic operations:</p>
+<ul>
+<li><strong>Translation</strong> moves an object without changing its orientation or size. It's defined by a displacement vector.</li>
+<li><strong>Rotation</strong> turns an object around a point (in 2D) or an axis (in 3D). It's defined by an angle and a center or axis.</li>
+<li><strong>Scaling</strong> enlarges or shrinks an object. It's defined by a multiplicative factor.</li>
+</ul>
+<p>Each of these operations can be represented individually in a simple way. But the real power comes from their <strong>composition</strong>: applying a rotation, then a translation, then a scale as a single operation. That's where matrices come in.</p>
+<h2 id="why-homogeneous-matrices">Why homogeneous matrices?</h2>
+<h3 id="the-translation-problem">The translation problem</h3>
+<p>Rotation and scaling naturally express as matrix multiplication. For example, a 2D rotation by angle <span class="math">\(\theta\)</span> around the origin:</p>
+<p><span class="math">\(\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}\)</span></p>
+<p>But translation is an <strong>addition</strong>, not a multiplication:</p>
+<p><span class="math">\(\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} t_x \\ t_y \end{pmatrix}\)</span></p>
+<p>Translation cannot be represented with a 2×2 matrix. This is a problem, because we want to combine all transformations in the same way.</p>
+<h3 id="the-solution-homogeneous-coordinates">The solution: homogeneous coordinates</h3>
+<p>The trick is to add an extra dimension. Instead of working with coordinates <span class="math">\((x, y)\)</span>, we use coordinates <span class="math">\((x, y, w)\)</span> where <span class="math">\(w\)</span> is always 1 for a point. This allows representing translation as a matrix multiplication:</p>
+<p><span class="math">\(\begin{pmatrix} x' \\ y' \\ 1 \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; t_x \\ 0 &amp; 1 &amp; t_y \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix} x \\ y \\ 1 \end{pmatrix}\)</span></p>
+<p>Expanding, we get <span class="math">\(x' = x + t_x\)</span> and <span class="math">\(y' = y + t_y\)</span> as expected.</p>
+<p>This is why we use <strong>3×3</strong> matrices in 2D and <strong>4×4</strong> matrices in 3D: the extra dimension encodes translation.</p>
+<h3 id="points-and-vectors-a-natural-distinction">Points and vectors: a natural distinction</h3>
+<p>This system has an elegant advantage. A <strong>point</strong> in homogeneous coordinates is written <span class="math">\((x, y, 1)\)</span> — <span class="math">\(w\)</span> equals 1. A <strong>vector</strong> is written <span class="math">\((x, y, 0)\)</span> — <span class="math">\(w\)</span> equals 0.</p>
+<p>The consequence is remarkable: when applying a translation matrix to a vector, the translation <strong>has no effect</strong>, because <span class="math">\(w = 0\)</span> cancels the translation terms. This is exactly the expected behavior: translating a <em>direction</em> makes no sense.</p>
+<h2 id="the-33-matrix-for-2d">The 3×3 matrix for 2D</h2>
+<h3 id="memory-representation">Memory representation</h3>
+<p>A 3×3 matrix contains 9 elements. We store them in a one-dimensional array, in <strong>row-major</strong> order:</p>
+<p><span class="math">\(M = \begin{pmatrix} m_0 &amp; m_1 &amp; m_2 \\ m_3 &amp; m_4 &amp; m_5 \\ m_6 &amp; m_7 &amp; m_8 \end{pmatrix}\)</span></p>
+<pre><code class="language-csharp">public readonly struct Matrix3x3
+{
+    readonly double[] _elements;
+
+    Matrix3x3(double[] elements)
+    {
+        ArgumentNullException.ThrowIfNull(elements);
+
+        if (elements.Length != 9)
+            throw new ArgumentException(&quot;The array must contain exactly 9 elements.&quot;, nameof(elements));
+
+        _elements = elements;
+    }
+}
+</code></pre>
+<p>The constructor validates its input, even though it's private. This protects against mistakes in our own factory methods during development. It will be the only way to create a matrix: we provide <strong>factory methods</strong> for each transformation type instead of exposing the constructor.</p>
+<h3 id="identity">Identity</h3>
+<p>The identity matrix is the starting point: it transforms nothing.</p>
+<p><span class="math">\(I = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{pmatrix}\)</span></p>
+<pre><code class="language-csharp">public static Matrix3x3 Identity { get; } = new(new double[]
+{
+    1, 0, 0,
+    0, 1, 0,
+    0, 0, 1
+});
+</code></pre>
+<h3 id="translation">Translation</h3>
+<pre><code class="language-csharp">public static Matrix3x3 CreateTranslation(Vector2d displacement)
+{
+    return new(new double[]
+    {
+        1, 0, displacement.X,
+        0, 1, displacement.Y,
+        0, 0, 1
+    });
+}
+</code></pre>
+<h3 id="rotation">Rotation</h3>
+<p>Rotation around the origin, by an angle <span class="math">\(\theta\)</span> in radians, counterclockwise:</p>
+<pre><code class="language-csharp">public static Matrix3x3 CreateRotation(double angle)
+{
+    double cos = Math.Cos(angle);
+    double sin = Math.Sin(angle);
+
+    return new(new double[]
+    {
+        cos, -sin, 0,
+        sin,  cos, 0,
+        0,    0,   1
+    });
+}
+</code></pre>
+<p>For rotation around an arbitrary point <span class="math">\(C\)</span>, we compose three transformations: translate <span class="math">\(C\)</span> to the origin, rotate, then translate back:</p>
+<pre><code class="language-csharp">public static Matrix3x3 CreateRotation(double angle, Point2d center)
+{
+    Matrix3x3 toOrigin = CreateTranslation(Point2d.Origin - center);
+    Matrix3x3 rotation = CreateRotation(angle);
+    Matrix3x3 fromOrigin = CreateTranslation(center - Point2d.Origin);
+
+    return fromOrigin * rotation * toOrigin;
+}
+</code></pre>
+<p>This is where matrix composition shows its full power: three operations become a single matrix.</p>
+<h3 id="scaling">Scaling</h3>
+<pre><code class="language-csharp">public static Matrix3x3 CreateScale(double factor)
+{
+    if (factor == 0)
+        throw new ArgumentException(&quot;Scale factor must not be zero.&quot;, nameof(factor));
+
+    return new(new double[]
+    {
+        factor, 0,      0,
+        0,      factor, 0,
+        0,      0,      1
+    });
+}
+</code></pre>
+<p>You can also define non-uniform scaling (different factors for X and Y):</p>
+<pre><code class="language-csharp">public static Matrix3x3 CreateScale(double factorX, double factorY)
+{
+    if (factorX == 0)
+        throw new ArgumentException(&quot;Scale factor must not be zero.&quot;, nameof(factorX));
+    if (factorY == 0)
+        throw new ArgumentException(&quot;Scale factor must not be zero.&quot;, nameof(factorY));
+
+    return new(new double[]
+    {
+        factorX, 0,       0,
+        0,       factorY, 0,
+        0,       0,       1
+    });
+}
+</code></pre>
+<h3 id="multiplication">Multiplication</h3>
+<p>Composing two transformations corresponds to multiplying their matrices. Element <span class="math">\((i, j)\)</span> of the result is the dot product of row <span class="math">\(i\)</span> of the first matrix with column <span class="math">\(j\)</span> of the second:</p>
+<pre><code class="language-csharp">public static Matrix3x3 operator *(Matrix3x3 left, Matrix3x3 right)
+{
+    double[] a = left._elements;
+    double[] b = right._elements;
+    var result = new double[9];
+
+    for (int row = 0; row &lt; 3; row++)
+    {
+        for (int column = 0; column &lt; 3; column++)
+        {
+            double sum = 0;
+
+            for (int k = 0; k &lt; 3; k++)
+                sum += a[row * 3 + k] * b[k * 3 + column];
+
+            result[row * 3 + column] = sum;
+        }
+    }
+
+    return new Matrix3x3(result);
+}
+</code></pre>
+<p><strong>Watch the order</strong>: matrix multiplication is <strong>not commutative</strong>. <code>A * B</code> is not the same as <code>B * A</code>. By convention, transformations apply right to left: in <code>C * B * A</code>, transformation <code>A</code> is applied first, then <code>B</code>, then <code>C</code>.</p>
+<h3 id="transforming-a-point-and-a-vector">Transforming a point and a vector</h3>
+<p>To apply the matrix to a point (with <span class="math">\(w = 1\)</span>):</p>
+<pre><code class="language-csharp">public Point2d Transform(Point2d point)
+{
+    double[] m = _elements;
+    return new Point2d(
+        m[0] * point.X + m[1] * point.Y + m[2],
+        m[3] * point.X + m[4] * point.Y + m[5]);
+}
+</code></pre>
+<p>For a vector (with <span class="math">\(w = 0\)</span>) — translation is ignored:</p>
+<pre><code class="language-csharp">public Vector2d Transform(Vector2d vector)
+{
+    double[] m = _elements;
+    return new Vector2d(
+        m[0] * vector.X + m[1] * vector.Y,
+        m[3] * vector.X + m[4] * vector.Y);
+}
+</code></pre>
+<p>The difference is visible: for the point, we add <code>m[2]</code> and <code>m[5]</code> (the translation terms). For the vector, we don't.</p>
+<h3 id="full-example">Full example</h3>
+<pre><code class="language-csharp">// 90° rotation around point (2, 0), followed by a translation of (1, 1)
+double angle = Math.PI / 2;
+var center = new Point2d(2.0, 0.0);
+
+Matrix3x3 transformation = Matrix3x3.CreateTranslation(new Vector2d(1.0, 1.0))
+                          * Matrix3x3.CreateRotation(angle, center);
+
+var point = new Point2d(3.0, 0.0);
+Point2d result = transformation.Transform(point); // (3, 2)
+</code></pre>
+<h2 id="in-3d-the-44-matrix">In 3D: the 4×4 matrix</h2>
+<p>The principle is identical with one more dimension. A 4×4 matrix stores 16 elements and the rotation formulas become more complex (a 3D rotation requires an <strong>axis</strong> and an <strong>angle</strong>).</p>
+<p>The .NET framework already provides <code>System.Numerics.Matrix4x4</code> with all the necessary factory methods. If your library targets 3D scenarios, it's perfectly reasonable to rely on this implementation rather than reinventing the wheel — it's optimized, tested, and well-documented.</p>
+<p>Our <code>Matrix4x4</code> struct would follow the same pattern as <code>Matrix3x3</code>:</p>
+<pre><code class="language-csharp">public readonly struct Matrix4x4
+{
+    readonly double[] _elements;
+
+    Matrix4x4(double[] elements)
+    {
+        ArgumentNullException.ThrowIfNull(elements);
+
+        if (elements.Length != 16)
+            throw new ArgumentException(&quot;The array must contain exactly 16 elements.&quot;, nameof(elements));
+
+        _elements = elements;
+    }
+
+    public static Matrix4x4 Identity { get; } = new(new double[]
+    {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    });
+
+    public static Matrix4x4 CreateTranslation(Vector3d displacement)
+    {
+        return new(new double[]
+        {
+            1, 0, 0, displacement.X,
+            0, 1, 0, displacement.Y,
+            0, 0, 1, displacement.Z,
+            0, 0, 0, 1
+        });
+    }
+
+    public Point3d Transform(Point3d point)
+    {
+        double[] m = _elements;
+        return new Point3d(
+            m[0] * point.X + m[1] * point.Y + m[2]  * point.Z + m[3],
+            m[4] * point.X + m[5] * point.Y + m[6]  * point.Z + m[7],
+            m[8] * point.X + m[9] * point.Y + m[10] * point.Z + m[11]);
+    }
+
+    public Vector3d Transform(Vector3d vector)
+    {
+        double[] m = _elements;
+        return new Vector3d(
+            m[0] * vector.X + m[1] * vector.Y + m[2]  * vector.Z,
+            m[4] * vector.X + m[5] * vector.Y + m[6]  * vector.Z,
+            m[8] * vector.X + m[9] * vector.Y + m[10] * vector.Z);
+    }
+
+    // Rotation, scale, multiplication... same principle as in 2D
+}
+</code></pre>
+<h2 id="an-alternative-to-matrices-the-trs-decomposition">An alternative to matrices: the TRS decomposition</h2>
+<p>Matrices are powerful and general, but they have drawbacks:</p>
+<ul>
+<li><strong>Numerical drift</strong>: after many multiplications, rounding errors accumulate. A matrix that should represent a pure rotation can gradually lose its orthogonality.</li>
+<li><strong>Difficult interpolation</strong>: interpolating between two matrices (for animation, for example) isn't trivial and can produce visually incorrect results (distortions, parasitic scaling).</li>
+<li><strong>Opacity</strong>: looking at a 4×4 matrix, it's hard to tell what transformation it encodes.</li>
+</ul>
+<p>The alternative is to store the three components separately:</p>
+<ul>
+<li><strong>T</strong> (<em>Translation</em>): a <code>Vector3d</code> for displacement.</li>
+<li><strong>R</strong> (<em>Rotation</em>): a <strong>quaternion</strong> for orientation.</li>
+<li><strong>S</strong> (<em>Scale</em>): a <code>double</code> for uniform scale.</li>
+</ul>
+<h3 id="what-is-a-quaternion">What is a quaternion?</h3>
+<p>A quaternion is a four-component number <span class="math">\((w, x, y, z)\)</span> that can represent a 3D rotation. Without diving into the full mathematical theory, here are the essential properties:</p>
+<ul>
+<li>A <strong>unit</strong> quaternion (of length 1) represents a rotation.</li>
+<li><strong>Composing</strong> two rotations corresponds to multiplying their quaternions.</li>
+<li><strong>Interpolation</strong> between two rotations is done naturally with the SLERP algorithm (<em>Spherical Linear Interpolation</em>), which produces a smooth, even rotation.</li>
+<li>A quaternion doesn't suffer from <strong>gimbal lock</strong>, a classic problem with Euler angles.</li>
+</ul>
+<pre><code class="language-csharp">public readonly struct Quaternion
+{
+    public double W { get; }
+    public double X { get; }
+    public double Y { get; }
+    public double Z { get; }
+
+    public Quaternion(double w, double x, double y, double z)
+    {
+        W = w;
+        X = x;
+        Y = y;
+        Z = z;
+    }
+
+    public static Quaternion Identity { get; } = new(1.0, 0.0, 0.0, 0.0);
+
+    public static Quaternion CreateFromAxisAngle(UnitVector3d axis, double angle)
+    {
+        double halfAngle = angle / 2.0;
+        double sin = Math.Sin(halfAngle);
+
+        return new Quaternion(
+            Math.Cos(halfAngle),
+            axis.X * sin,
+            axis.Y * sin,
+            axis.Z * sin);
+    }
+
+    public static Quaternion operator *(Quaternion left, Quaternion right)
+    {
+        return new Quaternion(
+            left.W * right.W - left.X * right.X - left.Y * right.Y - left.Z * right.Z,
+            left.W * right.X + left.X * right.W + left.Y * right.Z - left.Z * right.Y,
+            left.W * right.Y - left.X * right.Z + left.Y * right.W + left.Z * right.X,
+            left.W * right.Z + left.X * right.Y - left.Y * right.X + left.Z * right.W);
+    }
+}
+</code></pre>
+<h3 id="the-transform3d-struct">The Transform3d struct</h3>
+<pre><code class="language-csharp">public readonly struct Transform3d
+{
+    public Vector3d Translation { get; }
+    public Quaternion Rotation { get; }
+    public double Scale { get; }
+
+    public Transform3d(Vector3d translation, Quaternion rotation, double scale)
+    {
+        if (scale == 0)
+            throw new ArgumentException(&quot;Scale factor must not be zero.&quot;, nameof(scale));
+
+        Translation = translation;
+        Rotation = rotation;
+        Scale = scale;
+    }
+
+    public static Transform3d Identity { get; } = new(
+        new Vector3d(0.0, 0.0, 0.0),
+        Quaternion.Identity,
+        1.0);
+}
+</code></pre>
+<p>The transformation is applied in <strong>S → R → T</strong> order: scale, then rotate, then translate.</p>
+<h3 id="when-to-use-which">When to use which?</h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Matrices</th>
+<th>TRS (Translation + Quaternion + Scale)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory footprint (3D)</td>
+<td>16 <code>double</code> (128 bytes)</td>
+<td>8 <code>double</code> (64 bytes)</td>
+</tr>
+<tr>
+<td>Cost to transform a point</td>
+<td>12 multiplications + 9 additions</td>
+<td>A few quaternion operations + addition</td>
+</tr>
+<tr>
+<td>Non-uniform scaling</td>
+<td>✓</td>
+<td>✗ (single scalar)</td>
+</tr>
+<tr>
+<td>Shear</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Smooth interpolation</td>
+<td>✗</td>
+<td>✓ (SLERP on quaternions)</td>
+</tr>
+<tr>
+<td>Numerical stability</td>
+<td>Degrades</td>
+<td>Stable (unit quaternion)</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td>Opaque matrix</td>
+<td>Explicit components</td>
+</tr>
+<tr>
+<td>Many rotation compositions</td>
+<td>Drifts</td>
+<td>No drift</td>
+</tr>
+</tbody>
+</table>
+<p>In practice, 3D engines (Unity, Unreal, Godot) use TRS decomposition for object transforms, and matrices for final rendering (projection, camera view). CAD libraries (AutoCAD, Inventor, OpenCascade) primarily use matrices, as it's the de facto standard format — a compact, general representation that interfaces easily with geometric kernels.</p>
+<h2 id="whats-next">What's next</h2>
+<p>With transformations, our library covers the fundamental operations of computational geometry. In the next article, we'll define the <strong>curve interfaces</strong> — the common contract for lines, segments, arcs, and circles.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Composite Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none">Geometry Library in C# &#x2014; Intersections</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-unit-vector" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; The Unit Vector</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/blog/geometry-library-point" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Geometry Library in C# &#x2014; Creating a Point Type</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

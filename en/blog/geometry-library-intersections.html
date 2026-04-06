@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Intersections - WIIP</title><meta name="description" content="How to model intersection results between curves: crossings, tangencies, overlaps, and lazy computation of expensive information." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Intersections" />
+        <meta property="og:description" content="How to model intersection results between curves: crossings, tangencies, overlaps, and lazy computation of expensive information." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-intersections" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Intersections" />
+        <meta name="twitter:description" content="How to model intersection results between curves: crossings, tangencies, overlaps, and lazy computation of expensive information." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-intersections" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-intersections" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Intersections",
+        "description": "How to model intersection results between curves: crossings, tangencies, overlaps, and lazy computation of expensive information.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-intersections",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Intersections</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>In the previous articles, we built <a href="../geometry-library-curves">curves</a>, <a href="../geometry-library-nurbs">NURBS</a>, and <a href="../geometry-library-composite-curves">composite curves</a>. The next fundamental operation is <strong>intersection</strong>: given two curves, find where they cross.</p>
+<p>What seems simple in theory hides real complexity in practice. Two curves can cross transversally, touch tangentially, partially overlap, or intersect at their endpoints. And polygon clipping algorithms (like Greiner-Hormann) need to distinguish all these cases to work correctly.</p>
+<h2 id="two-types-of-results">Two types of results</h2>
+<p>When two curves intersect, the result is either a <strong>point</strong> or an <strong>interval</strong> (an overlap):</p>
+<ul>
+<li><strong>Point intersection</strong>: the curves cross or touch at a point. This is the most common case.</li>
+<li><strong>Overlap</strong>: the curves coincide over an interval. For example, two collinear segments sharing a common portion.</li>
+</ul>
+<h2 id="the-lazy-computation-principle">The lazy computation principle</h2>
+<p>Most of the time, you only need the <strong>intersection point</strong>. The parameters on each curve, the classification (crossing, tangency, endpoint position) — all of this is only useful in specific algorithms.</p>
+<p>Computing the parameter corresponding to an intersection point can be expensive, especially for NURBS where the parameterization must be inverted. The intersection type requires tangent and cross product calculations. Paying this cost systematically would be wasteful.</p>
+<p>The solution is <strong>lazy computation</strong> with <code>Lazy&lt;T&gt;</code>: we store the bare minimum at construction time, and compute the rest <strong>on demand</strong>, only once.</p>
+<h2 id="the-base-interface">The base interface</h2>
+<pre><code class="language-csharp">public interface IIntersectionResult2d
+{
+    ICurve2d Curve0 { get; }
+
+    ICurve2d Curve1 { get; }
+}
+</code></pre>
+<p>This is deliberately minimal: we only know which curves are involved. The two subtypes provide the details.</p>
+<h2 id="the-point-intersection">The point intersection</h2>
+<pre><code class="language-csharp">public interface IPointIntersectionResult2d : IIntersectionResult2d
+{
+    Point2d Point { get; }
+
+    double Parameter0 { get; }
+
+    double Parameter1 { get; }
+
+    IntersectionType Type { get; }
+
+    IntersectionPosition Position { get; }
+}
+</code></pre>
+<ul>
+<li><strong><code>Point</code></strong> is always available immediately — it's the information everyone asks for.</li>
+<li><strong><code>Parameter0</code></strong> and <strong><code>Parameter1</code></strong> are the intersection point's parameters on each curve. Computed on demand.</li>
+<li><strong><code>Type</code></strong> classifies the intersection:</li>
+</ul>
+<pre><code class="language-csharp">public enum IntersectionType
+{
+    Transversal,
+    Tangent
+}
+</code></pre>
+<ul>
+<li><strong><code>Position</code></strong> indicates whether the point falls on an endpoint:</li>
+</ul>
+<pre><code class="language-csharp">[Flags]
+public enum IntersectionPosition
+{
+    None        = 0b0000,
+    Curve0Start = 0b0001,
+    Curve0End   = 0b0010,
+    Curve1Start = 0b0100,
+    Curve1End   = 0b1000
+}
+</code></pre>
+<p>It's a flag enum: an intersection can be both at the start of curve 0 and the end of curve 1 (<code>Curve0Start | Curve1End</code>).</p>
+<h3 id="why-position-matters">Why position matters</h3>
+<p>The Greiner-Hormann polygon clipping algorithm needs to classify each intersection based on its position on the edges. By combining <code>Position</code> with the flags, we distinguish three cases:</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Condition</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>X</strong> (crossing)</td>
+<td><code>Position == None</code></td>
+<td>Both curves cross in the middle</td>
+</tr>
+<tr>
+<td><strong>T</strong></td>
+<td>Only Curve0 or Curve1 flags are set</td>
+<td>A vertex touches the interior of the other edge</td>
+</tr>
+<tr>
+<td><strong>V</strong></td>
+<td>Both a Curve0 flag <strong>and</strong> a Curve1 flag are set</td>
+<td>Two vertices coincide</td>
+</tr>
+</tbody>
+</table>
+<p>The algorithm can easily test these cases:</p>
+<pre><code class="language-csharp">bool IsX =&gt; Position == IntersectionPosition.None;
+
+bool IsT =&gt; Position != IntersectionPosition.None
+          &amp;&amp; (Position &amp; (IntersectionPosition.Curve0Start | IntersectionPosition.Curve0End)) == 0
+          || (Position &amp; (IntersectionPosition.Curve1Start | IntersectionPosition.Curve1End)) == 0;
+
+bool IsV =&gt; (Position &amp; (IntersectionPosition.Curve0Start | IntersectionPosition.Curve0End)) != 0
+          &amp;&amp; (Position &amp; (IntersectionPosition.Curve1Start | IntersectionPosition.Curve1End)) != 0;
+</code></pre>
+<h3 id="the-implementation-with-lazy-computation">The implementation with lazy computation</h3>
+<pre><code class="language-csharp">public sealed class PointIntersectionResult2d : IPointIntersectionResult2d
+{
+    readonly Lazy&lt;double&gt; _parameter0;
+    readonly Lazy&lt;double&gt; _parameter1;
+    readonly Lazy&lt;IntersectionType&gt; _type;
+    readonly Lazy&lt;IntersectionPosition&gt; _position;
+
+    public ICurve2d Curve0 { get; }
+
+    public ICurve2d Curve1 { get; }
+
+    public Point2d Point { get; }
+
+    public double Parameter0 =&gt; _parameter0.Value;
+
+    public double Parameter1 =&gt; _parameter1.Value;
+
+    public IntersectionType Type =&gt; _type.Value;
+
+    public IntersectionPosition Position =&gt; _position.Value;
+
+    public PointIntersectionResult2d(ICurve2d curve0, ICurve2d curve1, Point2d point)
+    {
+        ArgumentNullException.ThrowIfNull(curve0);
+        ArgumentNullException.ThrowIfNull(curve1);
+
+        Curve0 = curve0;
+        Curve1 = curve1;
+        Point = point;
+
+        _parameter0 = new Lazy&lt;double&gt;(() =&gt; curve0.GetParameterAtPoint(point));
+        _parameter1 = new Lazy&lt;double&gt;(() =&gt; curve1.GetParameterAtPoint(point));
+
+        _type = new Lazy&lt;IntersectionType&gt;(() =&gt; ComputeType());
+        _position = new Lazy&lt;IntersectionPosition&gt;(() =&gt; ComputePosition());
+    }
+
+    IntersectionType ComputeType()
+    {
+        UnitVector2d tangent0 = Curve0.GetTangentAtParameter(Parameter0);
+        UnitVector2d tangent1 = Curve1.GetTangentAtParameter(Parameter1);
+
+        Vector2d t0 = tangent0;
+        Vector2d t1 = tangent1;
+        double crossProduct = t0.X * t1.Y - t0.Y * t1.X;
+
+        return Math.Abs(crossProduct) &lt; 1e-10
+            ? IntersectionType.Tangent
+            : IntersectionType.Transversal;
+    }
+
+    IntersectionPosition ComputePosition()
+    {
+        var position = IntersectionPosition.None;
+        double tolerance = 1e-10;
+
+        if (Curve0 is IBoundedCurve2d bounded0)
+        {
+            if (Point.IsAlmostEqualTo(bounded0.StartPoint, tolerance))
+                position |= IntersectionPosition.Curve0Start;
+            else if (Point.IsAlmostEqualTo(bounded0.EndPoint, tolerance))
+                position |= IntersectionPosition.Curve0End;
+        }
+
+        if (Curve1 is IBoundedCurve2d bounded1)
+        {
+            if (Point.IsAlmostEqualTo(bounded1.StartPoint, tolerance))
+                position |= IntersectionPosition.Curve1Start;
+            else if (Point.IsAlmostEqualTo(bounded1.EndPoint, tolerance))
+                position |= IntersectionPosition.Curve1End;
+        }
+
+        return position;
+    }
+}
+</code></pre>
+<p>The constructor only takes the bare minimum: the two curves and the point. Everything else is wrapped in <code>Lazy&lt;T&gt;</code>:</p>
+<ul>
+<li>Accessing <code>Point</code> → <strong>no computation</strong>, always instant.</li>
+<li>Accessing <code>Parameter0</code> → computes <code>GetParameterAtPoint</code> <strong>once</strong>, then caches.</li>
+<li>Accessing <code>Type</code> → computes tangents and cross product (requires parameters, which are themselves computed on demand).</li>
+<li>Accessing <code>Position</code> → compares the point to bounded curves' endpoints.</li>
+</ul>
+<p>Note the dependency chain: <code>Type</code> accesses <code>Parameter0</code> and <code>Parameter1</code>, triggering their computation if not already done. <code>Lazy&lt;T&gt;</code> handles this cascade automatically.</p>
+<h2 id="the-overlap">The overlap</h2>
+<p>When two curves coincide over an interval, the result isn't a point but a <strong>piece of curve</strong>:</p>
+<pre><code class="language-csharp">public interface IOverlapIntersectionResult2d : IIntersectionResult2d
+{
+    double StartParameter0 { get; }
+
+    double EndParameter0 { get; }
+
+    double StartParameter1 { get; }
+
+    double EndParameter1 { get; }
+}
+</code></pre>
+<p>The four parameters delimit the overlap interval on each curve. The common sub-curve can be extracted with <code>GetSubCurve</code>.</p>
+<h2 id="a-dedicated-intersection-class">A dedicated intersection class</h2>
+<p>Where should intersection logic live? If <code>LineSegment2d</code> has an <code>IntersectWith(Circle2d)</code> method, should <code>Circle2d</code> also have <code>IntersectWith(LineSegment2d)</code>? With N curve types, the number of combinations explodes as N×(N+1)/2. And every new curve type forces changes to <strong>all</strong> existing classes.</p>
+<p>Intersection is an operation <strong>between</strong> two objects — it belongs to neither. So we place it in a dedicated class, <code>CurveIntersector2d</code>, that centralizes all dispatch logic:</p>
+<pre><code class="language-csharp">public static class CurveIntersector2d
+{
+    public static IReadOnlyList&lt;IIntersectionResult2d&gt; Intersect(
+        ICurve2d curve0, ICurve2d curve1)
+    {
+        ArgumentNullException.ThrowIfNull(curve0);
+        ArgumentNullException.ThrowIfNull(curve1);
+
+        return (curve0, curve1) switch
+        {
+            (LineSegment2d segment0, LineSegment2d segment1)
+                =&gt; IntersectSegments(segment0, segment1),
+
+            (LineSegment2d segment, Circle2d circle)
+                =&gt; IntersectSegmentCircle(segment, circle),
+
+            (Circle2d circle, LineSegment2d segment)
+                =&gt; IntersectSegmentCircle(segment, circle, swapped: true),
+
+            // Other combinations...
+
+            _ =&gt; IntersectGeneric(curve0, curve1)
+        };
+    }
+}
+</code></pre>
+<p>Each type pair gets its own optimized algorithm (analytical for simple cases, numerical for NURBS). Adding a new curve type means adding branches in <code>CurveIntersector2d</code>, <strong>without touching existing curve classes</strong>.</p>
+<p>The caller then filters results based on their needs:</p>
+<pre><code class="language-csharp">IReadOnlyList&lt;IIntersectionResult2d&gt; results =
+    CurveIntersector2d.Intersect(curve0, curve1);
+
+// Common case: just the points
+foreach (IPointIntersectionResult2d point in results.OfType&lt;IPointIntersectionResult2d&gt;())
+    Console.WriteLine(point.Point);
+
+// Greiner-Hormann algorithm: needs position
+foreach (IPointIntersectionResult2d point in results.OfType&lt;IPointIntersectionResult2d&gt;())
+{
+    if (point.Position == IntersectionPosition.None)
+        HandleCrossing(point);       // X
+    else if (point.IsV())
+        HandleVertexVertex(point);   // V
+    else
+        HandleVertexEdge(point);     // T
+}
+
+// Overlap detection
+foreach (IOverlapIntersectionResult2d overlap in results.OfType&lt;IOverlapIntersectionResult2d&gt;())
+    HandleOverlap(overlap);
+</code></pre>
+<p>The beauty of lazy computation is visible here: in the first case (just points), you pay <strong>no</strong> extra cost. In the second case (Greiner-Hormann), parameters and position are computed on demand.</p>
+<p>A convenience method can also be added on curves, delegating to the intersector:</p>
+<pre><code class="language-csharp">public sealed class LineSegment2d : IBoundedCurve2d
+{
+    public IReadOnlyList&lt;IIntersectionResult2d&gt; IntersectWith(ICurve2d other)
+        =&gt; CurveIntersector2d.Intersect(this, other);
+}
+</code></pre>
+<p>The caller can choose between <code>CurveIntersector2d.Intersect(a, b)</code> and <code>a.IntersectWith(b)</code>, but the logic lives in one place only.</p>
+<h2 id="the-fast-api-for-hot-loops">The fast API for hot loops</h2>
+<p>The rich API with <code>Lazy&lt;T&gt;</code> is ideal for occasional use. But in some scenarios — complex polygon clipping, real-time collision detection — you compute <strong>thousands</strong> of intersections in a loop. Each call allocates a list, <code>PointIntersectionResult2d</code> objects, <code>Lazy&lt;T&gt;</code> instances... The garbage collector eventually chokes.</p>
+<p>For these cases, <code>CurveIntersector2d</code> exposes a second allocation-free API based on structs and <code>Span&lt;T&gt;</code>:</p>
+<pre><code class="language-csharp">public readonly struct RawIntersection2d
+{
+    public Point2d Point { get; }
+
+    public double Parameter0 { get; }
+
+    public double Parameter1 { get; }
+
+    public RawIntersection2d(Point2d point, double parameter0, double parameter1)
+    {
+        Point = point;
+        Parameter0 = parameter0;
+        Parameter1 = parameter1;
+    }
+}
+</code></pre>
+<p>The struct is minimalist: the point and both parameters, computed <strong>immediately</strong>. No <code>Lazy&lt;T&gt;</code>, no curve references, no classification — just raw data.</p>
+<pre><code class="language-csharp">public static class CurveIntersector2d
+{
+    // Rich API (general use)
+    public static IReadOnlyList&lt;IIntersectionResult2d&gt; Intersect(
+        ICurve2d curve0, ICurve2d curve1) { /* ... */ }
+
+    // Fast API (hot loops)
+    public static int Intersect(
+        LineSegment2d segment0, LineSegment2d segment1,
+        Span&lt;RawIntersection2d&gt; buffer)
+    {
+        Vector2d d0 = segment0.EndPoint - segment0.StartPoint;
+        Vector2d d1 = segment1.EndPoint - segment1.StartPoint;
+        double crossProduct = d0.X * d1.Y - d0.Y * d1.X;
+
+        if (Math.Abs(crossProduct) &lt; 1e-10)
+            return 0; // Parallel — no intersection point
+
+        Vector2d startToStart = segment1.StartPoint - segment0.StartPoint;
+        double t = (startToStart.X * d1.Y - startToStart.Y * d1.X) / crossProduct;
+        double u = (startToStart.X * d0.Y - startToStart.Y * d0.X) / crossProduct;
+
+        if (t &gt;= 0 &amp;&amp; t &lt;= 1 &amp;&amp; u &gt;= 0 &amp;&amp; u &lt;= 1)
+        {
+            Point2d point = segment0.StartPoint + d0 * t;
+            buffer[0] = new RawIntersection2d(point, t, u);
+            return 1;
+        }
+
+        return 0;
+    }
+}
+</code></pre>
+<p>The method returns the number of intersections written to the buffer. The caller allocates the <code>Span</code> once (on the stack or in a reusable array):</p>
+<pre><code class="language-csharp">Span&lt;RawIntersection2d&gt; buffer = stackalloc RawIntersection2d[2];
+
+for (int i = 0; i &lt; segments.Length; i++)
+    for (int j = i + 1; j &lt; segments.Length; j++)
+    {
+        int count = CurveIntersector2d.Intersect(segments[i], segments[j], buffer);
+
+        for (int k = 0; k &lt; count; k++)
+            ProcessIntersection(buffer[k].Point);
+    }
+</code></pre>
+<p><strong>Zero allocations</strong> in the inner loop. Parameters are computed immediately because in a hot loop, you typically need them right away. The cost is negligible for segments (a simple division), and we avoid the <code>Lazy&lt;T&gt;</code> machinery entirely.</p>
+<p>For a line and a circle (which can produce 0, 1, or 2 intersections), a buffer of size 2 is sufficient. For NURBS, a larger buffer may be needed — the theoretical maximum size depends on the curve degrees.</p>
+<h2 id="whats-next">What's next</h2>
+<p>We've laid out the intersection result architecture and the two API levels. In the <a href="../geometry-library-intersection-segment-segment">next article</a>, we'll implement the first concrete algorithm: the intersection of <strong>two segments</strong>, with the complete equation setup and overlap handling.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Composite Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-point" class="text-decoration-none">Geometry Library in C# &#x2014; Creating a Point Type</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; NURBS Curves</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/blog/geometry-library-curves" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Geometry Library in C# &#x2014; Curves</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

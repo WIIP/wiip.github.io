@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 700 400" width="700" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#10b981"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#f97316"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="400" fill="#ffffff"/>
+
+  <!-- Légende -->
+  <rect x="490" y="10" width="200" height="108" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="506" y1="32" x2="536" y2="32" stroke="#3b82f6" stroke-width="2.5"/>
+  <text x="544" y="36" font-family="sans-serif" font-size="12" fill="#334155">Courbe 0</text>
+  <line x1="506" y1="52" x2="536" y2="52" stroke="#10b981" stroke-width="2.5"/>
+  <text x="544" y="56" font-family="sans-serif" font-size="12" fill="#334155">Courbe 1</text>
+  <line x1="506" y1="72" x2="536" y2="72" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="544" y="76" font-family="sans-serif" font-size="12" fill="#334155">Résidu F</text>
+  <line x1="506" y1="92" x2="536" y2="92" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="544" y="96" font-family="sans-serif" font-size="12" fill="#334155">Tangentes</text>
+  <line x1="506" y1="112" x2="536" y2="112" stroke="#f97316" stroke-width="2"/>
+  <text x="544" y="116" font-family="sans-serif" font-size="12" fill="#334155">Correction Δt, Δu</text>
+
+  <!-- Courbe 0 (bleue) -->
+  <path d="M 40,310 C 100,290 170,210 260,160 C 350,110 450,90 650,100"
+        fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Courbe 1 (verte) -->
+  <path d="M 50,80 C 120,120 200,200 290,250 C 380,300 480,330 660,310"
+        fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Point d'intersection réel (discret, pour référence) -->
+  <circle cx="268" cy="206" r="5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- ===== ITÉRATION COURANTE ===== -->
+
+  <!-- Point courant sur courbe 0 : C₀(t) -->
+  <circle cx="200" cy="193" r="6" fill="#3b82f6"/>
+  <text x="170" y="183" font-family="sans-serif" font-size="13" fill="#3b82f6" font-weight="bold">C₀(t)</text>
+
+  <!-- Point courant sur courbe 1 : C₁(u) -->
+  <circle cx="220" cy="232" r="6" fill="#10b981"/>
+  <text x="136" y="248" font-family="sans-serif" font-size="13" fill="#10b981" font-weight="bold">C₁(u)</text>
+
+  <!-- Résidu F = C₀(t) - C₁(u) -->
+  <line x1="220" y1="232" x2="200" y2="197" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"
+        marker-end="url(#arrowRed)"/>
+  <text x="230" y="218" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold">F</text>
+
+  <!-- Tangente T₀ à la courbe 0 au point C₀(t) -->
+  <line x1="140" y1="225" x2="280" y2="150" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <!-- Flèche de direction T₀ -->
+  <line x1="200" y1="193" x2="270" y2="157" stroke="#3b82f6" stroke-width="2"
+        marker-end="url(#arrowBlue)"/>
+  <text x="272" y="148" font-family="sans-serif" font-size="12" fill="#3b82f6" font-style="italic">T₀</text>
+
+  <!-- Tangente T₁ à la courbe 1 au point C₁(u) -->
+  <line x1="150" y1="196" x2="310" y2="278" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <!-- Flèche de direction T₁ -->
+  <line x1="220" y1="232" x2="288" y2="267" stroke="#10b981" stroke-width="2"
+        marker-end="url(#arrowGreen)"/>
+  <text x="292" y="271" font-family="sans-serif" font-size="12" fill="#10b981" font-style="italic">T₁</text>
+
+  <!-- ===== CORRECTION ===== -->
+
+  <!-- Point corrigé sur courbe 0 : C₀(t + Δt) -->
+  <circle cx="255" cy="165" r="5" fill="#f97316" stroke="#3b82f6" stroke-width="1.5"/>
+
+  <!-- Point corrigé sur courbe 1 : C₁(u + Δu) -->
+  <circle cx="262" cy="237" r="5" fill="#f97316" stroke="#10b981" stroke-width="1.5"/>
+
+  <!-- Flèche de correction Δt sur la courbe 0 -->
+  <line x1="204" y1="191" x2="251" y2="168" stroke="#f97316" stroke-width="2"
+        marker-end="url(#arrowOrange)"/>
+  <text x="234" y="172" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold">Δt</text>
+
+  <!-- Flèche de correction Δu sur la courbe 1 -->
+  <line x1="224" y1="234" x2="258" y2="237" stroke="#f97316" stroke-width="2"
+        marker-end="url(#arrowOrange)"/>
+  <text x="240" y="252" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold">Δu</text>
+
+  <!-- Nouveau résidu (plus petit) -->
+  <line x1="262" y1="237" x2="256" y2="169" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <text x="270" y="205" font-family="sans-serif" font-size="11" fill="#ef4444">F'</text>
+
+  <!-- Annotations -->
+  <text x="40" y="375" font-family="sans-serif" font-size="12" fill="#64748b">Le résidu F relie les deux points courants. Les tangentes T₀ et T₁ indiquent la direction</text>
+  <text x="40" y="393" font-family="sans-serif" font-size="12" fill="#64748b">de déplacement sur chaque courbe. Les corrections Δt et Δu rapprochent les deux points.</text>
+</svg>

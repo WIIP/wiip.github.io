@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 700 400" width="700" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#10b981"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#f97316"/>
+    </marker>
+  </defs>
+  <rect width="700" height="400" fill="#ffffff" style=""/>
+  <g style="">
+    <line x1="235.009" y1="214.566" x2="177.48" y2="215.972" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <text x="200" y="231.29" font-family="sans-serif" font-size="11" fill="#ef4444" style="white-space: pre; font-size: 11px;">F'</text>
+  </g>
+  <g>
+    <rect x="476.988" y="136.869" width="200" height="108" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="492.988" y1="151.869" x2="522.988" y2="151.869" stroke="#3b82f6" stroke-width="2.5"/>
+    <text x="530.988" y="155.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Courbe 0</text>
+    <line x1="492.988" y1="171.869" x2="522.988" y2="171.869" stroke="#10b981" stroke-width="2.5"/>
+    <text x="530.988" y="175.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Courbe 1</text>
+    <line x1="492.988" y1="191.869" x2="522.988" y2="191.869" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="530.988" y="195.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Résidu F</text>
+    <line x1="492.988" y1="211.869" x2="522.988" y2="211.869" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <text x="530.988" y="215.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Tangentes</text>
+    <line x1="492.988" y1="231.869" x2="522.988" y2="231.869" stroke="#f97316" stroke-width="2"/>
+    <text x="530.988" y="235.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Correction Δt, Δu</text>
+  </g>
+  <path d="M 40,310 C 100,290 170,210 260,160 C 350,110 450,90 650,100" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 50,80 C 120,120 200,200 290,250 C 380,300 480,330 660,310" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="205" cy="193.146" r="5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="178" cy="216" r="6" fill="#3b82f6"/>
+  <text x="143.814" y="208.264" font-family="sans-serif" font-size="13" fill="#3b82f6" font-weight="bold" style="white-space: pre; font-size: 13px;">C₀(t)</text>
+  <text x="243.842" y="217.034" font-family="sans-serif" font-size="13" fill="#10b981" font-weight="bold" style="white-space: pre; font-size: 13px;">C₁(u)</text>
+  <g style="visibility: hidden;">
+    <line x1="220" y1="232" x2="200" y2="197" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowRed)"/>
+    <text x="192.047" y="230.717" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold" style="white-space: pre; font-size: 13px;">F</text>
+  </g>
+  <line x1="50.702" y1="322.218" x2="374.395" y2="51.921" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="260.348" y="127.101" font-family="sans-serif" font-size="12" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 12px;">T₀</text>
+  <line x1="178.554" y1="216.222" x2="279.926" y2="130.594" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="235.243" y1="214.63" x2="335.147" y2="286.851" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <g style="">
+    <line x1="52.77" y1="84.808" x2="430.742" y2="355.367" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <text x="313.294" y="297.328" font-family="sans-serif" font-size="12" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 12px;">T₁</text>
+  </g>
+  <circle cx="195" cy="201.708" r="5" fill="#f97316" stroke="#3b82f6" stroke-width="1.5"/>
+  <circle cx="216.177" cy="201.761" r="5" fill="#f97316" stroke="#10b981" stroke-width="1.5"/>
+  <g style="">
+    <line x1="178.355" y1="216.382" x2="196.954" y2="201.261" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
+    <text x="179.337" y="197.688" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δt</text>
+  </g>
+  <circle cx="235.082" cy="214.552" r="6" fill="#10b981"/>
+  <line x1="234.126" y1="214.668" x2="215.522" y2="201.492" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="224.973" y="199.093" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δu</text>
+  <text x="40" y="375" font-family="sans-serif" font-size="12" fill="#64748b" style="white-space: pre;">Le résidu F relie les deux points courants. Les tangentes T₀ et T₁ indiquent la direction</text>
+  <text x="40" y="393" font-family="sans-serif" font-size="12" fill="#64748b" style="white-space: pre;">de déplacement sur chaque courbe. Les corrections Δt et Δu rapprochent les deux points.</text>
+</svg>

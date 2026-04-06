@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Composite Curves - WIIP</title><meta name="description" content="How to join segments, arcs, and NURBS end to end to form contours and polylines." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Composite Curves" />
+        <meta property="og:description" content="How to join segments, arcs, and NURBS end to end to form contours and polylines." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-composite-curves" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Composite Curves" />
+        <meta name="twitter:description" content="How to join segments, arcs, and NURBS end to end to form contours and polylines." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-composite-curves" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-composite-curves" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Composite Curves",
+        "description": "How to join segments, arcs, and NURBS end to end to form contours and polylines.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-composite-curves",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Composite Curves</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>In the previous articles, we implemented individual curves: <a href="../geometry-library-curves">lines, segments</a> and <a href="../geometry-library-nurbs">NURBS</a>. Each of these curves implements <code>IBoundedCurve2d</code>. But in a real CAD model, a contour is rarely a single curve — it's a sequence of segments, arcs, and free-form curves, joined end to end.</p>
+<p>That's the role of the <strong>composite curve</strong>.</p>
+<h2 id="the-concept">The concept</h2>
+<p>A composite curve is a curve made up of several <strong>sub-curves</strong> (or <em>segments</em>) joined end to end. The <code>EndPoint</code> of each sub-curve coincides with the <code>StartPoint</code> of the next.</p>
+<p>For example, the profile of a mechanical part might be:</p>
+<ol>
+<li>A horizontal segment</li>
+<li>A fillet arc</li>
+<li>A vertical segment</li>
+<li>Another fillet arc</li>
+<li>A segment that returns to the start → closed contour</li>
+</ol>
+<p>The composite curve implements <code>IBoundedCurve2d</code>: from the outside, it's a curve like any other, with a parametric domain, a length, and endpoints. All the complexity of delegating to sub-curves is encapsulated.</p>
+<h2 id="parameter-management">Parameter management</h2>
+<p>The main challenge is distributing the <strong>global parametric domain</strong> among sub-curves. Each sub-curve <span class="math">\(i\)</span> has its own local domain <span class="math">\([0, L_i]\)</span> (where <span class="math">\(L_i\)</span> is its length). The global domain goes from <span class="math">\(0\)</span> to the total length <span class="math">\(L\)</span>.</p>
+<p>Specifically, sub-curve <span class="math">\(i\)</span> covers the global interval <span class="math">\([S_i, S_{i+1}]\)</span>, where <span class="math">\(S_i\)</span> is the sum of the lengths of the preceding sub-curves:</p>
+<p><span class="math">\(S_0 = 0, \quad S_{i+1} = S_i + L_i\)</span></p>
+<p>To evaluate a global parameter <span class="math">\(t\)</span>, we must:</p>
+<ol>
+<li>Find sub-curve <span class="math">\(i\)</span> such that <span class="math">\(S_i \leq t &lt; S_{i+1}\)</span>.</li>
+<li>Convert the global parameter to a local one: <span class="math">\(t_{\text{local}} = t - S_i\)</span>.</li>
+<li>Delegate evaluation to the sub-curve.</li>
+</ol>
+<p>This lookup can be done by <strong>binary search</strong> on the cumulative bounds, giving <span class="math">\(O(\log n)\)</span> complexity instead of <span class="math">\(O(n)\)</span> for a linear scan.</p>
+<h2 id="the-implementation">The implementation</h2>
+<pre><code class="language-csharp">public sealed class CompositeCurve2d : IBoundedCurve2d
+{
+    readonly IBoundedCurve2d[] _segments;
+    readonly double[] _cumulativeLengths;
+
+    public Point2d StartPoint =&gt; _segments[0].StartPoint;
+
+    public Point2d EndPoint =&gt; _segments[^1].EndPoint;
+
+    public double Length { get; }
+
+    public bool IsClosed =&gt; StartPoint.IsAlmostEqualTo(EndPoint);
+
+    public double StartParameter =&gt; 0;
+
+    public double EndParameter =&gt; Length;
+
+    public IReadOnlyList&lt;IBoundedCurve2d&gt; Segments =&gt; _segments;
+
+    public CompositeCurve2d(IBoundedCurve2d[] segments, double tolerance = 1e-10)
+    {
+        ArgumentNullException.ThrowIfNull(segments);
+
+        if (segments.Length == 0)
+            throw new ArgumentException(&quot;The composite curve must contain at least one segment.&quot;, nameof(segments));
+
+        for (int i = 0; i &lt; segments.Length - 1; i++)
+        {
+            if (!segments[i].EndPoint.IsAlmostEqualTo(segments[i + 1].StartPoint, tolerance))
+                throw new ArgumentException(
+                    $&quot;Segment {i} does not connect to segment {i + 1}.&quot;, nameof(segments));
+        }
+
+        _segments = segments;
+        _cumulativeLengths = new double[segments.Length + 1];
+        _cumulativeLengths[0] = 0;
+
+        for (int i = 0; i &lt; segments.Length; i++)
+            _cumulativeLengths[i + 1] = _cumulativeLengths[i] + segments[i].Length;
+
+        Length = _cumulativeLengths[^1];
+    }
+}
+</code></pre>
+<p>The constructor verifies <strong>continuity</strong>: each sub-curve must connect to the next, within tolerance. The <code>_cumulativeLengths</code> array stores cumulative bounds for fast lookup.</p>
+<h3 id="finding-the-sub-curve">Finding the sub-curve</h3>
+<p>The private method that identifies the correct sub-curve from a global parameter:</p>
+<pre><code class="language-csharp">(int index, double localParameter) FindSegment(double parameter)
+{
+    if (parameter &lt;= 0)
+        return (0, 0);
+
+    if (parameter &gt;= Length)
+        return (_segments.Length - 1, _segments[^1].Length);
+
+    int index = Array.BinarySearch(_cumulativeLengths, parameter);
+
+    if (index &lt; 0)
+        index = ~index - 1;
+
+    if (index &gt;= _segments.Length)
+        index = _segments.Length - 1;
+
+    double localParameter = parameter - _cumulativeLengths[index];
+    return (index, localParameter);
+}
+</code></pre>
+<p><code>Array.BinarySearch</code> returns the exact index if the value is found, or the bitwise complement of the index of the first greater element. We subtract 1 to get the interval containing the parameter.</p>
+<h3 id="delegating-operations">Delegating operations</h3>
+<p>Each interface method delegates to the appropriate sub-curve:</p>
+<pre><code class="language-csharp">public Point2d GetPointAtParameter(double parameter)
+{
+    (int index, double localParameter) = FindSegment(parameter);
+    return _segments[index].GetPointAtParameter(localParameter);
+}
+
+public double GetParameterAtPoint(Point2d point, double tolerance = 1e-10)
+{
+    for (int i = 0; i &lt; _segments.Length; i++)
+    {
+        double distance = _segments[i].GetDistanceTo(point);
+
+        if (distance &lt;= tolerance)
+        {
+            double localParameter = _segments[i].GetParameterAtPoint(point, tolerance);
+            return _cumulativeLengths[i] + localParameter;
+        }
+    }
+
+    throw new ArgumentException(&quot;The point does not lie on the composite curve.&quot;, nameof(point));
+}
+
+public UnitVector2d GetTangentAtParameter(double parameter)
+{
+    (int index, double localParameter) = FindSegment(parameter);
+    return _segments[index].GetTangentAtParameter(localParameter);
+}
+
+public Point2d GetClosestPointTo(Point2d point)
+{
+    Point2d closest = _segments[0].GetClosestPointTo(point);
+    double bestDistance = point.GetDistanceTo(closest);
+
+    for (int i = 1; i &lt; _segments.Length; i++)
+    {
+        Point2d candidate = _segments[i].GetClosestPointTo(point);
+        double distance = point.GetDistanceTo(candidate);
+
+        if (distance &lt; bestDistance)
+        {
+            closest = candidate;
+            bestDistance = distance;
+        }
+    }
+
+    return closest;
+}
+
+public double GetDistanceTo(Point2d point)
+{
+    return point.GetDistanceTo(GetClosestPointTo(point));
+}
+</code></pre>
+<p>Note that <code>GetClosestPointTo</code> traverses <strong>all</strong> sub-curves, because the closest point could lie on any of them. <code>GetParameterAtPoint</code>, on the other hand, stops as soon as it finds the sub-curve containing the point.</p>
+<h3 id="trimming-and-reversal">Trimming and reversal</h3>
+<pre><code class="language-csharp">public IBoundedCurve2d GetSubCurve(double startParameter, double endParameter)
+{
+    (int startIndex, double startLocal) = FindSegment(startParameter);
+    (int endIndex, double endLocal) = FindSegment(endParameter);
+
+    if (startIndex == endIndex)
+        return _segments[startIndex].GetSubCurve(startLocal, endLocal);
+
+    var subSegments = new List&lt;IBoundedCurve2d&gt;();
+
+    subSegments.Add(_segments[startIndex].GetSubCurve(startLocal, _segments[startIndex].EndParameter));
+
+    for (int i = startIndex + 1; i &lt; endIndex; i++)
+        subSegments.Add(_segments[i]);
+
+    subSegments.Add(_segments[endIndex].GetSubCurve(_segments[endIndex].StartParameter, endLocal));
+
+    return new CompositeCurve2d(subSegments.ToArray());
+}
+
+public IBoundedCurve2d CreateReversed()
+{
+    var reversed = new IBoundedCurve2d[_segments.Length];
+
+    for (int i = 0; i &lt; _segments.Length; i++)
+        reversed[i] = _segments[_segments.Length - 1 - i].CreateReversed();
+
+    return new CompositeCurve2d(reversed);
+}
+
+ICurve2d ICurve2d.CreateReversed()
+{
+    return CreateReversed();
+}
+</code></pre>
+<p><code>GetSubCurve</code> handles three cases:</p>
+<ol>
+<li>Both parameters fall on the <strong>same sub-curve</strong> → delegate directly.</li>
+<li>Otherwise, <em>trim</em> the first sub-curve (from the start parameter to its end), keep intermediate sub-curves intact, and <em>trim</em> the last (from its start to the end parameter).</li>
+</ol>
+<p><code>CreateReversed</code> reverses the sub-curve order <strong>and</strong> reverses each sub-curve individually.</p>
+<h2 id="example-an-l-shaped-profile">Example: an L-shaped profile</h2>
+<pre><code class="language-csharp">var bottom = new LineSegment2d(new Point2d(0, 0), new Point2d(4, 0));
+var right = new LineSegment2d(new Point2d(4, 0), new Point2d(4, 2));
+var top = new LineSegment2d(new Point2d(4, 2), new Point2d(0, 2));
+var left = new LineSegment2d(new Point2d(0, 2), new Point2d(0, 0));
+
+var contour = new CompositeCurve2d(new IBoundedCurve2d[] { bottom, right, top, left });
+
+contour.IsClosed;                       // True
+contour.Length;                          // 12.0
+contour.GetPointAtParameter(4.0);       // (4, 0) — end of first segment
+contour.GetPointAtParameter(5.0);       // (4, 1) — middle of second segment
+contour.GetTangentAtParameter(5.0);     // (0, 1) — upward direction
+</code></pre>
+<h2 id="whats-next">What's next</h2>
+<p>With composite curves, our library can represent any contour, no matter how complex. In the next article, we'll see how to compute <strong>intersections</strong> between curves — with a lazy computation system that only pays the cost of detailed information when actually needed.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none">Geometry Library in C# &#x2014; Intersections</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-point" class="text-decoration-none">Geometry Library in C# &#x2014; Creating a Point Type</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-curves" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; Curves</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

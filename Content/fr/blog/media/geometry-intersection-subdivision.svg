@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 700 420" width="700" height="420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="420" fill="#ffffff" style="pointer-events: none;" y="0.002"/>
+  <rect x="480" width="210" height="80" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" y="4"/>
+  <line x1="496" y1="26" x2="526" y2="26" stroke="#3b82f6" stroke-width="2.5"/>
+  <text x="534" y="30" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Courbe 0</text>
+  <line x1="496" y1="48" x2="526" y2="48" stroke="#10b981" stroke-width="2.5"/>
+  <text x="534" y="52" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Courbe 1</text>
+  <rect x="496" y="64" width="30" height="12" rx="2" fill="rgba(249, 115, 22, 0.15)" stroke="#f97316" stroke-width="1"/>
+  <text x="534" y="74" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Paire candidate</text>
+  <path d="M 60 388 C 120 378 160 328 210 278 C 260 228 310 168 380 148 C 450 128 530 158 620 128" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 80 158 C 140 178 190 228 250 268 C 310 308 380 348 440 338 C 500 328 560 278 630 308" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="60" cy="388" r="4" fill="#3b82f6"/>
+  <circle cx="138" cy="348" r="4" fill="#3b82f6"/>
+  <circle cx="270" cy="218" r="4" fill="#3b82f6"/>
+  <circle cx="346" cy="161" r="4" fill="#3b82f6"/>
+  <circle cx="424" cy="141" r="4" fill="#3b82f6"/>
+  <circle cx="520" cy="142" r="4" fill="#3b82f6"/>
+  <circle cx="620" cy="128" r="4" fill="#3b82f6"/>
+  <text x="50" y="410" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₀</text>
+  <text x="137.463" y="364.887" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₁</text>
+  <text x="188" y="287" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₂</text>
+  <text x="259" y="212" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₃</text>
+  <text x="345" y="177" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₄</text>
+  <text x="416.326" y="131.639" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₅</text>
+  <text x="513.318" y="134.151" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₆</text>
+  <text x="628" y="118" font-family="sans-serif" font-size="11" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 11px;">t₇</text>
+  <circle cx="80" cy="158" r="4" fill="#10b981"/>
+  <circle cx="148" cy="193" r="4" fill="#10b981"/>
+  <circle cx="214" cy="242" r="4" fill="#10b981"/>
+  <circle cx="280" cy="287" r="4" fill="#10b981"/>
+  <circle cx="357" cy="326" r="4" fill="#10b981"/>
+  <circle cx="434" cy="338" r="4" fill="#10b981"/>
+  <circle cx="529" cy="309" r="4" fill="#10b981"/>
+  <circle cx="630" cy="308" r="4" fill="#10b981"/>
+  <text x="68" y="152" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₀</text>
+  <text x="154" y="190" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₁</text>
+  <text x="221" y="236" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₂</text>
+  <text x="272" y="278" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₃</text>
+  <text x="359" y="344" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₄</text>
+  <text x="440" y="353" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₅</text>
+  <text x="536" y="317" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₆</text>
+  <text x="636" y="302" font-family="sans-serif" font-size="11" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 11px;">u₇</text>
+  <circle cx="202" cy="286" r="4" fill="#3b82f6"/>
+  <g transform="matrix(1, 0, 0, 1, -43, 61)">
+    <circle cx="275" cy="195" r="7" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <circle cx="275" cy="195" r="2.5" fill="#ef4444"/>
+  </g>
+  <text x="256.6" y="337.637" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold" style="white-space: pre; font-size: 13px;">✱ Intersection réelle</text>
+</svg>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Geometry Library in C# &#x2014; Creating a Point Type - WIIP</title><meta name="description" content="First article in a series about building a geometry library in C#. We start with the most fundamental type: the point." />
+        <meta property="og:title" content="Geometry Library in C# &#x2014; Creating a Point Type" />
+        <meta property="og:description" content="First article in a series about building a geometry library in C#. We start with the most fundamental type: the point." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/geometry-library-point" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Geometry Library in C# &#x2014; Creating a Point Type" />
+        <meta name="twitter:description" content="First article in a series about building a geometry library in C#. We start with the most fundamental type: the point." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/geometry-library-point" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/geometry-library-point" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Geometry Library in C# \u2014 Creating a Point Type",
+        "description": "First article in a series about building a geometry library in C#. We start with the most fundamental type: the point.",
+        "datePublished": "2026-04-04",
+        "url": "https://wiip.fr/en/blog/geometry-library-point",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Creating a Point Type</h1>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                <div class="mt-3"><p>In any geometry library, the <strong>point</strong> is the foundational building block. Vectors, lines, curves, and all derived operations rest upon it. In this first article, we'll build a <code>Point2d</code> type in C#, taking the time to justify each design decision.</p>
+<h2 id="why-a-struct-and-not-a-class">Why a struct and not a class?</h2>
+<p>In C#, you can define a custom type with the <code>class</code> or <code>struct</code> keyword. For a geometric point, a struct is the right choice — here's why.</p>
+<h3 id="value-semantics">Value semantics</h3>
+<p>A point represents a <strong>value</strong>, not an <strong>entity</strong>. Two points with the same coordinates are identical, just as two integers that equal <code>42</code> are identical. We don't care whether it's the &quot;same&quot; point in memory — only the coordinates matter.</p>
+<p>This is exactly the distinction C# makes between structs (value types) and classes (reference types):</p>
+<ul>
+<li>A <strong>struct</strong> is copied when assigned to a variable or passed as a parameter. Each variable holds its own independent copy.</li>
+<li>A <strong>class</strong> is not copied: the <strong>reference</strong> pointing to the object in memory is copied instead. Multiple variables can point to the same object.</li>
+</ul>
+<p>With a class, we'd expose ourselves to a classic problem: modifying a point through one variable would silently affect all other variables pointing to the same object. For a type as fundamental as a point, this is a source of subtle, hard-to-track bugs.</p>
+<h3 id="stack-allocation">Stack allocation</h3>
+<p>Structs are generally allocated on the <strong>stack</strong>, not the <strong>heap</strong>. This means no dynamic memory allocation, no pressure on the garbage collector, and more direct memory access. When manipulating thousands of points in a geometric algorithm, this performance difference becomes significant.</p>
+<h3 id="value-based-comparison">Value-based comparison</h3>
+<p>By default, two struct instances are considered equal if all their fields are equal. This is exactly the expected behavior for a point: <code>(3, 5)</code> should be equal to another <code>(3, 5)</code>. With a class, default equality compares <strong>references</strong>, forcing you to override <code>Equals</code> and <code>GetHashCode</code> manually.</p>
+<h3 id="what-existing-libraries-do">What existing libraries do</h3>
+<p>This choice isn't arbitrary. All major .NET geometry libraries use structs for their point types:</p>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Type</th>
+<th>Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System.Drawing</td>
+<td><code>Point</code></td>
+<td><code>struct</code></td>
+</tr>
+<tr>
+<td>System.Numerics</td>
+<td><code>Vector2</code></td>
+<td><code>struct</code></td>
+</tr>
+<tr>
+<td>WPF</td>
+<td><code>Point</code></td>
+<td><code>struct</code></td>
+</tr>
+<tr>
+<td>AutoCAD .NET</td>
+<td><code>Point2d</code>, <code>Point3d</code></td>
+<td><code>struct</code></td>
+</tr>
+</tbody>
+</table>
+<p>The rule is simple: if a type is <strong>small</strong>, <strong>immutable</strong> (or intended to be), and represents a <strong>value</strong>, it's a natural candidate for a struct.</p>
+<p>There are exceptions to this rule in the COM world, which doesn't support structs. AutoCAD's COM API represents points as simple <code>double</code> arrays, and Inventor's COM API uses interfaces for its geometric types. These are historical constraints tied to COM technology, not design choices.</p>
+<p>This leads to rather unnatural code — for example, to translate a point, you first have to copy it:</p>
+<pre><code class="language-csharp">var p1 = p0.Copy()!;
+p1.TranslateBy(v0);
+</code></pre>
+<p><code>TranslateBy()</code> modifies the point it's called on, so if you don't want to modify <code>p0</code>, you have to copy it first.</p>
+<h2 id="the-point2d-struct">The Point2d struct</h2>
+<p>Let's start with the simplest declaration:</p>
+<pre><code class="language-csharp">public readonly struct Point2d
+{
+    public double X { get; }
+    
+    public double Y { get; }
+
+    public Point2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Point2d(double[] coordinates)
+    {
+        ArgumentNullException.ThrowIfNull(coordinates);
+
+        if (coordinates.Length != 2)
+            throw new ArgumentException(&quot;The array must contain exactly 2 elements.&quot;, nameof(coordinates));
+
+        X = coordinates[0];
+        Y = coordinates[1];
+    }
+}
+</code></pre>
+<p>The second constructor accepts a <code>double</code> array, which is handy when retrieving coordinates from an external API — such as AutoCAD's COM API, which represents points in this form. It checks that the array is not null and contains exactly two elements.</p>
+<p>The <code>X</code> and <code>Y</code> properties are read-only: once created, a point doesn't change. This is a deliberate choice of <strong>immutability</strong>. If you need a point with different coordinates, you create a new one. This principle eliminates an entire category of bugs related to unintended modifications.</p>
+<p>The <code>readonly</code> keyword before <code>struct</code> guarantees to the compiler that no member of the struct modifies its state. This has a concrete performance impact: when a struct is passed by read-only reference (<code>in</code> or <code>ref readonly</code> parameter), the compiler normally has to make a <strong>defensive copy</strong> before each method call, just in case the method might modify internal state. With <code>readonly struct</code>, this copy is unnecessary and the compiler eliminates it. For types manipulated intensively like points, this optimization makes a difference.</p>
+<p>You can then create a point very simply:</p>
+<pre><code class="language-csharp">var point = new Point2d(3.0, 5.0);
+</code></pre>
+<h3 id="the-origin-point">The origin point</h3>
+<p>The origin — the point <code>(0, 0)</code> — comes up so often in geometric calculations that it deserves its own property:</p>
+<pre><code class="language-csharp">public static Point2d Origin { get; } = new(0.0, 0.0);
+</code></pre>
+<p>You can write <code>Point2d.Origin</code> instead of <code>new Point2d(0.0, 0.0)</code>, which makes the code more readable and clearly expresses intent.</p>
+<p>Here's the complete struct at this stage:</p>
+<pre><code class="language-csharp">public readonly struct Point2d
+{
+    public static Point2d Origin { get; } = new(0.0, 0.0);
+
+    public double X { get; }
+    
+    public double Y { get; }
+
+    public Point2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Point2d(double[] coordinates)
+    {
+        ArgumentNullException.ThrowIfNull(coordinates);
+
+        if (coordinates.Length != 2)
+            throw new ArgumentException(&quot;The array must contain exactly 2 elements.&quot;, nameof(coordinates));
+
+        X = coordinates[0];
+        Y = coordinates[1];
+    }
+}
+</code></pre>
+<h2 id="computing-the-distance-between-two-points">Computing the distance between two points</h2>
+<p>The distance between two points is probably the most fundamental operation in geometry. It relies on the <strong>Pythagorean theorem</strong>: given two points <span class="math">\(A(x_1, y_1)\)</span> and <span class="math">\(B(x_2, y_2)\)</span>, the distance between them is:</p>
+<p><span class="math">\(d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}\)</span></p>
+<p>In C#, this translates to:</p>
+<pre><code class="language-csharp">public double GetDistanceTo(Point2d other)
+{
+    double deltaX = other.X - X;
+    double deltaY = other.Y - Y;
+    return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+}
+</code></pre>
+<p>You could use <code>Math.Pow(deltaX, 2)</code> to square the value, but direct multiplication <code>deltaX * deltaX</code> is faster and just as readable.</p>
+<p>We can also expose the <strong>squared distance</strong>, i.e. the result before calling <code>Math.Sqrt</code>:</p>
+<pre><code class="language-csharp">public double GetSquaredDistanceTo(Point2d other)
+{
+    double deltaX = other.X - X;
+    double deltaY = other.Y - Y;
+    return deltaX * deltaX + deltaY * deltaY;
+}
+</code></pre>
+<p>At first glance, this method seems redundant. But square root is an expensive operation, and in many situations, you don't need the exact distance — just whether it's below or above a threshold. Comparing <span class="math">\(d^2\)</span> to <span class="math">\(\varepsilon^2\)</span> yields the same result as comparing <span class="math">\(d\)</span> to <span class="math">\(\varepsilon\)</span> (both values being positive), without paying the cost of <code>Math.Sqrt</code>. We'll see below that <code>IsAlmostEqualTo</code> takes advantage of this trick.</p>
+<p>Usage example:</p>
+<pre><code class="language-csharp">var a = new Point2d(1.0, 2.0);
+var b = new Point2d(4.0, 6.0);
+double distance = a.GetDistanceTo(b); // 5.0
+</code></pre>
+<p>Here we find the classic 3-4-5 right triangle: the difference in X is 3, the difference in Y is 4, and the distance is 5.</p>
+<h2 id="comparing-two-points-the-floating-point-trap">Comparing two points: the floating-point trap</h2>
+<p>Can we simply compare two points with <code>==</code>? In theory yes, but in practice, floating-point numbers have a well-known problem: <strong>rounding errors</strong>.</p>
+<p>Let's take an example. In mathematics, <span class="math">\(0.1 + 0.2 = 0.3\)</span> exactly. But in C#:</p>
+<pre><code class="language-csharp">double result = 0.1 + 0.2;
+Console.WriteLine(result == 0.3); // False!
+Console.WriteLine(result);        // 0.30000000000000004
+</code></pre>
+<p>The number <code>0.1</code> cannot be represented exactly in binary (just as <span class="math">\(\frac{1}{3} = 0.333...\)</span> cannot be represented exactly in decimal). This results in tiny rounding errors that accumulate over calculations.</p>
+<p>For geometric operations — which chain additions, multiplications, and square roots — these errors are unavoidable. Two points that should be identical after a series of transformations end up separated by an infinitesimal distance, on the order of <span class="math">\(10^{-15}\)</span>.</p>
+<p>The solution is to compare points with a <strong>tolerance</strong>:</p>
+<pre><code class="language-csharp">public bool IsAlmostEqualTo(Point2d other, double tolerance = 1e-10)
+{
+    return GetSquaredDistanceTo(other) &lt;= tolerance * tolerance;
+}
+</code></pre>
+<p>Rather than comparing coordinates one by one, we reuse our <code>GetSquaredDistanceTo</code> method. If the squared distance between the two points is less than or equal to the square of the tolerance, we consider them identical — without paying the cost of <code>Math.Sqrt</code>. The default value of <code>1e-10</code> (i.e. <span class="math">\(10^{-10}\)</span>) is small enough to capture truly identical points while absorbing rounding errors.</p>
+<p>Example:</p>
+<pre><code class="language-csharp">var a = new Point2d(1.0, 2.0);
+var b = new Point2d(1.0 + 1e-12, 2.0 - 1e-12);
+
+Console.WriteLine(a.IsAlmostEqualTo(b)); // True
+</code></pre>
+<h3 id="the-transitivity-trap">The transitivity trap</h3>
+<p>This approximate comparison has a flaw you should be aware of: it is <strong>not transitive</strong>. In mathematics, transitivity states that if <span class="math">\(A = B\)</span> and <span class="math">\(B = C\)</span>, then <span class="math">\(A = C\)</span>. With a tolerance, this property no longer holds.</p>
+<p>Imagine three aligned points, separated by distances slightly less than the tolerance <span class="math">\(\varepsilon\)</span>:</p>
+<p><img src="Content/en/blog/media/geometry-point-transitivity.svg" alt="Three points A, B and C: A is close to B, B is close to C, but A is too far from C" /></p>
+<p>Point B lies within A's tolerance zone, and C lies within B's. But A and C are separated by a distance greater than <span class="math">\(\varepsilon\)</span>. Result:</p>
+<pre><code class="language-csharp">a.IsAlmostEqualTo(b); // True  — d(A,B) &lt; ε
+b.IsAlmostEqualTo(c); // True  — d(B,C) &lt; ε
+a.IsAlmostEqualTo(c); // False — d(A,C) &gt; ε
+</code></pre>
+<p>This is an unavoidable consequence of tolerance-based comparison. There is no perfect solution: either you accept this trade-off, or you use exact comparison, which suffers from rounding errors. In practice, tolerance-based comparison remains the most pragmatic choice — you just need to be aware of this limitation.</p>
+<h2 id="the-complete-point2d-code">The complete Point2d code</h2>
+<p>Here's the complete struct:</p>
+<pre><code class="language-csharp">public readonly struct Point2d
+{
+    public static Point2d Origin { get; } = new(0.0, 0.0);
+
+    public double X { get; }
+    
+    public double Y { get; }
+
+    public Point2d(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Point2d(double[] coordinates)
+    {
+        ArgumentNullException.ThrowIfNull(coordinates);
+
+        if (coordinates.Length != 2)
+            throw new ArgumentException(&quot;The array must contain exactly 2 elements.&quot;, nameof(coordinates));
+
+        X = coordinates[0];
+        Y = coordinates[1];
+    }
+
+    public double GetDistanceTo(Point2d other)
+    {
+        double deltaX = other.X - X;
+        double deltaY = other.Y - Y;
+        return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
+    public double GetSquaredDistanceTo(Point2d other)
+    {
+        double deltaX = other.X - X;
+        double deltaY = other.Y - Y;
+        return deltaX * deltaX + deltaY * deltaY;
+    }
+
+    public bool IsAlmostEqualTo(Point2d other, double tolerance = 1e-10)
+    {
+        return GetSquaredDistanceTo(other) &lt;= tolerance * tolerance;
+    }
+}
+</code></pre>
+<h2 id="going-3d-with-point3d">Going 3D with Point3d</h2>
+<p>The transition to three dimensions is natural: just add a <code>Z</code> coordinate. The distance formula extends in the same way:</p>
+<p><span class="math">\(d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}\)</span></p>
+<pre><code class="language-csharp">public readonly struct Point3d
+{
+    public static Point3d Origin { get; } = new(0.0, 0.0, 0.0);
+
+    public double X { get; }
+    
+    public double Y { get; }
+    
+    public double Z { get; }
+
+    public Point3d(double x, double y, double z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+    }
+
+    public Point3d(double[] coordinates)
+    {
+        ArgumentNullException.ThrowIfNull(coordinates);
+
+        if (coordinates.Length != 3)
+            throw new ArgumentException(&quot;The array must contain exactly 3 elements.&quot;, nameof(coordinates));
+
+        X = coordinates[0];
+        Y = coordinates[1];
+        Z = coordinates[2];
+    }
+
+    public double GetDistanceTo(Point3d other)
+    {
+        double deltaX = other.X - X;
+        double deltaY = other.Y - Y;
+        double deltaZ = other.Z - Z;
+        return Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+    }
+
+    public double GetSquaredDistanceTo(Point3d other)
+    {
+        double deltaX = other.X - X;
+        double deltaY = other.Y - Y;
+        double deltaZ = other.Z - Z;
+        return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+    }
+
+    public bool IsAlmostEqualTo(Point3d other, double tolerance = 1e-10)
+    {
+        return GetSquaredDistanceTo(other) &lt;= tolerance * tolerance;
+    }
+}
+</code></pre>
+<p>The struct is identical to <code>Point2d</code>, with an additional axis. The <code>GetDistanceTo</code> and <code>IsAlmostEqualTo</code> methods follow exactly the same logic.</p>
+<h2 id="whats-next">What's next</h2>
+<p>In upcoming articles, we'll progressively add new building blocks to our library: <strong>vectors</strong> (which represent directions and displacements, unlike points which represent positions), <strong>geometric transformations</strong>, then more complex entities like lines, circles, and arcs. Each new type will build upon the previous ones, following the same approach: understand the mathematical concept, then translate it into clean, efficient C# code.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Composite Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-curves" class="text-decoration-none">Geometry Library in C# &#x2014; Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-intersections" class="text-decoration-none">Geometry Library in C# &#x2014; Intersections</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-nurbs" class="text-decoration-none">Geometry Library in C# &#x2014; NURBS Curves</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/geometry-library-operators" class="text-decoration-none">Geometry Library in C# &#x2014; Operators</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-transforms" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; Transformations</span></a></div>
+                        <div class="col-6 text-end"><a href="/en/blog/geometry-library-operators" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Geometry Library in C# &#x2014; Operators</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
