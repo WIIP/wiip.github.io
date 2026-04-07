@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 600 400" width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .circle { fill: none; stroke: #2563eb; stroke-width: 2; }
+      .radical-axis { stroke: #dc2626; stroke-width: 2; stroke-dasharray: 5,5; }
+      .center { fill: #2563eb; }
+      .point { fill: #dc2626; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; }
+      .construction { stroke: #94a3b8; stroke-width: 1; stroke-dasharray: 2,2; }
+    </style>
+  </defs>
+  <text x="300" y="30" text-anchor="middle" class="title" style="white-space: pre;">Droite radicale de deux cercles</text>
+  <circle cx="200" cy="200" r="100" class="circle"/>
+  <circle cx="200" cy="200" r="3" class="center"/>
+  <text x="200" y="218" text-anchor="middle" class="label" style="white-space: pre;">C₀</text>
+  <circle cx="350" cy="200" r="100" class="circle"/>
+  <circle cx="350" cy="200" r="3" class="center"/>
+  <text x="350" y="218" text-anchor="middle" class="label" style="white-space: pre;">C₁</text>
+  <line x1="275" y1="60" x2="275" y2="340" class="radical-axis"/>
+  <text x="280" y="80" class="label" fill="#dc2626" style="white-space: pre;">Droite radicale</text>
+  <line x1="200" y1="200" x2="350" y2="200" class="construction"/>
+  <circle cx="275" cy="133.86" r="5" class="point"/>
+  <circle cx="275" cy="266.14" r="5" class="point"/>
+  <text x="252.3" y="136.084" class="label" fill="#dc2626" style="white-space: pre; font-size: 14px;">I₁</text>
+  <text x="285" y="270" class="label" fill="#dc2626" style="white-space: pre;">I₂</text>
+  <circle cx="275" cy="200" r="3" fill="#16a34a"/>
+  <text x="282" y="195" class="label" font-size="12" fill="#16a34a" style="white-space: pre;">H</text>
+  <line x1="200" y1="200" x2="275" y2="133.86" class="construction"/>
+  <line x1="350" y1="200" x2="275" y2="133.86" class="construction"/>
+  <g transform="matrix(1, 0, 0, 1, 8.846638, 350.164764)">
+    <text x="0" y="0" class="label" font-size="12" style="white-space: pre;">La droite radicale est l'ensemble des points P ayant</text>
+    <text x="0" y="18" class="label" font-size="12" style="white-space: pre;">la même puissance par rapport aux deux cercles.</text>
+    <text x="0" y="40" class="label" font-size="12" fill="#dc2626" style="white-space: pre;">Propriété : Puissance(P, C₀) = Puissance(P, C₁)</text>
+  </g>
+</svg>

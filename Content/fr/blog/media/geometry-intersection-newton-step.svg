@@ -15,10 +15,6 @@
     </marker>
   </defs>
   <rect width="700" height="400" fill="#ffffff" style=""/>
-  <g style="">
-    <line x1="235.009" y1="214.566" x2="177.48" y2="215.972" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 2"/>
-    <text x="200" y="231.29" font-family="sans-serif" font-size="11" fill="#ef4444" style="white-space: pre; font-size: 11px;">F'</text>
-  </g>
   <g>
     <rect x="476.988" y="136.869" width="200" height="108" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
     <line x1="492.988" y1="151.869" x2="522.988" y2="151.869" stroke="#3b82f6" stroke-width="2.5"/>
@@ -33,32 +29,30 @@
     <text x="530.988" y="235.869" font-family="sans-serif" font-size="12" fill="#334155" style="white-space: pre; font-size: 12px;">Correction Δt, Δu</text>
   </g>
   <path d="M 40,310 C 100,290 170,210 260,160 C 350,110 450,90 650,100" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M 50,80 C 120,120 200,200 290,250 C 380,300 480,330 660,310" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="205" cy="193.146" r="5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <circle cx="178" cy="216" r="6" fill="#3b82f6"/>
-  <text x="143.814" y="208.264" font-family="sans-serif" font-size="13" fill="#3b82f6" font-weight="bold" style="white-space: pre; font-size: 13px;">C₀(t)</text>
-  <text x="243.842" y="217.034" font-family="sans-serif" font-size="13" fill="#10b981" font-weight="bold" style="white-space: pre; font-size: 13px;">C₁(u)</text>
-  <g style="visibility: hidden;">
-    <line x1="220" y1="232" x2="200" y2="197" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowRed)"/>
-    <text x="192.047" y="230.717" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold" style="white-space: pre; font-size: 13px;">F</text>
-  </g>
-  <line x1="50.702" y1="322.218" x2="374.395" y2="51.921" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
-  <text x="260.348" y="127.101" font-family="sans-serif" font-size="12" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 12px;">T₀</text>
-  <line x1="178.554" y1="216.222" x2="279.926" y2="130.594" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
-  <line x1="235.243" y1="214.63" x2="335.147" y2="286.851" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M 61.238 50.131 C 131.238 90.131 211.238 170.131 301.238 220.131 C 391.238 270.131 491.238 300.131 671.238 280.131" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="233.96" cy="175.77" r="5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="155" cy="235" r="6" fill="#3b82f6"/>
+  <text x="120" y="227" font-family="sans-serif" font-size="13" fill="#3b82f6" font-weight="bold" style="white-space: pre; font-size: 13px;">C₀(t)</text>
+  <text x="241.88" y="221.382" font-family="sans-serif" font-size="13" fill="#10b981" font-weight="bold" style="white-space: pre; font-size: 13px;">C₁(u)</text>
+  <line x1="260" y1="195" x2="155" y2="235" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowRed)"/>
+  <text x="211.734" y="228.017" font-family="sans-serif" font-size="13" fill="#ef4444" font-weight="bold" style="white-space: pre; font-size: 13px;">F</text>
+  <line x1="32.634" y1="341.155" x2="357.634" y2="61.155" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="260" y="127" font-family="sans-serif" font-size="12" fill="#3b82f6" font-style="italic" style="white-space: pre; font-size: 12px;">T₀</text>
+  <line x1="155" y1="235" x2="255" y2="150" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="260" y1="195" x2="357.634" y2="268.774" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
   <g style="">
-    <line x1="52.77" y1="84.808" x2="430.742" y2="355.367" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 3"/>
-    <text x="313.294" y="297.328" font-family="sans-serif" font-size="12" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 12px;">T₁</text>
+    <line x1="70" y1="50" x2="450" y2="340" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <text x="340" y="290" font-family="sans-serif" font-size="12" fill="#10b981" font-style="italic" style="white-space: pre; font-size: 12px;">T₁</text>
   </g>
-  <circle cx="195" cy="201.708" r="5" fill="#f97316" stroke="#3b82f6" stroke-width="1.5"/>
-  <circle cx="216.177" cy="201.761" r="5" fill="#f97316" stroke="#10b981" stroke-width="1.5"/>
+  <circle cx="190.166" cy="205" r="5" fill="#f97316" stroke="#3b82f6" stroke-width="1.5"/>
+  <circle cx="243.544" cy="183.579" r="5" fill="#f97316" stroke="#10b981" stroke-width="1.5"/>
   <g style="">
-    <line x1="178.355" y1="216.382" x2="196.954" y2="201.261" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
-    <text x="179.337" y="197.688" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δt</text>
+    <line x1="155" y1="235" x2="190.293" y2="204.784" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
+    <text x="163.598" y="203.846" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δt</text>
   </g>
-  <circle cx="235.082" cy="214.552" r="6" fill="#10b981"/>
-  <line x1="234.126" y1="214.668" x2="215.522" y2="201.492" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
-  <text x="224.973" y="199.093" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δu</text>
+  <circle cx="260" cy="195" r="6" fill="#10b981"/>
+  <line x1="260" y1="195" x2="243.417" y2="183.452" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="249.869" y="178.815" font-family="sans-serif" font-size="11" fill="#f97316" font-weight="bold" style="white-space: pre; font-size: 11px;">Δu</text>
   <text x="40" y="375" font-family="sans-serif" font-size="12" fill="#64748b" style="white-space: pre;">Le résidu F relie les deux points courants. Les tangentes T₀ et T₁ indiquent la direction</text>
   <text x="40" y="393" font-family="sans-serif" font-size="12" fill="#64748b" style="white-space: pre;">de déplacement sur chaque courbe. Les corrections Δt et Δu rapprochent les deux points.</text>
 </svg>
