@@ -117,6 +117,9 @@
     <loc>https://wiip.fr/fr/blog/claude-code-powershell-tool</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/configuration-de-vault-avec-inventor</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/custom_sys_var</loc>
   </url>
   <url>
@@ -237,6 +240,9 @@
     <loc>https://wiip.fr/fr/tags/PowerShell</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/Vault</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/Dassault%2bSyst%25C3%25A8mes</loc>
   </url>
   <url>
@@ -262,9 +268,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Revit</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/Vault</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/APS</loc>
@@ -471,6 +474,9 @@
     <loc>https://wiip.fr/en/blog/claude-code-powershell-tool</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/configuring-vault-with-inventor</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/custom_sys_var</loc>
   </url>
   <url>
@@ -576,6 +582,9 @@
     <loc>https://wiip.fr/en/tags/PowerShell</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/tags/Vault</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/tags/Mathematics</loc>
   </url>
   <url>
@@ -598,9 +607,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Revit</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/Vault</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/APS</loc>

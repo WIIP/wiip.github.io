@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Configuring Vault with Inventor - WIIP</title><meta name="description" content="Configuring Vault to work with Inventor is a bit harder than you might think." />
+        <meta property="og:title" content="Configuring Vault with Inventor" />
+        <meta property="og:description" content="Configuring Vault to work with Inventor is a bit harder than you might think." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/configuring-vault-with-inventor" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Configuring Vault with Inventor" />
+        <meta name="twitter:description" content="Configuring Vault to work with Inventor is a bit harder than you might think." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/configuring-vault-with-inventor" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/configuring-vault-with-inventor" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Configuring Vault with Inventor",
+        "description": "Configuring Vault to work with Inventor is a bit harder than you might think.",
+        "datePublished": "2026-04-11",
+        "url": "https://wiip.fr/en/blog/configuring-vault-with-inventor",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Configuring Vault with Inventor</h1>
+                    <small class="text-muted">Saturday, April 11, 2026</small><div class="mt-2"><a href="/en/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/en/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>Vault is a complicated piece of software and nothing is simple with it. And it starts right from the setup. Let's see how to properly configure Vault with Inventor.</p>
+<p>The first step is to create the vault. Nothing complicated here, just open <strong>Autodesk Data Management Server Console</strong> on the server and choose <strong>Create</strong>.</p>
+<p>It's actually the creation of the Inventor project (.ipj) that has a pitfall.</p>
+<p>Start by choosing the <strong>Vault</strong> type:</p>
+<p><img src="media/creation-projet-inventor-type-de-projet.webp" alt="Choosing the Vault type" /></p>
+<p>Then the project name. Typically, you choose your organization's name. Here for the example, I'll name my project <strong>WIIP</strong>:</p>
+<p><img src="media/creation-projet-inventor-nom-du-projet.webp" alt="Choosing the project name" /></p>
+<p>This will create a file <code>C:\Users\Maxence\Documents\Inventor\WIIP\WIIP.ipj</code> and the workspace will be set to <code>C:\Users\Maxence\Documents\Inventor\WIIP\</code>. Often, people prefer a shorter path like <code>C:\WIIP</code>, it's up to you.</p>
+<p>On the next screen, you can choose libraries, but I won't go into detail on that — it's not where the problem lies.</p>
+<p>The issue comes next, with folder mapping. To start working, you need to map local folders to Vault's virtual folders.</p>
+<p><img src="media/mappage-des-dossiers.webp" alt="Choosing folder mapping" /></p>
+<p>At this point, you'd think you can just map the project root to <code>$</code>, but you get the infamous message:</p>
+<blockquote>
+<p>Invalid selection. You cannot map a Vault project to the root if the project does not contain a workspace.</p>
+</blockquote>
+<p>And that's where it all goes wrong. What does this gibberish even mean?</p>
+<h2 id="why-this-error">Why this error?</h2>
+<p>The problem is that you cannot place your design files at the vault root. You must place them in a subfolder. The only file that should be at the root is the .ipj file. This is because of the library folders. They must start from the root and not be mixed with standard files. So you need a structure like this:</p>
+<pre><code>$
+  +-- Designs
+  +-- Content Center Files (Library)
+  +-- Templates (Library)
+  &lt;Your organization&gt;.ipj
+</code></pre>
+<p>You can name this subfolder whatever you want, but you need one.</p>
+<p>This subfolder must also exist in your local workspace. After creating the project, you need to modify the workspace so that it includes the subfolder:</p>
+<p><img src="media/modification-espace-de-travail.webp" alt="Modifying the project" /></p>
+<p>Once this is done, you can then create the mapping <strong>Project root</strong> → <code>$</code></p>
+<p>After that, created files will go by default into the <code>Designs</code> subfolder. When checked in, they will be placed in <code>$/Designs</code>. Your .ipj file will remain in <code>$</code>.</p>
+<p>Finally, don't forget that in the Vault client, you also need to set the working folder (File, Set Working Folder...) to make sure both applications use the same folder.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Vault</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/vault-data-api" class="text-decoration-none">Vault Data API</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/vault-server-installation" class="text-decoration-none">Vault Server Installation Issue (Hard Drive Sector Size)</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/geometry-library-composite-curves" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Geometry Library in C# &#x2014; Composite Curves</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

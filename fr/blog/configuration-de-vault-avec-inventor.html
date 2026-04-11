@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Configuration de Vault avec Inventor - WIIP</title><meta name="description" content="Configurer Vault pour qu&#x27;il fonctionne avec Inventor est un peu plus difficile que ce que vous pensez." />
+        <meta property="og:title" content="Configuration de Vault avec Inventor" />
+        <meta property="og:description" content="Configurer Vault pour qu&#x27;il fonctionne avec Inventor est un peu plus difficile que ce que vous pensez." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/configuration-de-vault-avec-inventor" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Configuration de Vault avec Inventor" />
+        <meta name="twitter:description" content="Configurer Vault pour qu&#x27;il fonctionne avec Inventor est un peu plus difficile que ce que vous pensez." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/configuration-de-vault-avec-inventor" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/configuration-de-vault-avec-inventor" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Configuration de Vault avec Inventor",
+        "description": "Configurer Vault pour qu\u0027il fonctionne avec Inventor est un peu plus difficile que ce que vous pensez.",
+        "datePublished": "2026-04-11",
+        "url": "https://wiip.fr/fr/blog/configuration-de-vault-avec-inventor",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Configuration de Vault avec Inventor</h1>
+                    <small class="text-muted">samedi 11 avril 2026</small><div class="mt-2"><a href="/fr/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Vault est un logiciel compliqué et rien n'est simple avec lui. Et ça commence dès la mise en place. Voyons ensemble comment il faut procéder pour configurer Vault avec Inventor.</p>
+<p>La première étape consiste à créer le coffre. Bon là, rien de compliqué, il suffit d'ouvrir <strong>Autodesk Data Management Server Console</strong> sur le serveur et de choisir <strong>Créer</strong>.</p>
+<p>C'est en fait la création du projet Inventor (.ipj) qui comporte un écueil.</p>
+<p>On commence par choisir le type <strong>Vault</strong> :</p>
+<p><img src="Content/fr/blog/media/creation-projet-inventor-type-de-projet.webp" alt="Choix du type Vault" /></p>
+<p>Ensuite le nom du projet. Donc là en général, on choisit le nom de son organisation. Ici pour l'exemple, je vais choisir d'appeler mon projet <strong>WIIP</strong> :</p>
+<p><img src="Content/fr/blog/media/creation-projet-inventor-nom-du-projet.webp" alt="Choix du nom du projet" /></p>
+<p>Donc là, il va créer un fichier <code>C:\Users\Maxence\Documents\Inventor\WIIP\WIIP.ipj</code> et l'espace de travail sera défini à <code>C:\Users\Maxence\Documents\Inventor\WIIP\</code>. Souvent, on préfère choisir un dossier plus court comme <code>C:\WIIP</code>, c'est à votre convenance.</p>
+<p>Dans l'écran suivant, on peut choisir les bibliothèques, mais je ne vais pas détailler ce point, ce n'est pas là que se situe le problème.</p>
+<p>C'est après qu'il y a un souci, avec le mappage des dossiers. Pour pouvoir commencer à travailler, il faut mapper les dossiers locaux avec les dossiers virtuels de Vault.</p>
+<p><img src="Content/fr/blog/media/mappage-des-dossiers.webp" alt="Choix du mappage des dossiers" /></p>
+<p>Là, on se dit qu'on va mapper la racine du projet à <code>$</code> mais on tombe sur le fameux message :</p>
+<blockquote>
+<p>Sélection incorrecte. Vous ne pouvez pas mapper un projet Vault à la racine si le projet ne contient pas d'espace de travail.</p>
+</blockquote>
+<p>Et c'est le drame. Qu'est-ce que ça veut bien dire ce charabia ?</p>
+<h2 id="pourquoi-cette-erreur">Pourquoi cette erreur ?</h2>
+<p>Le problème, c'est que vous ne pouvez pas placer vos fichiers de conception à la racine du coffre. Vous devez impérativement les placer dans un sous-dossier. Le seul fichier qui doit être à la racine, c'est le fichier .ipj. C'est à cause des dossiers de bibliothèque. Ils doivent partir de la racine et ne pas être mélangés avec les fichiers standard. Donc, vous devez avoir une structure qui ressemble à ça :</p>
+<pre><code>$
+  +-- Conceptions
+  +-- Fichiers du centre de contenu (Bibliothèque)
+  +-- Modèles (Bibliothèque)
+  &lt;Votre organisation&gt;.ipj
+</code></pre>
+<p>Ce sous-dossier, vous l'appelez comme vous voulez, mais il en faut un.</p>
+<p>Ce sous-dossier doit également exister dans votre espace de travail local. Après avoir créé le projet, il faut donc modifier l'espace de travail pour qu'il intègre le sous-dossier :</p>
+<p><img src="Content/fr/blog/media/modification-espace-de-travail.webp" alt="Modification du projet" /></p>
+<p>Ceci étant fait, vous pouvez alors créer le mappage <strong>Racine du projet</strong> → <code>$</code></p>
+<p>Après ça, les fichiers créés vont venir par défaut dans le sous-dossier <code>Conceptions</code>. Quand ils seront archivés, ils seront placés dans <code>$/Conceptions</code>. Votre fichier .ipj sera lui dans <code>$</code>.</p>
+<p>Pour finir, n'oubliez pas, dans le client Vault, il faut aussi définir le dossier de travail (Fichier, Définir le dossier de travail...) pour être sûr que les deux logiciels utilisent le même dossier.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Vault</strong> ? Contactez-moi pour un devis gratuit.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/vault-data-api" class="text-decoration-none">Vault Data API</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/vault-items" class="text-decoration-none">Les articles dans Autodesk Vault</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/vault-server-installation" class="text-decoration-none">Probl&#xE8;me d&#x27;installation du serveur Vault (taille de secteur de disque dur)</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/revit-2027" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Revit 2027 est disponible</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
