@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title> - WIIP</title><meta name="description" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/autocad-units" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:description" content="" /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autocad-units" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-units" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "description": "",
+        "datePublished": "0001-01-01",
+        "url": "https://wiip.fr/en/blog/autocad-units",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1></h1>
+                    <small class="text-muted">Monday, January 1, 0001</small></header>
+                <div class="mt-3"><p>Unit management is a recurring and often misunderstood topic in AutoCAD. To understand why, you have to remember that AutoCAD is a very old piece of software: its first version dates back to 1982. Originally, it simply didn't support the notion of units. A drawing was just a set of dimensionless coordinates: a length of 1 represented neither a meter nor an inch — it was up to the user to decide on the convention &quot;in their head&quot;.</p>
+<p>Software designed much later, such as Inventor or Revit, on the contrary builds the notion of units into its very foundations: every value intrinsically carries a physical dimension (mm, inches…), and conversions are handled transparently.</p>
+<p>Autodesk gradually added <strong>partial</strong> unit support to AutoCAD, in successive layers, to address concrete needs (hatch scaling, block insertion between drawings, etc.). The result is that units are handled not by a single, coherent mechanism, but by several distinct notions that come into play at different moments: when the drawing is created, when it is printed, and when blocks are inserted. That's what makes the topic a little confusing. Let's go through it.</p>
+<h2 id="metric-or-imperial-the-choice-at-creation">Metric or imperial: the choice at creation</h2>
+<p>When you create a new drawing, you usually start from a template (a <code>.dwt</code> file). AutoCAD ships with two families:</p>
+<ul>
+<li><code>acad.dwt</code>: an <strong>imperial</strong> template (inches);</li>
+<li><code>acadiso.dwt</code>: a <strong>metric</strong> template (millimeters).</li>
+</ul>
+<p>You can also do without a template entirely. In the &quot;Select template&quot; dialog, the small drop-down next to the <strong>Open</strong> button offers two template-free options: &quot;Imperial&quot; (English system) and &quot;Metric&quot;.</p>
+<p><img src="Content/en/blog/media/acad-draft.webp" alt="Open a drawing without a template, using the imperial or metric system" /></p>
+<p>Here again, this choice amounts to setting whether the new drawing is metric or imperial.</p>
+<p>This choice doesn't just change the displayed units: above all, it determines which files AutoCAD uses for <strong>hatches</strong> and <strong>linetypes</strong>.</p>
+<ul>
+<li>In imperial, AutoCAD uses <code>acad.pat</code> (hatch patterns) and <code>acad.lin</code> (linetypes).</li>
+<li>In metric, it uses <code>acadiso.pat</code> and <code>acadiso.lin</code>.</li>
+</ul>
+<p>The difference matters: metric patterns are scaled for distances expressed in millimeters, imperial patterns for inches. Loading a &quot;dashed&quot; linetype from the wrong file will produce dashes that are either tiny or gigantic.</p>
+<h3 id="the-measurement-variable">The MEASUREMENT variable</h3>
+<p>It's the <a href="https://help.autodesk.com/view/ACD/2027/ENU/?guid=GUID-1D074C55-0B63-482E-8A37-A52AC0C7C8FE">MEASUREMENT</a> system variable that drives this behavior, drawing by drawing:</p>
+<ul>
+<li><code>0</code>: imperial, files <code>acad.pat</code> and <code>acad.lin</code>;</li>
+<li><code>1</code>: metric, files <code>acadiso.pat</code> and <code>acadiso.lin</code>.</li>
+</ul>
+<p><code>MEASUREMENT</code> is stored in the drawing (<code>PerDatabase</code>): every DWG therefore has its own value.</p>
+<p>There is a sibling variable, <a href="https://help.autodesk.com/view/ACD/2027/ENU/?guid=GUID-5F81863D-FAA6-4837-9071-F91C3E1A1E26">MEASUREINIT</a>, which follows the same convention (<code>0</code> imperial, <code>1</code> metric) but is used only to set the default value for a <strong>new</strong> drawing created from scratch, without a template. It, in turn, is stored in the registry (<code>PerUser</code>).</p>
+<h2 id="layout-units">Layout units</h2>
+<p>In model space, you draw &quot;full scale&quot;: a 5-meter part measures 5 units (regardless of whether those units represent meters, millimeters, or inches — you decide on the convention).</p>
+<p><strong>Layouts</strong> (paper space) introduce a distinct notion of unit: that of the <strong>paper</strong>. When you configure a page setup (the <strong>PAGESETUP</strong> command, or the Page Setup Manager), you tell AutoCAD whether the sheet is measured in <strong>millimeters</strong> or <strong>inches</strong>.</p>
+<p>This paper unit is independent of the model space unit. It's the one combined with the plot scale to produce the final output. You find it directly in the Plot dialog, in the <strong>Plot scale</strong> section: the drop-down lets you choose between <strong>inches</strong> and <strong>millimeters</strong>.</p>
+<p><img src="Content/en/blog/media/acad-print-units.webp" alt="Choosing the unit (inches or millimeters) in the Plot dialog" /></p>
+<p>For example, a plot scale of &quot;1 mm = 1 unit&quot; on an A3 sheet (420 × 297 mm) does not give the same result as a scale of &quot;1 inch = 1 unit&quot;. Choosing the right paper unit is therefore essential for your scales (1:50, 1:100, etc.) to be consistent.</p>
+<p>We find the <code>MEASUREMENT</code> variable here too: it's what determines the default paper unit in layouts. With <code>MEASUREMENT</code> set to <code>0</code> (imperial), new layouts are configured in inches; at <code>1</code> (metric), they are configured in millimeters. The metric or imperial nature of the drawing therefore propagates all the way to paper space.</p>
+<h2 id="block-insertion-units">Block insertion units</h2>
+<p>This is probably the most subtle part. When you insert a block (or attach an external reference), AutoCAD can <strong>automatically scale</strong> the content so that its real-world size is preserved, even if the block was drawn in a unit different from the destination drawing.</p>
+<p>Three system variables come into play:</p>
+<ul>
+<li><a href="https://help.autodesk.com/view/ACD/2027/ENU/?guid=GUID-A58A87BB-482B-4042-A00A-EEF55A2B4FD8">INSUNITS</a>: the insertion unit of the current drawing. It's the &quot;real&quot; unit that one drawing unit represents.</li>
+<li><a href="https://help.autodesk.com/view/ACD/2027/ENU/?guid=GUID-4C21BD16-8C17-4469-A91C-F7CC105B770F">INSUNITSDEFSOURCE</a>: the assumed <strong>source</strong> unit when the inserted block has an undetermined unit.</li>
+<li><a href="https://help.autodesk.com/view/ACD/2027/ENU/?guid=GUID-5E9D42F6-CAE4-49BD-8850-E665455EF5CB">INSUNITSDEFTARGET</a>: the assumed <strong>target</strong> unit when the current drawing has an undetermined unit.</li>
+</ul>
+<p><code>INSUNITS</code> accepts a long list of integer values. The most common ones:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Value</th>
+<th>Unit</th>
+<th style="text-align: center;">Value</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td>Unitless</td>
+<td style="text-align: center;">5</td>
+<td>Centimeters</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td>Inches</td>
+<td style="text-align: center;">6</td>
+<td>Meters</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td>Feet</td>
+<td style="text-align: center;">7</td>
+<td>Kilometers</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td>Miles</td>
+<td style="text-align: center;">10</td>
+<td>Yards</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td>Millimeters</td>
+<td style="text-align: center;">14</td>
+<td>Decimeters</td>
+</tr>
+</tbody>
+</table>
+<p>AutoCAD's logic when inserting is as follows:</p>
+<ol>
+<li>It determines the <strong>source unit</strong>: this is the <code>INSUNITS</code> of the drawing the block comes from. If it is <code>0</code> (unitless), it falls back to <code>INSUNITSDEFSOURCE</code>.</li>
+<li>It determines the <strong>target unit</strong>: this is the <code>INSUNITS</code> of the current drawing. If it is <code>0</code>, it falls back to <code>INSUNITSDEFTARGET</code>.</li>
+<li>It computes a scale factor that converts the source unit into the target unit and applies it to the block.</li>
+</ol>
+<p>In other words, <code>INSUNITSDEFSOURCE</code> and <code>INSUNITSDEFTARGET</code> serve <strong>only</strong> as a safety net when one of the units is &quot;unitless&quot;. If both your drawings have a correctly set <code>INSUNITS</code>, these two variables don't come into play.</p>
+<h2 id="a-concrete-example-a-1-1-square-block">A concrete example: a &quot;1 × 1 square&quot; block</h2>
+<p>Let's take a very simple block, containing a <strong>1 × 1</strong> square, and see what happens depending on the units.</p>
+<p><strong>Preparing the block.</strong> In a fresh drawing, set <code>INSUNITS</code> to <strong>Meters</strong> (<code>6</code>), draw a 1 × 1 square (so a square 1 m on each side in the real world), then make it into a block named <code>Square</code>. The source unit of this block is now &quot;meters&quot;.</p>
+<p><strong>Inserting into a drawing in millimeters.</strong> In another drawing where <code>INSUNITS</code> is <strong>Millimeters</strong> (<code>4</code>), insert <code>Square</code>. AutoCAD compares the units:</p>
+<ul>
+<li>source = meters,</li>
+<li>target = millimeters,</li>
+<li>scale factor = 1 m / 1 mm = <strong>1000</strong>.</li>
+</ul>
+<p>The square is inserted at scale 1000: it now measures <strong>1000 × 1000</strong> drawing units, i.e. 1000 mm. The real-world size (1 m) is therefore preserved.</p>
+<p>Conversely, the same block inserted into a drawing in <strong>inches</strong> (<code>1</code>) would be scaled by 1 m / 1 inch ≈ <strong>39.37</strong>: the square would be roughly 39.37 × 39.37 inches, which still corresponds to 1 m.</p>
+<p>A few cases summarized, for our 1 × 1 square:</p>
+<table>
+<thead>
+<tr>
+<th>Source unit</th>
+<th>Target unit</th>
+<th style="text-align: center;">Applied factor</th>
+<th>Inserted size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meters</td>
+<td>Millimeters</td>
+<td style="text-align: center;">1000</td>
+<td>1000 × 1000</td>
+</tr>
+<tr>
+<td>Millimeters</td>
+<td>Meters</td>
+<td style="text-align: center;">0.001</td>
+<td>0.001 × 0.001</td>
+</tr>
+<tr>
+<td>Inches</td>
+<td>Millimeters</td>
+<td style="text-align: center;">25.4</td>
+<td>25.4 × 25.4</td>
+</tr>
+<tr>
+<td>Meters</td>
+<td>Meters</td>
+<td style="text-align: center;">1</td>
+<td>1 × 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>And the &quot;unitless&quot; case?</strong> Had we left <code>INSUNITS</code> at <code>0</code> (unitless) in the block's drawing, AutoCAD wouldn't have known the square was in meters. This is where <code>INSUNITSDEFSOURCE</code> comes in: by setting it to <code>6</code> (meters), you tell AutoCAD which unit to assume by default. Likewise, if the destination drawing is unitless, it's <code>INSUNITSDEFTARGET</code> that provides the assumed target unit.</p>
+<h2 id="in-summary">In summary</h2>
+<ul>
+<li>At creation, the template and <code>MEASUREMENT</code> determine whether the drawing is metric or imperial, and therefore which hatch and linetype files are used.</li>
+<li>Layouts have their own unit, that of the paper (mm or inches), distinct from model space.</li>
+<li>On insertion, <code>INSUNITS</code> enables automatic scaling of blocks, with <code>INSUNITSDEFSOURCE</code> and <code>INSUNITSDEFTARGET</code> serving only for &quot;unitless&quot; content.</li>
+</ul>
+<p>Setting these variables correctly from the start will save you many surprises: invisible hatches, blocks a thousand times too large, or inconsistent dimensions.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
+                        <div class="col-6 text-end"><a href="/en/blog/ai_developers_limitations" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
+                                    <span>Why AI Still Can&#x27;t Replace Developers</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

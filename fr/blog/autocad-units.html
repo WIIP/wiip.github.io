@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title> - WIIP</title><meta name="description" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/autocad-units" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:description" content="" /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autocad-units" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-units" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "description": "",
+        "datePublished": "0001-01-01",
+        "url": "https://wiip.fr/fr/blog/autocad-units",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr"
+        }
+    }
+    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1></h1>
+                    <small class="text-muted">lundi 1 janvier 0001</small></header>
+                <div class="mt-3"><p>La gestion des unités est un sujet récurrent et souvent mal compris dans AutoCAD. Pour comprendre pourquoi, il faut se rappeler qu'AutoCAD est un logiciel très ancien : sa première version date de 1982. À l'origine, il ne supportait tout simplement pas la notion d'unité. Un dessin n'était qu'un ensemble de coordonnées sans dimension : une longueur de 1 ne représentait ni un mètre, ni un pouce, c'était à l'utilisateur de décider de la convention « dans sa tête ».</p>
+<p>Des logiciels conçus bien plus tard, comme Inventor ou Revit, intègrent au contraire la notion d'unité dès leur conception : chaque valeur y porte intrinsèquement une dimension physique (mm, pouces…), et les conversions sont gérées de façon transparente.</p>
+<p>Autodesk a progressivement ajouté à AutoCAD un support <strong>partiel</strong> des unités, par couches successives, pour répondre à des besoins concrets (échelle des hachures, insertion de blocs entre dessins, etc.). Le résultat est que les unités y sont gérées non pas par un mécanisme unique et cohérent, mais par plusieurs notions distinctes qui interviennent à des moments différents : à la création du dessin, à l'impression et à l'insertion de blocs. C'est ce qui rend le sujet un peu déroutant. Faisons-en le tour.</p>
+<h2 id="metrique-ou-imperial-le-choix-a-la-creation">Métrique ou impérial : le choix à la création</h2>
+<p>Quand vous créez un nouveau dessin, vous partez généralement d'un gabarit (<em>template</em>, fichier <code>.dwt</code>). AutoCAD en fournit deux familles :</p>
+<ul>
+<li><code>acad.dwt</code> : un gabarit <strong>impérial</strong> (pouces) ;</li>
+<li><code>acadiso.dwt</code> : un gabarit <strong>métrique</strong> (millimètres).</li>
+</ul>
+<p>Vous pouvez aussi vous passer complètement de gabarit. Dans la boîte de dialogue « Sélectionner un gabarit », le petit menu déroulant à côté du bouton <strong>Ouvrir</strong> propose deux options sans gabarit : « Système anglo-saxon » (impérial) et « Système métrique ».</p>
+<p><img src="Content/fr/blog/media/acad-draft.webp" alt="Ouvrir un dessin sans gabarit, en système anglo-saxon ou métrique" /></p>
+<p>Là encore, ce choix revient à fixer le caractère métrique ou impérial du nouveau dessin.</p>
+<p>Ce choix ne change pas seulement les unités affichées : il détermine surtout quels fichiers AutoCAD utilise pour les <strong>hachures</strong> et les <strong>types de ligne</strong>.</p>
+<ul>
+<li>En impérial, AutoCAD se sert de <code>acad.pat</code> (motifs de hachures) et de <code>acad.lin</code> (types de ligne).</li>
+<li>En métrique, il utilise <code>acadiso.pat</code> et <code>acadiso.lin</code>.</li>
+</ul>
+<p>La différence est importante : les motifs métriques sont mis à l'échelle pour des distances exprimées en millimètres, les motifs impériaux pour des pouces. Charger un type de ligne « tirets » depuis le mauvais fichier donnera des tirets soit minuscules, soit gigantesques.</p>
+<h3 id="la-variable-measurement">La variable MEASUREMENT</h3>
+<p>C'est la variable système <a href="https://help.autodesk.com/view/ACD/2027/FRA/?guid=GUID-1D074C55-0B63-482E-8A37-A52AC0C7C8FE">MEASUREMENT</a> qui pilote ce comportement, dessin par dessin :</p>
+<ul>
+<li><code>0</code> : impérial, fichiers <code>acad.pat</code> et <code>acad.lin</code> ;</li>
+<li><code>1</code> : métrique, fichiers <code>acadiso.pat</code> et <code>acadiso.lin</code>.</li>
+</ul>
+<p><code>MEASUREMENT</code> est enregistrée dans le dessin (<code>PerDatabase</code>) : chaque DWG a donc sa propre valeur.</p>
+<p>Il existe une variable cousine, <a href="https://help.autodesk.com/view/ACD/2027/FRA/?guid=GUID-5F81863D-FAA6-4837-9071-F91C3E1A1E26">MEASUREINIT</a>, qui suit la même convention (<code>0</code> impérial, <code>1</code> métrique) mais qui sert uniquement à fixer la valeur par défaut d'un <strong>nouveau</strong> dessin créé à partir de zéro, sans gabarit. Elle est, elle, stockée dans le registre (<code>PerUser</code>).</p>
+<h2 id="les-unites-des-presentations">Les unités des présentations</h2>
+<p>Dans l'espace objet, vous dessinez « grandeur nature » : une pièce de 5 mètres mesure 5 unités (peu importe que ces unités représentent des mètres, des millimètres ou des pouces, c'est vous qui décidez de la convention).</p>
+<p>Les <strong>présentations</strong> (espace papier) introduisent une notion d'unité bien distincte : celle du <strong>papier</strong>. Quand vous configurez une mise en page (commande <strong>MISEENPAGE</strong>, ou <em>Page Setup Manager</em>), vous indiquez à AutoCAD si la feuille est mesurée en <strong>millimètres</strong> ou en <strong>pouces</strong>.</p>
+<p>Cette unité papier est indépendante de celle de l'espace objet. C'est elle qui est combinée à l'échelle de tracé pour produire la sortie finale. On la retrouve directement dans la boîte de dialogue de tracé, dans la section <strong>Échelle du tracé</strong> : le menu déroulant permet de choisir entre <strong>pouces</strong> et <strong>millimètres</strong>.</p>
+<p><img src="Content/fr/blog/media/acad-print-units.webp" alt="Le choix de l'unité (pouces ou millimètres) dans la boîte de dialogue de tracé" /></p>
+<p>Par exemple, une échelle de tracé « 1 mm = 1 unité » sur une feuille A3 (420 × 297 mm) n'a pas le même résultat qu'une échelle « 1 pouce = 1 unité ». Choisir la bonne unité papier est donc essentiel pour que vos échelles (1:50, 1:100, etc.) soient cohérentes.</p>
+<p>On retrouve d'ailleurs ici la variable <code>MEASUREMENT</code> : c'est elle qui détermine l'unité par défaut du papier dans les présentations. Avec <code>MEASUREMENT</code> à <code>0</code> (impérial), les nouvelles présentations sont configurées en pouces ; à <code>1</code> (métrique), elles le sont en millimètres. Le caractère métrique ou impérial du dessin se propage donc jusqu'à l'espace papier.</p>
+<h2 id="les-unites-dinsertion-de-bloc">Les unités d'insertion de bloc</h2>
+<p>C'est probablement la partie la plus subtile. Quand vous insérez un bloc (ou attachez une référence externe), AutoCAD peut <strong>mettre automatiquement le contenu à l'échelle</strong> pour que sa taille réelle soit préservée, même si le bloc a été dessiné dans une autre unité que le dessin de destination.</p>
+<p>Trois variables système entrent en jeu :</p>
+<ul>
+<li><a href="https://help.autodesk.com/view/ACD/2027/FRA/?guid=GUID-A58A87BB-482B-4042-A00A-EEF55A2B4FD8">INSUNITS</a> : l'unité d'insertion du dessin courant. C'est l'unité « réelle » que représente une unité de dessin.</li>
+<li><a href="https://help.autodesk.com/view/ACD/2027/FRA/?guid=GUID-4C21BD16-8C17-4469-A91C-F7CC105B770F">INSUNITSDEFSOURCE</a> : l'unité <strong>source</strong> supposée quand le bloc inséré a une unité indéterminée.</li>
+<li><a href="https://help.autodesk.com/view/ACD/2027/FRA/?guid=GUID-5E9D42F6-CAE4-49BD-8850-E665455EF5CB">INSUNITSDEFTARGET</a> : l'unité <strong>cible</strong> supposée quand le dessin courant a une unité indéterminée.</li>
+</ul>
+<p><code>INSUNITS</code> accepte une longue liste de valeurs entières. Les plus courantes :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Valeur</th>
+<th>Unité</th>
+<th style="text-align: center;">Valeur</th>
+<th>Unité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td>Sans unité</td>
+<td style="text-align: center;">5</td>
+<td>Centimètres</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td>Pouces</td>
+<td style="text-align: center;">6</td>
+<td>Mètres</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td>Pieds</td>
+<td style="text-align: center;">7</td>
+<td>Kilomètres</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td>Miles</td>
+<td style="text-align: center;">10</td>
+<td>Yards</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td>Millimètres</td>
+<td style="text-align: center;">14</td>
+<td>Décimètres</td>
+</tr>
+</tbody>
+</table>
+<p>La logique d'AutoCAD lors d'une insertion est la suivante :</p>
+<ol>
+<li>Il détermine l'<strong>unité source</strong> : c'est l'<code>INSUNITS</code> du dessin d'où provient le bloc. Si celle-ci vaut <code>0</code> (sans unité), il se rabat sur <code>INSUNITSDEFSOURCE</code>.</li>
+<li>Il détermine l'<strong>unité cible</strong> : c'est l'<code>INSUNITS</code> du dessin courant. Si celle-ci vaut <code>0</code>, il se rabat sur <code>INSUNITSDEFTARGET</code>.</li>
+<li>Il calcule un facteur d'échelle qui convertit l'unité source en unité cible et l'applique au bloc.</li>
+</ol>
+<p>Autrement dit, <code>INSUNITSDEFSOURCE</code> et <code>INSUNITSDEFTARGET</code> ne servent <strong>que</strong> de filet de sécurité quand l'une des unités est « sans unité ». Si vos deux dessins ont une <code>INSUNITS</code> correctement renseignée, ces deux variables n'interviennent pas.</p>
+<h2 id="un-exemple-concret-un-bloc-carre-de-1-1">Un exemple concret : un bloc « carré de 1 × 1 »</h2>
+<p>Prenons un bloc tout simple, contenant un carré de <strong>1 × 1</strong>, et voyons ce qui se passe selon les unités.</p>
+<p><strong>Préparation du bloc.</strong> Dans un dessin neuf, on règle <code>INSUNITS</code> sur <strong>Mètres</strong> (<code>6</code>), on dessine un carré de 1 × 1 (donc un carré de 1 m de côté dans le monde réel), puis on en fait un bloc nommé <code>Carre</code>. L'unité source de ce bloc est désormais « mètres ».</p>
+<p><strong>Insertion dans un dessin en millimètres.</strong> Dans un autre dessin où <code>INSUNITS</code> vaut <strong>Millimètres</strong> (<code>4</code>), on insère <code>Carre</code>. AutoCAD compare les unités :</p>
+<ul>
+<li>source = mètres,</li>
+<li>cible = millimètres,</li>
+<li>facteur d'échelle = 1 m / 1 mm = <strong>1000</strong>.</li>
+</ul>
+<p>Le carré est inséré à l'échelle 1000 : il mesure désormais <strong>1000 × 1000</strong> unités de dessin, soit 1000 mm. La taille réelle (1 m) est donc bien conservée.</p>
+<p>Inversement, le même bloc inséré dans un dessin en <strong>pouces</strong> (<code>1</code>) serait mis à l'échelle 1 m / 1 pouce ≈ <strong>39,37</strong> : le carré ferait environ 39,37 × 39,37 pouces, ce qui correspond toujours à 1 m.</p>
+<p>Quelques cas de figure résumés, pour notre carré de 1 × 1 :</p>
+<table>
+<thead>
+<tr>
+<th>Unité source</th>
+<th>Unité cible</th>
+<th style="text-align: center;">Facteur appliqué</th>
+<th>Taille insérée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mètres</td>
+<td>Millimètres</td>
+<td style="text-align: center;">1000</td>
+<td>1000 × 1000</td>
+</tr>
+<tr>
+<td>Millimètres</td>
+<td>Mètres</td>
+<td style="text-align: center;">0,001</td>
+<td>0,001 × 0,001</td>
+</tr>
+<tr>
+<td>Pouces</td>
+<td>Millimètres</td>
+<td style="text-align: center;">25,4</td>
+<td>25,4 × 25,4</td>
+</tr>
+<tr>
+<td>Mètres</td>
+<td>Mètres</td>
+<td style="text-align: center;">1</td>
+<td>1 × 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Et le cas « sans unité » ?</strong> Si l'on avait laissé <code>INSUNITS</code> à <code>0</code> (sans unité) dans le dessin du bloc, AutoCAD n'aurait pas su que le carré était en mètres. C'est là qu'intervient <code>INSUNITSDEFSOURCE</code> : en le réglant sur <code>6</code> (mètres), on indique à AutoCAD l'unité à supposer par défaut. De la même manière, si le dessin de destination est sans unité, c'est <code>INSUNITSDEFTARGET</code> qui fournit l'unité cible présumée.</p>
+<h2 id="en-resume">En résumé</h2>
+<ul>
+<li>À la création, le gabarit et <code>MEASUREMENT</code> déterminent si le dessin est métrique ou impérial, et donc quels fichiers de hachures et de types de ligne sont utilisés.</li>
+<li>Les présentations ont leur propre unité, celle du papier (mm ou pouces), distincte de l'espace objet.</li>
+<li>À l'insertion, <code>INSUNITS</code> permet la mise à l'échelle automatique des blocs, <code>INSUNITSDEFSOURCE</code> et <code>INSUNITSDEFTARGET</code> ne servant que pour les contenus « sans unité ».</li>
+</ul>
+<p>Bien régler ces variables dès le départ vous évitera bien des surprises : hachures invisibles, blocs mille fois trop grands ou cotations incohérentes.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"></div>
+                        <div class="col-6 text-end"><a href="/fr/blog/ai_developers_limitations" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
+                                    <span>Pourquoi l&#x27;IA ne peut pas encore remplacer les d&#xE9;veloppeurs</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
