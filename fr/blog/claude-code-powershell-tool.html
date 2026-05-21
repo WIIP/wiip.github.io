@@ -42,6 +42,7 @@
         "headline": "Claude Code int\u00E8gre un nouvel outil PowerShell",
         "description": "Claude Code vient d\u0027int\u00E9grer un nouvel outil en _preview_ qui permet d\u0027ex\u00E9cuter des commandes PowerShell directement au lieu de passer par Bash.",
         "datePublished": "2026-04-03",
+"dateModified": "2026-05-21",
         "url": "https://wiip.fr/fr/blog/claude-code-powershell-tool",
         "inLanguage": "fr",
         "publisher": {
@@ -51,12 +52,17 @@
         }
     }
     </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Claude Code int&#xE8;gre un nouvel outil PowerShell</h1>
-                    <small class="text-muted">vendredi 3 avril 2026</small><div class="mt-2"><a href="/fr/tags/PowerShell" class="badge bg-primary me-1 text-decoration-none">PowerShell</a><a href="/fr/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/fr/tags/IA" class="badge bg-primary me-1 text-decoration-none">IA</a><a href="/fr/tags/Programmation" class="badge bg-primary me-1 text-decoration-none">Programmation</a></div></header>
+                    <small class="text-muted">vendredi 3 avril 2026<span class="ms-2">· mis &#xE0; jour le jeudi 21 mai 2026</span></small><div class="mt-2"><a href="/fr/tags/PowerShell" class="badge bg-primary me-1 text-decoration-none">PowerShell</a><a href="/fr/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/fr/tags/IA" class="badge bg-primary me-1 text-decoration-none">IA</a><a href="/fr/tags/Programmation" class="badge bg-primary me-1 text-decoration-none">Programmation</a></div></header>
                 <div class="mt-3"><p>Dans les dernières versions de Claude Code, il y a un nouvel outil en <em>preview</em> qui permet d'exécuter des commandes PowerShell directement au lieu de passer par Bash. Pour l'activer, il faut passer la variable d'environnement <code>CLAUDE_CODE_USE_POWERSHELL_TOOL</code> à <code>1</code>.</p>
 <p>Donc par exemple, à partir d'une invite de commande PowerShell, il faut lancer Claude Code avec la ligne de commande suivante :</p>
 <pre><code class="language-powershell">$env:CLAUDE_CODE_USE_POWERSHELL_TOOL = &quot;1&quot;; claude
 </code></pre>
 <p>Le problème, c'est que Claude Code ne semble pas intéressé par PowerShell, il préfère Bash... Il faut lui dire explicitement d'utiliser PowerShell...</p>
+<p>J'ai simplement ajouté les instructions suivantes dans mon fichier CLAUDE.md global :</p>
+<pre><code class="language-markdown">## PowerShell
+
+* Si tu as un outil **powershell**, utilise le à la place de **bash**
+</code></pre>
 <p>Bon, je ne l'ai mis en place qu'aujourd'hui, on va voir ce que ça donne à l'usage. En tout cas, je suis content de voir qu'Anthropic commence à prendre en compte les besoins des utilisateurs Windows.</p>
 </div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/derivatives-definition-formulas" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
                                     <span>Les d&#xE9;riv&#xE9;es : histoire, d&#xE9;finition et formules essentielles</span></a></div>

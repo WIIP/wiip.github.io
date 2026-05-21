@@ -42,6 +42,7 @@
         "headline": "Claude Code integrates a new PowerShell tool",
         "description": "Claude Code has just integrated a new _preview_ tool that allows you to execute PowerShell commands directly instead of going through Bash.",
         "datePublished": "2026-04-03",
+"dateModified": "2026-05-21",
         "url": "https://wiip.fr/en/blog/claude-code-powershell-tool",
         "inLanguage": "en",
         "publisher": {
@@ -51,12 +52,17 @@
         }
     }
     </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Claude Code integrates a new PowerShell tool</h1>
-                    <small class="text-muted">Friday, April 3, 2026</small><div class="mt-2"><a href="/en/tags/PowerShell" class="badge bg-primary me-1 text-decoration-none">PowerShell</a><a href="/en/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/en/tags/AI" class="badge bg-primary me-1 text-decoration-none">AI</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                    <small class="text-muted">Friday, April 3, 2026<span class="ms-2">· updated on Thursday, May 21, 2026</span></small><div class="mt-2"><a href="/en/tags/PowerShell" class="badge bg-primary me-1 text-decoration-none">PowerShell</a><a href="/en/tags/Claude&#x2B;Code" class="badge bg-primary me-1 text-decoration-none">Claude Code</a><a href="/en/tags/AI" class="badge bg-primary me-1 text-decoration-none">AI</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
                 <div class="mt-3"><p>In the latest versions of Claude Code, there is a new <em>preview</em> tool that allows you to execute PowerShell commands directly instead of going through Bash. To enable it, you need to set the <code>CLAUDE_CODE_USE_POWERSHELL_TOOL</code> environment variable to <code>1</code>.</p>
 <p>So, for example, from a PowerShell command prompt, you need to launch Claude Code with the following command line:</p>
 <pre><code class="language-powershell">$env:CLAUDE_CODE_USE_POWERSHELL_TOOL = &quot;1&quot;; claude
 </code></pre>
 <p>The problem is that Claude Code doesn't seem interested in PowerShell, it prefers Bash... You have to explicitly tell it to use PowerShell...</p>
+<p>I simply added the following instructions to my global CLAUDE.md file:</p>
+<pre><code class="language-markdown">## PowerShell
+
+* If you have a **powershell** tool, use it instead of **bash**
+</code></pre>
 <p>Well, I only set it up today, so we'll see how it goes. In any case, I'm glad to see that Anthropic is starting to take Windows users' needs into account.</p>
 </div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/dido-problem" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
                                     <span>Dido&#x27;s Problem: Optimizing a Rectangular Enclosure Along a River</span></a></div>
