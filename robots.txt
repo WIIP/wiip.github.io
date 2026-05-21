@@ -1,4 +1,49 @@
+# WIIP - https://wiip.fr
+# Les robots des moteurs de réponse IA sont explicitement autorisés
+# afin que WIIP puisse être cité comme source.
+
 User-agent: *
+Allow: /
+
+# --- Robots IA / moteurs de réponse (autorisés) ---
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google (entraînement / Gemini, distinct de Googlebot)
+User-agent: Google-Extended
+Allow: /
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (jeu de données utilisé par de nombreux LLM)
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://wiip.fr/sitemap.xml

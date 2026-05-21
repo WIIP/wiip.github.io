@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
     <title>Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook - WIIP</title><meta name="description" content="Installer QuickLook et son plugin CADImport pour pr&#xE9;visualiser des fichiers CAO directement depuis l&#x27;explorateur Windows, sans ouvrir AutoCAD." />
         <meta property="og:title" content="Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook" />
         <meta property="og:description" content="Installer QuickLook et son plugin CADImport pour pr&#xE9;visualiser des fichiers CAO directement depuis l&#x27;explorateur Windows, sans ouvrir AutoCAD." />
@@ -43,14 +46,25 @@
         "description": "Installer QuickLook et son plugin CADImport pour pr\u00E9visualiser des fichiers CAO directement depuis l\u0027explorateur Windows, sans ouvrir AutoCAD.",
         "datePublished": "2026-03-13",
         "url": "https://wiip.fr/fr/blog/quicklook-cadimport",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/quicklook-cadimport",
         "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
         "publisher": {
             "@type": "Organization",
             "name": "WIIP",
-            "url": "https://wiip.fr"
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
         }
     }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</h1>
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Prévisualiser des fichiers DWG et DXF avec QuickLook","item":"https://wiip.fr/fr/blog/quicklook-cadimport"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</h1>
                     <small class="text-muted">vendredi 13 mars 2026</small><div class="mt-2"><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/DWG" class="badge bg-primary me-1 text-decoration-none">DWG</a><a href="/fr/tags/DXF" class="badge bg-primary me-1 text-decoration-none">DXF</a></div></header>
                 <div class="mt-3"><p>Quand on travaille avec des fichiers <strong>DWG</strong> ou <strong>DXF</strong> au quotidien, ouvrir AutoCAD juste pour vérifier le contenu d'un fichier est une perte de temps. <strong><a href="https://github.com/QL-Win/QuickLook">QuickLook</a></strong> résout ce problème en apportant à Windows la fonctionnalité <em>Quick Look</em> de macOS : sélectionnez un fichier, appuyez sur <strong>Espace</strong>, et une prévisualisation apparaît instantanément.</p>
 <p>Combiné au plugin <strong><a href="https://github.com/emako/QuickLook.Plugin.CADImport">CADImport</a></strong>, QuickLook devient capable de prévisualiser les fichiers <code>.dwg</code> et <code>.dxf</code>.</p>

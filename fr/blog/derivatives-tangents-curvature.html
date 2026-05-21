@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
     <title>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO - WIIP</title><meta name="description" content="La d&#xE9;riv&#xE9;e ne sert pas qu&#x27;&#xE0; optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures &#x2014; trois notions essentielles pour concevoir des surfaces de qualit&#xE9;." />
         <meta property="og:title" content="D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO" />
         <meta property="og:description" content="La d&#xE9;riv&#xE9;e ne sert pas qu&#x27;&#xE0; optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures &#x2014; trois notions essentielles pour concevoir des surfaces de qualit&#xE9;." />
@@ -43,14 +46,25 @@
         "description": "La d\u00E9riv\u00E9e ne sert pas qu\u0027\u00E0 optimiser. En CAO, elle permet de calculer des tangentes, des normales et des courbures \u2014 trois notions essentielles pour concevoir des surfaces de qualit\u00E9.",
         "datePublished": "2026-04-02",
         "url": "https://wiip.fr/fr/blog/derivatives-tangents-curvature",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/derivatives-tangents-curvature",
         "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
         "publisher": {
             "@type": "Organization",
             "name": "WIIP",
-            "url": "https://wiip.fr"
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
         }
     }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO</h1>
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Dérivées, tangentes et courbures : les maths derrière les courbes en CAO","item":"https://wiip.fr/fr/blog/derivatives-tangents-curvature"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>D&#xE9;riv&#xE9;es, tangentes et courbures : les maths derri&#xE8;re les courbes en CAO</h1>
                     <small class="text-muted">jeudi 2 avril 2026</small><div class="mt-2"><a href="/fr/tags/Math%C3%A9matiques" class="badge bg-primary me-1 text-decoration-none">Math&#xE9;matiques</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
                 <div class="mt-3"><p>Dans notre <a href="../dido-problem">article précédent sur le problème de Didon</a>, nous avons utilisé la dérivée pour trouver le maximum d'une fonction. Mais la dérivée a un sens géométrique bien plus riche : elle décrit la <strong>direction</strong> dans laquelle une courbe avance en chaque point. En CAO, cette information est fondamentale. Elle permet de calculer des <strong>tangentes</strong>, des <strong>normales</strong> et des <strong>courbures</strong> — trois ingrédients essentiels pour concevoir des pièces aux surfaces lisses et fonctionnelles.</p>
 <h2 id="la-derivee-cest-la-pente-de-la-tangente">La dérivée, c'est la pente de la tangente</h2>

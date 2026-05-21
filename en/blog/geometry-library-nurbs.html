@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
     <title>Geometry Library in C# &#x2014; NURBS Curves - WIIP</title><meta name="description" content="How NURBS curves fit into our interface hierarchy: control points, knot vectors, evaluation, and trimming." />
         <meta property="og:title" content="Geometry Library in C# &#x2014; NURBS Curves" />
         <meta property="og:description" content="How NURBS curves fit into our interface hierarchy: control points, knot vectors, evaluation, and trimming." />
@@ -43,14 +46,25 @@
         "description": "How NURBS curves fit into our interface hierarchy: control points, knot vectors, evaluation, and trimming.",
         "datePublished": "2026-04-04",
         "url": "https://wiip.fr/en/blog/geometry-library-nurbs",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/geometry-library-nurbs",
         "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About"
+        },
         "publisher": {
             "@type": "Organization",
             "name": "WIIP",
-            "url": "https://wiip.fr"
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
         }
     }
-    </script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; NURBS Curves</h1>
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"Geometry Library in C# — NURBS Curves","item":"https://wiip.fr/en/blog/geometry-library-nurbs"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; NURBS Curves</h1>
                     <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
                 <div class="mt-3"><p>In the previous articles, we defined the <a href="../geometry-library-curves">curve interfaces</a> and implemented simple curves (lines, segments). But in CAD, most curves are neither lines nor circular arcs — they're <strong>free-form</strong> curves. The standard for representing them is the <strong>NURBS</strong> curve.</p>
 <h2 id="what-is-a-nurbs-curve">What is a NURBS curve?</h2>

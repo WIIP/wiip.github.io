@@ -1,0 +1,43 @@
+# WIIP
+
+> WIIP est une société française de développement logiciel spécialisée dans les applications de CAO (Conception Assistée par Ordinateur) pour les produits Autodesk. WIIP conçoit des plugins, add-ins et automatisations sur mesure pour AutoCAD, Inventor, Revit, Vault, Autodesk Platform Services (APS) et les logiciels de FAO.
+
+WIIP is a French software development company specialized in CAD (Computer-Aided Design) applications for Autodesk products. The site is bilingual (French and English): each French URL has an English equivalent.
+
+- Contact : contact@wiip.fr — +33 6 46 40 75 66 — Serques (62910), France
+- Expert : Maxence Delannoy
+- Domaines d'expertise : développement AutoCAD (.NET, AutoLISP), add-ins Inventor (iLogic), add-ins Revit, SDK Autodesk Vault, Autodesk Platform Services (APS / Forge), programmation FAO/CAM, traitement de fichiers DWG/DXF.
+
+## Pages piliers (services, FR)
+
+- [Développement AutoCAD](https://wiip.fr/fr/developpement-autocad): plugins et automatisations AutoCAD sur mesure (.NET, AutoLISP, DWG/DXF).
+- [Développement Inventor](https://wiip.fr/fr/developpement-inventor): add-ins et règles iLogic pour Autodesk Inventor.
+- [Développement Revit](https://wiip.fr/fr/developpement-revit): add-ins et automatisations pour Autodesk Revit.
+- [Développement Vault](https://wiip.fr/fr/developpement-vault): développement avec le SDK Autodesk Vault.
+- [Développement APS](https://wiip.fr/fr/developpement-aps): applications web avec Autodesk Platform Services (anciennement Forge).
+- [Développement FAO](https://wiip.fr/fr/developpement-fao): automatisation et post-processeurs pour la FAO/CAM.
+
+## Contenu éditorial (FR)
+
+- [Blog](https://wiip.fr/fr/blog): articles techniques sur le développement CAO et Autodesk.
+- [Questions / Réponses](https://wiip.fr/fr/questions-reponses): réponses concises à des questions techniques fréquentes.
+- [Tutoriels](https://wiip.fr/fr/tutoriels): séries de tutoriels pas à pas.
+- [À propos](https://wiip.fr/fr/About): présentation de WIIP et de son expertise.
+
+## English versions
+
+- [AutoCAD development](https://wiip.fr/en/autocad-development)
+- [Inventor development](https://wiip.fr/en/inventor-development)
+- [Revit development](https://wiip.fr/en/revit-development)
+- [Vault development](https://wiip.fr/en/vault-development)
+- [APS development](https://wiip.fr/en/aps-development)
+- [CAM development](https://wiip.fr/en/cam-development)
+- [Blog](https://wiip.fr/en/blog)
+- [Questions / Answers](https://wiip.fr/en/questions-answers)
+- [Tutorials](https://wiip.fr/en/tutorials)
+- [About](https://wiip.fr/en/About)
+
+## Optional
+
+- [Plan du site (sitemap)](https://wiip.fr/sitemap.xml)
+- [Mentions légales](https://wiip.fr/fr/TermsOfUse)
