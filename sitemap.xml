@@ -570,13 +570,13 @@
     <loc>https://wiip.fr/en/tags/AI</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/tags/AutoLISP</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/en/tags/AutoCAD</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/CAD</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/AutoLISP</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Claude%2bCode</loc>
