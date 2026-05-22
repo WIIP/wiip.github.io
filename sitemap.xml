@@ -114,6 +114,9 @@
     <loc>https://wiip.fr/fr/blog/autolisp-vs-code</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/bibliotheque-materiaux-inventor</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/claude-code-bash</loc>
   </url>
   <url>
@@ -234,6 +237,9 @@
     <loc>https://wiip.fr/fr/tags/AutoLISP</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/Vault</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/Claude%2bCode</loc>
   </url>
   <url>
@@ -241,9 +247,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/PowerShell</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/Vault</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/Dassault%2bSyst%25C3%25A8mes</loc>
@@ -532,6 +535,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/ilogic-rules-export-import</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/inventor-materials-library</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/inventor-sketch-points</loc>

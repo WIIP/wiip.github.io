@@ -10,22 +10,22 @@
     
     <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
     <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
-    <title>0x80004005 the answer to almost everything - WIIP</title><meta name="description" content="What&#x27;s frustrating about errors in Autodesk Inventor" />
-        <meta property="og:title" content="0x80004005 the answer to almost everything" />
-        <meta property="og:description" content="What&#x27;s frustrating about errors in Autodesk Inventor" />
+    <title>0x80004005: the materials library that won&#x27;t open - WIIP</title><meta name="description" content="A concrete case of the infamous E_FAIL: an .adsklib file that does exist on disk, yet which Inventor stubbornly refuses to open." />
+        <meta property="og:title" content="0x80004005: the materials library that won&#x27;t open" />
+        <meta property="og:description" content="A concrete case of the infamous E_FAIL: an .adsklib file that does exist on disk, yet which Inventor stubbornly refuses to open." />
         <meta property="og:type" content="article">
-        <meta property="og:url" content="https://wiip.fr/en/blog/0x80004005" />
+        <meta property="og:url" content="https://wiip.fr/en/blog/inventor-materials-library" />
         <meta property="og:site_name" content="WIIP">
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="0x80004005 the answer to almost everything" />
-        <meta name="twitter:description" content="What&#x27;s frustrating about errors in Autodesk Inventor" /></head>
+        <meta name="twitter:title" content="0x80004005: the materials library that won&#x27;t open" />
+        <meta name="twitter:description" content="A concrete case of the infamous E_FAIL: an .adsklib file that does exist on disk, yet which Inventor stubbornly refuses to open." /></head>
 
 <body>
 
 <div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
-                        <div class="language-switcher"><a href="/fr/blog/0x80004005" class="">FR</a>
+                        <div class="language-switcher"><a href="/fr/blog/inventor-materials-library" class="">FR</a>
     <span class="separator">|</span>
-    <a href="/en/blog/0x80004005" class="active">EN</a></div></div>
+    <a href="/en/blog/inventor-materials-library" class="active">EN</a></div></div>
                     <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
@@ -42,11 +42,11 @@
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "0x80004005 the answer to almost everything",
-        "description": "What\u0027s frustrating about errors in Autodesk Inventor",
-        "datePublished": "2026-01-21T00:00:00\u002B01:00",
-        "url": "https://wiip.fr/en/blog/0x80004005",
-        "mainEntityOfPage": "https://wiip.fr/en/blog/0x80004005",
+        "headline": "0x80004005: the materials library that won\u0027t open",
+        "description": "A concrete case of the infamous E_FAIL: an .adsklib file that does exist on disk, yet which Inventor stubbornly refuses to open.",
+        "datePublished": "2026-05-22T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/en/blog/inventor-materials-library",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/inventor-materials-library",
         "inLanguage": "en",
         "image": "https://wiip.fr/img/logo-wiip.png",
         "author": {
@@ -64,44 +64,44 @@
             }
         }
     }
-    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"0x80004005 the answer to almost everything","item":"https://wiip.fr/en/blog/0x80004005"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>0x80004005 the answer to almost everything</h1>
-                    <small class="text-muted">Wednesday, January 21, 2026</small><div class="mt-2"><a href="/en/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/en/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a></div></header>
-                <div class="mt-3"><p>There's something very frustrating when developing with the Inventor API: when there's a problem, 90% of the time, the answer is <code>0x80004005</code>.</p>
-<p><img src="Content/en/blog/media/0x80004005.png" alt="0x80004005, the answer to almost everything" /></p>
-<p>And that makes debugging very frustrating. With no indication of the nature of the problem, you have to check everything and that can take time, a lot of time.</p>
-<p>The documentation doesn't help. Some documentation, like Microsoft's (MSDN), has an <strong>Exceptions</strong> section for each function/method that lists the exceptions that can be thrown. But in the case of Autodesk Inventor, there's no such information.</p>
-<p>As a result, you can spend hours only to realize at the end that the problem comes from a non-existent directory, a property name that doesn't have the right case, or a parameter that isn't within the expected values.</p>
-<p>So why don't Autodesk developers return more explicit messages?</p>
-<p>It's actually related to the underlying technology: <strong>COM</strong>. It's a very old technology that dates back to the 90s. At the time, we didn't have standardized exceptions in C++ and we didn't really care about the quality of error messages. When we had an error, we most often wrote:</p>
-<pre><code class="language-c++">if (something_bad) return E_FAIL;
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"0x80004005: the materials library that won't open","item":"https://wiip.fr/en/blog/inventor-materials-library"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>0x80004005: the materials library that won&#x27;t open</h1>
+                    <small class="text-muted">Friday, May 22, 2026</small><div class="mt-2"><a href="/en/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/en/tags/Vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/en/tags/CAD" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a></div></header>
+                <div class="mt-3"><p>A while ago I wrote about <a href="/en/blog/0x80004005"><code>0x80004005</code>, the answer to almost everything</a>, the meaningless error code Inventor throws at you the moment something goes wrong. This week it caught me again, in a case instructive enough to deserve its own article.</p>
+<h2 id="the-symptom">The symptom</h2>
+<p>On a test machine, opening a materials library (an <code>.adsklib</code> file) was crashing with this stack trace:</p>
+<pre><code>System.Runtime.InteropServices.COMException (0x80004005): Unspecified error (Exception from HRESULT: 0x80004005 (E_FAIL))
+   at Inventor.AssetLibraries.Open(String FullFileName)
+   at ...MaterialsManager.GetLibrary(...)
 </code></pre>
-<p>And we moved on to something else.</p>
-<p>It must be said that to return a more explicit message, you had to use something like:</p>
-<pre><code class="language-c++">CComPtr&lt;ICreateErrorInfo&gt; cei;
-CreateErrorInfo(&amp;cei);
-cei-&gt;SetDescription(L&quot;The file is corrupted&quot;);
-cei-&gt;SetSource(L&quot;MonComObject&quot;);
-CComPtr&lt;IErrorInfo&gt; ei;
-cei-&gt;QueryInterface(&amp;ei);
-SetErrorInfo(0, ei);
-return MY_E_BAD_DATA;
+<p>The offending code is nothing exotic, though:</p>
+<pre><code class="language-csharp">AssetLibrary library = application.AssetLibraries.Open(materialsLibraryPath);
 </code></pre>
-<p>It's verbose and easy to forget.</p>
-<p>So developers didn't do it, and that's why we still have <code>0x80004005</code> (and why I'm pulling my hair out).</p>
-<p>Note that if the developer is conscientious and does things correctly, the .NET runtime will call <code>GetErrorInfo</code> to retrieve the error message and will use its description to create a <code>COMException</code> object that will then be thrown.</p>
+<p>And here's the puzzling part: the <code>.adsklib</code> file <strong>does exist</strong> on disk, and it <strong>is not empty</strong>. So we get a raw <code>E_FAIL</code>, without the slightest hint as to what the actual problem is. <code>0x80004005</code> in all its glory.</p>
+<h2 id="the-investigation">The investigation</h2>
+<p>When <code>AssetLibraries.Open()</code> throws an <code>E_FAIL</code>, the two usual suspects are:</p>
+<ol>
+<li><strong>A version mismatch.</strong> An <code>.adsklib</code> is tied to the version of Inventor that saved it. If the library was created with a version newer than the one on the machine, opening it fails. That wasn't the case here: same Inventor version on both sides.</li>
+<li><strong>A library already loaded.</strong> <code>Open()</code> also fails if the library is already open. But the code was already checking for that case beforehand.</li>
+</ol>
+<p>With both classic leads ruled out, a more subtle cause remained.</p>
+<h2 id="the-real-cause">The real cause</h2>
+<p>An <code>.adsklib</code> file <strong>is not self-contained</strong>. It references other files (textures, appearances, linked resources). As long as those files are not all present locally, Inventor refuses to load the library.</p>
+<p>And that was exactly it: the library had been retrieved from Vault, but <strong>only the <code>.adsklib</code> itself</strong>, without the files it depends on. Once all the linked files were retrieved from Vault, <code>Open()</code> worked without complaint.</p>
+<p>The problem, as you've guessed, is that the API says none of this. No &quot;such-and-such file is missing&quot;, no &quot;dependency not found&quot;. Just <code>0x80004005</code>, and potentially hours spent looking in the wrong place.</p>
+<p>The user interface, on the other hand, does leave a clue. In the material manager, the library appears with a small yellow warning triangle. Hovering over it reads: &quot;Failed to load library at ...adsklib&quot;. It's thin, but it at least confirms the problem comes from loading the library, and not from somewhere else.</p>
+<p><img src="Content/en/blog/media/materials-library-warning.webp" alt="Warning triangle and &quot;Failed to load library&quot; tooltip in the material manager" /></p>
 <hr />
 <p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Need an <strong>Inventor</strong> (iLogic, .NET, VBA, C++) or <strong>Fusion 360</strong> (Python, C++) development? Contact me for a free quote.</p>
 
 </div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
-        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/inventor-materials-library" class="text-decoration-none">0x80004005: the materials library that won&#x27;t open</a>
-                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/configuring-vault-with-inventor" class="text-decoration-none">Configuring Vault with Inventor</a>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/configuring-vault-with-inventor" class="text-decoration-none">Configuring Vault with Inventor</a>
                     <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/inventor-sketch-points" class="text-decoration-none">Understanding the Role of Points in Inventor Sketches</a>
                     <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/ilogic-rules-export-import" class="text-decoration-none">Export and import iLogic rules</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/0x80004005" class="text-decoration-none">0x80004005 the answer to almost everything</a>
                     <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/questions-answers/standardization-organizations" class="text-decoration-none">What are the different standardization organizations found in Inventor&#x27;s Content Center?</a>
-                    <small class="text-muted ms-2">Q&amp;A</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/vault-server-installation" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
-                                    <span>Vault Server Installation Issue (Hard Drive Sector Size)</span></a></div>
-                        <div class="col-6 text-end"><a href="/en/blog/windows-and-dialogs" class="text-decoration-none"><small class="text-muted d-block">Next article &#x2192;</small>
-                                    <span>Improving Windows in AutoCAD</span></a></div></div></nav></article></div></div></main>
+                    <small class="text-muted ms-2">Q&amp;A</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/autocad-units" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Understanding units in AutoCAD</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
