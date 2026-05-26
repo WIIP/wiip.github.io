@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code - WIIP</title><meta name="description" content="Un tableau de correspondance entre les versions commerciales d&#x27;AutoCAD, leur num&#xE9;ro de release, la version de .NET, le format DWG/DXF et le nom de code interne &#x2014; avec, pour chaque colonne, ce qu&#x27;elle signifie concr&#xE8;tement." />
+        <meta property="og:title" content="Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code" />
+        <meta property="og:description" content="Un tableau de correspondance entre les versions commerciales d&#x27;AutoCAD, leur num&#xE9;ro de release, la version de .NET, le format DWG/DXF et le nom de code interne &#x2014; avec, pour chaque colonne, ce qu&#x27;elle signifie concr&#xE8;tement." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/autocad-versions" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code" />
+        <meta name="twitter:description" content="Un tableau de correspondance entre les versions commerciales d&#x27;AutoCAD, leur num&#xE9;ro de release, la version de .NET, le format DWG/DXF et le nom de code interne &#x2014; avec, pour chaque colonne, ce qu&#x27;elle signifie concr&#xE8;tement." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.png" width="220" height="95" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autocad-versions" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-versions" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Versions d\u0027AutoCAD : releases, .NET, DWG et noms de code",
+        "description": "Un tableau de correspondance entre les versions commerciales d\u0027AutoCAD, leur num\u00E9ro de release, la version de .NET, le format DWG/DXF et le nom de code interne \u2014 avec, pour chaque colonne, ce qu\u0027elle signifie concr\u00E8tement.",
+        "datePublished": "2026-05-26T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/autocad-versions",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/autocad-versions",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Versions d'AutoCAD : releases, .NET, DWG et noms de code","item":"https://wiip.fr/fr/blog/autocad-versions"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code</h1>
+                    <small class="text-muted">mardi 26 mai 2026</small><div class="mt-2"><a href="/fr/tags/AutoCAD" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a><a href="/fr/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/fr/tags/ObjectARX" class="badge bg-primary me-1 text-decoration-none">ObjectARX</a></div></header>
+                <div class="mt-3"><p>Quand on développe des compléments pour AutoCAD ou qu'on manipule des fichiers DWG, on a sans cesse besoin de faire le lien entre plusieurs numéros qui désignent la même version : le nom commercial (AutoCAD 2024), le numéro de release interne (R24.3), la version de .NET attendue, le format DWG produit… Autant d'identifiants qui ne suivent pas la même logique et qu'Autodesk ne présente jamais côte à côte.</p>
+<p>Voici un tableau de correspondance, de la toute première version jusqu'à AutoCAD 2027, suivi du détail de ce que représente chaque colonne.</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th style="text-align: center;">Release</th>
+<th style="text-align: center;">.NET</th>
+<th>Visual Studio</th>
+<th style="text-align: center;">Toolset</th>
+<th style="text-align: center;">DWG/DXF</th>
+<th>Nom de code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoCAD 2.5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1002</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2.6</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1003</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R9</td>
+<td style="text-align: center;">R9.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1004</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R10</td>
+<td style="text-align: center;">R10.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1006</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R11</td>
+<td style="text-align: center;">R11.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1009</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R12</td>
+<td style="text-align: center;">R12.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1009</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R13</td>
+<td style="text-align: center;">R13.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1012</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD R14</td>
+<td style="text-align: center;">R14.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1014</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2000</td>
+<td style="text-align: center;">R15.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1015</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2000i</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1015</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2002</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1015</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2004</td>
+<td style="text-align: center;">R16.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1018</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2005</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1018</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2006</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1018</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2007</td>
+<td style="text-align: center;">R17.0</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1021</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2008</td>
+<td style="text-align: center;">R17.1</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1021</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2009</td>
+<td style="text-align: center;">R17.2</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1021</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2010</td>
+<td style="text-align: center;">R18.0</td>
+<td style="text-align: center;">3.5</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1024</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2011</td>
+<td style="text-align: center;">R18.1</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1024</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2012</td>
+<td style="text-align: center;">R18.2</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1024</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2013</td>
+<td style="text-align: center;">R19.0</td>
+<td style="text-align: center;">4.0</td>
+<td>VS 2010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1027</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2014</td>
+<td style="text-align: center;">R19.1</td>
+<td style="text-align: center;">4.0</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1027</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2015</td>
+<td style="text-align: center;">R20.0</td>
+<td style="text-align: center;">4.5</td>
+<td>VS 2012</td>
+<td style="text-align: center;">v110</td>
+<td style="text-align: center;">AC1027</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2016</td>
+<td style="text-align: center;">R20.1</td>
+<td style="text-align: center;">4.5.2</td>
+<td>VS 2012 Update 4</td>
+<td style="text-align: center;">v110</td>
+<td style="text-align: center;">AC1027</td>
+<td>Maestro</td>
+</tr>
+<tr>
+<td>AutoCAD 2017</td>
+<td style="text-align: center;">R21.0</td>
+<td style="text-align: center;">4.6</td>
+<td>VS 2015</td>
+<td style="text-align: center;">v140</td>
+<td style="text-align: center;">AC1027</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2018</td>
+<td style="text-align: center;">R22.0</td>
+<td style="text-align: center;">4.6</td>
+<td>VS 2015 Update 3</td>
+<td style="text-align: center;">v140</td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2019</td>
+<td style="text-align: center;">R23.0</td>
+<td style="text-align: center;">4.7</td>
+<td>VS 2017 Update 2</td>
+<td style="text-align: center;">v141</td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2020</td>
+<td style="text-align: center;">R23.1</td>
+<td style="text-align: center;">4.7</td>
+<td>VS 2017 Update 2</td>
+<td style="text-align: center;">v141</td>
+<td style="text-align: center;">AC1032</td>
+<td>Qubit</td>
+</tr>
+<tr>
+<td>AutoCAD 2021</td>
+<td style="text-align: center;">R24.0</td>
+<td style="text-align: center;">4.8</td>
+<td>VS 2019 &lt; 16.0</td>
+<td style="text-align: center;">v142</td>
+<td style="text-align: center;">AC1032</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>AutoCAD 2022</td>
+<td style="text-align: center;">R24.1</td>
+<td style="text-align: center;">4.8</td>
+<td>VS 2019 &lt; 16.7</td>
+<td style="text-align: center;">v142</td>
+<td style="text-align: center;">AC1032</td>
+<td>Sequoia</td>
+</tr>
+<tr>
+<td>AutoCAD 2023</td>
+<td style="text-align: center;">R24.2</td>
+<td style="text-align: center;">4.8</td>
+<td>VS 2019 &lt; 16.11</td>
+<td style="text-align: center;">v142</td>
+<td style="text-align: center;">AC1032</td>
+<td>Turing</td>
+</tr>
+<tr>
+<td>AutoCAD 2024</td>
+<td style="text-align: center;">R24.3</td>
+<td style="text-align: center;">4.8</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2025</td>
+<td style="text-align: center;">R25.0</td>
+<td style="text-align: center;">.NET 8</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2026</td>
+<td style="text-align: center;">R25.1</td>
+<td style="text-align: center;">.NET 8</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+<tr>
+<td>AutoCAD 2027</td>
+<td style="text-align: center;">R26.0</td>
+<td style="text-align: center;">.NET 10</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">AC1032</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-numero-de-release">Le numéro de release</h2>
+<p>Le numéro de release (R26.0, R25.1, etc.) est l'identifiant <strong>interne</strong> de la version, celui qu'Autodesk utilise dans les coulisses indépendamment du nom commercial. On le retrouve notamment dans la <strong>base de registre</strong> : la configuration d'AutoCAD est stockée sous une clé du type <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R26.0</code>, où <code>R26.0</code> correspond à AutoCAD 2027.</p>
+<p>Il sert également de nom aux <strong>sous-répertoires dans <code>AppData</code></strong>. Les fichiers de support propres à l'utilisateur (profils, personnalisation de l'interface, fichiers temporaires…) sont rangés sous un chemin du type <code>%AppData%\Autodesk\AutoCAD 2027\R26.0\frc</code>, où l'on retrouve à la fois le nom commercial et le numéro de release. C'est utile à connaître pour localiser ou réinitialiser la configuration d'une version précise.</p>
+<p>Ce numéro est aussi celui qui détermine la <strong>compatibilité binaire</strong> des compléments. AutoCAD ne charge un module ObjectARX (<code>.arx</code>) ou .NET que s'il a été compilé pour la release courante. C'est pourquoi, à chaque changement de release, les compléments doivent être recompilés — d'où l'importance de cette colonne pour qui développe des extensions.</p>
+<p>On remarque par ailleurs que le numéro de release ne change pas systématiquement à chaque version commerciale. AutoCAD 2000i et 2002, par exemple, partagent la même base que AutoCAD 2000, et plusieurs millésimes consécutifs (2007 à 2009, 2010 à 2012…) restent sur la même release majeure.</p>
+<h2 id="la-version-de.net">La version de .NET</h2>
+<p>C'est la colonne la plus importante pour le <strong>développement de compléments managés</strong>. Elle indique la version du .NET Framework (puis de .NET tout court) sur laquelle s'appuie AutoCAD, et donc celle que doit cibler votre projet.</p>
+<p>Un complément doit être compilé pour une version de .NET <strong>compatible</strong> avec celle d'AutoCAD. Cibler une version trop récente empêche le chargement ; cibler une version plus ancienne fonctionne en général, mais vous prive des API récentes. La progression est régulière : 3.5 à partir d'AutoCAD 2010, puis 4.x jusqu'à AutoCAD 2024 (qui reste sur le 4.8).</p>
+<p>La rupture majeure intervient avec <strong>AutoCAD 2025</strong>, qui passe au .NET « moderne » : .NET 8 pour les versions 2025 et 2026, et .NET 10 pour AutoCAD 2027. Ce changement de plateforme impose une migration en règle des compléments existants, et pas une simple recompilation.</p>
+<h2 id="visual-studio-et-le-toolset">Visual Studio et le toolset</h2>
+<p>Ces deux colonnes concernent le développement <strong>ObjectARX</strong> en C++. Contrairement au code managé, le C++ natif est très sensible à la chaîne de compilation : Autodesk précise la version de Visual Studio et le <em>platform toolset</em> (v140, v141, v142…) avec lesquels chaque release a été construite. Pour produire un module ObjectARX compatible, il faut utiliser le même toolset.</p>
+<p>La mention « VS 2019 &lt; 16.7 », par exemple, signifie qu'il faut une version de Visual Studio 2019 antérieure à la 16.7. Ces colonnes sont vides pour les versions les plus récentes, le SDK ObjectARX correspondant fixant lui-même les exigences exactes.</p>
+<h2 id="la-version-dwgdxf">La version DWG/DXF</h2>
+<p>Cette colonne (AC1032, AC1027…) identifie le <strong>format de fichier</strong> utilisé pour le DWG et le DXF. C'est une chaîne que l'on trouve littéralement au <strong>tout début de l'en-tête</strong> d'un fichier : les premiers octets d'un DWG sont par exemple <code>AC1032</code>. C'est ce marqueur qui permet à un logiciel de savoir quelle version du format il a sous les yeux.</p>
+<p>Point essentiel : le format DWG évolue <strong>beaucoup plus lentement</strong> que les versions d'AutoCAD. Plusieurs millésimes successifs partagent le même format. Ainsi, <code>AC1032</code> est resté inchangé depuis AutoCAD 2018 jusqu'à AutoCAD 2027 : un dessin enregistré avec la version la plus récente reste lisible par toutes les versions depuis 2018. Le format porte d'ailleurs un nom « commercial » correspondant à la première version qui l'a introduit :</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Format</th>
+<th>Introduit avec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC1015</td>
+<td>DWG 2000</td>
+<td>AutoCAD 2000</td>
+</tr>
+<tr>
+<td>AC1018</td>
+<td>DWG 2004</td>
+<td>AutoCAD 2004</td>
+</tr>
+<tr>
+<td>AC1021</td>
+<td>DWG 2007</td>
+<td>AutoCAD 2007</td>
+</tr>
+<tr>
+<td>AC1024</td>
+<td>DWG 2010</td>
+<td>AutoCAD 2010</td>
+</tr>
+<tr>
+<td>AC1027</td>
+<td>DWG 2013</td>
+<td>AutoCAD 2013</td>
+</tr>
+<tr>
+<td>AC1032</td>
+<td>DWG 2018</td>
+<td>AutoCAD 2018</td>
+</tr>
+</tbody>
+</table>
+<p>C'est cette information qui apparaît dans la boîte de dialogue « Enregistrer sous » lorsque vous choisissez le type de fichier (« Dessin AutoCAD 2018 », etc.).</p>
+<h2 id="le-nom-de-code">Le nom de code</h2>
+<p>Dernière colonne, plus anecdotique : le <strong>nom de code interne</strong> de la version. Comme beaucoup d'éditeurs, Autodesk attribue à chaque version un nom de baptême utilisé pendant le développement, avant l'annonce du nom commercial. Tous ne sont pas connus, mais on retrouve par exemple Maestro (2016), Qubit (2020), Rogue (2021), Sequoia (2022) ou Turing (2023). Sans réelle utilité technique, mais on les croise parfois dans des chaînes de version ou de la documentation interne.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-units" class="text-decoration-none">Comprendre les unit&#xE9;s dans AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/espaces-de-nom-vlx" class="text-decoration-none">Les espaces de nom VLX</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-configuration" class="text-decoration-none">G&#xE9;rer un fichier de configuration en AutoLISP</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/quicklook-cadimport" class="text-decoration-none">Pr&#xE9;visualiser des fichiers DWG et DXF avec QuickLook</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/bibliotheque-materiaux-inventor" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>0x80004005 : la biblioth&#xE8;que de mat&#xE9;riaux qui refuse de s&#x27;ouvrir</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong><br>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary small" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

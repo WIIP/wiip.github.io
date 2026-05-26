@@ -102,6 +102,9 @@
     <loc>https://wiip.fr/fr/blog/autocad-units</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/autocad-versions</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/autolisp-comments</loc>
   </url>
   <url>
@@ -232,6 +235,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/AutoCAD</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/ObjectARX</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/AutoLISP</loc>
@@ -465,6 +471,9 @@
     <loc>https://wiip.fr/en/blog/autocad-units</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/autocad-versions</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/autolisp-comments</loc>
   </url>
   <url>
@@ -580,6 +589,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/CAD</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/ObjectARX</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/AutoLISP</loc>
