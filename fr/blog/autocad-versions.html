@@ -83,7 +83,7 @@
 <tbody>
 <tr>
 <td>AutoCAD 2.5</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R2.5</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -92,7 +92,7 @@
 </tr>
 <tr>
 <td>AutoCAD 2.6</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R2.6</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -164,7 +164,7 @@
 </tr>
 <tr>
 <td>AutoCAD 2000i</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R15.1</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -173,7 +173,7 @@
 </tr>
 <tr>
 <td>AutoCAD 2002</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R15.2</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -191,7 +191,7 @@
 </tr>
 <tr>
 <td>AutoCAD 2005</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R16.1</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -200,7 +200,7 @@
 </tr>
 <tr>
 <td>AutoCAD 2006</td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">R16.2</td>
 <td style="text-align: center;"></td>
 <td></td>
 <td style="text-align: center;"></td>
@@ -400,7 +400,7 @@
 </table>
 <h2 id="le-numero-de-release">Le numéro de release</h2>
 <p>Le numéro de release (R26.0, R25.1, etc.) est l'identifiant <strong>interne</strong> de la version, celui qu'Autodesk utilise dans les coulisses indépendamment du nom commercial. On le retrouve notamment dans la <strong>base de registre</strong> : la configuration d'AutoCAD est stockée sous une clé du type <code>HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R26.0</code>, où <code>R26.0</code> correspond à AutoCAD 2027.</p>
-<p>Il sert également de nom aux <strong>sous-répertoires dans <code>AppData</code></strong>. Les fichiers de support propres à l'utilisateur (profils, personnalisation de l'interface, fichiers temporaires…) sont rangés sous un chemin du type <code>%AppData%\Autodesk\AutoCAD 2027\R26.0\frc</code>, où l'on retrouve à la fois le nom commercial et le numéro de release. C'est utile à connaître pour localiser ou réinitialiser la configuration d'une version précise.</p>
+<p>Il sert également de nom aux <strong>sous-répertoires dans <code>AppData</code></strong>. Les fichiers de support propres à l'utilisateur (profils, personnalisation de l'interface, fichiers temporaires…) sont rangés sous un chemin du type <code>%AppData%\Autodesk\AutoCAD 2027\R26.0\fra</code>, où l'on retrouve à la fois le nom commercial et le numéro de release. C'est utile à connaître pour localiser ou réinitialiser la configuration d'une version précise.</p>
 <p>Ce numéro est aussi celui qui détermine la <strong>compatibilité binaire</strong> des compléments. AutoCAD ne charge un module ObjectARX (<code>.arx</code>) ou .NET que s'il a été compilé pour la release courante. C'est pourquoi, à chaque changement de release, les compléments doivent être recompilés — d'où l'importance de cette colonne pour qui développe des extensions.</p>
 <p>On remarque par ailleurs que le numéro de release ne change pas systématiquement à chaque version commerciale. AutoCAD 2000i et 2002, par exemple, partagent la même base que AutoCAD 2000, et plusieurs millésimes consécutifs (2007 à 2009, 2010 à 2012…) restent sur la même release majeure.</p>
 <h2 id="la-version-de.net">La version de .NET</h2>
