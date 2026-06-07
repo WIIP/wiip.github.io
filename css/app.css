@@ -492,10 +492,14 @@ table tr:nth-child(even) td {
 }
 
 /* --- Largeur max images contenu (règle projet : 836px) ---- */
+/* min(836px, 100%) : plafonne à 836px sur desktop et reste responsive
+   (ne déborde jamais du conteneur) sur mobile. .row .col img couvre les
+   pages piliers et Réalisations dont le contenu est rendu dans un .col. */
 .main-content img,
 article img,
-.blog-post img {
-    max-width: 836px;
+.blog-post img,
+.row .col img {
+    max-width: min(836px, 100%);
     height: auto;
 }
 
