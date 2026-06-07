@@ -175,6 +175,38 @@ a:hover, .btn-link:hover {
     margin-top: 0.25rem;
 }
 
+/* Navigation responsive (sous le point d'expansion lg = 992px).
+   Par défaut Bootstrap met .navbar-nav en colonne en dessous de ce
+   point : les ~11 liens s'empilent verticalement et repoussent le
+   contenu tout en bas de la page sur mobile/tablette. On repasse les
+   deux listes en lignes qui s'enroulent et restent centrées, et on
+   contraint .main-content (enfant flex de .row sans largeur définie)
+   à toute la largeur pour borner l'enroulement. */
+@media (max-width: 991.98px) {
+    .main-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .navbar,
+    .navbar .container-fluid {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.3rem 0.5rem;
+        letter-spacing: 0.08em;
+    }
+}
+
 /* --- Sélecteur de langue ---------------------------------- */
 .language-switcher {
     display: inline-flex;
@@ -853,4 +885,60 @@ article img,
 .btn-outline-primary,
 .btn-outline-ink {
     --bs-btn-focus-shadow-rgb: 196, 88, 47;
+}
+
+/* --- Carte de France (page « À propos ») ------------------ */
+.france-map {
+    margin: 2rem auto 0;
+    max-width: 360px;
+    text-align: center;
+}
+
+.france-map svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Silhouette : tous les départements métropolitains, remplis
+   d'une même teinte chaude et sans contour interne pour ne
+   former qu'une seule masse continue. */
+.france-map__land {
+    fill: #D7CFBD;
+    stroke: none;
+}
+
+/* Pas-de-Calais : légère mise en valeur derrière le repère. */
+.france-map__region {
+    fill: rgba(196, 88, 47, 0.22);
+    stroke: none;
+}
+
+.france-map__halo {
+    fill: var(--terracotta);
+    opacity: 0.16;
+}
+
+.france-map__dot {
+    fill: var(--terracotta);
+    stroke: #fff;
+    stroke-width: 1.6;
+}
+
+.france-map__label {
+    fill: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    paint-order: stroke;
+    stroke: var(--warm-bg);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.france-map__caption {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text);
 }
