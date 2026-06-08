@@ -93,9 +93,6 @@
     <loc>https://wiip.fr/fr/blog/ai_developers_limitations</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/blog/application-context-vs-document-context</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/blog/autocad-2027</loc>
   </url>
   <url>
@@ -150,48 +147,6 @@
     <loc>https://wiip.fr/fr/blog/espaces-de-nom-vlx</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-composite-curves</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-curves</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-3d</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-circle-circle</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-line-circle</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-numerical</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersection-segment-segment</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-intersections</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-nurbs</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-operators</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-point</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-transforms</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-unit-vector</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/geometry-library-vector</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/blog/ilogic-rules-export-import</loc>
   </url>
   <url>
@@ -220,9 +175,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/windows-and-dialogs</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/blog/wpf-contextmenu-dpi</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/inventor</loc>
@@ -273,12 +225,6 @@
     <loc>https://wiip.fr/fr/tags/optimisation</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/tags/csharp</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/geometrie</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/tags/dwg</loc>
   </url>
   <url>
@@ -297,9 +243,6 @@
     <loc>https://wiip.fr/fr/tags/wpf</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/tags/net-framework</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/questions-reponses/autocad-launcher</loc>
   </url>
   <url>
@@ -313,9 +256,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/questions-reponses/autolisp</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/questions-reponses/bulge</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/questions-reponses/ilogic</loc>
@@ -361,9 +301,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/programmation</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/dxf</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/ilogic</loc>
@@ -516,21 +453,6 @@
     <loc>https://wiip.fr/en/blog/geometry-library-curves</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/blog/geometry-library-intersection-3d</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/blog/geometry-library-intersection-circle-circle</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/blog/geometry-library-intersection-line-circle</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/blog/geometry-library-intersection-numerical</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/blog/geometry-library-intersection-segment-segment</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/en/blog/geometry-library-intersections</loc>
   </url>
   <url>
@@ -577,9 +499,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/windows-and-dialogs</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/blog/wpf-contextmenu-dpi</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/inventor</loc>
@@ -649,9 +568,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/wpf</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/net-framework</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/questions-answers/autocad-launcher</loc>
