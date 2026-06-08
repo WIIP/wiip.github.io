@@ -15,19 +15,19 @@
     
     <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
     <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
-    <title>Custom Inventor Development - WIIP</title><meta name="description" content="Custom Inventor plugin development in C#/.NET, iLogic and VBA. Automation, ERP integration and add-ins for Autodesk Inventor." />
-    <meta property="og:title" content="Custom Inventor Development - WIIP" />
-    <meta property="og:description" content="Custom Inventor plugin development in C#/.NET, iLogic and VBA. Automation, ERP integration and add-ins for Autodesk Inventor." />
+    <title>Tag: VBA - WIIP</title><meta name="description" content="Articles with the tag &quot;VBA&quot;." />
+    <meta property="og:title" content="Tag: VBA - WIIP" />
+    <meta property="og:description" content="Articles with the tag &quot;VBA&quot;." />
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wiip.fr/en/inventor-development" />
+    <meta property="og:url" content="https://wiip.fr/en/tags/VBA" />
     <meta property="og:site_name" content="WIIP"></head>
 
 <body>
 
 <div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
-                        <div class="language-switcher"><a href="/fr/developpement-inventor" class="">FR</a>
+                        <div class="language-switcher"><a href="/fr/tags/VBA" class="">FR</a>
     <span class="separator">|</span>
-    <a href="/en/inventor-development" class="active">EN</a></div></div>
+    <a href="/en/tags/VBA" class="active">EN</a></div></div>
                     <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
@@ -42,56 +42,11 @@
         <main>
 
 
-<script type="application/ld&#x2B;json">
-{
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Custom Inventor Development",
-    "description": "Custom Inventor plugin development in C#/.NET, iLogic and VBA. Automation, ERP integration and add-ins for Autodesk Inventor.",
-    "provider": {
-        "@type": "Organization",
-        "name": "WIIP",
-        "url": "https://wiip.fr"
-    },
-    "serviceType": "Custom Inventor Development",
-    "areaServed": "Worldwide"
-}
-</script>
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Custom Inventor Development","item":"https://wiip.fr/en/inventor-development"}]}</script>
-
-<div class="row mt-4 justify-content-center"><div class="col"><h1 id="custom-inventor-development">Custom Inventor Development</h1>
-<p><img src="/img/inventor.webp" alt="Custom Inventor development" /></p>
-<p>Since 2008, I have been helping engineering firms and manufacturers develop <strong>custom Inventor add-ins</strong>. My goal: automate your repetitive design tasks, make your processes more reliable, improve user comfort and reduce the risk of errors.</p>
-<p>Inventor is a powerful tool for 3D mechanical design, but its capabilities can be greatly enhanced through custom developments that integrate directly into your workflow.</p>
-<hr />
-<h2 id="technologies">Technologies</h2>
-<h3 id="c.net-inventor-api">C# / .NET (Inventor API)</h3>
-<p>This is <strong>the primary technology</strong> for developing Inventor plugins. The Inventor .NET API is very comprehensive: access to the 3D model, assemblies, drawings, parameters, constraints... It allows creating custom commands, rich user interfaces and advanced automation.</p>
-<p>It is my primary language. I use it for the majority of my Inventor projects.</p>
-<h3 id="ilogic">iLogic</h3>
-<p>iLogic is the rule engine built into Inventor. It allows writing VB.NET scripts directly within the Inventor document to automate behaviors: parametric part configuration, variant management, automatic property updates...</p>
-<p>iLogic is particularly suited to cases where the automation needs to travel with the document. I can develop complex iLogic rules or combine them with .NET plugins for hybrid solutions.</p>
-<h3 id="vba">VBA</h3>
-<p>Inventor includes a VBA editor for quickly creating macros. As with AutoCAD, VBA has the advantage of being a familiar language for MS Office or SolidWorks users. It is suitable for simple automation or for prototyping a solution before a more complete .NET development.</p>
-<h3 id="apprentice-server">Apprentice Server</h3>
-<p>Apprentice is a library provided by Autodesk that allows you to <strong>read and modify Inventor files without Inventor</strong>. It is the equivalent of RealDWG for the Inventor world. Ideal for server applications, batch processing or verification tools.</p>
-<hr />
-<h2 id="what-i-can-automate">What I Can Automate</h2>
-<p>Here is an overview of projects delivered for my clients:</p>
-<ul>
-<li><strong>Complex sketch drawing</strong> — Automatic generation of parametric profiles from technical specifications</li>
-<li><strong>ERP connection</strong> — Bidirectional integration with systems like <a href="https://www.clipper-erp.com/en">Clipper</a>, <a href="https://www.sage.com/en-us/sage-business-cloud/x3/">Sage X3</a>: synchronization of BOMs, properties and statuses</li>
-<li><strong>Dimension and tolerance collection</strong> — Automatic extraction of GD&amp;T from drawings to generate quality control reports</li>
-<li><strong>Cut sheet generation</strong> — Automatic creation of cutting documents for joinery profiles</li>
-</ul>
-<hr />
-<h2 id="articles-and-resources">Articles and Resources</h2>
-<h3>Blog Articles</h3>
-            <ul><li><a href="/en/blog/convert-vba-examples-ilogic">Converting the VBA examples from the Inventor documentation into iLogic rules</a> — The documentation shipped with Inventor is full of code examples, but they are written in VBA. Here is how to adapt them to VB.NET so you can reuse them in an iLogic rule.</li><li><a href="/en/blog/inventor-materials-library">0x80004005: the materials library that won&#x27;t open</a> — A concrete case of the infamous E_FAIL: an .adsklib file that does exist on disk, yet which Inventor stubbornly refuses to open.</li><li><a href="/en/blog/configuring-vault-with-inventor">Configuring Vault with Inventor</a> — Configuring Vault to work with Inventor is a bit harder than you might think.</li><li><a href="/en/blog/inventor-sketch-points">Understanding the Role of Points in Inventor Sketches</a> — In an Inventor sketch, every entity relies on points. Understanding their role is essential to mastering geometric constraints.</li><li><a href="/en/blog/ilogic-rules-export-import">Export and import iLogic rules</a> — Put your iLogic rules under version control and edit them in a modern editor with two export/import scripts.</li><li><a href="/en/blog/0x80004005">0x80004005 the answer to almost everything</a> — What&#x27;s frustrating about errors in Autodesk Inventor</li></ul><h3>Questions &amp; Answers</h3>
-            <ul><li><a href="/en/questions-answers/standardization-organizations">What are the different standardization organizations found in Inventor&#x27;s Content Center?</a> — Here is a list of the main standardization organizations with their acronym, full name, and country or region.</li><li><a href="/en/questions-answers/ilogic">What is iLogic?</a> — iLogic is a rule system integrated into Autodesk Inventor that allows design automation and the creation of intelligent, parametric 3D models.</li><li><a href="/en/questions-answers/autodesk-platform-services">What is APS?</a> — What is Autodesk Platform Services used for?</li></ul><hr>
-
-        <p>Do you have an Inventor development project? <a href="mailto:maxence.delannoy@wiip.fr">Contact me</a> for a free quote, or call me at (+33) 6 46 40 75 66.</p></div></div></main>
+<div class="container mt-4"><div class="row justify-content-center"><div class="col-12"><div><h2 class="mb-3">Tag: VBA</h2>
+                    <p class="lead">Articles with the tag &quot;VBA&quot;.</p></div><h3 class="mb-4">Blog Posts</h3><article class="mb-4 pb-4 border-bottom"><header><h4><a href="/en/blog/convert-vba-examples-ilogic" class="text-decoration-none">Converting the VBA examples from the Inventor documentation into iLogic rules</a></h4>
+                                <small class="text-muted">Monday, June 8, 2026</small><div class="mt-2"><a href="/en/tags/iLogic" class="badge bg-secondary me-1 text-decoration-none">iLogic</a><a href="/en/tags/Inventor" class="badge bg-secondary me-1 text-decoration-none">Inventor</a><a href="/en/tags/VBA" class="badge bg-secondary me-1 text-decoration-none">VBA</a><a href="/en/tags/CAD" class="badge bg-secondary me-1 text-decoration-none">CAD</a></div></header>
+                            <div class="mt-3"><p>The documentation shipped with Inventor is full of code examples, but they are written in VBA. Here is how to adapt them to VB.NET so you can reuse them in an iLogic rule.</p>
+                                <a href="/en/blog/convert-vba-examples-ilogic" class="btn btn-outline-primary btn-sm">Read more</a></div></article></div></div></div></main>
         <div class="row justify-content-center"><div class="main-content"><hr></div></div>
         <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
                             <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr

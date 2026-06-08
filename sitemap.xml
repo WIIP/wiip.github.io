@@ -129,6 +129,9 @@
     <loc>https://wiip.fr/fr/blog/configuration-de-vault-avec-inventor</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/convertir-exemples-vba-ilogic</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/custom_sys_var</loc>
   </url>
   <url>
@@ -255,6 +258,12 @@
     <loc>https://wiip.fr/fr/tags/PowerShell</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/iLogic</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/VBA</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/Dassault%2bSyst%25C3%25A8mes</loc>
   </url>
   <url>
@@ -268,9 +277,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/G%25C3%25A9om%25C3%25A9trie</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/iLogic</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/DWG</loc>
@@ -495,6 +501,9 @@
     <loc>https://wiip.fr/en/blog/configuring-vault-with-inventor</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/convert-vba-examples-ilogic</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/custom_sys_var</loc>
   </url>
   <url>
@@ -609,6 +618,12 @@
     <loc>https://wiip.fr/en/tags/Vault</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/tags/iLogic</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/VBA</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/tags/Mathematics</loc>
   </url>
   <url>
@@ -619,9 +634,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/Geometry</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/iLogic</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/DWG</loc>

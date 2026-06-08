@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic - WIIP</title><meta name="description" content="La documentation install&#xE9;e avec Inventor regorge d&#x27;exemples de code, mais ils sont &#xE9;crits en VBA. Voici comment les adapter en VB.NET pour les r&#xE9;utiliser dans une r&#xE8;gle iLogic." />
+        <meta property="og:title" content="Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic" />
+        <meta property="og:description" content="La documentation install&#xE9;e avec Inventor regorge d&#x27;exemples de code, mais ils sont &#xE9;crits en VBA. Voici comment les adapter en VB.NET pour les r&#xE9;utiliser dans une r&#xE8;gle iLogic." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/convertir-exemples-vba-ilogic" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic" />
+        <meta name="twitter:description" content="La documentation install&#xE9;e avec Inventor regorge d&#x27;exemples de code, mais ils sont &#xE9;crits en VBA. Voici comment les adapter en VB.NET pour les r&#xE9;utiliser dans une r&#xE8;gle iLogic." /></head>
+
+<body>
+
+<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/convertir-exemples-vba-ilogic" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/convertir-exemples-vba-ilogic" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Convertir les exemples VBA de la documentation Inventor en r\u00E8gles iLogic",
+        "description": "La documentation install\u00E9e avec Inventor regorge d\u0027exemples de code, mais ils sont \u00E9crits en VBA. Voici comment les adapter en VB.NET pour les r\u00E9utiliser dans une r\u00E8gle iLogic.",
+        "datePublished": "2026-06-08T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/convertir-exemples-vba-ilogic",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/convertir-exemples-vba-ilogic",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Convertir les exemples VBA de la documentation Inventor en règles iLogic","item":"https://wiip.fr/fr/blog/convertir-exemples-vba-ilogic"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic</h1>
+                    <small class="text-muted">lundi 8 juin 2026</small><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/VBA" class="badge bg-primary me-1 text-decoration-none">VBA</a><a href="/fr/tags/CAO" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Quand on automatise Inventor avec <strong>iLogic</strong>, la meilleure source d'exemples n'est pas un forum lointain : elle est déjà installée sur votre poste. La documentation locale d'Inventor contient des centaines d'extraits de code couvrant presque toutes les méthodes de l'API.</p>
+<p>Sur une installation standard, ces exemples se trouvent dans :</p>
+<pre><code>C:\Users\Public\Documents\Autodesk\Inventor 202x\Local Help
+</code></pre>
+<p>(remplacez <code>202x</code> par votre millésime). Vous y retrouvez l'aide de programmation, dans laquelle chaque objet de l'API est accompagné d'un exemple complet.</p>
+<p>Il y a cependant un piège : <strong>ces exemples sont écrits en VBA</strong>, l'ancien langage de macros d'Inventor. Or iLogic, lui, fonctionne en <strong>VB.NET</strong>. Les deux langages se ressemblent énormément, mais quelques différences de syntaxe empêchent de copier-coller directement. La bonne nouvelle, c'est que la conversion est mécanique : une fois les quelques règles ci-dessous assimilées, l'adaptation prend quelques secondes.</p>
+<h2 id="les-regles-de-conversion">Les règles de conversion</h2>
+<h3 id="supprimer-la-declaration-de-procedure">1. Supprimer la déclaration de procédure</h3>
+<p>En VBA, le code est encapsulé dans une procédure <code>Sub ... End Sub</code> (ou <code>Function ... End Function</code>). Dans une règle iLogic, le code s'exécute directement : il n'y a pas d'enveloppe à conserver.</p>
+<p>On supprime donc la première ligne (<code>Public Sub ...</code>) et la dernière (<code>End Sub</code>).</p>
+<h3 id="supprimer-le-mot-cle-set">2. Supprimer le mot-clé <code>Set</code></h3>
+<p>En VBA, l'affectation d'une référence d'objet doit être précédée du mot-clé <code>Set</code>. En VB.NET, cette distinction n'existe plus : l'affectation est identique qu'il s'agisse d'un objet ou d'une valeur.</p>
+<pre><code class="language-vb">' VBA
+Set oPartDoc = ThisApplication.Documents.Add(...)
+
+' VB.NET (iLogic)
+oPartDoc = ThisApplication.Documents.Add(...)
+</code></pre>
+<h3 id="supprimer-le-mot-cle-call">3. Supprimer le mot-clé <code>Call</code></h3>
+<p>En VBA, <code>Call</code> sert à appeler une procédure de façon explicite. En VB.NET il est inutile : on appelle directement la méthode.</p>
+<pre><code class="language-vb">' VBA
+Call oExtrudeDef.SetDistanceExtent(0.25, kNegativeExtentDirection)
+
+' VB.NET (iLogic)
+oExtrudeDef.SetDistanceExtent(0.25, PartFeatureExtentDirectionEnum.kNegativeExtentDirection)
+</code></pre>
+<h3 id="ajouter-les-parentheses-aux-appels-de-methode">4. Ajouter les parenthèses aux appels de méthode</h3>
+<p>C'est le piège le plus discret. En VBA, on peut appeler une méthode avec des arguments <strong>sans parenthèses</strong> lorsqu'on n'utilise pas sa valeur de retour. En VB.NET, les parenthèses sont <strong>obligatoires</strong>.</p>
+<pre><code class="language-vb">' VBA
+oPaths.Add oTextBox
+
+' VB.NET (iLogic)
+oPaths.Add(oTextBox)
+</code></pre>
+<p>La règle vaut aussi pour les méthodes appelées <strong>sans aucun argument</strong> (y compris celles dont tous les arguments sont optionnels), que VBA accepte sous leur seul nom : il faut leur ajouter une paire de parenthèses vides.</p>
+<pre><code class="language-vb">' VBA
+oProfile = oSketch.Profiles.AddForSolid
+oSketch.Edit
+
+' VB.NET (iLogic)
+oProfile = oSketch.Profiles.AddForSolid()
+oSketch.Edit()
+</code></pre>
+<h3 id="qualifier-les-constantes-denumeration">5. Qualifier les constantes d'énumération</h3>
+<p>En VBA, les constantes comme <code>kPartDocumentObject</code> ou <code>kJoinOperation</code> sont exposées globalement : on les écrit telles quelles. En VB.NET, chaque constante appartient à une <strong>énumération</strong> et doit être préfixée par le nom de son type.</p>
+<p>C'est d'autant plus important qu'en iLogic, <code>Option Explicit</code> est désactivé : une constante écrite sans son type n'est <strong>pas</strong> signalée comme une erreur de compilation. Elle est silencieusement interprétée comme une nouvelle variable vide, et la règle produit alors un résultat erroné — sans aucun message. Mieux vaut donc toujours qualifier.</p>
+<ul>
+<li><code>kPartDocumentObject</code> → <code>DocumentTypeEnum.kPartDocumentObject</code></li>
+<li><code>kJoinOperation</code> → <code>PartFeatureOperationEnum.kJoinOperation</code></li>
+<li><code>kNegativeExtentDirection</code> → <code>PartFeatureExtentDirectionEnum.kNegativeExtentDirection</code></li>
+</ul>
+<p>Pour retrouver le type d'une constante, il suffit de rechercher son nom dans l'aide de l'API : la page de l'énumération liste toutes ses valeurs.</p>
+<blockquote>
+<p><strong>À noter :</strong> l'objet <code>ThisApplication</code> est disponible aussi bien en VBA qu'en iLogic. Inutile donc de le récupérer autrement : la plupart des exemples de la documentation s'appuient dessus et restent valables.</p>
+</blockquote>
+<h3 id="remplacer-debug.print-par-une-ecriture-dans-le-journal">6. Remplacer <code>Debug.Print</code> par une écriture dans le journal</h3>
+<p>En VBA, <code>Debug.Print</code> envoie du texte vers la fenêtre <em>Exécution</em> (Immediate) de l'éditeur VBA. En iLogic, cette fenêtre n'existe pas : on écrit dans le <strong>journal iLogic</strong> via l'objet <code>Logger</code>, dont la sortie s'affiche dans la fenêtre <em>Journal iLogic</em>.</p>
+<pre><code class="language-vb">' VBA
+Debug.Print &quot;Area: &quot; &amp; oMassProps.Area
+
+' VB.NET (iLogic)
+Logger.Info(&quot;Area: &quot; &amp; oMassProps.Area)
+</code></pre>
+<p><code>Logger</code> propose plusieurs niveaux : <code>Logger.Info()</code> pour une information, <code>Logger.Warn()</code> pour un avertissement et <code>Logger.Error()</code> pour une erreur. Pour du simple affichage de résultats, <code>Logger.Info()</code> convient. Notez au passage que <code>Logger.Info</code> est une méthode : ses parenthèses sont obligatoires, comme le veut la règle 4.</p>
+<h3 id="adapter-les-declarations-de-tableaux">7. Adapter les déclarations de tableaux</h3>
+<p>VBA autorise la déclaration explicite de la borne inférieure d'un tableau (<code>Dim arr(1 To 3)</code>). VB.NET ne le permet pas : tous les tableaux commencent à l'indice 0 et l'on ne déclare que la borne supérieure. Pour conserver les indices 1 à 3 utilisés par le reste du code, on déclare donc un tableau de borne supérieure 3 — l'indice 0 reste simplement inutilisé.</p>
+<pre><code class="language-vb">' VBA
+Dim adPrincipalMoments(1 To 3) As Double
+
+' VB.NET (iLogic)
+Dim adPrincipalMoments(3) As Double
+</code></pre>
+<p>À l'inverse, une déclaration qui ne précise <strong>que la borne supérieure</strong> (<code>Dim oNames(1) As String</code>) se convertit sans aucune modification : dans les deux langages, elle crée un tableau d'indices 0 à 1. Seule la forme explicite <code>x To y</code> doit être adaptée.</p>
+<h3 id="mefiez-vous-des-declarations-multiples-sur-une-ligne">8. Méfiez-vous des déclarations multiples sur une ligne</h3>
+<p>VBA et VB.NET n'interprètent pas de la même façon une ligne comme <code>Dim a, b As Type</code>. En VBA, seul <code>b</code> est du type indiqué ; <code>a</code> est un <code>Variant</code>. En VB.NET, <strong>les deux</strong> variables sont du type indiqué.</p>
+<pre><code class="language-vb">' VBA  → oEdge1 est un Variant, oEdge2 est un Edge
+Dim oEdge1, oEdge2 As Edge
+
+' VB.NET → oEdge1 ET oEdge2 sont des Edge
+Dim oEdge1, oEdge2 As Edge
+</code></pre>
+<p>Le code ne change pas, mais le sens si. Dans la plupart des exemples de la documentation, cette différence est sans conséquence (on voulait de toute façon deux objets typés) — il faut simplement en avoir conscience.</p>
+<h2 id="premier-exemple-extruder-un-texte">Premier exemple : extruder un texte</h2>
+<p>Prenons l'exemple fourni par la documentation pour créer une extrusion à partir d'un texte d'esquisse. Voici le code <strong>VBA d'origine</strong> :</p>
+<pre><code class="language-vb">Public Sub ExtrudeSketchText()
+    ' Create a new part document, using the default part template.
+    Dim oPartDoc As PartDocument
+    Set oPartDoc = ThisApplication.Documents.Add(kPartDocumentObject, _
+                ThisApplication.FileManager.GetTemplateFile(kPartDocumentObject))
+
+    ' Set a reference to the component definition.
+    Dim oCompDef As PartComponentDefinition
+    Set oCompDef = oPartDoc.ComponentDefinition
+
+    ' Create a new sketch on the X-Y work plane.
+    Dim oSketch As PlanarSketch
+    Set oSketch = oCompDef.Sketches.Add(oCompDef.WorkPlanes.Item(3))
+
+    ' Set a reference to the transient geometry object.
+    Dim oTransGeom As TransientGeometry
+    Set oTransGeom = ThisApplication.TransientGeometry
+
+    ' Create a text box at (0,0)
+    Dim oTextBox As TextBox
+    Set oTextBox = oSketch.TextBoxes.AddFitted(oTransGeom.CreatePoint2d(0, 0), &quot;Inventor&quot;)
+
+    ' Add the text box to an object collection
+    Dim oPaths As ObjectCollection
+    Set oPaths = ThisApplication.TransientObjects.CreateObjectCollection
+    oPaths.Add oTextBox
+
+    ' Create a profile.
+    Dim oProfile As Profile
+    Set oProfile = oSketch.Profiles.AddForSolid(False, oPaths)
+
+    ' Extrude the text.
+    Dim oExtrudeDef As ExtrudeDefinition
+    Set oExtrudeDef = oCompDef.Features.ExtrudeFeatures.CreateExtrudeDefinition(oProfile, kJoinOperation)
+    Call oExtrudeDef.SetDistanceExtent(0.25, kNegativeExtentDirection)
+    Dim oExtrude As ExtrudeFeature
+    Set oExtrude = oCompDef.Features.ExtrudeFeatures.Add(oExtrudeDef)
+End Sub
+</code></pre>
+<p>Et voici le <strong>même code converti</strong> pour iLogic, après application des cinq règles :</p>
+<pre><code class="language-vb">' Create a new part document, using the default part template.
+Dim oPartDoc As PartDocument
+oPartDoc = ThisApplication.Documents.Add(DocumentTypeEnum.kPartDocumentObject, _
+            ThisApplication.FileManager.GetTemplateFile(DocumentTypeEnum.kPartDocumentObject))
+
+' Set a reference to the component definition.
+Dim oCompDef As PartComponentDefinition
+oCompDef = oPartDoc.ComponentDefinition
+
+' Create a new sketch on the X-Y work plane.
+Dim oSketch As PlanarSketch
+oSketch = oCompDef.Sketches.Add(oCompDef.WorkPlanes.Item(3))
+
+' Set a reference to the transient geometry object.
+Dim oTransGeom As TransientGeometry
+oTransGeom = ThisApplication.TransientGeometry
+
+' Create a text box at (0,0)
+Dim oTextBox As TextBox
+oTextBox = oSketch.TextBoxes.AddFitted(oTransGeom.CreatePoint2d(0, 0), &quot;Inventor&quot;)
+
+' Add the text box to an object collection
+Dim oPaths As ObjectCollection
+oPaths = ThisApplication.TransientObjects.CreateObjectCollection
+oPaths.Add(oTextBox)
+
+' Create a profile.
+Dim oProfile As Profile
+oProfile = oSketch.Profiles.AddForSolid(False, oPaths)
+
+' Extrude the text.
+Dim oExtrudeDef As ExtrudeDefinition
+oExtrudeDef = oCompDef.Features.ExtrudeFeatures.CreateExtrudeDefinition( _
+    oProfile, PartFeatureOperationEnum.kJoinOperation)
+oExtrudeDef.SetDistanceExtent(0.25, PartFeatureExtentDirectionEnum.kNegativeExtentDirection)
+Dim oExtrude As ExtrudeFeature
+oExtrude = oCompDef.Features.ExtrudeFeatures.Add(oExtrudeDef)
+</code></pre>
+<p>Les modifications se résument à : suppression de l'enveloppe <code>Sub</code>/<code>End Sub</code>, retrait de tous les <code>Set</code>, retrait du <code>Call</code>, ajout des parenthèses sur <code>oPaths.Add(...)</code> et qualification des trois constantes d'énumération. Le reste — déclarations <code>Dim</code>, continuations de ligne <code>_</code>, appels de méthode — est identique entre les deux langages.</p>
+<h2 id="deuxieme-exemple-recuperer-les-proprietes-de-masse">Deuxième exemple : récupérer les propriétés de masse</h2>
+<p>Ce second exemple récupère les propriétés de masse d'une pièce <strong>sans « salir » le document</strong>, c'est-à-dire sans mettre en cache les résultats calculés dans le fichier. Il est ici spécifique à une pièce, mais l'objet <code>MassProperties</code> peut tout aussi bien être obtenu depuis un assemblage ou depuis une occurrence de composant.</p>
+<p>Il illustre deux règles supplémentaires : les nombreux <code>Debug.Print</code> et les déclarations de tableaux à borne inférieure. Voici le code <strong>VBA d'origine</strong> :</p>
+<pre><code class="language-vb">Public Sub GetPartMassPropsWithoutDirtying()
+    ' Set a reference to the part document.
+    ' This assumes a part document is active.
+    Dim oPartDoc As PartDocument
+    Set oPartDoc = ThisApplication.ActiveDocument
+
+    ' Set a reference to the mass properties object.
+    Dim oMassProps As MassProperties
+    Set oMassProps = oPartDoc.ComponentDefinition.MassProperties
+
+    'Check if mass property results are already available
+    'at a high accuracy level or better. If so, simply
+    'print out the results, else, set a flag to not cache
+    'the results in the document.
+    If oMassProps.AvailableAccuracy &lt;&gt; k_High And _
+      oMassProps.AvailableAccuracy &lt;&gt; k_VeryHigh Then
+      ' Set the accuracy to high.
+      oMassProps.Accuracy = k_High
+
+      'Set CacheResultsOnCompute property to False
+      'so that results are not saved with the document
+      'and hence the document is not 'dirtied'.
+      oMassProps.CacheResultsOnCompute = False
+    End If
+
+    ' Display the mass properties of the part.
+    Debug.Print &quot;Area: &quot; &amp; oMassProps.Area
+
+    Debug.Print &quot;Center of Mass: &quot; &amp; _
+    oMassProps.CenterOfMass.X &amp; &quot;, &quot; &amp; _
+    oMassProps.CenterOfMass.Y &amp; &quot;, &quot; &amp; _
+    oMassProps.CenterOfMass.Z
+
+    Debug.Print &quot;Mass: &quot; &amp; oMassProps.Mass
+    Dim adPrincipalMoments(1 To 3) As Double
+    Call oMassProps.PrincipalMomentsOfInertia(adPrincipalMoments(1), _
+    adPrincipalMoments(2), _
+    adPrincipalMoments(3))
+    Debug.Print &quot;Principal Moments of Inertia: &quot; &amp; _
+    adPrincipalMoments(1) &amp; &quot;, &quot; &amp; _
+    adPrincipalMoments(2) &amp; &quot;, &quot; &amp; _
+    adPrincipalMoments(3)
+
+    Dim adRadiusOfGyration(1 To 3) As Double
+    Call oMassProps.RadiusOfGyration(adRadiusOfGyration(1), _
+    adRadiusOfGyration(2), _
+    adRadiusOfGyration(3))
+    Debug.Print &quot;Radius of Gyration: &quot; &amp; _
+    adRadiusOfGyration(1) &amp; &quot;, &quot; &amp; _
+    adRadiusOfGyration(2) &amp; &quot;, &quot; &amp; _
+    adRadiusOfGyration(3)
+
+    Debug.Print &quot;Volume: &quot; &amp; oMassProps.Volume
+
+    Dim Ixx As Double
+    Dim Iyy As Double
+    Dim Izz As Double
+    Dim Ixy As Double
+    Dim Iyz As Double
+    Dim Ixz As Double
+    Call oMassProps.XYZMomentsOfInertia(Ixx, Iyy, Izz, Ixy, Iyz, Ixz)
+    Debug.Print &quot;Moments: &quot;
+    Debug.Print &quot; Ixx: &quot; &amp; Ixx
+    Debug.Print &quot; Iyy: &quot; &amp; Iyy
+    Debug.Print &quot; Izz: &quot; &amp; Izz
+    Debug.Print &quot; Ixy: &quot; &amp; Ixy
+    Debug.Print &quot; Iyz: &quot; &amp; Iyz
+    Debug.Print &quot; Ixz: &quot; &amp; Ixz
+End Sub
+</code></pre>
+<p>Et le <strong>même code converti</strong> pour iLogic :</p>
+<pre><code class="language-vb">' Set a reference to the part document.
+' This assumes a part document is active.
+Dim oPartDoc As PartDocument
+oPartDoc = ThisApplication.ActiveDocument
+
+' Set a reference to the mass properties object.
+Dim oMassProps As MassProperties
+oMassProps = oPartDoc.ComponentDefinition.MassProperties
+
+' Check if mass property results are already available
+' at a high accuracy level or better. If so, simply
+' print out the results, else, set a flag to not cache
+' the results in the document.
+If oMassProps.AvailableAccuracy &lt;&gt; MassPropertiesAccuracyEnum.k_High And _
+  oMassProps.AvailableAccuracy &lt;&gt; MassPropertiesAccuracyEnum.k_VeryHigh Then
+  ' Set the accuracy to high.
+  oMassProps.Accuracy = MassPropertiesAccuracyEnum.k_High
+
+  ' Set CacheResultsOnCompute property to False
+  ' so that results are not saved with the document
+  ' and hence the document is not 'dirtied'.
+  oMassProps.CacheResultsOnCompute = False
+End If
+
+' Display the mass properties of the part.
+Logger.Info(&quot;Area: &quot; &amp; oMassProps.Area)
+
+Logger.Info(&quot;Center of Mass: &quot; &amp; _
+  oMassProps.CenterOfMass.X &amp; &quot;, &quot; &amp; _
+  oMassProps.CenterOfMass.Y &amp; &quot;, &quot; &amp; _
+  oMassProps.CenterOfMass.Z)
+
+Logger.Info(&quot;Mass: &quot; &amp; oMassProps.Mass)
+
+Dim adPrincipalMoments(3) As Double
+oMassProps.PrincipalMomentsOfInertia(adPrincipalMoments(1), _
+  adPrincipalMoments(2), _
+  adPrincipalMoments(3))
+Logger.Info(&quot;Principal Moments of Inertia: &quot; &amp; _
+  adPrincipalMoments(1) &amp; &quot;, &quot; &amp; _
+  adPrincipalMoments(2) &amp; &quot;, &quot; &amp; _
+  adPrincipalMoments(3))
+
+Dim adRadiusOfGyration(3) As Double
+oMassProps.RadiusOfGyration(adRadiusOfGyration(1), _
+  adRadiusOfGyration(2), _
+  adRadiusOfGyration(3))
+Logger.Info(&quot;Radius of Gyration: &quot; &amp; _
+  adRadiusOfGyration(1) &amp; &quot;, &quot; &amp; _
+  adRadiusOfGyration(2) &amp; &quot;, &quot; &amp; _
+  adRadiusOfGyration(3))
+
+Logger.Info(&quot;Volume: &quot; &amp; oMassProps.Volume)
+
+Dim Ixx As Double
+Dim Iyy As Double
+Dim Izz As Double
+Dim Ixy As Double
+Dim Iyz As Double
+Dim Ixz As Double
+oMassProps.XYZMomentsOfInertia(Ixx, Iyy, Izz, Ixy, Iyz, Ixz)
+Logger.Info(&quot;Moments: &quot;)
+Logger.Info(&quot; Ixx: &quot; &amp; Ixx)
+Logger.Info(&quot; Iyy: &quot; &amp; Iyy)
+Logger.Info(&quot; Izz: &quot; &amp; Izz)
+Logger.Info(&quot; Ixy: &quot; &amp; Ixy)
+Logger.Info(&quot; Iyz: &quot; &amp; Iyz)
+Logger.Info(&quot; Ixz: &quot; &amp; Ixz)
+</code></pre>
+<p>Ici, les constantes <code>k_High</code> et <code>k_VeryHigh</code> sont qualifiées par <code>MassPropertiesAccuracyEnum</code>, les <code>Debug.Print</code> deviennent des <code>Logger.Info(...)</code>, les tableaux <code>(1 To 3)</code> deviennent <code>(3)</code>, et les <code>Call</code> devant <code>PrincipalMomentsOfInertia</code>, <code>RadiusOfGyration</code> et <code>XYZMomentsOfInertia</code> disparaissent — ces méthodes renseignant leurs résultats par arguments <code>ByRef</code>, on les appelle directement.</p>
+<h2 id="en-resume">En résumé</h2>
+<p>La documentation locale d'Inventor est une mine d'exemples souvent ignorée parce qu'ils sont en VBA. En gardant ces quelques règles en tête, vous pouvez les transformer en règles iLogic opérationnelles en quelques secondes :</p>
+<ol>
+<li>Supprimer la déclaration <code>Sub</code> / <code>End Sub</code>.</li>
+<li>Supprimer les <code>Set</code>.</li>
+<li>Supprimer les <code>Call</code>.</li>
+<li>Ajouter les parenthèses manquantes aux appels de méthode (y compris les appels sans argument : <code>AddForSolid()</code>).</li>
+<li>Qualifier les constantes d'énumération par leur type.</li>
+<li>Remplacer les <code>Debug.Print</code> par des écritures dans le journal (<code>Logger.Info</code>).</li>
+<li>Adapter les déclarations de tableaux à borne inférieure (<code>1 To n</code> → borne supérieure seule).</li>
+<li>Vérifier les déclarations multiples (<code>Dim a, b As Type</code>) dont le sens diffère entre les deux langages.</li>
+</ol>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>Inventor</strong> (iLogic, .NET, VBA, C++) ou Fusion 360 (Python,  C++) ? Contactez-moi pour un devis gratuit.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/ilogic-rules-export-import" class="text-decoration-none">Exporter et importer des r&#xE8;gles iLogic</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/questions-reponses/ilogic" class="text-decoration-none">C&#x27;est quoi iLogic ?</a>
+                    <small class="text-muted ms-2">Q/R</small></li><li class="mb-2"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none">iLogic : le guide complet</a>
+                    <small class="text-muted ms-2">Tutoriel</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autocad-versions" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
