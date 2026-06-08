@@ -77,6 +77,7 @@
 </code></pre>
 <p>(remplacez <code>202x</code> par votre millésime). Vous y retrouvez l'aide de programmation, dans laquelle chaque objet de l'API est accompagné d'un exemple complet.</p>
 <p>Il y a cependant un piège : <strong>ces exemples sont écrits en VBA</strong>, l'ancien langage de macros d'Inventor. Or iLogic, lui, fonctionne en <strong>VB.NET</strong>. Les deux langages se ressemblent énormément, mais quelques différences de syntaxe empêchent de copier-coller directement. La bonne nouvelle, c'est que la conversion est mécanique : une fois les quelques règles ci-dessous assimilées, l'adaptation prend quelques secondes.</p>
+<p><img src="Content/fr/blog/media/convertir-exemples-vba-ilogic-conversion.webp" alt="Conversion d'un exemple VBA de la documentation Inventor en règle iLogic VB.NET" /></p>
 <h2 id="les-regles-de-conversion">Les règles de conversion</h2>
 <h3 id="supprimer-la-declaration-de-procedure">1. Supprimer la déclaration de procédure</h3>
 <p>En VBA, le code est encapsulé dans une procédure <code>Sub ... End Sub</code> (ou <code>Function ... End Function</code>). Dans une règle iLogic, le code s'exécute directement : il n'y a pas d'enveloppe à conserver.</p>
