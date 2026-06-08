@@ -15,7 +15,9 @@
     
     <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
     <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
-    <title>Lire et &#xE9;crire dans Excel avec GoExcel - iLogic : le guide complet - WIIP</title><meta name="description" content="Utilisez l&#x27;interface GoExcel pour exploiter des donn&#xE9;es Excel directement depuis vos r&#xE8;gles iLogic &#x2014; sans contrainte de format, contrairement &#xE0; la liaison de param&#xE8;tres classique." />
+    <title>Lire et &#xE9;crire dans Excel avec GoExcel - iLogic : le guide complet - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/tutoriels/ilogic-goexcel" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/tutoriels/ilogic-goexcel" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/tutoriels/ilogic-goexcel" />
+        <meta name="description" content="Utilisez l&#x27;interface GoExcel pour exploiter des donn&#xE9;es Excel directement depuis vos r&#xE8;gles iLogic &#x2014; sans contrainte de format, contrairement &#xE0; la liaison de param&#xE8;tres classique." />
         <meta property="og:title" content="Lire et &#xE9;crire dans Excel avec GoExcel - iLogic : le guide complet" />
         <meta property="og:description" content="Utilisez l&#x27;interface GoExcel pour exploiter des donn&#xE9;es Excel directement depuis vos r&#xE8;gles iLogic &#x2014; sans contrainte de format, contrairement &#xE0; la liaison de param&#xE8;tres classique." />
         <meta property="og:type" content="article">
@@ -25,12 +27,10 @@
         <meta name="twitter:title" content="Lire et &#xE9;crire dans Excel avec GoExcel - iLogic : le guide complet" />
         <meta name="twitter:description" content="Utilisez l&#x27;interface GoExcel pour exploiter des donn&#xE9;es Excel directement depuis vos r&#xE8;gles iLogic &#x2014; sans contrainte de format, contrairement &#xE0; la liaison de param&#xE8;tres classique." /></head>
 
-<body>
-
-<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
                         <div class="language-switcher"><a href="/fr/tutoriels/ilogic-goexcel" class="active">FR</a>
     <span class="separator">|</span>
-    <a href="/en/tutorials/ilogic-goexcel" class="">EN</a></div></div>
+    <a href="/en/" class="">EN</a></div></div>
                     <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
@@ -81,7 +81,7 @@
                 <p class="fw-bold text-primary mb-2">iLogic : le guide complet</p>
                 <ol class="list-unstyled"><li class="mb-1"><a href="/fr/tutoriels/ilogic-introduction" class="text-decoration-none ">1. Introduction &#x2014; Qu&#x27;est-ce qu&#x27;iLogic ?</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-vbnet" class="text-decoration-none ">2. Les bases de VB.NET pour iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-rondelle-parametrique" class="text-decoration-none ">3. Premier exercice &#x2014; La rondelle param&#xE9;trique</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-formulaires" class="text-decoration-none ">4. Les formulaires iLogic</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-declencheurs" class="text-decoration-none ">5. Les d&#xE9;clencheurs d&#x27;&#xE9;v&#xE9;nements</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-variables-parametres" class="text-decoration-none ">6. Les variables de param&#xE8;tres</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-goexcel" class="text-decoration-none fw-bold">7. Lire et &#xE9;crire dans Excel avec GoExcel</a></li><li class="mb-1"><a href="/fr/tutoriels/ilogic-filetages" class="text-decoration-none ">8. G&#xE9;rer les filetages avec Feature</a></li></ol></nav></div>
         <div class="col-md-9"><article><header><small class="text-muted">iLogic : le guide complet — Chapitre 7 / 8</small>
-                    <h1>Lire et &#xE9;crire dans Excel avec GoExcel</h1><div class="mt-2"><a href="/fr/tags/iLogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/Inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
+                    <h1>Lire et &#xE9;crire dans Excel avec GoExcel</h1><div class="mt-2"><a href="/fr/tags/ilogic" class="badge bg-primary me-1 text-decoration-none">iLogic</a><a href="/fr/tags/inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a></div></header>
                 <div class="mt-3"><p>Les fichiers Excel sont omniprésents en bureau d'études : tableaux de dimensions normalisées, catalogues de composants, cahiers des charges, données client. iLogic propose une interface dédiée — <strong>GoExcel</strong> — pour lire et écrire dans des classeurs Excel directement depuis vos règles.</p>
 <h2 id="la-liaison-de-parametres-classique">La liaison de paramètres classique</h2>
 <p>Avant de parler de GoExcel, rappelons qu'Inventor propose déjà un mécanisme natif pour <strong>lier des paramètres à un fichier Excel</strong>. Dans le gestionnaire de paramètres, vous pouvez importer ou lier un classeur <code>.xlsx</code> pour piloter les valeurs de vos paramètres.</p>

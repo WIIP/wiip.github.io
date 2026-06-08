@@ -15,7 +15,9 @@
     
     <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
     <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
-    <title>Geometry Library in C# &#x2014; Curves - WIIP</title><meta name="description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." />
+    <title>Geometry Library in C# &#x2014; Curves - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/geometry-library-curves" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/geometry-library-curves" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/geometry-library-curves" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/geometry-library-curves" />
+        <meta name="description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." />
         <meta property="og:title" content="Geometry Library in C# &#x2014; Curves" />
         <meta property="og:description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." />
         <meta property="og:type" content="article">
@@ -25,9 +27,7 @@
         <meta name="twitter:title" content="Geometry Library in C# &#x2014; Curves" />
         <meta name="twitter:description" content="Sixth article in the series: we define the ICurve2d and IBoundedCurve2d interfaces to model parametric curves, from infinite lines to circular arcs." /></head>
 
-<body>
-
-<div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
                         <div class="language-switcher"><a href="/fr/blog/geometry-library-curves" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/geometry-library-curves" class="active">EN</a></div></div>
@@ -70,7 +70,7 @@
         }
     }
     </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"Geometry Library in C# — Curves","item":"https://wiip.fr/en/blog/geometry-library-curves"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Geometry Library in C# &#x2014; Curves</h1>
-                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/C%23" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/.NET" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/Geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/Programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
+                    <small class="text-muted">Saturday, April 4, 2026</small><div class="mt-2"><a href="/en/tags/csharp" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/en/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/programming" class="badge bg-primary me-1 text-decoration-none">Programming</a></div></header>
                 <div class="mt-3"><p>In the previous articles, we built the fundamental building blocks of our library: <a href="../geometry-library-point">points</a>, <a href="../geometry-library-vector">vectors</a>, <a href="../geometry-library-operators">operators</a>, <a href="../geometry-library-unit-vector">unit vectors</a>, and <a href="../geometry-library-transforms">transformations</a>. All these types are immutable structs that represent simple values.</p>
 <p>We're now moving to a higher level of abstraction: <strong>curves</strong>. A line, a segment, a circular arc — all of these are curves. They share common behaviors (evaluating a point, computing a tangent, measuring a distance), but differ in nature: some are infinite, others are bounded, some are open, others closed.</p>
 <p>The central question is: how do we model this hierarchy in C#?</p>
