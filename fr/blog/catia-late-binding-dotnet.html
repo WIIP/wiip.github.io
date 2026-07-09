@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Piloter CATIA V5 depuis .NET en liaison tardive - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/blog/catia-late-binding-dotnet" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/catia-late-binding-dotnet" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/catia-late-binding-dotnet" />
+        <meta name="description" content="Pourquoi `dynamic` &#xE9;choue syst&#xE9;matiquement avec CATIA, et comment appeler `IDispatch::Invoke` soi-m&#xEA;me pour piloter CATIA sans d&#xE9;pendre des interops" />
+        <meta property="og:title" content="Piloter CATIA V5 depuis .NET en liaison tardive" />
+        <meta property="og:description" content="Pourquoi `dynamic` &#xE9;choue syst&#xE9;matiquement avec CATIA, et comment appeler `IDispatch::Invoke` soi-m&#xEA;me pour piloter CATIA sans d&#xE9;pendre des interops" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/catia-late-binding-dotnet" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Piloter CATIA V5 depuis .NET en liaison tardive" />
+        <meta name="twitter:description" content="Pourquoi `dynamic` &#xE9;choue syst&#xE9;matiquement avec CATIA, et comment appeler `IDispatch::Invoke` soi-m&#xEA;me pour piloter CATIA sans d&#xE9;pendre des interops" /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/catia-late-binding-dotnet" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Piloter CATIA V5 depuis .NET en liaison tardive",
+        "description": "Pourquoi \u0060dynamic\u0060 \u00E9choue syst\u00E9matiquement avec CATIA, et comment appeler \u0060IDispatch::Invoke\u0060 soi-m\u00EAme pour piloter CATIA sans d\u00E9pendre des interops",
+        "datePublished": "2026-07-09T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/catia-late-binding-dotnet",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/catia-late-binding-dotnet",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Piloter CATIA V5 depuis .NET en liaison tardive","item":"https://wiip.fr/fr/blog/catia-late-binding-dotnet"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Piloter CATIA V5 depuis .NET en liaison tardive</h1>
+                    <small class="text-muted">jeudi 9 juillet 2026</small><div class="mt-2"><a href="/fr/tags/catia" class="badge bg-primary me-1 text-decoration-none">CATIA</a><a href="/fr/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/fr/tags/com" class="badge bg-primary me-1 text-decoration-none">COM</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>CATIA V5 expose une API d'automatisation COM, conçue à la fin des années 90 pour VB6, VBA et VBScript. On peut donc en théorie le piloter depuis .NET de deux façons : en liaison anticipée (<em>early binding</em>), avec les interops générées depuis les bibliothèques de types (<code>INFITF</code>, <code>MECMOD</code>, <code>DRAFTING</code>…), ou en liaison tardive (<em>late binding</em>), sans aucune référence à la compilation.</p>
+<p>La liaison tardive est séduisante quand CATIA n'est pas installé sur les machines de build, ou quand on veut supporter plusieurs versions de CATIA avec un seul binaire. Avec la plupart des serveurs COM, c'est trivial en C# :</p>
+<pre><code class="language-csharp">object catia = Marshal.GetActiveObject(&quot;CATIA.Application&quot;);
+dynamic application = catia;
+Console.WriteLine(application.Name);
+</code></pre>
+<p>Sauf qu'avec CATIA, ce code échoue. Systématiquement. Sur <strong>tous</strong> les membres, même une propriété aussi inoffensive que <code>Name</code>, avec l'inusable <code>COMException 0x80004005 (E_FAIL)</code>, sans autre explication.</p>
+<p>Et le plus troublant : le même appel en VBScript fonctionne parfaitement.</p>
+<pre><code class="language-vbscript">Set catia = GetObject(, &quot;CATIA.Application&quot;)
+WScript.Echo catia.Name ' Affiche CNEXT
+</code></pre>
+<h2 id="le-coupable-gettypeinfocount">Le coupable : <code>GetTypeInfoCount</code></h2>
+<p>L'interface <code>IDispatch</code>, au cœur de la liaison tardive COM, expose quatre méthodes : <code>GetTypeInfoCount</code>, <code>GetTypeInfo</code>, <code>GetIDsOfNames</code> et <code>Invoke</code>. La spécification est claire : un objet qui ne fournit pas d'information de type doit répondre <code>S_OK</code> à <code>GetTypeInfoCount</code> avec un compte de zéro.</p>
+<p>L'implémentation <code>IDispatch</code> de CATIA V5, écrite maison au-dessus de son modèle objet, répond <code>E_FAIL</code>. Curieusement, <code>GetTypeInfo(0)</code> répond <code>S_OK</code> avec un pointeur valide : l'information de type existe bel et bien, c'est la méthode qui annonce son existence qui est cassée.</p>
+<p>Pourquoi personne ne s'en est jamais aperçu chez Dassault Systèmes ? Parce qu'aucun des clients supportés n'appelle cette méthode :</p>
+<ul>
+<li><strong>VBScript</strong> va directement à <code>GetIDsOfNames</code> puis <code>Invoke</code>, sans jamais consulter l'information de type ;</li>
+<li><strong>VBA et VB6 en liaison anticipée</strong> passent par la vtable des interfaces duales, sans toucher à <code>IDispatch</code>.</li>
+</ul>
+<p>Les seuls clients au monde qui interrogent <code>GetTypeInfoCount</code> avant chaque invocation sont arrivés bien après la conception de cette API : le DLR (le mot-clé <code>dynamic</code> de C#), le <em>binder</em> COM du CLR (<code>Type.InvokeMember</code>) et l'adaptateur COM de PowerShell. Tous les trois considèrent cet échec comme fatal et abandonnent — d'où le <code>E_FAIL</code> sur tous les membres, y compris les plus simples. Un bug dans un chemin de code que l'éditeur n'exerce jamais peut survivre 25 ans et une trentaine de <em>releases</em>.</p>
+<h2 id="la-solution-faire-ce-que-fait-vbscript">La solution : faire ce que fait VBScript</h2>
+<p>Puisque VBScript réussit en appelant <code>GetIDsOfNames</code> et <code>Invoke</code> directement, faisons pareil : déclarons l'interface <code>IDispatch</code> nous-mêmes et invoquons-la à la main, sans passer par les couches du CLR qui consultent l'information de type.</p>
+<p>On commence par déclarer l'interface. Attention : ne déclarez cette interface qu'<strong>une seule fois</strong> dans tout le processus — deux interfaces <code>[ComImport]</code> portant le même IID, c'est un comportement non spécifié.</p>
+<pre><code class="language-csharp">[ComImport]
+[Guid(&quot;00020400-0000-0000-C000-000000000046&quot;)]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+public interface IDispatch
+{
+    [PreserveSig] int GetTypeInfoCount(out uint typeInfoCount);
+
+    [PreserveSig] int GetTypeInfo(uint typeInfoIndex, uint localeId, out IntPtr typeInfo);
+
+    [PreserveSig] int GetIDsOfNames(
+        ref Guid interfaceId,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr)] string[] names,
+        uint nameCount,
+        uint localeId,
+        [MarshalAs(UnmanagedType.LPArray)] int[] dispatchIds);
+
+    [PreserveSig] int Invoke(
+        int dispatchId,
+        ref Guid interfaceId,
+        uint localeId,
+        ushort flags,
+        ref DispatchParameters parameters,
+        IntPtr result,
+        IntPtr exceptionInfo,
+        IntPtr argumentError);
+}
+
+// La structure DISPPARAMS de COM.
+[StructLayout(LayoutKind.Sequential)]
+public struct DispatchParameters
+{
+    public IntPtr Arguments;
+    public IntPtr NamedArgumentIds;
+    public uint ArgumentCount;
+    public uint NamedArgumentCount;
+}
+</code></pre>
+<p>Deux détails comptent énormément ici :</p>
+<ul>
+<li><code>[PreserveSig]</code> : on récupère le HRESULT brut au lieu de laisser le CLR le transformer en exception, ce qui permet de traiter finement les cas d'erreur ;</li>
+<li><code>Invoke</code> reçoit le VARIANT de résultat en <code>IntPtr</code> : c'est <strong>nous</strong> qui allouons, initialisons et convertissons ce VARIANT, pas le marshaleur du CLR.</li>
+</ul>
+<h2 id="le-cur-lappel-a-invoke">Le cœur : l'appel à <code>Invoke</code></h2>
+<p>Voici le helper complet. Il gère les trois opérations de base — lire une propriété, affecter une propriété, appeler une méthode — avec les conventions exactes qu'attend COM :</p>
+<pre><code class="language-csharp">public static class CatiaDispatch
+{
+    const ushort DISPATCH_METHOD = 1;
+    const ushort DISPATCH_PROPERTYGET = 2;
+    const ushort DISPATCH_PROPERTYPUT = 4;
+
+    // Argument nommé réservé désignant la valeur affectée à une propriété.
+    const int DISPID_PROPERTYPUT = -3;
+
+    const int DISP_E_EXCEPTION = unchecked((int)0x80020009);
+
+    // Un VARIANT occupe 16 octets en 32 bits et 24 en 64 bits.
+    static readonly int _variantSize = IntPtr.Size == 8 ? 24 : 16;
+
+    [DllImport(&quot;oleaut32.dll&quot;)]
+    private static extern int VariantClear(IntPtr variant);
+
+    // Lecture d'une propriété : les deux drapeaux, comme VBScript sur une expression
+    // sans argument, car certains membres ne sont exposés que sous l'une des deux formes.
+    public static object GetProperty(object target, string name)
+        =&gt; Invoke(target, name, DISPATCH_PROPERTYGET | DISPATCH_METHOD, [], wantResult: true);
+
+    public static void SetProperty(object target, string name, object value)
+        =&gt; Invoke(target, name, DISPATCH_PROPERTYPUT, [value], wantResult: false);
+
+    public static void CallMethod(object target, string name, params object[] arguments)
+        =&gt; Invoke(target, name, DISPATCH_METHOD, arguments, wantResult: false);
+
+    public static object CallMethodWithResult(object target, string name, params object[] arguments)
+        =&gt; Invoke(target, name, DISPATCH_METHOD, arguments, wantResult: true);
+
+    static object Invoke(object target, string name, ushort flags, object[] arguments, bool wantResult)
+    {
+        if (target is not IDispatch dispatch)
+            throw new InvalidOperationException($&quot;L'objet n'expose pas IDispatch : « {name} » est inappelable.&quot;);
+
+        int dispatchId = GetDispatchId(dispatch, name);
+
+        IntPtr argumentsBuffer = IntPtr.Zero;
+        IntPtr namedArgumentsBuffer = IntPtr.Zero;
+        IntPtr resultBuffer = IntPtr.Zero;
+        IntPtr exceptionInfoBuffer = IntPtr.Zero;
+        try
+        {
+            var parameters = new DispatchParameters();
+            if (arguments.Length &gt; 0)
+            {
+                argumentsBuffer = Marshal.AllocCoTaskMem(_variantSize * arguments.Length);
+                // Les arguments sont fournis en ordre INVERSE : c'est la convention de DISPPARAMS.
+                for (int index = 0; index &lt; arguments.Length; index++)
+                    Marshal.GetNativeVariantForObject(
+                        arguments[arguments.Length - 1 - index],
+                        IntPtr.Add(argumentsBuffer, index * _variantSize));
+                parameters.Arguments = argumentsBuffer;
+                parameters.ArgumentCount = (uint)arguments.Length;
+            }
+
+            // Une affectation de propriété exige que la valeur soit passée comme
+            // argument nommé DISPID_PROPERTYPUT.
+            if ((flags &amp; DISPATCH_PROPERTYPUT) != 0)
+            {
+                namedArgumentsBuffer = Marshal.AllocCoTaskMem(sizeof(int));
+                Marshal.WriteInt32(namedArgumentsBuffer, DISPID_PROPERTYPUT);
+                parameters.NamedArgumentIds = namedArgumentsBuffer;
+                parameters.NamedArgumentCount = 1;
+            }
+
+            if (wantResult) resultBuffer = AllocateZeroed(_variantSize);
+
+            // CATIA range le motif réel de ses échecs dans l'EXCEPINFO (par exemple
+            // « CATIAApplication : The method ActiveDocument failed ») ; sans lui,
+            // on ne recevrait qu'un E_FAIL inexploitable.
+            exceptionInfoBuffer = AllocateZeroed(
+                Marshal.SizeOf(typeof(System.Runtime.InteropServices.ComTypes.EXCEPINFO)));
+
+            var nullInterfaceId = Guid.Empty;
+            int result = dispatch.Invoke(dispatchId, ref nullInterfaceId, 0, flags,
+                ref parameters, resultBuffer, exceptionInfoBuffer, IntPtr.Zero);
+
+            if (result == DISP_E_EXCEPTION)
+            {
+                string description = ReadExceptionDescription(exceptionInfoBuffer);
+                if (description != null)
+                    throw new InvalidOperationException($&quot;CATIA a rejeté l'appel de « {name} » : {description}&quot;);
+            }
+            if (result != 0) Marshal.ThrowExceptionForHR(result);
+
+            if (!wantResult) return null;
+            return Marshal.GetObjectForNativeVariant(resultBuffer);
+        }
+        finally
+        {
+            if (argumentsBuffer != IntPtr.Zero)
+            {
+                for (int index = 0; index &lt; arguments.Length; index++)
+                    VariantClear(IntPtr.Add(argumentsBuffer, index * _variantSize));
+                Marshal.FreeCoTaskMem(argumentsBuffer);
+            }
+            if (namedArgumentsBuffer != IntPtr.Zero) Marshal.FreeCoTaskMem(namedArgumentsBuffer);
+            if (resultBuffer != IntPtr.Zero)
+            {
+                VariantClear(resultBuffer);
+                Marshal.FreeCoTaskMem(resultBuffer);
+            }
+            if (exceptionInfoBuffer != IntPtr.Zero) Marshal.FreeCoTaskMem(exceptionInfoBuffer);
+        }
+    }
+
+    static int GetDispatchId(IDispatch dispatch, string name)
+    {
+        var nullInterfaceId = Guid.Empty;
+        int[] dispatchIds = new int[1];
+        int result = dispatch.GetIDsOfNames(ref nullInterfaceId, [name], 1, 0, dispatchIds);
+        if (result != 0) Marshal.ThrowExceptionForHR(result);
+        return dispatchIds[0];
+    }
+
+    static IntPtr AllocateZeroed(int size)
+    {
+        IntPtr buffer = Marshal.AllocCoTaskMem(size);
+        for (int index = 0; index &lt; size; index++) Marshal.WriteByte(buffer, index, 0);
+        return buffer;
+    }
+
+    static string ReadExceptionDescription(IntPtr exceptionInfo)
+    {
+        if (exceptionInfo == IntPtr.Zero) return null;
+
+        var information = (System.Runtime.InteropServices.ComTypes.EXCEPINFO)Marshal.PtrToStructure(
+            exceptionInfo, typeof(System.Runtime.InteropServices.ComTypes.EXCEPINFO));
+        if (string.IsNullOrEmpty(information.bstrDescription)) return null;
+        if (!string.IsNullOrEmpty(information.bstrSource))
+            return $&quot;{information.bstrSource} : {information.bstrDescription}&quot;;
+        return information.bstrDescription;
+    }
+}
+</code></pre>
+<p>Les pièges concentrés dans ce code, dans l'ordre où ils mordent :</p>
+<ol>
+<li><strong>Les arguments positionnels sont en ordre inverse</strong> dans <code>DISPPARAMS</code>. <code>ExportData(chemin, &quot;pdf&quot;)</code> se transmet avec <code>&quot;pdf&quot;</code> en premier. Si vous l'oubliez, vous obtiendrez au mieux <code>DISP_E_TYPEMISMATCH</code>, au pire un comportement silencieusement faux.</li>
+<li><strong>Une affectation de propriété n'est pas un appel comme les autres</strong> : la valeur doit être passée comme argument <em>nommé</em> avec l'identifiant réservé <code>DISPID_PROPERTYPUT</code> (-3). Sans cela, <code>DISP_E_PARAMNOTFOUND</code>.</li>
+<li><strong>Lire une propriété demande les deux drapeaux</strong> <code>DISPATCH_PROPERTYGET | DISPATCH_METHOD</code> — c'est ce qu'envoie VBScript pour toute expression sans argument, et certains membres de CATIA ne répondent qu'à l'une des deux formes.</li>
+<li><strong>Le VARIANT fait 24 octets en x64</strong> (16 en x86). Une taille fausse et vous corrompez la mémoire.</li>
+<li><strong>Chaque VARIANT doit être nettoyé</strong> avec <code>VariantClear</code> avant de libérer le tampon, sinon vous divulguez les <code>BSTR</code> et les références COM qu'il contient.</li>
+<li><strong>Fournissez l'<code>EXCEPINFO</code></strong> : quand un appel échoue légitimement (document inexistant, méthode non applicable), CATIA y dépose un vrai message d'erreur. C'est la différence entre « <code>E_FAIL</code> » et « <code>CATIAApplication : The method ActiveDocument failed</code> » dans vos journaux.</li>
+</ol>
+<h2 id="a-lusage">À l'usage</h2>
+<p>Une fois le helper en place, le code applicatif redevient lisible. Par exemple, exporter un plan en PDF :</p>
+<pre><code class="language-csharp">object catia = Marshal.GetActiveObject(&quot;CATIA.Application&quot;);
+
+CatiaDispatch.SetProperty(catia, &quot;DisplayFileAlerts&quot;, false);
+
+object documents = CatiaDispatch.GetProperty(catia, &quot;Documents&quot;);
+object drawing = CatiaDispatch.CallMethodWithResult(documents, &quot;Open&quot;, @&quot;C:\Plans\MonPlan.CATDrawing&quot;);
+CatiaDispatch.CallMethod(drawing, &quot;ExportData&quot;, @&quot;C:\Plans\MonPlan.pdf&quot;, &quot;pdf&quot;);
+CatiaDispatch.CallMethod(drawing, &quot;Close&quot;);
+</code></pre>
+<p>Une mise en garde qui découle de tout ce qui précède : une fois l'objet CATIA entre vos mains, <strong>ne le laissez jamais approcher par les mécanismes standard de .NET</strong>. Un <code>dynamic</code> oublié, un <code>Type.InvokeMember</code>, un <code>ToString()</code> dans une trace, l'inspecteur du débogueur, l'adaptateur COM de PowerShell — chacun de ces accès consulte l'information de type et lèvera <code>E_FAIL</code>. Ça ne corrompt pas la session (l'appel suivant par le helper fonctionne), mais c'est déroutant à déboguer.</p>
+<p>Une dernière précaution, sur un tout autre plan : <code>Marshal.GetActiveObject</code> a disparu de .NET (Core). Si vous ciblez .NET 5 ou une version ultérieure, il faut le réimporter vous-même via <code>CLSIDFromProgID</code> et <code>GetActiveObject</code> d'<code>oleaut32</code>. Sur .NET Framework, il reste disponible directement.</p>
+<h2 id="et-la-liaison-anticipee-alors">Et la liaison anticipée, alors ?</h2>
+<p>Elle fonctionne, elle. Un appel par la vtable des interfaces duales ne consulte jamais <code>GetTypeInfoCount</code> : les interops générées depuis les bibliothèques de types de CATIA (avec <code>tlbimp</code> ou une référence COM dans Visual Studio) pilotent CATIA sans encombre, retours d'objets compris.</p>
+<p>Le choix entre les deux se résume donc à une question de dépendances :</p>
+<ul>
+<li><strong>Liaison anticipée</strong> : code typé, IntelliSense, erreurs à la compilation — mais vos machines de build doivent disposer des bibliothèques de types, et le binaire est lié à leur version ;</li>
+<li><strong>Liaison tardive</strong> : aucune dépendance à la compilation, un binaire unique pour toutes les versions de CATIA — au prix du helper ci-dessus et de chaînes de caractères non vérifiées.</li>
+</ul>
+<p>Ce qu'il faut retenir, c'est que le chemin intermédiaire — la liaison tardive <em>via</em> <code>dynamic</code> ou <code>Type.InvokeMember</code>, si confortable avec Excel ou Word — est précisément celui que CATIA interdit. Avec lui, c'est tout ou rien : les interops, ou l'<code>IDispatch</code> à la main.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>CATIA</strong> (.NET, VBA, CATScript) ? Contactez-moi pour un devis gratuit.</p>
+
+</div><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autocad-wildcards" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Les caract&#xE8;res joker (wildcards) dans AutoCAD</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Les caract&#xE8;res joker (wildcards) dans AutoCAD - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/blog/autocad-wildcards" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/autocad-wildcards" /><link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/autocad-wildcards" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/autocad-wildcards" />
+        <meta name="description" content="De la s&#xE9;lection rapide aux filtres de calque, jusqu&#x27;&#xE0; (wcmatch) et l&#x27;API .NET" />
+        <meta property="og:title" content="Les caract&#xE8;res joker (wildcards) dans AutoCAD" />
+        <meta property="og:description" content="De la s&#xE9;lection rapide aux filtres de calque, jusqu&#x27;&#xE0; (wcmatch) et l&#x27;API .NET" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/autocad-wildcards" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Les caract&#xE8;res joker (wildcards) dans AutoCAD" />
+        <meta name="twitter:description" content="De la s&#xE9;lection rapide aux filtres de calque, jusqu&#x27;&#xE0; (wcmatch) et l&#x27;API .NET" /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autocad-wildcards" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-wildcards" class="">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Les caract\u00E8res joker (wildcards) dans AutoCAD",
+        "description": "De la s\u00E9lection rapide aux filtres de calque, jusqu\u0027\u00E0 (wcmatch) et l\u0027API .NET",
+        "datePublished": "2026-07-01T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/autocad-wildcards",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/autocad-wildcards",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Les caractères joker (wildcards) dans AutoCAD","item":"https://wiip.fr/fr/blog/autocad-wildcards"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Les caract&#xE8;res joker (wildcards) dans AutoCAD</h1>
+                    <small class="text-muted">mercredi 1 juillet 2026</small><div class="mt-2"><a href="/fr/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/autolisp" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Sélectionner d'un coup tous les objets dont le calque commence par <code>MUR</code>, n'afficher que les calques de cotation, ne garder que les blocs dont le nom finit par <code>_2D</code>… Ce genre de tâche revient sans cesse dans <strong>AutoCAD</strong>. Bonne nouvelle : nul besoin d'écrire du code pour cela. <strong>AutoCAD</strong> intègre un moteur de <strong>caractères joker</strong> (ou <em>wildcards</em>), proche des expressions régulières mais bien plus simple, disponible directement dans l'interface.</p>
+<p>Dans cet article, nous partons de l'usage quotidien d'un utilisateur standard, puis nous montons progressivement en puissance jusqu'à l'usage développeur (AutoLISP et .NET). Le point important : <strong>c'est exactement le même moteur</strong> à tous les niveaux. Les motifs que vous apprenez à la souris se réutilisent tels quels dans vos scripts.</p>
+<h2 id="a-quoi-ressemble-un-motif">À quoi ressemble un motif ?</h2>
+<p>Un motif (ou <em>filtre</em>) est une chaîne où certains caractères ont un sens spécial. Les plus courants :</p>
+<ul>
+<li><code>*</code> remplace <strong>n'importe quelle séquence</strong> de caractères (y compris vide) ;</li>
+<li><code>?</code> remplace <strong>un</strong> caractère quelconque ;</li>
+<li><code>#</code> remplace <strong>un chiffre</strong>.</li>
+</ul>
+<p>Ainsi <code>MUR*</code> désigne « tout ce qui commence par MUR », <code>*_2D</code> « tout ce qui finit par <code>_2D</code> », et <code>PLAN-###</code> « PLAN- suivi de trois chiffres ». Nous verrons la liste complète plus loin ; commençons par les mettre en pratique.</p>
+<h2 id="la-selection-rapide-selectionrapide">La sélection rapide (SELECTIONRAPIDE)</h2>
+<p>La <strong>sélection rapide</strong> (commande <code>SELECTIONRAPIDE</code>, anciennement <code>QSELECT</code>, aussi accessible par un clic droit dans le dessin) permet de sélectionner des objets selon leurs propriétés. Lorsqu'on filtre sur une propriété <strong>texte</strong> — le <strong>nom de calque</strong>, le <strong>nom de bloc</strong>, un texte… — l'opérateur <em>Correspond au caractère générique</em> (« Matches wildcard ») active les jokers.</p>
+<p><img src="./media/wildcards-selection-rapide.png" alt="La boîte de dialogue Sélection rapide filtrant les objets dont le calque correspond à MUR*" /></p>
+<p>Par exemple, pour sélectionner tous les objets posés sur un calque commençant par <code>MUR</code> :</p>
+<ol>
+<li>lancez <code>SELECTIONRAPIDE</code> ;</li>
+<li>dans <strong>Propriété</strong>, choisissez <em>Calque</em> ;</li>
+<li>dans <strong>Opérateur</strong>, choisissez <em>Correspond au caractère générique</em> ;</li>
+<li>dans <strong>Valeur</strong>, saisissez <code>MUR*</code> ;</li>
+<li>validez : tous les objets concernés sont sélectionnés d'un seul coup.</li>
+</ol>
+<p>Grâce à la virgule, on peut même viser plusieurs familles à la fois : <code>MUR*,CLOISON*,POTEAU*</code>.</p>
+<h2 id="la-recherche-dans-le-gestionnaire-des-calques">La recherche dans le gestionnaire des calques</h2>
+<p>Le <strong>gestionnaire des propriétés des calques</strong> (commande <code>CALQUE</code>) possède, en haut à droite, une <strong>zone de recherche</strong> qui comprend les caractères joker. Tapez-y un motif pour n'afficher que les calques correspondants.</p>
+<p><img src="./media/wildcards-recherche-calques.png" alt="Le champ de recherche du gestionnaire des calques filtré sur MUR*" /></p>
+<p>C'est parfait pour retrouver rapidement un calque dans un gabarit qui en compte des centaines.</p>
+<h2 id="les-filtres-de-calque-par-proprietes">Les filtres de calque par propriétés</h2>
+<p>Un cran au-dessus de la simple recherche : les <strong>filtres de calque par propriétés</strong>. Ils permettent de créer, dans le gestionnaire des calques, des groupes qui se remplissent <strong>automatiquement</strong> selon un motif. Tous les calques dont le nom correspond apparaissent dans le filtre, y compris ceux que vous créerez plus tard.</p>
+<p><img src="./media/wildcards-filtre-calques.png" alt="La création d'un filtre de calque par propriétés basé sur le motif COTATION*" /></p>
+<p>Ainsi, un filtre nommé « Cotation » basé sur <code>COTATION*</code> regroupera d'office <code>COTATION</code>, <code>COTATION-TEXTE</code>, <code>COTATION_2D</code>… Vous gérez alors la visibilité ou le verrouillage de tout le groupe d'un seul geste.</p>
+<blockquote>
+<p>Le même principe (un champ acceptant les jokers) se retrouve dans beaucoup d'autres boîtes de dialogue : gestion des <strong>types de ligne</strong>, des <strong>styles</strong>, purge d'éléments nommés, etc.</p>
+</blockquote>
+<h2 id="la-liste-complete-des-caracteres-joker">La liste complète des caractères joker</h2>
+<p>Maintenant que le principe est clair, voici <strong>tous</strong> les caractères spéciaux reconnus par <strong>AutoCAD</strong> dans un motif :</p>
+<table>
+<thead>
+<tr>
+<th>Caractère</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#</code> (dièse)</td>
+<td>Un seul chiffre</td>
+</tr>
+<tr>
+<td><code>@</code> (arobase)</td>
+<td>Un seul caractère alphabétique</td>
+</tr>
+<tr>
+<td><code>.</code> (point)</td>
+<td>Un seul caractère non alphanumérique</td>
+</tr>
+<tr>
+<td><code>*</code> (astérisque)</td>
+<td>N'importe quelle séquence de caractères (y compris vide), au début, au milieu ou à la fin</td>
+</tr>
+<tr>
+<td><code>?</code> (point d'interrogation)</td>
+<td>Un seul caractère quelconque</td>
+</tr>
+<tr>
+<td><code>~</code> (tilde)</td>
+<td>En <strong>premier</strong> caractère du motif : correspond à tout <strong>sauf</strong> au motif</td>
+</tr>
+<tr>
+<td><code>[...]</code></td>
+<td>Un des caractères entre crochets</td>
+</tr>
+<tr>
+<td><code>[~...]</code></td>
+<td>Un caractère qui n'est <strong>pas</strong> entre crochets</td>
+</tr>
+<tr>
+<td><code>-</code> (trait d'union)</td>
+<td>Dans des crochets : définit une <strong>plage</strong> de caractères</td>
+</tr>
+<tr>
+<td><code>,</code> (virgule)</td>
+<td>Sépare deux motifs (un <strong>OU</strong> logique)</td>
+</tr>
+<tr>
+<td><code>`</code> (accent grave)</td>
+<td>Échappe le caractère suivant (le prend au sens littéral)</td>
+</tr>
+</tbody>
+</table>
+<p>Ces caractères fonctionnent <strong>partout</strong> : dans les champs de l'interface vus ci-dessus comme dans le code que nous abordons à présent.</p>
+<h2 id="pour-les-developpeurs-la-fonction-wcmatch-en-autolisp">Pour les développeurs : la fonction <code>(wcmatch)</code> en AutoLISP</h2>
+<p>Passons côté programmation. En <strong>AutoLISP</strong>, ce moteur est exposé par la fonction <code>(wcmatch chaîne motif)</code>. Elle renvoie <code>T</code> si la <code>chaîne</code> correspond au <code>motif</code>, et <code>nil</code> sinon.</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN-001&quot; &quot;PLAN*&quot;)        ; =&gt; T
+(wcmatch &quot;PLAN-001&quot; &quot;*001&quot;)         ; =&gt; T
+(wcmatch &quot;COUPE-002&quot; &quot;PLAN*&quot;)       ; =&gt; nil
+</code></pre>
+<p>C'est l'outil idéal pour tester une saisie utilisateur, filtrer une liste de noms, valider un code… Passons en revue chaque caractère.</p>
+<h3 id="nimporte-quelle-sequence"><code>*</code> — n'importe quelle séquence</h3>
+<p>Le joker le plus utilisé. Il remplace zéro, un ou plusieurs caractères, à n'importe quelle position :</p>
+<pre><code class="language-lisp">(wcmatch &quot;MUR_EXT_01&quot; &quot;MUR*&quot;)       ; =&gt; T   (commence par MUR)
+(wcmatch &quot;MUR_EXT_01&quot; &quot;*01&quot;)        ; =&gt; T   (finit par 01)
+(wcmatch &quot;MUR_EXT_01&quot; &quot;*EXT*&quot;)      ; =&gt; T   (contient EXT)
+(wcmatch &quot;MUR&quot; &quot;MUR*&quot;)              ; =&gt; T   (la séquence peut être vide)
+</code></pre>
+<h3 id="un-caractere-quelconque"><code>?</code> — un caractère quelconque</h3>
+<p>Contrairement à <code>*</code>, le <code>?</code> correspond à <strong>exactement un</strong> caractère :</p>
+<pre><code class="language-lisp">(wcmatch &quot;A1&quot; &quot;A?&quot;)                 ; =&gt; T
+(wcmatch &quot;A12&quot; &quot;A?&quot;)                ; =&gt; nil (deux caractères après A)
+(wcmatch &quot;COTE&quot; &quot;CO??&quot;)             ; =&gt; T
+</code></pre>
+<h3 id="un-chiffre"><code>#</code> — un chiffre</h3>
+<p>Le <code>#</code> n'accepte qu'un <strong>chiffre</strong> (<code>0</code> à <code>9</code>). Très pratique pour valider des codes numérotés :</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN-007&quot; &quot;PLAN-###&quot;)     ; =&gt; T
+(wcmatch &quot;PLAN-XYZ&quot; &quot;PLAN-###&quot;)     ; =&gt; nil
+(wcmatch &quot;R12&quot; &quot;@##&quot;)               ; =&gt; T   (une lettre suivie de deux chiffres)
+</code></pre>
+<h3 id="une-lettre"><code>@</code> — une lettre</h3>
+<p>Le <code>@</code> n'accepte qu'un <strong>caractère alphabétique</strong>. Combiné à <code>#</code>, il décrit des formats précis, comme une immatriculation ou une référence :</p>
+<pre><code class="language-lisp">(wcmatch &quot;A320&quot; &quot;@###&quot;)             ; =&gt; T
+(wcmatch &quot;2320&quot; &quot;@###&quot;)             ; =&gt; nil (commence par un chiffre)
+</code></pre>
+<h3 id="un-caractere-non-alphanumerique"><code>.</code> — un caractère non alphanumérique</h3>
+<p>Le point correspond à un caractère qui n'est ni une lettre ni un chiffre (espace, tiret, underscore, ponctuation…) :</p>
+<pre><code class="language-lisp">(wcmatch &quot;A-1&quot; &quot;@.#&quot;)               ; =&gt; T   (lettre, séparateur, chiffre)
+(wcmatch &quot;A_1&quot; &quot;@.#&quot;)               ; =&gt; T
+(wcmatch &quot;AB1&quot; &quot;@.#&quot;)               ; =&gt; nil (B est alphanumérique)
+</code></pre>
+<h3 id="une-liste-de-caracteres"><code>[...]</code> — une liste de caractères</h3>
+<p>Les crochets définissent un <strong>jeu de caractères</strong> : la chaîne doit contenir, à cet emplacement, <strong>un</strong> des caractères listés :</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; T   (P ou C)
+(wcmatch &quot;CLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; T
+(wcmatch &quot;VLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; nil
+</code></pre>
+<h3 id="une-plage-dans-les-crochets"><code>-</code> — une plage dans les crochets</h3>
+<p>À l'intérieur des crochets, le trait d'union définit une <strong>plage</strong> :</p>
+<pre><code class="language-lisp">(wcmatch &quot;C&quot; &quot;[A-F]&quot;)               ; =&gt; T
+(wcmatch &quot;M&quot; &quot;[A-F]&quot;)               ; =&gt; nil
+(wcmatch &quot;PIECE-5&quot; &quot;PIECE-[0-9]&quot;)   ; =&gt; T
+(wcmatch &quot;REV_C&quot; &quot;REV_[A-Z]&quot;)       ; =&gt; T
+</code></pre>
+<h3 id="un-caractere-exclu"><code>[~...]</code> — un caractère exclu</h3>
+<p>Un tilde <strong>en tête de crochets</strong> inverse le jeu : le caractère doit être <strong>différent</strong> de ceux listés :</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLANB&quot; &quot;PLAN[~A]&quot;)        ; =&gt; T   (le dernier caractère n'est pas A)
+(wcmatch &quot;PLANA&quot; &quot;PLAN[~A]&quot;)        ; =&gt; nil
+(wcmatch &quot;X&quot; &quot;[~0-9]&quot;)              ; =&gt; T   (tout sauf un chiffre)
+</code></pre>
+<h3 id="la-negation-globale"><code>~</code> — la négation globale</h3>
+<p>Placé <strong>tout au début</strong> du motif, le tilde inverse le résultat complet : la chaîne correspond si elle ne correspond <strong>pas</strong> au reste du motif :</p>
+<pre><code class="language-lisp">(wcmatch &quot;COUPE-01&quot; &quot;~PLAN*&quot;)       ; =&gt; T   (ne commence pas par PLAN)
+(wcmatch &quot;PLAN-01&quot; &quot;~PLAN*&quot;)        ; =&gt; nil
+</code></pre>
+<h3 id="plusieurs-motifs-ou"><code>,</code> — plusieurs motifs (OU)</h3>
+<p>La virgule permet de tester <strong>plusieurs motifs</strong> d'un coup. La fonction renvoie <code>T</code> si <strong>au moins un</strong> d'entre eux correspond :</p>
+<pre><code class="language-lisp">(wcmatch &quot;COUPE-02&quot; &quot;PLAN*,COUPE*,DETAIL*&quot;)   ; =&gt; T
+(wcmatch &quot;FACADE&quot; &quot;PLAN*,COUPE*,DETAIL*&quot;)     ; =&gt; nil
+</code></pre>
+<p>C'est idéal pour filtrer sur une famille de préfixes.</p>
+<h3 id="echapper-un-caractere-special"><code>`</code> — échapper un caractère spécial</h3>
+<p>Que faire quand on veut chercher un caractère qui est lui-même un joker ? On l'échappe avec un <strong>accent grave</strong> (<code>`</code>). Le caractère qui suit est alors pris <strong>au sens littéral</strong>.</p>
+<p>L'exemple classique est celui des blocs anonymes d'<strong>AutoCAD</strong>, dont le nom commence par <code>*</code> (comme <code>*U2</code>). Pour cibler exactement le bloc <code>*U2</code> sans que l'astérisque ne soit interprété comme un joker :</p>
+<pre><code class="language-lisp">(wcmatch &quot;*U2&quot; &quot;`*U2&quot;)              ; =&gt; T
+(wcmatch &quot;XU2&quot; &quot;`*U2&quot;)              ; =&gt; nil (l'astérisque littéral est exigé)
+</code></pre>
+<p>De la même façon, pour chercher une chaîne contenant réellement un <code>#</code>, un <code>?</code> ou une virgule, on préfixe chacun de ces caractères par <code>`</code>.</p>
+<h2 id="les-wildcards-dans-ssget">Les wildcards dans <code>ssget</code></h2>
+<p>L'usage le plus fréquent de <code>(wcmatch)</code> est en réalité indirect : il est <strong>intégré</strong> aux filtres de sélection de <code>ssget</code>. Dans une liste de filtre, tout code DXF qui porte une valeur <strong>texte</strong> accepte directement les caractères joker : nom de calque (code <code>8</code>), nom de bloc (code <code>2</code>), type de ligne (code <code>6</code>), etc.</p>
+<p>Ici, pas besoin d'appeler <code>(wcmatch)</code> : <strong>AutoCAD</strong> applique le moteur automatiquement. C'est, en somme, la version scriptée de la <strong>sélection rapide</strong> vue plus haut.</p>
+<p>Sélectionner tous les objets dont le calque commence par <code>MUR</code> :</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;MUR*&quot;)))
+</code></pre>
+<p>Sélectionner sur plusieurs préfixes de calque à la fois grâce à la virgule :</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;MUR*,CLOISON*,POTEAU*&quot;)))
+</code></pre>
+<p>Sélectionner toutes les références de bloc (<code>INSERT</code>) dont le nom finit par <code>_2D</code> :</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((0 . &quot;INSERT&quot;) (2 . &quot;*_2D&quot;)))
+</code></pre>
+<p>Exclure un calque grâce au tilde (tous les objets <strong>sauf</strong> ceux du calque <code>COTATION</code>) :</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;~COTATION&quot;)))
+</code></pre>
+<p>Le <code>&quot;X&quot;</code> demande à <code>ssget</code> de balayer <strong>toute</strong> la base de données du dessin. On peut aussi retirer le <code>&quot;X&quot;</code> pour combiner ces filtres avec une sélection interactive : on ne retient alors, parmi ce que l'utilisateur choisit, que les objets correspondant au motif.</p>
+<h2 id="lequivalent.net-wcmatchex">L'équivalent .NET : <code>WcMatchEx</code></h2>
+<p>Côté <strong>API .NET</strong>, le même moteur est exposé — mais dans un espace de noms interne, ce qui signale qu'il n'est pas officiellement supporté et pourrait évoluer. La signature est :</p>
+<pre><code class="language-csharp">Autodesk.AutoCAD.Internal.Utils.WcMatchEx(string str, string pattern, bool ignoreCase);
+</code></pre>
+<p>Elle renvoie un <code>bool</code> et ajoute un argument bien utile : <code>ignoreCase</code>, pour comparer <strong>sans tenir compte de la casse</strong>.</p>
+<pre><code class="language-csharp">using Autodesk.AutoCAD.Internal;
+
+bool m1 = Utils.WcMatchEx(&quot;PLAN-007&quot;, &quot;PLAN-###&quot;, ignoreCase: true);   // true
+bool m2 = Utils.WcMatchEx(&quot;mur_ext&quot;, &quot;MUR*&quot;, ignoreCase: true);        // true
+bool m3 = Utils.WcMatchEx(&quot;mur_ext&quot;, &quot;MUR*&quot;, ignoreCase: false);       // false
+</code></pre>
+<p>On peut par exemple s'en servir pour lister les calques d'un dessin qui correspondent à un motif :</p>
+<pre><code class="language-csharp">using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Internal;
+using Autodesk.AutoCAD.Runtime;
+
+[CommandMethod(&quot;LISTMURS&quot;)]
+public void ListWallLayers()
+{
+    Document document = Application.DocumentManager.MdiActiveDocument;
+    Database database = document.Database;
+    Editor editor = document.Editor;
+
+    const string PATTERN = &quot;MUR*,CLOISON*&quot;;
+
+    using (Transaction transaction = database.TransactionManager.StartTransaction())
+    {
+        LayerTable layerTable = (LayerTable)transaction.GetObject(database.LayerTableId, OpenMode.ForRead);
+
+        foreach (ObjectId layerId in layerTable)
+        {
+            LayerTableRecord layer = (LayerTableRecord)transaction.GetObject(layerId, OpenMode.ForRead);
+            if (Utils.WcMatchEx(layer.Name, PATTERN, ignoreCase: true))
+                editor.WriteMessage(&quot;\n{0}&quot;, layer.Name);
+        }
+
+        transaction.Commit();
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>Attention</strong> : <code>WcMatchEx</code> vit dans <code>Autodesk.AutoCAD.Internal</code>. Comme son nom l'indique, cette API est <strong>interne</strong> et n'est pas garantie d'une version à l'autre d'AutoCAD. Pour un filtrage de sélection, préférez les motifs directement dans les filtres <code>ssget</code> / <code>SelectionFilter</code>, qui restent la voie officielle. Réservez <code>WcMatchEx</code> aux cas où vous avez déjà la chaîne en main (nom de calque, nom de bloc, saisie utilisateur) et où vous voulez exactement la même sémantique de joker que le reste d'AutoCAD.</p>
+</blockquote>
+<h2 id="en-resume">En résumé</h2>
+<p>Le moteur de caractères joker d'<strong>AutoCAD</strong> est un fil rouge qui relie l'usage quotidien et le développement :</p>
+<ul>
+<li>côté <strong>utilisateur</strong>, il est là dès la <strong>sélection rapide</strong>, la <strong>recherche de calques</strong> et les <strong>filtres de calque</strong> — aucun code requis ;</li>
+<li>côté <strong>développeur</strong>, on le retrouve à l'identique dans <code>(wcmatch)</code>, dans les filtres <code>ssget</code> et dans <code>WcMatchEx</code> en .NET.</li>
+</ul>
+<p>Les caractères clés : <code>*</code>, <code>?</code>, <code>#</code>, <code>@</code> et <code>.</code> couvrent l'essentiel ; <code>[...]</code>, <code>[~...]</code> et <code>-</code> affinent lettre par lettre ; <code>~</code> et <code>,</code> composent des filtres complets ; et <code>`</code> échappe les jokers eux-mêmes (pensez aux blocs anonymes <code>*U…</code>). Apprenez ces motifs une fois, réutilisez-les partout.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> Besoin d'un développement <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) ? Contactez-moi pour un devis gratuit.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-versions" class="text-decoration-none">Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-units" class="text-decoration-none">Comprendre les unit&#xE9;s dans AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/espaces-de-nom-vlx" class="text-decoration-none">Les espaces de nom VLX</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autolisp-configuration" class="text-decoration-none">G&#xE9;rer un fichier de configuration en AutoLISP</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/convertir-exemples-vba-ilogic" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic</span></a></div>
+                        <div class="col-6 text-end"><a href="/fr/blog/catia-late-binding-dotnet" class="text-decoration-none"><small class="text-muted d-block">Article suivant &#x2192;</small>
+                                    <span>Piloter CATIA V5 depuis .NET en liaison tardive</span></a></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

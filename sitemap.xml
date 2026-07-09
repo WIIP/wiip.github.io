@@ -102,6 +102,9 @@
     <loc>https://wiip.fr/fr/blog/autocad-versions</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/autocad-wildcards</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/autolisp-comments</loc>
   </url>
   <url>
@@ -115,6 +118,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/bibliotheque-materiaux-inventor</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/catia-late-binding-dotnet</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/claude-code-bash</loc>
@@ -199,6 +205,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/vault</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/catia</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/com</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/claude-code</loc>
@@ -415,6 +427,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/autocad-versions</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/blog/autocad-wildcards</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/blog/autolisp-comments</loc>

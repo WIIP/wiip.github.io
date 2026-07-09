@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Wildcard characters in AutoCAD - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/autocad-wildcards" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/autocad-wildcards" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/autocad-wildcards" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/autocad-wildcards" />
+        <meta name="description" content="From Quick Select to layer filters, all the way to (wcmatch) and the .NET API" />
+        <meta property="og:title" content="Wildcard characters in AutoCAD" />
+        <meta property="og:description" content="From Quick Select to layer filters, all the way to (wcmatch) and the .NET API" />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/autocad-wildcards" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Wildcard characters in AutoCAD" />
+        <meta name="twitter:description" content="From Quick Select to layer filters, all the way to (wcmatch) and the .NET API" /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="language-switcher"><a href="/fr/blog/autocad-wildcards" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-wildcards" class="active">EN</a></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Wildcard characters in AutoCAD",
+        "description": "From Quick Select to layer filters, all the way to (wcmatch) and the .NET API",
+        "datePublished": "2026-07-01T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/en/blog/autocad-wildcards",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/autocad-wildcards",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"Wildcard characters in AutoCAD","item":"https://wiip.fr/en/blog/autocad-wildcards"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Wildcard characters in AutoCAD</h1>
+                    <small class="text-muted">Wednesday, July 1, 2026</small><div class="mt-2"><a href="/en/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/autolisp" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>Selecting every object whose layer starts with <code>WALL</code> in one go, showing only your dimension layers, keeping just the blocks whose name ends in <code>_2D</code>… these tasks come up constantly in <strong>AutoCAD</strong>. The good news: you don't need to write any code for them. <strong>AutoCAD</strong> ships with a <strong>wildcard</strong> engine — close to regular expressions but far simpler — available right in the interface.</p>
+<p>In this article we start from the everyday use of a standard user, then work our way up to developer use (AutoLISP and .NET). The key point: <strong>it is the exact same engine</strong> at every level. The patterns you learn with the mouse can be reused as-is in your scripts.</p>
+<h2 id="what-does-a-pattern-look-like">What does a pattern look like?</h2>
+<p>A pattern (or <em>filter</em>) is a string in which some characters carry a special meaning. The most common ones:</p>
+<ul>
+<li><code>*</code> stands for <strong>any sequence</strong> of characters (including an empty one);</li>
+<li><code>?</code> stands for <strong>a single</strong> arbitrary character;</li>
+<li><code>#</code> stands for <strong>a single digit</strong>.</li>
+</ul>
+<p>So <code>WALL*</code> means &quot;anything starting with WALL&quot;, <code>*_2D</code> means &quot;anything ending in <code>_2D</code>&quot;, and <code>PLAN-###</code> means &quot;PLAN- followed by three digits&quot;. We'll see the full list further down; let's start by putting them to use.</p>
+<h2 id="quick-select-qselect">Quick Select (QSELECT)</h2>
+<p><strong>Quick Select</strong> (the <code>QSELECT</code> command, also available from a right-click in the drawing) lets you select objects based on their properties. When you filter on a <strong>text</strong> property — the <strong>layer name</strong>, the <strong>block name</strong>, some text… — the <em>Matches wildcard</em> operator turns wildcards on.</p>
+<p><img src="./media/wildcards-quick-select.png" alt="The Quick Select dialog filtering objects whose layer matches WALL*" /></p>
+<p>For example, to select every object on a layer starting with <code>WALL</code>:</p>
+<ol>
+<li>run <code>QSELECT</code>;</li>
+<li>under <strong>Property</strong>, choose <em>Layer</em>;</li>
+<li>under <strong>Operator</strong>, choose <em>Matches wildcard</em>;</li>
+<li>under <strong>Value</strong>, type <code>WALL*</code>;</li>
+<li>confirm: all matching objects are selected at once.</li>
+</ol>
+<p>Thanks to the comma, you can even target several families at the same time: <code>WALL*,PARTITION*,COLUMN*</code>.</p>
+<h2 id="searching-in-the-layer-properties-manager">Searching in the Layer Properties Manager</h2>
+<p>The <strong>Layer Properties Manager</strong> (the <code>LAYER</code> command) has a <strong>search box</strong> in its top-right corner that understands wildcards. Type a pattern to display only the matching layers.</p>
+<p><img src="./media/wildcards-layer-search.png" alt="The Layer Properties Manager search box filtered on WALL*" /></p>
+<p>This is perfect for quickly locating a layer in a template that holds hundreds of them.</p>
+<h2 id="layer-property-filters">Layer property filters</h2>
+<p>One step beyond a simple search: <strong>layer property filters</strong>. Inside the Layer Properties Manager, they let you create groups that fill themselves <strong>automatically</strong> based on a pattern. Every layer whose name matches shows up in the filter, including those you create later.</p>
+<p><img src="./media/wildcards-layer-filter.png" alt="Creating a layer property filter based on the pattern DIM*" /></p>
+<p>A filter named &quot;Dimensions&quot; based on <code>DIM*</code> will automatically gather <code>DIM</code>, <code>DIM-TEXT</code>, <code>DIM_2D</code>… You then manage the visibility or the lock state of the whole group in a single move.</p>
+<blockquote>
+<p>The same principle (a field that accepts wildcards) appears in many other dialog boxes: managing <strong>linetypes</strong>, <strong>styles</strong>, purging named items, and so on.</p>
+</blockquote>
+<h2 id="the-full-list-of-wildcard-characters">The full list of wildcard characters</h2>
+<p>Now that the principle is clear, here are <strong>all</strong> the special characters <strong>AutoCAD</strong> recognizes in a pattern:</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#</code> (pound)</td>
+<td>A single numeric digit</td>
+</tr>
+<tr>
+<td><code>@</code> (at)</td>
+<td>A single alphabetic character</td>
+</tr>
+<tr>
+<td><code>.</code> (period)</td>
+<td>A single non-alphanumeric character</td>
+</tr>
+<tr>
+<td><code>*</code> (asterisk)</td>
+<td>Any character sequence (including an empty one), at the start, middle, or end</td>
+</tr>
+<tr>
+<td><code>?</code> (question mark)</td>
+<td>A single arbitrary character</td>
+</tr>
+<tr>
+<td><code>~</code> (tilde)</td>
+<td>As the <strong>first</strong> character of the pattern: matches anything <strong>except</strong> the pattern</td>
+</tr>
+<tr>
+<td><code>[...]</code></td>
+<td>Any one of the enclosed characters</td>
+</tr>
+<tr>
+<td><code>[~...]</code></td>
+<td>Any single character <strong>not</strong> enclosed</td>
+</tr>
+<tr>
+<td><code>-</code> (hyphen)</td>
+<td>Inside brackets: specifies a <strong>range</strong> of characters</td>
+</tr>
+<tr>
+<td><code>,</code> (comma)</td>
+<td>Separates two patterns (a logical <strong>OR</strong>)</td>
+</tr>
+<tr>
+<td><code>`</code> (reverse quote)</td>
+<td>Escapes the next character (reads it literally)</td>
+</tr>
+</tbody>
+</table>
+<p>These characters work <strong>everywhere</strong>: in the interface fields shown above just as in the code we now turn to.</p>
+<h2 id="for-developers-the-wcmatch-function-in-autolisp">For developers: the <code>(wcmatch)</code> function in AutoLISP</h2>
+<p>Let's move to the programming side. In <strong>AutoLISP</strong>, this engine is exposed by the <code>(wcmatch string pattern)</code> function. It returns <code>T</code> if the <code>string</code> matches the <code>pattern</code>, and <code>nil</code> otherwise.</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN-001&quot; &quot;PLAN*&quot;)        ; =&gt; T
+(wcmatch &quot;PLAN-001&quot; &quot;*001&quot;)         ; =&gt; T
+(wcmatch &quot;SECTION-002&quot; &quot;PLAN*&quot;)     ; =&gt; nil
+</code></pre>
+<p>It is the ideal tool to test user input, filter a list of names, validate a code… Let's go through each character.</p>
+<h3 id="any-sequence"><code>*</code> — any sequence</h3>
+<p>The most widely used wildcard. It stands for zero, one, or more characters, in any position:</p>
+<pre><code class="language-lisp">(wcmatch &quot;WALL_EXT_01&quot; &quot;WALL*&quot;)     ; =&gt; T   (starts with WALL)
+(wcmatch &quot;WALL_EXT_01&quot; &quot;*01&quot;)       ; =&gt; T   (ends with 01)
+(wcmatch &quot;WALL_EXT_01&quot; &quot;*EXT*&quot;)     ; =&gt; T   (contains EXT)
+(wcmatch &quot;WALL&quot; &quot;WALL*&quot;)            ; =&gt; T   (the sequence may be empty)
+</code></pre>
+<h3 id="any-single-character"><code>?</code> — any single character</h3>
+<p>Unlike <code>*</code>, <code>?</code> matches <strong>exactly one</strong> character:</p>
+<pre><code class="language-lisp">(wcmatch &quot;A1&quot; &quot;A?&quot;)                 ; =&gt; T
+(wcmatch &quot;A12&quot; &quot;A?&quot;)                ; =&gt; nil (two characters after A)
+(wcmatch &quot;SIDE&quot; &quot;SI??&quot;)             ; =&gt; T
+</code></pre>
+<h3 id="a-digit"><code>#</code> — a digit</h3>
+<p>The <code>#</code> accepts only a <strong>digit</strong> (<code>0</code> to <code>9</code>). Very handy to validate numbered codes:</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN-007&quot; &quot;PLAN-###&quot;)     ; =&gt; T
+(wcmatch &quot;PLAN-XYZ&quot; &quot;PLAN-###&quot;)     ; =&gt; nil
+(wcmatch &quot;R12&quot; &quot;@##&quot;)               ; =&gt; T   (a letter followed by two digits)
+</code></pre>
+<h3 id="a-letter"><code>@</code> — a letter</h3>
+<p>The <code>@</code> accepts only an <strong>alphabetic character</strong>. Combined with <code>#</code>, it describes precise formats, such as a registration code or a reference:</p>
+<pre><code class="language-lisp">(wcmatch &quot;A320&quot; &quot;@###&quot;)             ; =&gt; T
+(wcmatch &quot;2320&quot; &quot;@###&quot;)             ; =&gt; nil (starts with a digit)
+</code></pre>
+<h3 id="a-non-alphanumeric-character"><code>.</code> — a non-alphanumeric character</h3>
+<p>The period matches a character that is neither a letter nor a digit (space, hyphen, underscore, punctuation…):</p>
+<pre><code class="language-lisp">(wcmatch &quot;A-1&quot; &quot;@.#&quot;)               ; =&gt; T   (letter, separator, digit)
+(wcmatch &quot;A_1&quot; &quot;@.#&quot;)               ; =&gt; T
+(wcmatch &quot;AB1&quot; &quot;@.#&quot;)               ; =&gt; nil (B is alphanumeric)
+</code></pre>
+<h3 id="a-set-of-characters"><code>[...]</code> — a set of characters</h3>
+<p>Brackets define a <strong>character set</strong>: at that position the string must contain <strong>one</strong> of the listed characters:</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; T   (P or C)
+(wcmatch &quot;CLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; T
+(wcmatch &quot;VLAN&quot; &quot;[PC]LAN&quot;)          ; =&gt; nil
+</code></pre>
+<h3 id="a-range-inside-brackets"><code>-</code> — a range inside brackets</h3>
+<p>Inside brackets, the hyphen defines a <strong>range</strong>:</p>
+<pre><code class="language-lisp">(wcmatch &quot;C&quot; &quot;[A-F]&quot;)               ; =&gt; T
+(wcmatch &quot;M&quot; &quot;[A-F]&quot;)               ; =&gt; nil
+(wcmatch &quot;ROOM-5&quot; &quot;ROOM-[0-9]&quot;)     ; =&gt; T
+(wcmatch &quot;REV_C&quot; &quot;REV_[A-Z]&quot;)       ; =&gt; T
+</code></pre>
+<h3 id="an-excluded-character"><code>[~...]</code> — an excluded character</h3>
+<p>A tilde <strong>at the start of the brackets</strong> inverts the set: the character must be <strong>different</strong> from those listed:</p>
+<pre><code class="language-lisp">(wcmatch &quot;PLANB&quot; &quot;PLAN[~A]&quot;)        ; =&gt; T   (the last character is not A)
+(wcmatch &quot;PLANA&quot; &quot;PLAN[~A]&quot;)        ; =&gt; nil
+(wcmatch &quot;X&quot; &quot;[~0-9]&quot;)              ; =&gt; T   (anything but a digit)
+</code></pre>
+<h3 id="global-negation"><code>~</code> — global negation</h3>
+<p>Placed <strong>at the very beginning</strong> of the pattern, the tilde inverts the whole result: the string matches if it does <strong>not</strong> match the rest of the pattern:</p>
+<pre><code class="language-lisp">(wcmatch &quot;SECTION-01&quot; &quot;~PLAN*&quot;)     ; =&gt; T   (does not start with PLAN)
+(wcmatch &quot;PLAN-01&quot; &quot;~PLAN*&quot;)        ; =&gt; nil
+</code></pre>
+<h3 id="several-patterns-or"><code>,</code> — several patterns (OR)</h3>
+<p>The comma lets you test <strong>several patterns</strong> at once. The function returns <code>T</code> if <strong>at least one</strong> of them matches:</p>
+<pre><code class="language-lisp">(wcmatch &quot;SECTION-02&quot; &quot;PLAN*,SECTION*,DETAIL*&quot;)   ; =&gt; T
+(wcmatch &quot;FACADE&quot; &quot;PLAN*,SECTION*,DETAIL*&quot;)       ; =&gt; nil
+</code></pre>
+<p>This is ideal to filter on a family of prefixes.</p>
+<h3 id="escaping-a-special-character"><code>`</code> — escaping a special character</h3>
+<p>What if you want to search for a character that is itself a wildcard? You escape it with a <strong>reverse quote</strong> (<code>`</code>). The character that follows is then read <strong>literally</strong>.</p>
+<p>The classic example is <strong>AutoCAD</strong>'s anonymous blocks, whose names start with <code>*</code> (such as <code>*U2</code>). To target the <code>*U2</code> block exactly, without the asterisk being interpreted as a wildcard:</p>
+<pre><code class="language-lisp">(wcmatch &quot;*U2&quot; &quot;`*U2&quot;)              ; =&gt; T
+(wcmatch &quot;XU2&quot; &quot;`*U2&quot;)              ; =&gt; nil (the literal asterisk is required)
+</code></pre>
+<p>In the same way, to search for a string that really contains a <code>#</code>, a <code>?</code>, or a comma, you prefix each of those characters with <code>`</code>.</p>
+<h2 id="wildcards-in-ssget">Wildcards in <code>ssget</code></h2>
+<p>The most frequent use of <code>(wcmatch)</code> is in fact indirect: it is <strong>built into</strong> <code>ssget</code>'s selection filters. In a filter list, any DXF group code that carries a <strong>text</strong> value accepts wildcards directly: layer name (code <code>8</code>), block name (code <code>2</code>), linetype (code <code>6</code>), and so on.</p>
+<p>Here you don't need to call <code>(wcmatch)</code>: <strong>AutoCAD</strong> applies the engine automatically. It is, in effect, the scripted version of the <strong>Quick Select</strong> we saw earlier.</p>
+<p>Select every object whose layer starts with <code>WALL</code>:</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;WALL*&quot;)))
+</code></pre>
+<p>Select on several layer prefixes at once thanks to the comma:</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;WALL*,PARTITION*,COLUMN*&quot;)))
+</code></pre>
+<p>Select every block reference (<code>INSERT</code>) whose name ends in <code>_2D</code>:</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((0 . &quot;INSERT&quot;) (2 . &quot;*_2D&quot;)))
+</code></pre>
+<p>Exclude a layer using the tilde (every object <strong>except</strong> those on the <code>DIM</code> layer):</p>
+<pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;~DIM&quot;)))
+</code></pre>
+<p>The <code>&quot;X&quot;</code> tells <code>ssget</code> to scan the <strong>whole</strong> drawing database. You can also drop the <code>&quot;X&quot;</code> to combine these filters with an interactive selection: only the objects matching the pattern are then kept from what the user picks.</p>
+<h2 id="the.net-equivalent-wcmatchex">The .NET equivalent: <code>WcMatchEx</code></h2>
+<p>On the <strong>.NET API</strong> side, the same engine is exposed — but in an internal namespace, which signals that it is not officially supported and could change. The signature is:</p>
+<pre><code class="language-csharp">Autodesk.AutoCAD.Internal.Utils.WcMatchEx(string str, string pattern, bool ignoreCase);
+</code></pre>
+<p>It returns a <code>bool</code> and adds a genuinely useful argument: <code>ignoreCase</code>, to compare <strong>regardless of case</strong>.</p>
+<pre><code class="language-csharp">using Autodesk.AutoCAD.Internal;
+
+bool m1 = Utils.WcMatchEx(&quot;PLAN-007&quot;, &quot;PLAN-###&quot;, ignoreCase: true);   // true
+bool m2 = Utils.WcMatchEx(&quot;wall_ext&quot;, &quot;WALL*&quot;, ignoreCase: true);      // true
+bool m3 = Utils.WcMatchEx(&quot;wall_ext&quot;, &quot;WALL*&quot;, ignoreCase: false);     // false
+</code></pre>
+<p>For instance, you can use it to list the layers in a drawing that match a pattern:</p>
+<pre><code class="language-csharp">using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Internal;
+using Autodesk.AutoCAD.Runtime;
+
+[CommandMethod(&quot;LISTWALLS&quot;)]
+public void ListWallLayers()
+{
+    Document document = Application.DocumentManager.MdiActiveDocument;
+    Database database = document.Database;
+    Editor editor = document.Editor;
+
+    const string PATTERN = &quot;WALL*,PARTITION*&quot;;
+
+    using (Transaction transaction = database.TransactionManager.StartTransaction())
+    {
+        LayerTable layerTable = (LayerTable)transaction.GetObject(database.LayerTableId, OpenMode.ForRead);
+
+        foreach (ObjectId layerId in layerTable)
+        {
+            LayerTableRecord layer = (LayerTableRecord)transaction.GetObject(layerId, OpenMode.ForRead);
+            if (Utils.WcMatchEx(layer.Name, PATTERN, ignoreCase: true))
+                editor.WriteMessage(&quot;\n{0}&quot;, layer.Name);
+        }
+
+        transaction.Commit();
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>Caution</strong>: <code>WcMatchEx</code> lives in <code>Autodesk.AutoCAD.Internal</code>. As its name says, this API is <strong>internal</strong> and is not guaranteed from one version of AutoCAD to the next. For selection filtering, prefer patterns directly in the <code>ssget</code> / <code>SelectionFilter</code> filters, which remain the official route. Reserve <code>WcMatchEx</code> for cases where you already hold the string (layer name, block name, user input) and want exactly the same wildcard semantics as the rest of AutoCAD.</p>
+</blockquote>
+<h2 id="in-summary">In summary</h2>
+<p><strong>AutoCAD</strong>'s wildcard engine is a thread that ties everyday use to development:</p>
+<ul>
+<li>on the <strong>user</strong> side, it is there from <strong>Quick Select</strong>, <strong>layer search</strong>, and <strong>layer filters</strong> — no code required;</li>
+<li>on the <strong>developer</strong> side, you meet it again, identical, in <code>(wcmatch)</code>, in the <code>ssget</code> filters, and in <code>WcMatchEx</code> in .NET.</li>
+</ul>
+<p>The key characters: <code>*</code>, <code>?</code>, <code>#</code>, <code>@</code> and <code>.</code> cover the essentials; <code>[...]</code>, <code>[~...]</code> and <code>-</code> refine character by character; <code>~</code> and <code>,</code> build complete filters; and <code>`</code> escapes the wildcards themselves (think of the <code>*U…</code> anonymous blocks). Learn these patterns once, reuse them everywhere.</p>
+<hr />
+<p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> Need an <strong>AutoCAD</strong> (AutoLISP, ObjectARX, .NET, VBA) development? Contact me for a free quote.</p>
+
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/autocad-versions" class="text-decoration-none">AutoCAD versions: releases, .NET, DWG and code names</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-units" class="text-decoration-none">Understanding units in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/vlx-namespaces" class="text-decoration-none">VLX Namespaces</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autolisp-configuration" class="text-decoration-none">Managing Configuration Files in AutoLISP</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/quicklook-cadimport" class="text-decoration-none">Preview DWG and DXF Files with QuickLook</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/convert-vba-examples-ilogic" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Converting the VBA examples from the Inventor documentation into iLogic rules</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
