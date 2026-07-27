@@ -152,6 +152,7 @@
 <li><code>diametre_exterieur</code> (40 mm)</li>
 <li><code>epaisseur</code> (2 mm)</li>
 </ul>
+<p><img src="Content/fr/tutoriels/media/ilogic-rondelle-parametrique-rondelle.png" alt="Rondelle plate modélisée dans Inventor" /></p>
 <h2 id="etape-2-creer-la-regle-ilogic">Étape 2 : créer la règle iLogic</h2>
 <p>Ouvrez le navigateur iLogic (<em>Gérer &gt; iLogic &gt; Navigateur de règles</em>) et créez une nouvelle règle que vous nommerez <code>Calculer_Epaisseur</code>.</p>
 <p>Dans l'éditeur, commencez par la formule la plus simple — le diamètre extérieur :</p>
@@ -188,14 +189,18 @@ Dim epaisseur_ideale As Double = diametre_interieur / 10
 
 ' Trouver l'épaisseur de tôle supérieure ou égale la plus proche
 epaisseur = MultiValue.FindValue(
-    MultiValue.List(&quot;epaisseur&quot;), &quot;&gt;= &quot;, epaisseur_ideale)
+    MultiValue.List(&quot;epaisseur&quot;), &quot;&gt;=&quot;, epaisseur_ideale)
 </code></pre>
+<p>Voici la règle telle qu'elle apparaît dans l'éditeur iLogic :</p>
+<p><img src="Content/fr/tutoriels/media/ilogic-rondelle-parametrique-editeur.png" alt="La règle Calculer_Epaisseur dans l'éditeur iLogic" /></p>
 <p>Décortiquons ce qui se passe :</p>
 <ol>
 <li><code>MultiValue.SetList</code> définit les valeurs autorisées pour le paramètre <code>epaisseur</code>. Dans Inventor, ce paramètre affichera désormais une liste déroulante avec ces six valeurs.</li>
 <li><code>diametre_interieur / 10</code> calcule l'épaisseur théorique (1.4 mm pour un diamètre de 14 mm).</li>
 <li><code>MultiValue.FindValue</code> parcourt la liste et retourne la première valeur <strong>supérieure ou égale</strong> à 1.4, soit <strong>1.5 mm</strong>.</li>
 </ol>
+<p>Dans le gestionnaire de paramètres, l'effet de <code>MultiValue.SetList</code> est immédiatement visible : le paramètre <code>epaisseur</code> propose une liste déroulante, et la colonne <em>Règle pilote</em> indique quels paramètres sont désormais calculés par la règle.</p>
+<p><img src="Content/fr/tutoriels/media/ilogic-rondelle-parametrique-parametres.png" alt="Le gestionnaire de paramètres avec la liste déroulante des épaisseurs" /></p>
 <h2 id="tester-la-regle">Tester la règle</h2>
 <p>Enregistrez la règle et testez-la avec différentes valeurs de diamètre intérieur :</p>
 <table>
@@ -240,6 +245,8 @@ epaisseur = MultiValue.FindValue(
 </tbody>
 </table>
 <p>La règle fonctionne : l'épaisseur est toujours arrondie à la valeur de tôle standard supérieure ou égale.</p>
+<p><img src="Content/fr/tutoriels/media/ilogic-rondelle-parametrique-comparaison.png" alt="Trois rondelles générées par la même règle, à la même échelle" /></p>
+<p>Ces trois rondelles sont issues du <strong>même modèle</strong> : seul <code>diametre_interieur</code> a changé. Le diamètre extérieur et l'épaisseur ont suivi automatiquement.</p>
 <h2 id="declencher-la-regle-automatiquement">Déclencher la règle automatiquement</h2>
 <p>Pour l'instant, la règle ne s'exécute que manuellement. Pour qu'elle se déclenche <strong>à chaque modification du diamètre intérieur</strong>, ouvrez les propriétés de la règle dans le navigateur iLogic (clic droit &gt; <em>Propriétés de la règle</em>) et activez le déclenchement sur le paramètre <code>diametre_interieur</code>.</p>
 <p>Vous pouvez aussi configurer la règle pour qu'elle se déclenche <strong>à chaque mise à jour du modèle</strong> (<em>Event Triggers</em>), ce qui garantit que les calculs sont toujours à jour.</p>
@@ -267,7 +274,7 @@ epaisseur = MultiValue.FindValue(
 </tr>
 <tr>
 <td>Trouver la valeur la plus proche</td>
-<td><code>MultiValue.FindValue(liste, &quot;&gt;= &quot;, valeur)</code></td>
+<td><code>MultiValue.FindValue(liste, &quot;&gt;=&quot;, valeur)</code></td>
 </tr>
 </tbody>
 </table>
