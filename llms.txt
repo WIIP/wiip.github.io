@@ -22,6 +22,7 @@ WIIP is a French software development company specialized in CAD (Computer-Aided
 - [Blog](https://wiip.fr/fr/blog): articles techniques sur le développement CAO et Autodesk.
 - [Questions / Réponses](https://wiip.fr/fr/questions-reponses): réponses concises à des questions techniques fréquentes.
 - [Tutoriels](https://wiip.fr/fr/tutoriels): séries de tutoriels pas à pas.
+- [Mes livres](https://wiip.fr/fr/livres): les ouvrages écrits par Maxence Delannoy — la série *Revit - Conception de bâtiment* aux Éditions ENI (2015, 2018, 2020, 2022, 2024, et 2027 à paraître) et *AutoCAD 2000* chez CampusPress.
 - [À propos](https://wiip.fr/fr/About): présentation de WIIP et de son expertise.
 
 ## English versions
@@ -35,6 +36,7 @@ WIIP is a French software development company specialized in CAD (Computer-Aided
 - [Blog](https://wiip.fr/en/blog)
 - [Questions / Answers](https://wiip.fr/en/questions-answers)
 - [Tutorials](https://wiip.fr/en/tutorials)
+- [My books](https://wiip.fr/en/books)
 - [About](https://wiip.fr/en/About)
 
 ## Optional
