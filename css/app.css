@@ -207,6 +207,26 @@ a:hover, .btn-link:hover {
     }
 }
 
+/* --- Lien Contact (en-tête, à côté du sélecteur de langue) -
+   Placé hors des <ul class="navbar-nav"> plutôt qu'ajouté comme
+   7e élément : à 6 items la rangée tient sur une ligne, un 7e la
+   fait déborder et Bootstrap (flex-shrink) casse les libellés en
+   plusieurs lignes au lieu de passer proprement à la ligne suivante. */
+.nav-contact-cta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--terracotta);
+    white-space: nowrap;
+}
+
+.nav-contact-cta:hover,
+.nav-contact-cta:focus {
+    color: var(--ink);
+}
+
 /* --- Sélecteur de langue ---------------------------------- */
 .language-switcher {
     display: inline-flex;
@@ -1117,6 +1137,88 @@ article img,
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.82rem;
     color: var(--ink);
+}
+
+/* ============================================================
+   Page Contact
+   ============================================================ */
+.contact-lead {
+    font-size: 1.1rem;
+    max-width: 65ch;
+}
+
+.contact-row {
+    margin-bottom: 3rem;
+}
+
+.contact-form-col {
+    padding-right: 2.5rem;
+}
+
+.contact-form .form-control,
+.contact-form .form-select {
+    border-radius: 0;
+    border-color: var(--hairline);
+}
+
+.contact-form .form-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+/* Honeypot anti-spam Web3Forms : invisible pour un visiteur, rempli par un robot. */
+.contact-honeypot {
+    display: none;
+}
+
+.contact-info-col {
+    padding-left: 1rem;
+}
+
+.contact-info-block {
+    background-color: #EDE8E1;
+    border-top: 3px solid var(--terracotta);
+    padding: 1.25rem 1.5rem 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-block h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+}
+
+.contact-info-block address {
+    margin-bottom: 0;
+}
+
+.contact-info-block p:last-child {
+    margin-bottom: 0;
+}
+
+.contact-promise p {
+    margin-bottom: 0.5rem;
+}
+
+.contact-rgpd-note {
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.contact-thanks {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+@media (max-width: 767.98px) {
+    .col-7.contact-form-col,
+    .col-5.contact-info-col {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px !important;
+    }
 }
 
 @media (max-width: 767.98px) {
