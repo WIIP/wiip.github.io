@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Miniatures Inventor absentes dans l&#x27;Explorateur Windows : diagnostic et solution - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" /><link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/inventor-thumbnails-explorer" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" />
+        <meta name="description" content="Les fichiers Inventor s&#x27;affichent avec une simple ic&#xF4;ne au lieu de leur aper&#xE7;u. Les causes possibles, comment reconna&#xEE;tre la v&#xF4;tre, et comment la corriger." />
+        <meta property="og:title" content="Miniatures Inventor absentes dans l&#x27;Explorateur Windows : diagnostic et solution" />
+        <meta property="og:description" content="Les fichiers Inventor s&#x27;affichent avec une simple ic&#xF4;ne au lieu de leur aper&#xE7;u. Les causes possibles, comment reconna&#xEE;tre la v&#xF4;tre, et comment la corriger." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Miniatures Inventor absentes dans l&#x27;Explorateur Windows : diagnostic et solution" />
+        <meta name="twitter:description" content="Les fichiers Inventor s&#x27;affichent avec une simple ic&#xF4;ne au lieu de leur aper&#xE7;u. Les causes possibles, comment reconna&#xEE;tre la v&#xF4;tre, et comment la corriger." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/fr/Contact">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/miniatures-inventor-explorateur" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/inventor-thumbnails-explorer" class="">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/livres">Mes livres</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Miniatures Inventor absentes dans l\u0027Explorateur Windows : diagnostic et solution",
+        "description": "Les fichiers Inventor s\u0027affichent avec une simple ic\u00F4ne au lieu de leur aper\u00E7u. Les causes possibles, comment reconna\u00EEtre la v\u00F4tre, et comment la corriger.",
+        "datePublished": "2026-09-29T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/miniatures-inventor-explorateur",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/miniatures-inventor-explorateur",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog"},{"@type":"ListItem","position":3,"name":"Miniatures Inventor absentes dans l'Explorateur Windows : diagnostic et solution","item":"https://wiip.fr/fr/blog/miniatures-inventor-explorateur"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Miniatures Inventor absentes dans l&#x27;Explorateur Windows : diagnostic et solution</h1>
+                    <small class="text-muted">mardi 29 septembre 2026</small><div class="mt-2"><a href="/fr/tags/inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/fr/tags/windows" class="badge bg-primary me-1 text-decoration-none">Windows</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Vous ouvrez un dossier de pièces et d'assemblages Inventor dans l'Explorateur Windows, en affichage <strong>Grandes icônes</strong> : pas une seule miniature, uniquement l'icône générique d'Inventor.</p>
+<p>Les fichiers concernés sont ceux d'Inventor : <code>.ipt</code> (pièces), <code>.iam</code> (assemblages), <code>.ipn</code> (présentations), <code>.idw</code> et <code>.dwg</code> (mises en plan). Voici les causes possibles, de la plus simple à la plus cachée, avec pour chacune la façon de la reconnaître et de la corriger.</p>
+<p>Le résultat attendu, une fois le problème réglé :</p>
+<p><img src="Content/fr/blog/media/miniatures-inventor.webp" alt="Miniatures de pièces et d'un assemblage Inventor dans l'Explorateur Windows" /></p>
+<h2 id="comment-lexplorateur-affiche-une-miniature-inventor">Comment l'Explorateur affiche une miniature Inventor</h2>
+<p>L'Explorateur ne sait pas lire un fichier Inventor. Pour chaque extension, il cherche dans le registre un <strong>gestionnaire de miniatures</strong> : une DLL installée avec Inventor, qui extrait l'aperçu enregistré dans le fichier. Il le cherche sous l'extension elle-même (<code>.ipt</code>), sous le type de fichier associé (<code>Inventor.PartDocument</code>, par exemple) et sous <code>SystemFileAssociations</code>.</p>
+<p>Pour qu'une miniature apparaisse, il faut donc que les miniatures soient activées, que le fichier contienne un aperçu, qu'un gestionnaire soit déclaré, que sa DLL existe et que Windows accepte de la charger. Chaque maillon peut casser.</p>
+<h2 id="les-miniatures-sont-desactivees-dans-lexplorateur">1. Les miniatures sont désactivées dans l'Explorateur</h2>
+<p><strong>Diagnostic</strong> : dans l'Explorateur, menu <strong>…</strong> → <strong>Options</strong> → onglet <strong>Affichage</strong>. Si <strong>Toujours afficher des icônes, jamais des miniatures</strong> est cochée, aucun fichier n'a de miniature, pas seulement ceux d'Inventor.</p>
+<p><strong>Correction</strong> : décochez l'option, puis <strong>OK</strong>.</p>
+<p>Si la case est grisée, ou se recoche toute seule, c'est une stratégie de groupe qui l'impose : voyez avec l'administrateur de votre réseau.</p>
+<h2 id="le-cache-des-miniatures-est-perime">2. Le cache des miniatures est périmé</h2>
+<p>Windows garde les miniatures dans un cache. S'il a mémorisé un fichier comme « sans aperçu », il ne le réinterroge pas, même une fois le problème réglé.</p>
+<p><strong>Diagnostic</strong> : difficile à établir seul. C'est pourquoi on vide le cache par principe, et <strong>après chaque correction</strong> décrite plus bas.</p>
+<p><strong>Correction</strong> : lancez <strong>Nettoyage de disque</strong> (<code>cleanmgr</code>), cochez <strong>Miniatures</strong>, puis <strong>OK</strong>. Fermez ensuite votre session Windows et rouvrez-la : l'Explorateur ne recharge pas toujours un gestionnaire pendant qu'il tourne.</p>
+<h2 id="le-fichier-ne-contient-pas-dapercu">3. Le fichier ne contient pas d'aperçu</h2>
+<p>Le gestionnaire ne calcule rien : il affiche l'image qu'Inventor a enregistrée dans le fichier. Un fichier créé par un traitement automatique, par exemple, peut ne pas en avoir.</p>
+<p><strong>Diagnostic</strong> : ouvrez une pièce dans Inventor, modifiez-la, enregistrez-la. Si ce fichier-là affiche sa miniature et pas les autres, ce sont les autres qui n'ont pas d'aperçu.</p>
+<p><strong>Correction</strong> : ouvrez et réenregistrez ces fichiers dans Inventor.</p>
+<h2 id="le-fichier-est-sur-un-lecteur-reseau-ou-dans-onedrive">4. Le fichier est sur un lecteur réseau ou dans OneDrive</h2>
+<p>Une stratégie d'entreprise peut désactiver les miniatures sur les dossiers réseau, et un fichier OneDrive ou SharePoint « disponible en ligne uniquement » n'en affiche pas.</p>
+<p><strong>Diagnostic</strong> : copiez un fichier sur le bureau. S'il y affiche sa miniature, l'emplacement est en cause.</p>
+<p><strong>Correction</strong> : pour OneDrive, clic droit sur le dossier → <strong>Toujours conserver sur cet appareil</strong>. Pour un lecteur réseau, voyez avec l'administrateur.</p>
+<h2 id="aucun-gestionnaire-nest-declare-pour-lextension">5. Aucun gestionnaire n'est déclaré pour l'extension</h2>
+<p>Une autre application peut s'être approprié l'extension, ou une ancienne version d'Inventor a laissé, à sa désinstallation, des clés qui ne mènent plus nulle part. C'est fréquent pour <code>.dwg</code>, que se disputent Inventor, AutoCAD et DWG TrueView.</p>
+<p><strong>Diagnostic</strong> : ouvrez l'<strong>Éditeur du Registre</strong> (<code>regedit</code>) et cherchez la clé suivante, en remplaçant <code>.ipt</code> par l'extension qui pose problème :</p>
+<pre><code>HKEY_CLASSES_ROOT\.ipt\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}
+</code></pre>
+<p>Ce long identifiant désigne les gestionnaires de miniatures. Si la clé n'existe pas, regardez la valeur <strong>(par défaut)</strong> de <code>HKEY_CLASSES_ROOT\.ipt</code> : elle donne le type de fichier associé (par exemple <code>Inventor.PartDocument</code>). Cherchez alors la même sous-clé <code>ShellEx\{e357fccd-a995-4576-b01f-234630154e96}</code> sous ce type de fichier. Si elle n'existe à aucun des deux endroits, aucun gestionnaire n'est déclaré.</p>
+<p>Quand elle existe, notez sa valeur <strong>(par défaut)</strong> : c'est l'identifiant (CLSID) du gestionnaire, une chaîne de la forme <code>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</code>. Il servira aux deux points suivants.</p>
+<p><strong>Correction</strong> : clic droit sur un fichier → <strong>Ouvrir avec</strong> → <strong>Choisir une autre application</strong> → votre version d'Inventor → <strong>Toujours</strong>. Si la clé reste absente, lancez une <strong>réparation d'Inventor</strong> depuis <strong>Paramètres</strong> → <strong>Applications</strong> → <strong>Applications installées</strong>.</p>
+<h2 id="la-dll-du-gestionnaire-nexiste-plus">6. La DLL du gestionnaire n'existe plus</h2>
+<p><strong>Diagnostic</strong> : dans l'Éditeur du Registre, ouvrez la clé suivante, en remplaçant <code>{CLSID}</code> par l'identifiant noté au point 5 :</p>
+<pre><code>HKEY_CLASSES_ROOT\CLSID\{CLSID}\InprocServer32
+</code></pre>
+<p>Sa valeur <strong>(par défaut)</strong> donne le chemin de la DLL. Vérifiez dans l'Explorateur que ce fichier existe bien. Un chemin qui pointe vers une version d'Inventor désinstallée, ou vers un disque qui n'existe plus, trahit le problème.</p>
+<p><strong>Correction</strong> : réparez la version d'Inventor installée, comme au point 5 : elle réenregistre son gestionnaire.</p>
+<h2 id="le-gestionnaire-est-bloque-par-windows">7. Le gestionnaire est bloqué par Windows</h2>
+<p>C'est la cause la plus sournoise : tout est installé et déclaré correctement, mais Windows a ordre de ne jamais charger ce gestionnaire. Aucun message ne le signale. Ce blocage est souvent posé pour faire taire une extension qui faisait planter ou ralentir l'Explorateur, puis oublié ; un logiciel de sécurité ou une stratégie de groupe peut aussi l'avoir posé.</p>
+<p><strong>Diagnostic</strong> : Windows tient cette liste noire à deux endroits, l'un pour tout le poste, l'autre pour l'utilisateur :</p>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
+HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
+</code></pre>
+<p>Ouvrez ces deux clés dans l'Éditeur du Registre. Si l'une d'elles contient une valeur portant le nom du CLSID noté au point 5, le gestionnaire est bloqué.</p>
+<p><strong>Correction</strong> : retirez cette valeur de la liste. Trois façons de faire, au choix.</p>
+<p><strong>Avec ShellExView, sans toucher au registre.</strong> Windows n'offre aucune interface pour gérer cette liste, mais l'outil gratuit <strong>ShellExView</strong>, de NirSoft, le fait : sa commande <strong>Disable</strong> ajoute une extension à la liste, et <strong>Enable</strong> l'en retire.</p>
+<ol>
+<li>Téléchargez ShellExView en version 64 bits sur le site de NirSoft et lancez-le <strong>en tant qu'administrateur</strong>.</li>
+<li>Cherchez les lignes dont la colonne <strong>Product Name</strong> indique <strong>Autodesk Inventor</strong> et la colonne <strong>Type</strong> <strong>Thumbnail</strong> : ce sont les gestionnaires de miniatures d'Inventor. La colonne <strong>Disabled</strong> indique s'ils sont bloqués (<strong>Yes</strong>) ou non (<strong>No</strong>).</li>
+<li>Sélectionnez les lignes bloquées, faites un clic droit, puis <strong>Enable Selected Items</strong>.</li>
+</ol>
+<p><img src="Content/fr/blog/media/shell-ex-view.webp" alt="Les gestionnaires de miniatures d'Inventor dans ShellExView, ici non bloqués" /></p>
+<p><strong>Avec l'Éditeur du Registre.</strong> Dans la clé <code>Blocked</code> concernée, faites d'abord une sauvegarde (clic droit sur la clé → <strong>Exporter</strong>), puis supprimez la valeur (clic droit → <strong>Supprimer</strong>). Sous <code>HKEY_LOCAL_MACHINE</code>, il faut des droits d'administrateur.</p>
+<p><strong>En ligne de commande</strong>, pratique pour corriger plusieurs postes. Dans une invite de commandes lancée en administrateur, en remplaçant <code>{CLSID}</code> par l'identifiant :</p>
+<pre><code>reg export &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked&quot; &quot;%USERPROFILE%\Desktop\Blocked-sauvegarde.reg&quot;
+reg delete &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked&quot; /v {CLSID} /f
+</code></pre>
+<p>Si la valeur est sous <code>HKEY_CURRENT_USER</code>, remplacez <code>HKLM</code> par <code>HKCU</code> et lancez la commande <strong>dans la session de l'utilisateur</strong>, sans élévation : lancée par un administrateur avec son propre compte, elle modifierait le registre de l'administrateur.</p>
+<p>Si la valeur réapparaît après un redémarrage ou un <code>gpupdate</code>, c'est une stratégie de groupe ou un antivirus qui l'impose : il faut voir avec l'administrateur du domaine. Et si le blocage avait été posé volontairement, vérifiez ensuite que la navigation dans vos dossiers Inventor les plus chargés reste fluide.</p>
+<h2 id="en-resume">En résumé</h2>
+<table>
+<thead>
+<tr>
+<th>Cause</th>
+<th>Diagnostic</th>
+<th>Correction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Miniatures désactivées</td>
+<td>Aucun fichier n'a de miniature</td>
+<td>Décocher « Toujours afficher des icônes »</td>
+</tr>
+<tr>
+<td>Cache périmé</td>
+<td>—</td>
+<td>Nettoyage de disque → Miniatures</td>
+</tr>
+<tr>
+<td>Fichier sans aperçu</td>
+<td>Un fichier réenregistré a sa miniature</td>
+<td>Réenregistrer dans Inventor</td>
+</tr>
+<tr>
+<td>Réseau ou OneDrive</td>
+<td>Une copie sur le bureau a sa miniature</td>
+<td>Conserver sur l'appareil, ou voir l'administrateur</td>
+</tr>
+<tr>
+<td>Aucun gestionnaire</td>
+<td>Clé <code>ShellEx\{e357fccd-…}</code> absente</td>
+<td>Réassocier l'extension, réparer Inventor</td>
+</tr>
+<tr>
+<td>DLL absente</td>
+<td>Chemin <code>InprocServer32</code> introuvable</td>
+<td>Réparer Inventor</td>
+</tr>
+<tr>
+<td>Gestionnaire bloqué</td>
+<td>CLSID dans <code>Shell Extensions\Blocked</code></td>
+<td>ShellExView, regedit ou <code>reg delete</code></td>
+</tr>
+</tbody>
+</table>
+<p>Après chaque correction, videz le cache des miniatures et rouvrez votre session Windows.</p>
+<aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> <strong>Besoin d'un développement Inventor ou Fusion 360 ?</strong></p>
+<p>iLogic, .NET, VBA, C++, Python — je développe vos outils sur mesure.</p>
+<p><a href="mailto:contact@wiip.fr">Demander un devis gratuit</a></p>
+</aside>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/convertir-exemples-vba-ilogic" class="text-decoration-none">Convertir les exemples VBA de la documentation Inventor en r&#xE8;gles iLogic</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/bibliotheque-materiaux-inventor" class="text-decoration-none">0x80004005 : la biblioth&#xE8;que de mat&#xE9;riaux qui refuse de s&#x27;ouvrir</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/configuration-de-vault-avec-inventor" class="text-decoration-none">Configuration de Vault avec Inventor</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/inventor-sketch-points" class="text-decoration-none">Comprendre le r&#xF4;le des points dans les esquisses Inventor</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/ilogic-rules-export-import" class="text-decoration-none">Exporter et importer des r&#xE8;gles iLogic</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/vault-autocad-empty-ribbon" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Onglet Vault vide dans AutoCAD : l&#x27;onglet est l&#xE0;, mais aucun bouton</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/Contact">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/fr/TermsOfUse">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

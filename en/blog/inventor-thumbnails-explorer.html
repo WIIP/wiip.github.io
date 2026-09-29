@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Inventor thumbnails missing in Windows Explorer: diagnosis and fix - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/inventor-thumbnails-explorer" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/inventor-thumbnails-explorer" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/miniatures-inventor-explorateur" />
+        <meta name="description" content="Inventor files show up as a plain icon instead of their preview. The possible causes, how to recognise yours, and how to fix it." />
+        <meta property="og:title" content="Inventor thumbnails missing in Windows Explorer: diagnosis and fix" />
+        <meta property="og:description" content="Inventor files show up as a plain icon instead of their preview. The possible causes, how to recognise yours, and how to fix it." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/inventor-thumbnails-explorer" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Inventor thumbnails missing in Windows Explorer: diagnosis and fix" />
+        <meta name="twitter:description" content="Inventor files show up as a plain icon instead of their preview. The possible causes, how to recognise yours, and how to fix it." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/en/Contact">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/miniatures-inventor-explorateur" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/inventor-thumbnails-explorer" class="active">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/books">My books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Inventor thumbnails missing in Windows Explorer: diagnosis and fix",
+        "description": "Inventor files show up as a plain icon instead of their preview. The possible causes, how to recognise yours, and how to fix it.",
+        "datePublished": "2026-09-29T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/en/blog/inventor-thumbnails-explorer",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/inventor-thumbnails-explorer",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog"},{"@type":"ListItem","position":3,"name":"Inventor thumbnails missing in Windows Explorer: diagnosis and fix","item":"https://wiip.fr/en/blog/inventor-thumbnails-explorer"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Inventor thumbnails missing in Windows Explorer: diagnosis and fix</h1>
+                    <small class="text-muted">Tuesday, September 29, 2026</small><div class="mt-2"><a href="/en/tags/inventor" class="badge bg-primary me-1 text-decoration-none">Inventor</a><a href="/en/tags/windows" class="badge bg-primary me-1 text-decoration-none">Windows</a><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
+                <div class="mt-3"><p>You open a folder of Inventor parts and assemblies in Windows Explorer, in <strong>Large icons</strong> view: not a single thumbnail, only the generic Inventor icon.</p>
+<p>The files involved are Inventor's: <code>.ipt</code> (parts), <code>.iam</code> (assemblies), <code>.ipn</code> (presentations), <code>.idw</code> and <code>.dwg</code> (drawings). Here are the possible causes, from the simplest to the most hidden, each with how to recognise it and how to fix it.</p>
+<p>What you should see once the problem is solved:</p>
+<p><img src="Content/en/blog/media/inventor-thumbnails.webp" alt="Thumbnails of Inventor parts and an assembly in Windows Explorer" /></p>
+<h2 id="how-explorer-displays-an-inventor-thumbnail">How Explorer displays an Inventor thumbnail</h2>
+<p>Explorer cannot read an Inventor file. For each extension, it looks in the registry for a <strong>thumbnail handler</strong>: a DLL installed with Inventor that extracts the preview saved inside the file. It looks for it under the extension itself (<code>.ipt</code>), under the associated file type (<code>Inventor.PartDocument</code>, for example) and under <code>SystemFileAssociations</code>.</p>
+<p>For a thumbnail to appear, thumbnails must therefore be enabled, the file must contain a preview, a handler must be declared, its DLL must exist and Windows must agree to load it. Every link in that chain can break.</p>
+<h2 id="thumbnails-are-turned-off-in-explorer">1. Thumbnails are turned off in Explorer</h2>
+<p><strong>Diagnosis</strong>: in Explorer, <strong>…</strong> menu → <strong>Options</strong> → <strong>View</strong> tab. If <strong>Always show icons, never thumbnails</strong> is ticked, no file has a thumbnail, not only Inventor files.</p>
+<p><strong>Fix</strong>: untick the option, then <strong>OK</strong>.</p>
+<p>If the box is greyed out, or ticks itself again, a group policy enforces it: talk to your network administrator.</p>
+<h2 id="the-thumbnail-cache-is-stale">2. The thumbnail cache is stale</h2>
+<p>Windows keeps thumbnails in a cache. If it has recorded a file as &quot;no preview&quot;, it does not ask again, even once the problem is solved.</p>
+<p><strong>Diagnosis</strong>: hard to establish on its own. That is why you clear the cache as a matter of course, and <strong>after each fix</strong> described below.</p>
+<p><strong>Fix</strong>: run <strong>Disk Cleanup</strong> (<code>cleanmgr</code>), tick <strong>Thumbnails</strong>, then <strong>OK</strong>. Then sign out of Windows and back in: Explorer does not always reload a handler while it is running.</p>
+<h2 id="the-file-contains-no-preview">3. The file contains no preview</h2>
+<p>The handler computes nothing: it displays the image Inventor saved inside the file. A file created by a batch process, for example, may not have one.</p>
+<p><strong>Diagnosis</strong>: open a part in Inventor, change it, save it. If that file shows its thumbnail and the others do not, it is the others that have no preview.</p>
+<p><strong>Fix</strong>: open and save those files again in Inventor.</p>
+<h2 id="the-file-is-on-a-network-drive-or-in-onedrive">4. The file is on a network drive or in OneDrive</h2>
+<p>A company policy can disable thumbnails on network folders, and a OneDrive or SharePoint file that is &quot;available online only&quot; shows none.</p>
+<p><strong>Diagnosis</strong>: copy a file to the desktop. If it shows its thumbnail there, the location is to blame.</p>
+<p><strong>Fix</strong>: for OneDrive, right-click the folder → <strong>Always keep on this device</strong>. For a network drive, talk to the administrator.</p>
+<h2 id="no-handler-is-declared-for-the-extension">5. No handler is declared for the extension</h2>
+<p>Another application may have taken over the extension, or an old Inventor version left behind, when uninstalled, keys that lead nowhere. This is common for <code>.dwg</code>, which Inventor, AutoCAD and DWG TrueView all compete for.</p>
+<p><strong>Diagnosis</strong>: open the <strong>Registry Editor</strong> (<code>regedit</code>) and look for the following key, replacing <code>.ipt</code> with the extension at fault:</p>
+<pre><code>HKEY_CLASSES_ROOT\.ipt\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}
+</code></pre>
+<p>That long identifier stands for thumbnail handlers. If the key does not exist, look at the <strong>(Default)</strong> value of <code>HKEY_CLASSES_ROOT\.ipt</code>: it gives the associated file type (for example <code>Inventor.PartDocument</code>). Then look for the same <code>ShellEx\{e357fccd-a995-4576-b01f-234630154e96}</code> subkey under that file type. If it exists in neither place, no handler is declared.</p>
+<p>When it exists, write down its <strong>(Default)</strong> value: it is the handler's identifier (CLSID), a string of the form <code>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</code>. You will need it for the next two points.</p>
+<p><strong>Fix</strong>: right-click a file → <strong>Open with</strong> → <strong>Choose another app</strong> → your Inventor version → <strong>Always</strong>. If the key is still missing, run a <strong>repair of Inventor</strong> from <strong>Settings</strong> → <strong>Apps</strong> → <strong>Installed apps</strong>.</p>
+<h2 id="the-handlers-dll-no-longer-exists">6. The handler's DLL no longer exists</h2>
+<p><strong>Diagnosis</strong>: in the Registry Editor, open the following key, replacing <code>{CLSID}</code> with the identifier written down in point 5:</p>
+<pre><code>HKEY_CLASSES_ROOT\CLSID\{CLSID}\InprocServer32
+</code></pre>
+<p>Its <strong>(Default)</strong> value gives the path of the DLL. Check in Explorer that this file does exist. A path pointing to an uninstalled Inventor version, or to a drive that no longer exists, gives the problem away.</p>
+<p><strong>Fix</strong>: repair the installed Inventor version, as in point 5: it registers its handler again.</p>
+<h2 id="the-handler-is-blocked-by-windows">7. The handler is blocked by Windows</h2>
+<p>This is the sneakiest cause: everything is installed and declared correctly, but Windows has been told never to load this handler. No message says so. Such a block is often set to silence an extension that made Explorer crash or slow down, then forgotten; security software or a group policy may also have set it.</p>
+<p><strong>Diagnosis</strong>: Windows keeps this blacklist in two places, one for the whole machine, the other for the user:</p>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
+HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
+</code></pre>
+<p>Open both keys in the Registry Editor. If either contains a value named after the CLSID written down in point 5, the handler is blocked.</p>
+<p><strong>Fix</strong>: remove that value from the list. Three ways to do it, your choice.</p>
+<p><strong>With ShellExView, without touching the registry.</strong> Windows offers no user interface to manage this list, but NirSoft's free <strong>ShellExView</strong> tool does: its <strong>Disable</strong> command adds an extension to the list, and <strong>Enable</strong> removes it.</p>
+<ol>
+<li>Download the 64-bit version of ShellExView from the NirSoft website and run it <strong>as administrator</strong>.</li>
+<li>Look for the lines whose <strong>Product Name</strong> column reads <strong>Autodesk Inventor</strong> and whose <strong>Type</strong> column reads <strong>Thumbnail</strong>: these are Inventor's thumbnail handlers. The <strong>Disabled</strong> column tells whether they are blocked (<strong>Yes</strong>) or not (<strong>No</strong>).</li>
+<li>Select the blocked lines, right-click, then <strong>Enable Selected Items</strong>.</li>
+</ol>
+<p><img src="Content/en/blog/media/shell-ex-view.webp" alt="Inventor's thumbnail handlers in ShellExView, here not blocked" /></p>
+<p><strong>With the Registry Editor.</strong> In the relevant <code>Blocked</code> key, make a backup first (right-click the key → <strong>Export</strong>), then delete the value (right-click → <strong>Delete</strong>). Under <code>HKEY_LOCAL_MACHINE</code>, you need administrator rights.</p>
+<p><strong>From the command line</strong>, handy to fix several workstations. From a command prompt run as administrator, replacing <code>{CLSID}</code> with the identifier:</p>
+<pre><code>reg export &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked&quot; &quot;%USERPROFILE%\Desktop\Blocked-backup.reg&quot;
+reg delete &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked&quot; /v {CLSID} /f
+</code></pre>
+<p>If the value is under <code>HKEY_CURRENT_USER</code>, replace <code>HKLM</code> with <code>HKCU</code> and run the command <strong>in the user's own session</strong>, without elevation: run by an administrator with their own account, it would change the administrator's registry.</p>
+<p>If the value reappears after a restart or a <code>gpupdate</code>, a group policy or an antivirus enforces it: talk to the domain administrator. And if the block had been set on purpose, check afterwards that browsing your busiest Inventor folders stays smooth.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Cause</th>
+<th>Diagnosis</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thumbnails turned off</td>
+<td>No file has a thumbnail</td>
+<td>Untick &quot;Always show icons&quot;</td>
+</tr>
+<tr>
+<td>Stale cache</td>
+<td>—</td>
+<td>Disk Cleanup → Thumbnails</td>
+</tr>
+<tr>
+<td>File without preview</td>
+<td>A re-saved file has its thumbnail</td>
+<td>Save again in Inventor</td>
+</tr>
+<tr>
+<td>Network or OneDrive</td>
+<td>A copy on the desktop has its thumbnail</td>
+<td>Keep on device, or see the administrator</td>
+</tr>
+<tr>
+<td>No handler</td>
+<td><code>ShellEx\{e357fccd-…}</code> key missing</td>
+<td>Re-associate the extension, repair Inventor</td>
+</tr>
+<tr>
+<td>DLL missing</td>
+<td><code>InprocServer32</code> path not found</td>
+<td>Repair Inventor</td>
+</tr>
+<tr>
+<td>Handler blocked</td>
+<td>CLSID in <code>Shell Extensions\Blocked</code></td>
+<td>ShellExView, regedit or <code>reg delete</code></td>
+</tr>
+</tbody>
+</table>
+<p>After each fix, clear the thumbnail cache and sign out and back in.</p>
+<aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> <strong>Need Inventor or Fusion 360 development?</strong></p>
+<p>iLogic, .NET, VBA, C++, Python — I build your custom tools.</p>
+<p><a href="mailto:contact@wiip.fr">Request a free quote</a></p>
+</aside>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/convert-vba-examples-ilogic" class="text-decoration-none">Converting the VBA examples from the Inventor documentation into iLogic rules</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/inventor-materials-library" class="text-decoration-none">0x80004005: the materials library that won&#x27;t open</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/configuring-vault-with-inventor" class="text-decoration-none">Configuring Vault with Inventor</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/inventor-sketch-points" class="text-decoration-none">Understanding the Role of Points in Inventor Sketches</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/ilogic-rules-export-import" class="text-decoration-none">Export and import iLogic rules</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/vault-autocad-empty-ribbon" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Empty Vault tab in AutoCAD: the tab is there, but no buttons</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/Contact">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/en/TermsOfUse">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
