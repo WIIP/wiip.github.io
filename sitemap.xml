@@ -111,9 +111,6 @@
     <loc>https://wiip.fr/fr/blog/0x80004005</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/blog/ai_developers_limitations</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/blog/autocad-2027</loc>
   </url>
   <url>
@@ -222,9 +219,6 @@
     <loc>https://wiip.fr/fr/tags/net</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/fr/tags/ia</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/fr/tags/autocad</loc>
   </url>
   <url>
@@ -244,6 +238,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/claude-code</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/ia</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/programmation</loc>
@@ -425,9 +422,6 @@
     <loc>https://wiip.fr/en/blog/0x80004005</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/blog/ai_developers_limitations</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/en/blog/autocad-units</loc>
   </url>
   <url>
@@ -536,9 +530,6 @@
     <loc>https://wiip.fr/en/tags/net</loc>
   </url>
   <url>
-    <loc>https://wiip.fr/en/tags/ai</loc>
-  </url>
-  <url>
     <loc>https://wiip.fr/en/tags/autocad</loc>
   </url>
   <url>
@@ -549,6 +540,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/autolisp</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/ai</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/claude-code</loc>
