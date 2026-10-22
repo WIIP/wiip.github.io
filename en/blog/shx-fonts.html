@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=64b4fe3b7757" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>SHX fonts: where they come from, and why TrueType is a better choice - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/shx-fonts" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/shx-fonts" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/polices-shx" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/polices-shx" />
+        <meta name="description" content="AutoCAD&#x27;s SHX fonts imitate the hand lettering of drafters at the drawing board and stay legible at very small sizes. But they get in the way of exchanges with other software and of PDF exports. Their history, their strengths, and what to use instead today." />
+        <meta property="og:title" content="SHX fonts: where they come from, and why TrueType is a better choice" />
+        <meta property="og:description" content="AutoCAD&#x27;s SHX fonts imitate the hand lettering of drafters at the drawing board and stay legible at very small sizes. But they get in the way of exchanges with other software and of PDF exports. Their history, their strengths, and what to use instead today." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/shx-fonts" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="SHX fonts: where they come from, and why TrueType is a better choice" />
+        <meta name="twitter:description" content="AutoCAD&#x27;s SHX fonts imitate the hand lettering of drafters at the drawing board and stay legible at very small sizes. But they get in the way of exchanges with other software and of PDF exports. Their history, their strengths, and what to use instead today." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/en/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/polices-shx" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/shx-fonts" class="active">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations/">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers/">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials/">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/books/">My books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About/">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development/">Revit</a></li><li class="nav-item"><a class="nav-link" href="/en/vault-development/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development/">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SHX fonts: where they come from, and why TrueType is a better choice",
+        "description": "AutoCAD\u0027s SHX fonts imitate the hand lettering of drafters at the drawing board and stay legible at very small sizes. But they get in the way of exchanges with other software and of PDF exports. Their history, their strengths, and what to use instead today.",
+        "datePublished": "2026-10-22T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/en/blog/shx-fonts",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/shx-fonts",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog/"},{"@type":"ListItem","position":3,"name":"SHX fonts: where they come from, and why TrueType is a better choice","item":"https://wiip.fr/en/blog/shx-fonts"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>SHX fonts: where they come from, and why TrueType is a better choice</h1>
+                    <small class="text-muted">Thursday, October 22, 2026</small><div class="mt-2"><a href="/en/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/pdf" class="badge bg-primary me-1 text-decoration-none">PDF</a></div></header>
+                <div class="mt-3"><p>Open an old DWG drawing: chances are its text uses <code>romans.shx</code>, <code>simplex.shx</code>, <code>txt.shx</code> or <code>isocp.shx</code>. These thin, angular fonts have been part of AutoCAD from the very beginning. They have real strengths, but they also cause trouble as soon as the drawing leaves AutoCAD.</p>
+<p><img src="Content/en/blog/media/txt-shx-text.webp" alt="Text written with the txt.shx font in AutoCAD" /></p>
+<p><em>Text written with <code>txt.shx</code>, AutoCAD's historical default font.</em></p>
+<h2 id="born-when-nothing-else-existed">Born when nothing else existed</h2>
+<p>AutoCAD was released in December 1982. At the time, there was no standard vector font format on microcomputers. PostScript and its Type 1 fonts only arrived in 1984-1985, first for laser printers. TrueType, designed by Apple, only came to Windows with Windows 3.1, in 1992.</p>
+<p>So Autodesk created its own format. An SHX font is the compiled version of a <code>.shp</code> shape file. Each character is described as a sequence of pen movements: draw so many units in a given direction, lift the pen, move, put it down again.</p>
+<p><img src="Content/en/blog/media/shx-pen-directions.webp" alt="The sixteen vector directions in a shape file, numbered 0 to F" /></p>
+<p><em>The sixteen directions a vector byte can encode, numbered in hexadecimal from 0 (to the right) to F, counterclockwise. The intermediate directions are not at 22.5°: direction 1, for example, moves two units across for one unit up.</em></p>
+<p>That is exactly the language of a pen plotter, the output device of engineering offices at the time.</p>
+<p>Most of these fonts are <strong>single-stroke</strong>: a letter has no outline to fill, it is made of plain strokes. The pen draws it in a single pass, quickly, with the width of the selected pen. An outline font, on the other hand, would have forced the plotter to draw the contour of each letter and then fill it.</p>
+<h2 id="why-drafters-like-them">Why drafters like them</h2>
+<h3 id="they-look-like-drawing-board-lettering">They look like drawing-board lettering</h3>
+<p>Before CAD, the text on a drawing was written by hand, or with a <strong>lettering guide</strong>: a plastic template with letter-shaped cut-outs, traced with a technical pen. The result was regular lettering, with a constant stroke width and no serifs. The ISO 3098 standard still defines its proportions today.</p>
+<p><img src="Content/en/blog/media/standardgraph-lettering-guides.webp" alt="Standardgraph lettering guides complying with ISO 3098, for heights from 2.5 to 7 mm" /></p>
+<p><em>Standardgraph lettering guides for ISO 3098 lettering — photo by <a href="https://commons.wikimedia.org/wiki/File:Standardgraph_2522_2.5%E2%80%937_mm_lettering_guides.jpg">Lucasbosch</a>, CC BY-SA 3.0 license.</em></p>
+<p>SHX fonts reproduce this lettering: <code>isocp.shx</code> follows ISO 3098, and <code>romans.shx</code> and <code>simplex.shx</code> are close to it. A drawing annotated with them looks like a drafter's drawing. This is not just nostalgia: it is the lettering everyone in a workshop or on a construction site is used to reading on a drawing.</p>
+<h3 id="they-stay-legible-at-small-sizes-and-take-little-space">They stay legible at small sizes, and take little space</h3>
+<p>A thin, constant stroke stays sharp at a height of 2 mm, where an outline font clogs up or blurs. The letters are narrow, which helps fit a dimension, a label or a note into a tight space. Finally, the text takes the width of the pen or of the assigned lineweight: it matches the rest of the drawing.</p>
+<h2 id="where-it-goes-wrong-exchanges-and-pdf">Where it goes wrong: exchanges and PDF</h2>
+<h3 id="other-cad-software">Other CAD software</h3>
+<p>A DWG file does not embed the fonts it uses: it only stores the <strong>name</strong> of the font file. To display the text as intended, the computer that opens the drawing needs the same <code>.shx</code> file.</p>
+<p>This is already a problem between two AutoCAD workstations, as soon as a custom or third-party SHX font is missing. AutoCAD then replaces it with the font set by the <code>FONTALT</code> system variable, often <code>simplex.shx</code>. Text lengths change, and text overflows its title block or frame.</p>
+<p>With another CAD application, it is worse. The SHX format is specific to Autodesk: every application that imports a DWG has to interpret it on its own, provide its own equivalents of AutoCAD's fonts, or fall back on a substitute font. The text gets through, but rarely identical.</p>
+<h3 id="pdf-export">PDF export</h3>
+<p>PDF can embed Type 1, TrueType and OpenType fonts. It does not know the SHX format. On export, AutoCAD therefore has no choice but to <strong>convert each SHX character into strokes</strong>. Visually, the result is faithful. But as far as the PDF is concerned, this text is no longer text:</p>
+<ul>
+<li>it cannot be searched or selected in the PDF viewer;</li>
+<li>it cannot be copied and pasted elsewhere;</li>
+<li>it escapes indexing and accessibility tools;</li>
+<li>a PDF imported back into a CAD application gives segments, not editable text.</li>
+</ul>
+<p>AutoCAD offers a workaround: the <code>PDFSHX</code> system variable adds the SHX text to the PDF as invisible comments, on top of the strokes, which makes it searchable again. Likewise, <code>PDFSHXTEXT</code> tries to rebuild text from the strokes of an imported PDF. These are patches that do not work in every viewer or every application.</p>
+<h2 id="what-to-use-instead">What to use instead</h2>
+<p>For a drawing that will be exchanged or published as PDF, prefer <strong>TrueType</strong> (<code>.ttf</code>) or OpenType fonts. The font file is still external to the DWG, but every CAD application can read a TrueType font, and PDF can embed it: the text stays text.</p>
+<p>The safest choice is a font that is <strong>available everywhere</strong>:</p>
+<ul>
+<li>fonts close to the PDF base fonts, such as Arial (equivalent to Helvetica), which a PDF viewer can display even when they are not embedded;</li>
+<li>fonts shipped with Windows, present on every computer;</li>
+<li>to keep standard drawing lettering, <code>isocpeur.ttf</code>, which the AutoCAD installation places in the Windows fonts folder and which is the TrueType equivalent of <code>isocp.shx</code> — making sure the recipient has the font.</li>
+</ul>
+<p>Before embedding a font in a PDF you distribute, also check that its license allows it.</p>
+<p>To convert existing drawings, it is usually enough to change the <strong>text styles</strong> (<code>STYLE</code>) so they point to a TrueType font: all text and dimensions using that style follow. Across a large number of files, this can be automated.</p>
+<p>SHX fonts have served well. They are still relevant for a drawing that never leaves AutoCAD and goes to a pen plotter. But a drawing that circulates today almost always ends up as a PDF or in another application: you might as well give it a font everyone can read.</p>
+<aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> <strong>Need AutoCAD development?</strong></p>
+<p>AutoLISP, ObjectARX, .NET, VBA — I build your custom tools.</p>
+<p><a href="mailto:contact@wiip.fr">Request a free quote</a></p>
+</aside>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/vault-autocad-empty-ribbon" class="text-decoration-none">Empty Vault tab in AutoCAD: the tab is there, but no buttons</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-wildcards" class="text-decoration-none">Wildcard characters in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-versions" class="text-decoration-none">AutoCAD versions: releases, .NET, DWG and code names</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-units" class="text-decoration-none">Understanding units in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/vlx-namespaces" class="text-decoration-none">VLX Namespaces</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/inventor-thumbnails-explorer" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>Inventor thumbnails missing in Windows Explorer: diagnosis and fix</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/en/TermsOfUse/">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

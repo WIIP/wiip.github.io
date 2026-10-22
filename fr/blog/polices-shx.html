@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=64b4fe3b7757" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Polices SHX : d&#x27;o&#xF9; elles viennent, et pourquoi leur pr&#xE9;f&#xE9;rer les TrueType - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/blog/polices-shx" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/polices-shx" /><link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/shx-fonts" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/polices-shx" />
+        <meta name="description" content="Les polices SHX d&#x27;AutoCAD imitent l&#x27;&#xE9;criture des dessinateurs &#xE0; la planche et restent lisibles en tout petit. Mais elles compliquent les &#xE9;changes avec d&#x27;autres logiciels et les exports en PDF. Leur histoire, leurs qualit&#xE9;s et ce qu&#x27;il vaut mieux utiliser aujourd&#x27;hui." />
+        <meta property="og:title" content="Polices SHX : d&#x27;o&#xF9; elles viennent, et pourquoi leur pr&#xE9;f&#xE9;rer les TrueType" />
+        <meta property="og:description" content="Les polices SHX d&#x27;AutoCAD imitent l&#x27;&#xE9;criture des dessinateurs &#xE0; la planche et restent lisibles en tout petit. Mais elles compliquent les &#xE9;changes avec d&#x27;autres logiciels et les exports en PDF. Leur histoire, leurs qualit&#xE9;s et ce qu&#x27;il vaut mieux utiliser aujourd&#x27;hui." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/polices-shx" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Polices SHX : d&#x27;o&#xF9; elles viennent, et pourquoi leur pr&#xE9;f&#xE9;rer les TrueType" />
+        <meta name="twitter:description" content="Les polices SHX d&#x27;AutoCAD imitent l&#x27;&#xE9;criture des dessinateurs &#xE0; la planche et restent lisibles en tout petit. Mais elles compliquent les &#xE9;changes avec d&#x27;autres logiciels et les exports en PDF. Leur histoire, leurs qualit&#xE9;s et ce qu&#x27;il vaut mieux utiliser aujourd&#x27;hui." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/fr/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/polices-shx" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/shx-fonts" class="">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/Realizations/">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses/">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels/">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/livres/">Mes livres</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About/">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit/">Revit</a></li><li class="nav-item"><a class="nav-link" href="/fr/familles-revit-objets-bim-fabricants/">Objets BIM</a></li><li class="nav-item"><a class="nav-link" href="/fr/developpement-vault/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao/">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Polices SHX : d\u0027o\u00F9 elles viennent, et pourquoi leur pr\u00E9f\u00E9rer les TrueType",
+        "description": "Les polices SHX d\u0027AutoCAD imitent l\u0027\u00E9criture des dessinateurs \u00E0 la planche et restent lisibles en tout petit. Mais elles compliquent les \u00E9changes avec d\u0027autres logiciels et les exports en PDF. Leur histoire, leurs qualit\u00E9s et ce qu\u0027il vaut mieux utiliser aujourd\u0027hui.",
+        "datePublished": "2026-10-22T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/fr/blog/polices-shx",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/polices-shx",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog/"},{"@type":"ListItem","position":3,"name":"Polices SHX : d'où elles viennent, et pourquoi leur préférer les TrueType","item":"https://wiip.fr/fr/blog/polices-shx"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Polices SHX : d&#x27;o&#xF9; elles viennent, et pourquoi leur pr&#xE9;f&#xE9;rer les TrueType</h1>
+                    <small class="text-muted">jeudi 22 octobre 2026</small><div class="mt-2"><a href="/fr/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a><a href="/fr/tags/pdf" class="badge bg-primary me-1 text-decoration-none">PDF</a></div></header>
+                <div class="mt-3"><p>Ouvrez un vieux plan DWG : il y a de bonnes chances que ses textes soient écrits en <code>romans.shx</code>, <code>simplex.shx</code>, <code>txt.shx</code> ou <code>isocp.shx</code>. Ces polices au trait fin et anguleux font partie du paysage d'AutoCAD depuis toujours. Elles ont de vraies qualités, mais elles posent aussi des problèmes dès que le dessin sort d'AutoCAD.</p>
+<p><img src="Content/fr/blog/media/texte-txt-shx.webp" alt="Un texte écrit avec la police txt.shx dans AutoCAD" /></p>
+<p><em>Un texte écrit avec <code>txt.shx</code>, la police par défaut historique d'AutoCAD.</em></p>
+<h2 id="une-invention-de-lepoque-ou-rien-nexistait">Une invention de l'époque où rien n'existait</h2>
+<p>AutoCAD est sorti en décembre 1982. À ce moment-là, il n'existait pas de format standard de police vectorielle sur micro-ordinateur. PostScript et ses polices Type 1 n'arriveront qu'en 1984-1985, d'abord pour les imprimantes laser. TrueType, conçu par Apple, n'est intégré à Windows qu'avec Windows 3.1, en 1992.</p>
+<p>Autodesk a donc créé son propre format. Une police SHX est la version compilée d'un fichier de formes <code>.shp</code>. Chaque caractère y est décrit comme une suite de déplacements de plume : tracer tant d'unités dans telle direction, lever la plume, avancer, redescendre.</p>
+<p><img src="Content/fr/blog/media/shx-directions-plume.webp" alt="Les seize directions d'un vecteur dans un fichier de formes, numérotées de 0 à F" /></p>
+<p><em>Les seize directions qu'un octet de vecteur peut coder, numérotées en hexadécimal de 0 (vers la droite) à F, dans le sens trigonométrique. Les directions intermédiaires ne sont pas à 22,5° : la direction 1, par exemple, avance de deux unités pour une de hauteur.</em></p>
+<p>C'est exactement le langage d'une table traçante à plumes, le périphérique de sortie des bureaux d'études de l'époque.</p>
+<p>La plupart de ces polices sont <strong>mono-trait</strong> : une lettre n'a pas de contour à remplir, elle est faite de simples traits. La plume la trace en un seul passage, rapidement, avec l'épaisseur du stylo choisi. Une police à contour, au contraire, aurait obligé la table traçante à dessiner le pourtour de chaque lettre, puis à la remplir.</p>
+<h2 id="pourquoi-les-dessinateurs-les-aiment">Pourquoi les dessinateurs les aiment</h2>
+<h3 id="elles-ressemblent-a-lecriture-a-la-planche">Elles ressemblent à l'écriture à la planche</h3>
+<p>Avant la CAO, les textes d'un plan s'écrivaient à la main, ou au <strong>normographe</strong> : un gabarit en plastique percé de lettres, que l'on suivait avec un stylo à pointe tubulaire. Le résultat était une écriture régulière, à trait constant, sans empattements. La norme ISO 3098 en fixe encore aujourd'hui les proportions.</p>
+<p><img src="Content/fr/blog/media/normographes-standardgraph.webp" alt="Normographes Standardgraph conformes à la norme ISO 3098, pour des hauteurs de 2,5 à 7 mm" /></p>
+<p><em>Normographes Standardgraph pour l'écriture ISO 3098 — photo <a href="https://commons.wikimedia.org/wiki/File:Standardgraph_2522_2.5%E2%80%937_mm_lettering_guides.jpg">Lucasbosch</a>, licence CC BY-SA 3.0.</em></p>
+<p>Les polices SHX reproduisent cette écriture : <code>isocp.shx</code> suit la norme ISO 3098, <code>romans.shx</code> et <code>simplex.shx</code> en sont proches. Un plan annoté avec elles ressemble à un plan de dessinateur. Ce n'est pas qu'une question de nostalgie : c'est l'écriture que tout le monde, dans un atelier ou sur un chantier, a l'habitude de lire sur un plan.</p>
+<h3 id="elles-restent-lisibles-en-petit-et-prennent-peu-de-place">Elles restent lisibles en petit, et prennent peu de place</h3>
+<p>Un trait fin et constant reste net à 2 mm de hauteur, là où une police à contour se bouche ou s'empâte. Les lettres sont étroites, ce qui permet de loger une cote, un repère ou une note dans un espace réduit. Enfin, l'épaisseur du texte est celle de la plume ou de l'épaisseur de ligne affectée : le texte s'accorde au reste du dessin.</p>
+<h2 id="ce-qui-coince-les-echanges-et-le-pdf">Ce qui coince : les échanges et le PDF</h2>
+<h3 id="les-autres-logiciels-de-cao">Les autres logiciels de CAO</h3>
+<p>Un fichier DWG n'embarque pas les polices qu'il utilise : il ne contient que le <strong>nom</strong> du fichier de police. Pour afficher le texte comme prévu, il faut que le poste qui ouvre le dessin dispose du même fichier <code>.shx</code>.</p>
+<p>C'est déjà un souci entre deux postes AutoCAD, dès qu'une police SHX personnalisée ou achetée à un tiers manque. AutoCAD la remplace alors par la police désignée par la variable <code>FONTALT</code>, souvent <code>simplex.shx</code>. Les longueurs de texte changent, les textes débordent de leur cartouche ou de leur cadre.</p>
+<p>Avec un autre logiciel de CAO, c'est pire. Le format SHX est propre à Autodesk : chaque logiciel qui importe un DWG doit l'interpréter lui-même, fournir ses propres équivalents des polices d'AutoCAD, ou se rabattre sur une police de substitution. Le texte arrive, mais rarement à l'identique.</p>
+<h3 id="lexport-en-pdf">L'export en PDF</h3>
+<p>Le PDF sait embarquer des polices Type 1, TrueType et OpenType. Il ne connaît pas le format SHX. À l'export, AutoCAD n'a donc pas d'autre choix que de <strong>convertir chaque caractère SHX en traits</strong>. Visuellement, le résultat est fidèle. Mais pour le PDF, ce texte n'est plus du texte :</p>
+<ul>
+<li>on ne peut ni le rechercher ni le sélectionner dans le lecteur PDF ;</li>
+<li>on ne peut pas le copier pour le coller ailleurs ;</li>
+<li>il échappe à l'indexation et aux outils d'accessibilité ;</li>
+<li>un PDF ré-importé dans un logiciel de CAO rend des segments, pas des textes modifiables.</li>
+</ul>
+<p>AutoCAD propose un palliatif : la variable <code>PDFSHX</code> ajoute au PDF, en plus des traits, le texte SHX sous forme de commentaires invisibles, ce qui le rend à nouveau recherchable. De même, <code>PDFSHXTEXT</code> tente de reconstituer des textes à partir des traits d'un PDF importé. Ce sont des rustines qui ne fonctionnent pas dans tous les lecteurs ni dans tous les logiciels.</p>
+<h2 id="ce-quil-vaut-mieux-utiliser">Ce qu'il vaut mieux utiliser</h2>
+<p>Pour un dessin qui doit être échangé ou publié en PDF, préférez les <strong>polices TrueType</strong> (<code>.ttf</code>) ou OpenType. Le fichier de police reste externe au DWG, mais tous les logiciels de CAO savent lire une police TrueType, et le PDF peut l'embarquer : le texte reste du texte.</p>
+<p>Le choix le plus sûr est une police <strong>disponible partout</strong> :</p>
+<ul>
+<li>les polices proches des polices de base du PDF, comme Arial (équivalent de Helvetica), qu'un lecteur PDF sait afficher même quand elles ne sont pas embarquées ;</li>
+<li>les polices livrées avec Windows, présentes sur tous les postes ;</li>
+<li>pour garder l'écriture normalisée des plans, <code>isocpeur.ttf</code>, que l'installation d'AutoCAD dépose dans les polices de Windows, et qui est l'équivalent TrueType de <code>isocp.shx</code>, en vérifiant que le destinataire dispose de la police.</li>
+</ul>
+<p>Avant d'embarquer une police dans un PDF que vous diffusez, vérifiez aussi que sa licence l'autorise.</p>
+<p>Pour convertir des dessins existants, il suffit le plus souvent de modifier les <strong>styles de texte</strong> (<code>STYLE</code>) pour qu'ils pointent vers une police TrueType : tous les textes et cotes qui utilisent ce style suivent. Sur un grand nombre de fichiers, l'opération s'automatise.</p>
+<p>Les polices SHX ont rendu de grands services. Elles restent pertinentes pour un plan qui ne quitte pas AutoCAD et part sur une table traçante. Mais un plan qui circule aujourd'hui finit presque toujours en PDF ou dans un autre logiciel : autant lui donner une police que tout le monde sait lire.</p>
+<aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> <strong>Besoin d'un développement AutoCAD ?</strong></p>
+<p>AutoLISP, ObjectARX, .NET, VBA — je développe vos outils sur mesure.</p>
+<p><a href="mailto:contact@wiip.fr">Demander un devis gratuit</a></p>
+</aside>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/vault-autocad-empty-ribbon" class="text-decoration-none">Onglet Vault vide dans AutoCAD : l&#x27;onglet est l&#xE0;, mais aucun bouton</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-wildcards" class="text-decoration-none">Les caract&#xE8;res joker (wildcards) dans AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-versions" class="text-decoration-none">Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-units" class="text-decoration-none">Comprendre les unit&#xE9;s dans AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-2027" class="text-decoration-none">AutoCAD 2027 est sorti</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/mistral-large-4-cao" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>Mistral Large 4 sait-il vraiment passer d&#x27;un plan 2D &#xE0; un mod&#xE8;le 3D ?</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/fr/TermsOfUse/">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lisp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
