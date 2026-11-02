@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=64b4fe3b7757" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>&quot;Open with&quot;: telling AutoCAD versions apart in Windows - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/autocad-open-with-versions" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/autocad-open-with-versions" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/autocad-ouvrir-avec-versions" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/autocad-ouvrir-avec-versions" />
+        <meta name="description" content="Several AutoCAD versions on the same computer, and the &quot;Open with&quot; menu of a DWG only shows identical &quot;AutoCAD Application&quot; entries. Where that name comes from, and how to display &quot;AutoCAD 2025&quot;, &quot;AutoCAD 2026&quot;&#x2026; without administrator rights." />
+        <meta property="og:title" content="&quot;Open with&quot;: telling AutoCAD versions apart in Windows" />
+        <meta property="og:description" content="Several AutoCAD versions on the same computer, and the &quot;Open with&quot; menu of a DWG only shows identical &quot;AutoCAD Application&quot; entries. Where that name comes from, and how to display &quot;AutoCAD 2025&quot;, &quot;AutoCAD 2026&quot;&#x2026; without administrator rights." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/autocad-open-with-versions" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="&quot;Open with&quot;: telling AutoCAD versions apart in Windows" />
+        <meta name="twitter:description" content="Several AutoCAD versions on the same computer, and the &quot;Open with&quot; menu of a DWG only shows identical &quot;AutoCAD Application&quot; entries. Where that name comes from, and how to display &quot;AutoCAD 2025&quot;, &quot;AutoCAD 2026&quot;&#x2026; without administrator rights." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/en/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/en/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/autocad-ouvrir-avec-versions" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/autocad-open-with-versions" class="active">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/custom-cad-bim-software-development/">Custom development</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/Realizations/">Examples of Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/questions-answers/">Q&amp;A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/tutorials/">Tutorials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/books/">My books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/About/">About</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/inventor-development/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development/">Revit</a></li><li class="nav-item"><a class="nav-link" href="/en/vault-development/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/aps-development/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/cam-development/">CAM</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "\\\u0022Open with\\\u0022: telling AutoCAD versions apart in Windows",
+        "description": "Several AutoCAD versions on the same computer, and the \\\u0022Open with\\\u0022 menu of a DWG only shows identical \\\u0022AutoCAD Application\\\u0022 entries. Where that name comes from, and how to display \\\u0022AutoCAD 2025\\\u0022, \\\u0022AutoCAD 2026\\\u0022\u2026 without administrator rights.",
+        "datePublished": "2026-10-25T00:00:00\u002B02:00",
+        "url": "https://wiip.fr/en/blog/autocad-open-with-versions",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/autocad-open-with-versions",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog/"},{"@type":"ListItem","position":3,"name":"\"Open with\": telling AutoCAD versions apart in Windows","item":"https://wiip.fr/en/blog/autocad-open-with-versions"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>&quot;Open with&quot;: telling AutoCAD versions apart in Windows</h1>
+                    <small class="text-muted">Sunday, October 25, 2026</small><div class="mt-2"><a href="/en/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/windows" class="badge bg-primary me-1 text-decoration-none">Windows</a></div></header>
+                <div class="mt-3"><p>You have several versions of AutoCAD installed: last year's for a customer who hasn't upgraded yet, the new one for everything else. You right-click a DWG file, choose <strong>Open with</strong>… and this is what Windows offers:</p>
+<p><img src="Content/en/blog/media/open-with-autocad-before.webp" alt="The &quot;Open with&quot; submenu of a DWG: four identical &quot;AutoCAD Application&quot; entries" /></p>
+<p><em>Four AutoCAD versions installed, four &quot;AutoCAD Application&quot; entries. Which one is AutoCAD 2026?</em></p>
+<p>The four entries have the same name and the same icon. There is no way to know which version will start without trying. In this article, we'll see why Windows shows that name, then how to get this:</p>
+<p><img src="Content/en/blog/media/open-with-autocad-after.webp" alt="The same submenu after the fix: AutoCAD 2024, 2025, 2026 and 2027" /></p>
+<p><em>The same menu, once each entry is named after its version.</em></p>
+<p><em>(The screenshots come from a French Windows: &quot;Ouvrir avec&quot; is &quot;Open with&quot;, &quot;Choisir une autre application&quot; is &quot;Choose another app&quot;.)</em></p>
+<p>The fix <strong>does not require administrator rights</strong>: it only touches your user profile, and a single command undoes it.</p>
+<blockquote>
+<p>Double-clicking a DWG goes through a small Autodesk program, AutoCAD Launcher, which opens the last AutoCAD you used. We explain it in <a href="/en/questions-answers/autocad-launcher">What is AutoCAD Launcher?</a>. This article deals with the <strong>Open with</strong> menu, which is precisely there to pick another version.</p>
+</blockquote>
+<h2 id="where-does-autocad-application-come-from">Where does &quot;AutoCAD Application&quot; come from?</h2>
+<p>Each AutoCAD version registers a <strong>ProgID</strong> (programmatic identifier) in the Windows registry, for example <code>acad.9101.40C</code>. It tells Windows which executable to start to open a DWG (<code>C:\Program Files\Autodesk\AutoCAD 2026\acad.exe</code>, for instance).</p>
+<p>To decide which <strong>name</strong> to show in the menu, File Explorer first looks for a <code>FriendlyAppName</code> value on that ProgID. AutoCAD doesn't set one. File Explorer then falls back on the executable's <strong>file description</strong>, the one you see in the <strong>Details</strong> tab of the properties of <code>acad.exe</code>. And from version 2024 to version 2027 at least, that description is the same for all of them: &quot;AutoCAD Application&quot;.</p>
+<p>Windows then caches that name in the key:</p>
+<pre><code>HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache
+</code></pre>
+<p>There's no need to edit that cache: a <code>FriendlyAppName</code> value set on the ProgID takes precedence over it.</p>
+<h2 id="the-fix-a-friendlyappname-value">The fix: a <code>FriendlyAppName</code> value</h2>
+<p>All you need is to add, for each AutoCAD ProgID, a <code>FriendlyAppName</code> string value in the key:</p>
+<pre><code>HKEY_CURRENT_USER\Software\Classes\&lt;ProgID&gt;\shell\open
+</code></pre>
+<p>containing the name to display: <code>AutoCAD 2026</code>.</p>
+<p>Nothing else changes: the open command, the default DWG association and double-clicking stay as they are. The only effect is the name displayed in <strong>Open with</strong>.</p>
+<p>You can do it by hand in the Registry Editor, or with the script we provide below, which finds the right ProgIDs on its own.</p>
+<h3 id="by-hand-with-the-registry-editor">By hand, with the Registry Editor</h3>
+<p>This method is fine if you only have two or three versions to rename.</p>
+<ol>
+<li>Press <strong>Windows + R</strong>, type <code>regedit</code> and confirm. If Windows asks for confirmation, accept: you will stay within your own profile.</li>
+<li>In the address bar at the top of the Registry Editor, paste <code>HKEY_CURRENT_USER\Software\Classes\.dwg\OpenWithProgids</code> and press <strong>Enter</strong>.</li>
+<li>The right pane lists names such as <code>acad.8101.40C</code> or <code>acad.9101.40C</code>: these are the ProgIDs registered for DWG files. Write down those starting with <code>acad.</code>.</li>
+<li>For each one, paste <code>HKEY_CURRENT_USER\Software\Classes\acad.9101.40C\shell\open\command</code> in the address bar (replacing <code>acad.9101.40C</code> with the ProgID you noted). The <strong>(Default)</strong> value gives the executable's path: the <code>AutoCAD 2026</code> folder tells you the version.</li>
+<li>Go up one level, to the <code>shell\open</code> key. Right-click in the right pane, <strong>New</strong> &gt; <strong>String Value</strong>, name it <code>FriendlyAppName</code>, then double-click it and type <code>AutoCAD 2026</code>.</li>
+<li>Close the <strong>Open with</strong> menu if it was open, then open it again: the new name shows up.</li>
+</ol>
+<p>If there is no <code>shell\open</code> key under <code>HKEY_CURRENT_USER\Software\Classes\&lt;ProgID&gt;</code>, that ProgID was registered for the whole machine: renaming it would require administrator rights. Leave it alone.</p>
+<p>To undo, simply delete the <code>FriendlyAppName</code> value.</p>
+<h3 id="with-the-powershell-script">With the PowerShell script</h3>
+<p>The <strong>RenameDwgOpenWith.ps1</strong> script does the same thing for every installed version at once:</p>
+<ul>
+<li>it reads the list of ProgIDs associated with DWG files;</li>
+<li>it keeps those whose executable is an <code>acad.exe</code> installed in an <code>AutoCAD YYYY</code> folder;</li>
+<li>it derives the name <code>AutoCAD YYYY</code> and writes it as <code>FriendlyAppName</code>.</li>
+</ul>
+<p>By default, it <strong>changes nothing</strong>: it shows what it would do. It only writes with the <code>-Apply</code> switch, after backing up every key it is about to touch. The <code>-Undo</code> switch removes the names it set.</p>
+<blockquote>
+<p><strong>Disclaimer.</strong> This script is provided free of charge, as is, without any warranty. We tested it on a Windows 11 computer with AutoCAD 2024, 2025, 2026 and 2027 installed, but we cannot guarantee how it will behave on your configuration. It modifies the Windows registry, only in your user profile (<code>HKEY_CURRENT_USER</code>). Always run the simulation first, read what it reports, and keep the backups it creates. You use it at your own risk.</p>
+</blockquote>
+<h4 id="step-1-download-the-script">Step 1: download the script</h4>
+<ol>
+<li><a href="/downloads/en/RenameDwgOpenWith.ps1">Download RenameDwgOpenWith.ps1</a>. If your browser shows the text instead of downloading the file, right-click the link and choose <strong>Save link as</strong>.</li>
+<li>Create a dedicated folder, for example <code>Documents\Scripts</code>, and put the file there. The registry backups will be created next to it, in a <code>Backups</code> subfolder.</li>
+</ol>
+<p>It's a plain text file: you can open it in Notepad and read it before running it. We encourage you to.</p>
+<h4 id="step-2-open-a-terminal-in-that-folder">Step 2: open a terminal in that folder</h4>
+<ol>
+<li>Open the <code>Documents\Scripts</code> folder in File Explorer.</li>
+<li>Right-click an empty area of the folder and choose <strong>Open in Terminal</strong>. A window opens, with a prompt ending in <code>Scripts&gt;</code>.</li>
+</ol>
+<p><strong>Don't open the terminal as administrator.</strong> The script writes to your profile: run as administrator, it would write to the administrator account's profile, and you would see no change.</p>
+<h4 id="step-3-simulate">Step 3: simulate</h4>
+<p>Copy this command, paste it in the terminal (right-click or <strong>Ctrl+V</strong>) and press <strong>Enter</strong>:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\RenameDwgOpenWith.ps1
+</code></pre>
+<p>By default, Windows refuses to run downloaded PowerShell scripts. <code>-ExecutionPolicy Bypass</code> lifts that restriction for this single command, without changing your computer's settings.</p>
+<p>The script displays three things:</p>
+<ul>
+<li><strong>Before</strong>: the current entries of the <strong>Open with</strong> menu, each followed by the program it starts. You'll see the <code>AutoCAD Application</code> lines there, with their paths.</li>
+<li><strong>ProgIDs to rename</strong>: a table giving, for each ProgID, its current name (empty), the name it will get (<code>AutoCAD 2026</code>) and the matching executable. Check that each name matches the executable's folder.</li>
+<li>The line <strong>Simulation: nothing has been changed</strong>.</li>
+</ul>
+<p>If the table is empty, there's nothing to rename: either it's already done, or your AutoCAD versions are registered machine-wide (the script then says so in a yellow warning).</p>
+<h4 id="step-4-apply">Step 4: apply</h4>
+<p>If the table looks right, run the same command again with <code>-Apply</code>:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\RenameDwgOpenWith.ps1 -Apply
+</code></pre>
+<p>The script:</p>
+<ol>
+<li>exports each key it is about to change to a <code>.reg</code> file in the <code>Backups</code> subfolder (one <strong>Backup:</strong> line per file). If a backup fails, it stops without writing anything;</li>
+<li>writes the names;</li>
+<li>tells File Explorer that file associations have changed;</li>
+<li>lists the menu again, in the <strong>After</strong> section: you should read <code>AutoCAD 2024</code>, <code>AutoCAD 2025</code>…</li>
+</ol>
+<p>Close the <strong>Open with</strong> menu if it was open and open it again. There's no need to restart File Explorer or log off.</p>
+<p>If DWG TrueView is installed too, add <code>-IncludeTrueView</code> (in simulation, then with <code>-Apply</code>) so it shows as &quot;DWG TrueView 2024&quot; instead of &quot;DWG TrueView Application&quot;.</p>
+<h4 id="undoing">Undoing</h4>
+<p>From the same folder:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\RenameDwgOpenWith.ps1 -Undo
+</code></pre>
+<p>The script only removes the names it set itself: a <code>FriendlyAppName</code> you typed by hand, different from its own, stays in place. Add <code>-IncludeTrueView</code> if you used it.</p>
+<p>The <code>.reg</code> files in the <code>Backups</code> folder are a second safety net: double-clicking one of them restores the corresponding key to the state it was in before <code>-Apply</code>.</p>
+<h4 id="after-an-autocad-update">After an AutoCAD update</h4>
+<p>A repair, an update or the installation of a new version may rewrite the ProgIDs. If &quot;AutoCAD Application&quot; entries come back, simply run the script again with <code>-Apply</code>: it only writes the missing names.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Symptom</strong></td>
+<td>Several identical &quot;AutoCAD Application&quot; entries in <strong>Open with</strong></td>
+</tr>
+<tr>
+<td><strong>Cause</strong></td>
+<td>AutoCAD's ProgID provides no name; File Explorer uses the description of <code>acad.exe</code>, the same for every version</td>
+</tr>
+<tr>
+<td><strong>Fix</strong></td>
+<td>A <code>FriendlyAppName</code> string value under <code>HKEY_CURRENT_USER\Software\Classes\&lt;ProgID&gt;\shell\open</code></td>
+</tr>
+<tr>
+<td><strong>Rights required</strong></td>
+<td>None: user profile only</td>
+</tr>
+<tr>
+<td><strong>Undo</strong></td>
+<td>Delete the value, or <code>RenameDwgOpenWith.ps1 -Undo</code></td>
+</tr>
+</tbody>
+</table>
+<aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Helping hand" /> <strong>Need AutoCAD development?</strong></p>
+<p>AutoLISP, ObjectARX, .NET, VBA — I build your custom tools.</p>
+<p><a href="mailto:contact@wiip.fr">Request a free quote</a></p>
+</aside>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/shx-fonts" class="text-decoration-none">SHX fonts: where they come from, and why TrueType is a better choice</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/vault-autocad-empty-ribbon" class="text-decoration-none">Empty Vault tab in AutoCAD: the tab is there, but no buttons</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-wildcards" class="text-decoration-none">Wildcard characters in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-versions" class="text-decoration-none">AutoCAD versions: releases, .NET, DWG and code names</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-units" class="text-decoration-none">Understanding units in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/shx-fonts" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>SHX fonts: where they come from, and why TrueType is a better choice</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/en/TermsOfUse/">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

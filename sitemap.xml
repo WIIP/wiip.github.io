@@ -51,6 +51,12 @@
     <loc>https://wiip.fr/en/ContactMerci/</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/developpement-sur-mesure-cao-bim/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/custom-cad-bim-software-development/</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/</loc>
   </url>
   <url>
@@ -112,6 +118,9 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/autocad-2027</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/blog/autocad-ouvrir-avec-versions</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/blog/autocad-units</loc>
@@ -225,6 +234,9 @@
     <loc>https://wiip.fr/fr/tags/autocad</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/windows</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/objectarx</loc>
   </url>
   <url>
@@ -265,9 +277,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/optimisation</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/windows</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/pdf</loc>
@@ -428,6 +437,9 @@
     <loc>https://wiip.fr/en/blog/0x80004005</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/autocad-open-with-versions</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/autocad-units</loc>
   </url>
   <url>
@@ -545,6 +557,9 @@
     <loc>https://wiip.fr/en/tags/cad</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/tags/windows</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/tags/objectarx</loc>
   </url>
   <url>
@@ -582,9 +597,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/geometry</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/windows</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/dwg</loc>

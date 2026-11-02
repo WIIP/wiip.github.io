@@ -32,7 +32,8 @@
                             <div class="language-switcher"><a href="/fr/blog/configuration-de-vault-avec-inventor" class="">FR</a>
     <span class="separator">|</span>
     <a href="/en/blog/configuring-vault-with-inventor" class="active">EN</a></div></div></div>
-                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/Realizations/">Examples of Achievements</a></li>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/custom-cad-bim-software-development/">Custom development</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/Realizations/">Examples of Achievements</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/blog/">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/questions-answers/">Q&amp;A</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/tutorials/">Tutorials</a></li>
@@ -76,13 +77,13 @@
 <p>The first step is to create the vault. Nothing complicated here, just open <strong>Autodesk Data Management Server Console</strong> on the server and choose <strong>Create</strong>.</p>
 <p>It's actually the creation of the Inventor project (.ipj) that has a pitfall.</p>
 <p>Start by choosing the <strong>Vault</strong> type:</p>
-<p><img src="media/creation-projet-inventor-type-de-projet.webp" alt="Choosing the Vault type" /></p>
+<p><img src="Content/en/blog/media/inventor-project-creation-project-type.webp" alt="Choosing the Vault type" /></p>
 <p>Then the project name. Typically, you choose your organization's name. Here for the example, I'll name my project <strong>WIIP</strong>:</p>
-<p><img src="media/creation-projet-inventor-nom-du-projet.webp" alt="Choosing the project name" /></p>
+<p><img src="Content/en/blog/media/inventor-project-creation-project-name.webp" alt="Choosing the project name" /></p>
 <p>This will create a file <code>C:\Users\Maxence\Documents\Inventor\WIIP\WIIP.ipj</code> and the workspace will be set to <code>C:\Users\Maxence\Documents\Inventor\WIIP\</code>. Often, people prefer a shorter path like <code>C:\WIIP</code>, it's up to you.</p>
 <p>On the next screen, you can choose libraries, but I won't go into detail on that — it's not where the problem lies.</p>
 <p>The issue comes next, with folder mapping. To start working, you need to map local folders to Vault's virtual folders.</p>
-<p><img src="media/mappage-des-dossiers.webp" alt="Choosing folder mapping" /></p>
+<p><img src="Content/en/blog/media/folder-mapping.webp" alt="Choosing folder mapping" /></p>
 <p>At this point, you'd think you can just map the project root to <code>$</code>, but you get the infamous message:</p>
 <blockquote>
 <p>Invalid selection. You cannot map a Vault project to the root if the project does not contain a workspace.</p>
@@ -98,7 +99,7 @@
 </code></pre>
 <p>You can name this subfolder whatever you want, but you need one.</p>
 <p>This subfolder must also exist in your local workspace. After creating the project, you need to modify the workspace so that it includes the subfolder:</p>
-<p><img src="media/modification-espace-de-travail.webp" alt="Modifying the project" /></p>
+<p><img src="Content/en/blog/media/workspace-modification.webp" alt="Modifying the project" /></p>
 <p>Once this is done, you can then create the mapping <strong>Project root</strong> → <code>$</code></p>
 <p>After that, created files will go by default into the <code>Designs</code> subfolder. When checked in, they will be placed in <code>$/Designs</code>. Your .ipj file will remain in <code>$</code>.</p>
 <p>Finally, don't forget that in the Vault client, you also need to set the working folder (File, Set Working Folder...) to make sure both applications use the same folder.</p>
