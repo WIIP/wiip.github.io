@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
-    <link rel="stylesheet" href="css/app.css?v=64b4fe3b7757" />
+    <link rel="stylesheet" href="css/app.css?v=ce53ea9b2233" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
     <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
@@ -15,11 +15,11 @@
     
     <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
     <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
-    <title>Custom Revit Development - WIIP</title><link rel="canonical" href="https://wiip.fr/en/revit-development/" />
+    <title>Custom Revit Add-in Development - WIIP</title><link rel="canonical" href="https://wiip.fr/en/revit-development/" />
 <link rel="alternate" hreflang="en" href="https://wiip.fr/en/revit-development/" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/developpement-revit/" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/developpement-revit/" />
-    <meta name="description" content="Custom Revit plugin development in C#/.NET, Dynamo and pyRevit. BIM automation, data extraction and add-ins for Autodesk Revit." />
-    <meta property="og:title" content="Custom Revit Development - WIIP" />
-    <meta property="og:description" content="Custom Revit plugin development in C#/.NET, Dynamo and pyRevit. BIM automation, data extraction and add-ins for Autodesk Revit." />
+    <meta name="description" content="Custom Revit add-in development in C#/.NET, Dynamo and pyRevit: BIM automation and data extraction. Autodesk Authorized Developer serving clients across Europe." />
+    <meta property="og:title" content="Custom Revit Add-in Development - WIIP" />
+    <meta property="og:description" content="Custom Revit add-in development in C#/.NET, Dynamo and pyRevit: BIM automation and data extraction. Autodesk Authorized Developer serving clients across Europe." />
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wiip.fr/en/revit-development/" />
     <meta property="og:site_name" content="WIIP"></head>
@@ -38,7 +38,9 @@
                         <li class="nav-item"><a class="nav-link" href="/en/About/">About</a></li></ul>
                     <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/en/autocad-development/">AutoCAD</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/inventor-development/">Inventor</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/en/revit-development/">Revit</a></li><li class="nav-item"><a class="nav-link" href="/en/vault-development/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-development/">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/revit-families-bim-objects-manufacturers/">BIM objects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/en/vault-development/">Vault</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/aps-development/">APS</a></li>
                         <li class="nav-item"><a class="nav-link" href="/en/cam-development/">CAM</a></li></ul></nav></div></div>
         <main>
@@ -48,8 +50,8 @@
 {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Custom Revit Development",
-    "description": "Custom Revit plugin development in C#/.NET, Dynamo and pyRevit. BIM automation, data extraction and add-ins for Autodesk Revit.",
+    "name": "Custom Revit Add-in Development",
+    "description": "Custom Revit add-in development in C#/.NET, Dynamo and pyRevit: BIM automation and data extraction. Autodesk Authorized Developer serving clients across Europe.",
     "provider": {
         "@type": "Organization",
         "name": "WIIP",
@@ -60,12 +62,13 @@
 }
 </script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Custom Revit Development","item":"https://wiip.fr/en/revit-development/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Custom Revit Add-in Development","item":"https://wiip.fr/en/revit-development/"}]}</script>
 
 <div class="row mt-4 justify-content-center"><div class="col"><h1 id="custom-revit-development">Custom Revit Development</h1>
 <p><img src="/img/revit.webp" alt="Custom Revit development" /></p>
 <p>I help engineering firms and construction companies develop <strong>custom Revit add-ins</strong>. My goal: automate repetitive tasks in your BIM model, make your processes more reliable, improve user comfort and reduce the risk of errors.</p>
 <p>Revit is at the heart of the BIM workflow. Custom developments allow you to get the most out of it: data extraction, automatic document generation, compliance checks...</p>
+<p>Are you a <strong>manufacturer</strong> who wants to publish your products as BIM objects? See <a href="/en/revit-families-bim-objects-manufacturers/">Revit families and BIM objects for manufacturers</a>.</p>
 <hr />
 <h2 id="technologies">Technologies</h2>
 <h3 id="c.net-revit-api">C# / .NET (Revit API)</h3>

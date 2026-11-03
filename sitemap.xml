@@ -21,6 +21,9 @@
     <loc>https://wiip.fr/fr/familles-revit-objets-bim-fabricants/</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/revit-families-bim-objects-manufacturers/</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/</loc>
   </url>
   <url>
@@ -31,6 +34,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/books/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/integration-cao-pdm-erp/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/cad-pdm-erp-integration/</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/developpement-fao/</loc>
@@ -57,6 +66,18 @@
     <loc>https://wiip.fr/en/custom-cad-bim-software-development/</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/generation-automatique-plans-cao/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/automated-cad-drawing-generation/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/engineering-design-automation/</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/</loc>
   </url>
   <url>
@@ -70,6 +91,12 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/inventor-development/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/configurateur-produit-cao/</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/cad-product-configurator-development/</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/questions-reponses/</loc>

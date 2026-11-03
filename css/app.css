@@ -555,6 +555,24 @@ article img,
     height: auto;
 }
 
+/* Illustration d'une page de services, avec sa légende (« Maquette d'illustration »). */
+.page-figure {
+    margin: 1.5rem 0;
+}
+
+.page-figure img {
+    display: block;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.page-figure figcaption {
+    margin-top: .4rem;
+    font-size: .875rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
 /* --- Badges / tags ---------------------------------------- */
 .badge {
     font-family: 'Space Grotesk', sans-serif;

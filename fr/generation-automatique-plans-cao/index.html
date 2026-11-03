@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=ce53ea9b2233" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>G&#xE9;n&#xE9;ration automatique de plans et d&#x27;implantations - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/generation-automatique-plans-cao/" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/generation-automatique-plans-cao/" /><link rel="alternate" hreflang="en" href="https://wiip.fr/en/automated-cad-drawing-generation/" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/generation-automatique-plans-cao/" />
+    <meta name="description" content="G&#xE9;n&#xE9;ration automatique de plans et d&#x27;implantations dans AutoCAD ou votre logiciel de CAO : vos r&#xE8;gles m&#xE9;tier produisent plans, quantit&#xE9;s et nomenclatures. Devis au forfait." />
+    <meta property="og:title" content="G&#xE9;n&#xE9;ration automatique de plans et d&#x27;implantations - WIIP" />
+    <meta property="og:description" content="G&#xE9;n&#xE9;ration automatique de plans et d&#x27;implantations dans AutoCAD ou votre logiciel de CAO : vos r&#xE8;gles m&#xE9;tier produisent plans, quantit&#xE9;s et nomenclatures. Devis au forfait." />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wiip.fr/fr/generation-automatique-plans-cao/" />
+    <meta property="og:site_name" content="WIIP"></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/fr/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/generation-automatique-plans-cao/" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/automated-cad-drawing-generation/" class="">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-sur-mesure-cao-bim/">D&#xE9;veloppement sur mesure</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/Realizations/">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses/">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels/">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/livres/">Mes livres</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About/">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit/">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/familles-revit-objets-bim-fabricants/">Objets BIM</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao/">FAO</a></li></ul></nav></div></div>
+        <main>
+
+
+<script type="application/ld&#x2B;json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "G\u00E9n\u00E9ration automatique de plans et d\u0027implantations",
+    "description": "G\u00E9n\u00E9ration automatique de plans et d\u0027implantations dans AutoCAD ou votre logiciel de CAO : vos r\u00E8gles m\u00E9tier produisent plans, quantit\u00E9s et nomenclatures. Devis au forfait.",
+    "provider": {
+        "@type": "Organization",
+        "name": "WIIP",
+        "url": "https://wiip.fr"
+    },
+    "serviceType": "Automated CAD drawing generation",
+    "areaServed": "Worldwide"
+}
+</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Développement sur mesure et automatisation CAO/BIM","item":"https://wiip.fr/fr/developpement-sur-mesure-cao-bim/"},{"@type":"ListItem","position":3,"name":"Génération automatique de plans et d'implantations","item":"https://wiip.fr/fr/generation-automatique-plans-cao/"}]}</script>
+
+<div class="row mt-4 justify-content-center"><div class="col"><h1 id="generation-automatique-de-plans-et-dimplantations">Génération automatique de plans et d'implantations</h1>
+<p><strong>Votre bureau d'études redessine chaque semaine des plans qui suivent toujours les mêmes règles : une dalle à coffrer, une parcelle à équiper, un plancher à calepiner, une menuiserie à mettre en plan. Un programme peut produire ces plans à partir des données du projet et de vos règles métier, en quelques secondes, et le dessinateur se consacre à ce qui demande vraiment son jugement.</strong></p>
+<p>Je développe ces outils de génération depuis 2008, pour des industriels et des bureaux d'études en France et ailleurs en Europe. Vous échangez du début à la fin avec la personne qui conçoit et programme le vôtre.</p>
+<figure class="page-figure">
+<img src="/img/generation-plans-maquette-coffrage.webp" width="1200" height="720" alt="Maquette d'un outil de génération de plans de coffrage : les paramètres saisis à gauche, le plan de la dalle avec poutrelles, étais et tours d'étaiement au centre, les quantités à droite" loading="lazy"/>
+<figcaption>Maquette d'illustration — les paramètres à gauche, le plan produit au centre, les quantités à droite.</figcaption>
+</figure>
+<hr />
+<h2 id="ce-qui-se-prete-a-la-generation-automatique">Ce qui se prête à la génération automatique</h2>
+<p>Un plan se génère dès que la façon de le dessiner peut s'écrire sous forme de règles. C'est le cas de beaucoup plus de plans qu'on ne le croit :</p>
+<ul>
+<li><strong>les implantations</strong> : placer des éléments sur un plan selon des contraintes — espacements, reculs, zones interdites, charges admissibles, orientation ;</li>
+<li><strong>les calepinages</strong> : découper une surface en panneaux, en dalles ou en grilles standard, avec les coupes et les chutes ;</li>
+<li><strong>les mises en plan de produits paramétrés</strong> : un produit dont les dimensions et les options changent à chaque commande, mais dont le plan obéit toujours à la même logique ;</li>
+<li><strong>les documents qui en découlent</strong> : cotation, nomenclature, liste de matériel, fiche de débit, cartouche rempli, jeu de feuilles prêt à imprimer.</li>
+</ul>
+<p>Les données d'entrée viennent de là où elles se trouvent déjà : un contour dessiné dans le plan, un fichier Excel ou XML exporté par un autre logiciel, une saisie dans une boîte de dialogue.</p>
+<hr />
+<h2 id="des-plans-a-vos-normes-dans-votre-logiciel">Des plans à vos normes, dans votre logiciel</h2>
+<p>Le plan produit n'est pas une image figée : c'est un dessin de votre logiciel de CAO, avec vos calques, vos styles de cote, vos blocs et votre cartouche. Le dessinateur le reprend comme s'il l'avait dessiné lui-même — il peut corriger un détail, puis relancer la génération quand une donnée change.</p>
+<p>Trois principes guident ces outils :</p>
+<ul>
+<li><strong>la règle est explicite</strong> : chaque choix du programme — une composition de poutrelles, un entraxe, une coupe — découle d'une règle que nous avons écrite ensemble, et qu'on peut relire ;</li>
+<li><strong>les cas limites sont signalés</strong> : quand une situation sort des règles prévues, l'outil le dit au lieu de produire un plan faux sans prévenir ;</li>
+<li><strong>les quantités suivent le dessin</strong> : la liste de matériel est comptée sur le plan produit, et non saisie à part.</li>
+</ul>
+<figure class="page-figure">
+<img src="/img/generation-plans-maquette-implantation-photovoltaique.webp" width="1200" height="720" alt="Maquette d'une implantation de panneaux photovoltaïques générée sur une parcelle : contraintes à gauche, tables de modules placées dans le recul réglementaire en évitant un bâtiment et une haie, nombre de rangées, de modules et puissance calculés" loading="lazy"/>
+<figcaption>Maquette d'illustration — une implantation générée sur une parcelle, avec ses contraintes et son résultat chiffré.</figcaption>
+</figure>
+<hr />
+<h2 id="realisations">Réalisations</h2>
+<p>Ces outils ont été développés pour des industriels et des bureaux d'études. Je tais les noms de mes clients par confidentialité.</p>
+<h3 id="coffrage-horizontal-et-vertical">Coffrage horizontal et vertical</h3>
+<p>Un complément AutoCAD choisit les compositions de poutrelles et positionne les étais ou les tours, horizontalement et verticalement.</p>
+<h3 id="echafaudages">Échafaudages</h3>
+<p>Les échafaudages sont implantés sur le plan, dans AutoCAD, selon les règles du métier.</p>
+<h3 id="panneaux-photovoltaiques">Panneaux photovoltaïques</h3>
+<p>Les tables de modules sont placées automatiquement sur une parcelle, en respectant les contraintes d'orientation et d'espacement.</p>
+<h3 id="caillebotis">Caillebotis</h3>
+<p>Le calepinage des caillebotis est calculé et dessiné automatiquement à partir de la surface à couvrir.</p>
+<h3 id="plans-de-menuiserie">Plans de menuiserie</h3>
+<p>Les plans de clôtures, de portails et de garde-corps sont produits à partir des fichiers XML d'un configurateur commercial : le configurateur gère la vente, le complément produit les plans d'atelier. Voir aussi <a href="/fr/configurateur-produit-cao/">Configurateurs produit sur mesure pour la CAO</a>.</p>
+<p>D'autres exemples, classés par logiciel, sur la page <a href="/fr/Realizations/">Exemples de réalisations</a>.</p>
+<hr />
+<h2 id="selon-votre-logiciel">Selon votre logiciel</h2>
+<p>La plupart de ces outils prennent la forme d'un complément au logiciel de CAO que vos équipes utilisent déjà. Les technologies et les exemples propres à chaque logiciel sont décrits sur sa page :</p>
+<ul>
+<li><strong>AutoCAD</strong>, et ses compatibles BricsCAD et ZWCAD — voir <a href="/fr/developpement-autocad/">Développement AutoCAD sur mesure</a> ;</li>
+<li><strong>Inventor</strong>, pour les mises en plan et les fiches de débit — voir <a href="/fr/developpement-inventor/">Développement Inventor sur mesure</a> ;</li>
+<li><strong>Revit</strong>, pour les feuilles en lot et la cotation — voir <a href="/fr/developpement-revit/">Développement Revit sur mesure</a>.</li>
+</ul>
+<hr />
+<h2 id="comment-se-construit-un-outil-de-generation">Comment se construit un outil de génération</h2>
+<ol>
+<li><strong>Vos plans d'abord</strong> — Nous partons de plans que votre bureau d'études a déjà dessinés, y compris les plus atypiques. Ils disent mieux qu'un cahier des charges ce que l'outil doit produire.</li>
+<li><strong>Les règles</strong> — Nous écrivons ensemble les règles de dessin et de calcul : ce qui se place où, ce qui se choisit selon quoi, ce qui doit être signalé.</li>
+<li><strong>Le prototype sur vos cas</strong> — L'outil génère vos plans réels, que nous comparons à ceux dessinés à la main. Les écarts révèlent les règles qui manquaient.</li>
+<li><strong>Devis au forfait, par phases</strong> — Un premier périmètre, puis l'extension aux autres cas. Chaque phase se commande séparément, au vu du résultat de la précédente.</li>
+</ol>
+<p>Le déroulé complet d'un projet est décrit sur la page <a href="/fr/developpement-sur-mesure-cao-bim/">Développement sur mesure et automatisation CAO/BIM</a>.</p>
+<hr />
+<h2 id="autodesk-authorized-developer">Autodesk Authorized Developer</h2>
+<img src="/img/logo-adn.png" width="150" height="38" alt="Autodesk Authorized Developer"/>
+<p>WIIP est membre du programme <strong>Autodesk Authorized Developer</strong>, qui donne accès aux versions des logiciels Autodesk en avant-première et aux équipes techniques de l'éditeur. Vos outils de génération sont prêts quand sort la version suivante.</p>
+
+
+        <aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> <strong>Des plans à générer automatiquement ?</strong></p>
+<p>Envoyez-moi deux ou trois plans représentatifs et dites-moi d'où viennent leurs données : je vous réponds sous 24 à 48 h ouvrées, et nous fixons un premier échange.</p>
+<p><a href="/fr/Contact/">Parler de vos plans</a></p>
+</aside></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/fr/TermsOfUse/">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>

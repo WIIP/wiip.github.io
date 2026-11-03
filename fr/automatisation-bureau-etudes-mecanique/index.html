@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=ce53ea9b2233" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>Automatisation pour bureaux d&#x27;&#xE9;tudes m&#xE9;caniques - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/" /><link rel="alternate" hreflang="en" href="https://wiip.fr/en/engineering-design-automation/" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/" />
+    <meta name="description" content="Automatisation bureau d&#x27;&#xE9;tudes : mise en plan Inventor, PV de contr&#xF4;le depuis les cotes et tol&#xE9;rances, fiches de d&#xE9;bit, nomenclatures vers l&#x27;ERP. D&#xE9;veloppement sur mesure." />
+    <meta property="og:title" content="Automatisation pour bureaux d&#x27;&#xE9;tudes m&#xE9;caniques - WIIP" />
+    <meta property="og:description" content="Automatisation bureau d&#x27;&#xE9;tudes : mise en plan Inventor, PV de contr&#xF4;le depuis les cotes et tol&#xE9;rances, fiches de d&#xE9;bit, nomenclatures vers l&#x27;ERP. D&#xE9;veloppement sur mesure." />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/" />
+    <meta property="og:site_name" content="WIIP"></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/fr/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/automatisation-bureau-etudes-mecanique/" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/engineering-design-automation/" class="">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-sur-mesure-cao-bim/">D&#xE9;veloppement sur mesure</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/Realizations/">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses/">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels/">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/livres/">Mes livres</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About/">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit/">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/familles-revit-objets-bim-fabricants/">Objets BIM</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao/">FAO</a></li></ul></nav></div></div>
+        <main>
+
+
+<script type="application/ld&#x2B;json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Automatisation pour bureaux d\u0027\u00E9tudes m\u00E9caniques",
+    "description": "Automatisation bureau d\u0027\u00E9tudes : mise en plan Inventor, PV de contr\u00F4le depuis les cotes et tol\u00E9rances, fiches de d\u00E9bit, nomenclatures vers l\u0027ERP. D\u00E9veloppement sur mesure.",
+    "provider": {
+        "@type": "Organization",
+        "name": "WIIP",
+        "url": "https://wiip.fr"
+    },
+    "serviceType": "Engineering design office automation",
+    "areaServed": "Europe"
+}
+</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Développement sur mesure et automatisation CAO/BIM","item":"https://wiip.fr/fr/developpement-sur-mesure-cao-bim/"},{"@type":"ListItem","position":3,"name":"Automatisation pour bureaux d'études mécaniques","item":"https://wiip.fr/fr/automatisation-bureau-etudes-mecanique/"}]}</script>
+
+<div class="row mt-4 justify-content-center"><div class="col"><h1 id="automatisation-pour-bureaux-detudes-mecaniques">Automatisation pour bureaux d'études mécaniques</h1>
+<p><strong>Dans un bureau d'études, la conception ne prend qu'une partie du temps. Le reste part dans les documents qui en découlent : mises en plan, nomenclatures, procès-verbaux de contrôle, fiches de débit, saisies dans l'ERP. Ces documents suivent des règles ; un programme peut les produire à partir de votre modèle, sans ressaisie et sans oubli.</strong></p>
+<p>Je développe ces automatismes depuis 2008 pour des industriels en France et ailleurs en Europe, autour d'Autodesk Inventor et d'Autodesk Vault. Vous échangez du début à la fin avec la personne qui conçoit et programme votre outil.</p>
+<hr />
+<h2 id="ce-qui-sautomatise-dans-un-bureau-detudes">Ce qui s'automatise dans un bureau d'études</h2>
+<h3 id="les-proces-verbaux-de-controle">Les procès-verbaux de contrôle</h3>
+<p>Le dessin porte déjà tout ce que le contrôle doit vérifier : les cotes, leurs tolérances, les tolérances géométriques. Un outil les relève dans la mise en plan, les numérote et produit le procès-verbal — une ligne par caractéristique, avec la valeur nominale, les limites et la colonne où le contrôleur note sa mesure. Le PV suit la révision du plan : plus de tableau recopié à la main, plus de cote oubliée.</p>
+<figure class="page-figure">
+<img src="/img/pv-controle-maquette.webp" width="1200" height="720" alt="Maquette d'un procès-verbal de contrôle : à gauche, la mise en plan d'une pièce avec ses cotes numérotées dans des bulles ; à droite, le tableau des caractéristiques avec la valeur nominale, les tolérances et la colonne des mesures" loading="lazy"/>
+<figcaption>Maquette d'illustration — les cotes numérotées sur le plan, et le procès-verbal produit à partir d'elles.</figcaption>
+</figure>
+<h3 id="les-fiches-de-debit">Les fiches de débit</h3>
+<p>Pour les produits faits de profilés — menuiseries, châssis, structures —, la longueur de chaque barre se déduit du modèle. L'outil en tire la fiche de débit : repère, profil, longueur de coupe, angles, quantité, regroupés par profil comme l'atelier les découpe.</p>
+<figure class="page-figure">
+<img src="/img/fiche-debit-maquette.webp" width="1200" height="720" alt="Maquette d'une fiche de débit : pour chaque profil, les repères, les longueurs de coupe, les angles aux deux extrémités et les quantités, avec la longueur totale à débiter" loading="lazy"/>
+<figcaption>Maquette d'illustration — une fiche de débit regroupée par profil, telle que l'atelier la découpe.</figcaption>
+</figure>
+<h3 id="les-mises-en-plan-et-les-proprietes">Les mises en plan et les propriétés</h3>
+<p>Vues, cartouche, propriétés du fichier, numérotation des pièces selon vos règles : ce que le dessinateur refait à l'identique d'un plan à l'autre se programme dans un complément Inventor. Les technologies disponibles (API .NET, iLogic, Apprentice) sont décrites sur la page <a href="/fr/developpement-inventor/">Développement Inventor sur mesure</a>. Pour des plans entiers produits à partir de règles — coffrages, implantations —, voir <a href="/fr/generation-automatique-plans-cao/">Génération automatique de plans et d'implantations</a>.</p>
+<h3 id="les-nomenclatures-et-le-lien-avec-lerp">Les nomenclatures et le lien avec l'ERP</h3>
+<p>La nomenclature de conception n'est pas celle de fabrication. L'outil la transforme selon vos règles, la contrôle et l'envoie à l'ERP, au moment où le plan est validé dans le PDM. Le sujet a sa page : <a href="/fr/integration-cao-pdm-erp/">Intégration CAO, PDM et ERP sur mesure</a>, et les circuits de validation sont détaillés sur <a href="/fr/developpement-vault/">Développement Vault sur mesure</a>.</p>
+<h3 id="les-produits-sur-mesure-configures">Les produits sur mesure configurés</h3>
+<p>Quand vos commerciaux ou vos clients composent eux-mêmes un produit, un configurateur produit le modèle, la nomenclature et les documents de fabrication en temps réel. Voir <a href="/fr/configurateur-produit-cao/">Configurateurs produit sur mesure pour la CAO</a>.</p>
+<hr />
+<h2 id="exemples-de-realisations">Exemples de réalisations</h2>
+<p>Ces outils ont été développés pour des industriels. Je tais les noms de mes clients par confidentialité.</p>
+<ul>
+<li><strong>Procès-verbaux de contrôle</strong> — Dans Inventor, les cotes et les tolérances géométriques des mises en plan sont relevées pour produire automatiquement le procès-verbal de contrôle qualité.</li>
+<li><strong>Fiches de débit</strong> — Les documents de découpe de profilés de menuiserie sont produits automatiquement à partir du modèle.</li>
+<li><strong>Lien avec l'ERP</strong> — Les nomenclatures, les propriétés et les statuts sont échangés entre Inventor et l'ERP (<a href="https://www.clipper-erp.com/fr">Clipper</a>, <a href="https://www.sage.com/fr-fr/cp/sage-x3/">Sage X3</a>), dans les deux sens.</li>
+<li><strong>Esquisses paramétriques</strong> — Des profils complexes sont tracés automatiquement à partir de leurs spécifications techniques.</li>
+</ul>
+<p>D'autres exemples, classés par logiciel, sur la page <a href="/fr/Realizations/">Exemples de réalisations</a>.</p>
+<hr />
+<h2 id="comment-se-construit-un-outil-pour-votre-bureau-detudes">Comment se construit un outil pour votre bureau d'études</h2>
+<ol>
+<li><strong>Vos documents d'abord</strong> — Nous partons de quelques plans et documents réels, des plus simples aux plus atypiques, et nous écrivons ensemble les règles qui les produisent.</li>
+<li><strong>Un premier document automatisé</strong> — Je développe l'outil sur un périmètre restreint, et vous le vérifiez sur vos propres fichiers.</li>
+<li><strong>L'outil complet</strong> — Les cas particuliers, les messages d'erreur, l'intégration à votre PDM ou à votre ERP.</li>
+<li><strong>Devis au forfait, par phases</strong> — Chaque phase se commande séparément, au vu du résultat de la précédente.</li>
+</ol>
+<p>Le déroulé complet d'un projet est décrit sur la page <a href="/fr/developpement-sur-mesure-cao-bim/">Développement sur mesure et automatisation CAO/BIM</a>.</p>
+<hr />
+<h2 id="autodesk-authorized-developer">Autodesk Authorized Developer</h2>
+<img src="/img/logo-adn.png" width="150" height="38" alt="Autodesk Authorized Developer"/>
+<p>WIIP est membre du programme <strong>Autodesk Authorized Developer</strong>, qui donne accès aux versions des logiciels Autodesk en avant-première et aux équipes techniques de l'éditeur. Votre outil est prêt quand sort la version suivante d'Inventor ou de Vault.</p>
+
+
+        <aside class="cta-block"><p><img src="/img/hand-thumbs-up.svg" alt="Coup de pouce" /> <strong>Votre bureau d'études recopie encore des cotes, des longueurs ou des nomenclatures ?</strong></p>
+<p>Envoyez-moi un exemple du document que vous produisez à la main et dites-moi d'où viennent ses données : je vous réponds sous 24 à 48 h ouvrées, et nous fixons un premier échange.</p>
+<p><a href="/fr/Contact/">Parler de votre bureau d'études</a></p>
+</aside></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/fr/TermsOfUse/">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
