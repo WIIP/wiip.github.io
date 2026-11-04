@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=ce53ea9b2233" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>AutoCAD et Revit 2025 et 2026 passent &#xE0; .NET 10 : ce qui peut casser un compl&#xE9;ment &#xE9;crit pour .NET 8 - WIIP</title><link rel="canonical" href="https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10" />
+<link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10" />
+        <meta name="description" content="Les mises &#xE0; jour 2025 et 2026 d&#x27;AutoCAD, de Revit, d&#x27;Inventor et de Civil 3D changent le runtime .NET sous vos compl&#xE9;ments. La plupart continuent de fonctionner. Voici les changements de .NET 9 et .NET 10 qui font tomber les autres, avec le sympt&#xF4;me et la correction de chacun." />
+        <meta property="og:title" content="AutoCAD et Revit 2025 et 2026 passent &#xE0; .NET 10 : ce qui peut casser un compl&#xE9;ment &#xE9;crit pour .NET 8" />
+        <meta property="og:description" content="Les mises &#xE0; jour 2025 et 2026 d&#x27;AutoCAD, de Revit, d&#x27;Inventor et de Civil 3D changent le runtime .NET sous vos compl&#xE9;ments. La plupart continuent de fonctionner. Voici les changements de .NET 9 et .NET 10 qui font tomber les autres, avec le sympt&#xF4;me et la correction de chacun." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="AutoCAD et Revit 2025 et 2026 passent &#xE0; .NET 10 : ce qui peut casser un compl&#xE9;ment &#xE9;crit pour .NET 8" />
+        <meta name="twitter:description" content="Les mises &#xE0; jour 2025 et 2026 d&#x27;AutoCAD, de Revit, d&#x27;Inventor et de Civil 3D changent le runtime .NET sous vos compl&#xE9;ments. La plupart continuent de fonctionner. Voici les changements de .NET 9 et .NET 10 qui font tomber les autres, avec le sympt&#xF4;me et la correction de chacun." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="navbar navbar-expand-lg flex-column"><div class="container-fluid d-flex justify-content-between align-items-center"><a class="navbar-brand" href="/fr/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="Logo WIIP"></a>
+                        <div class="d-flex align-items-center gap-3"><a class="nav-contact-cta" href="/fr/Contact/">Contact</a>
+                            <div class="language-switcher"><a href="/fr/blog/autocad-revit-2025-2026-net-10" class="active">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/" class="">EN</a></div></div></div>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-sur-mesure-cao-bim/">D&#xE9;veloppement sur mesure</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/Realizations/">Exemples de r&#xE9;alisations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/questions-reponses/">Questions/R&#xE9;ponses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/tutoriels/">Tutoriels</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/livres/">Mes livres</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/About/">A propos</a></li></ul>
+                    <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="/fr/developpement-autocad/">AutoCAD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-inventor/">Inventor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-revit/">Revit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/familles-revit-objets-bim-fabricants/">Objets BIM</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-vault/">Vault</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-aps/">APS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/fr/developpement-fao/">FAO</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "AutoCAD et Revit 2025 et 2026 passent \u00E0 .NET 10 : ce qui peut casser un compl\u00E9ment \u00E9crit pour .NET 8",
+        "description": "Les mises \u00E0 jour 2025 et 2026 d\u0027AutoCAD, de Revit, d\u0027Inventor et de Civil 3D changent le runtime .NET sous vos compl\u00E9ments. La plupart continuent de fonctionner. Voici les changements de .NET 9 et .NET 10 qui font tomber les autres, avec le sympt\u00F4me et la correction de chacun.",
+        "datePublished": "2026-11-04T00:00:00\u002B01:00",
+        "url": "https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10",
+        "mainEntityOfPage": "https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10",
+        "inLanguage": "fr",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/fr/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog/"},{"@type":"ListItem","position":3,"name":"AutoCAD et Revit 2025 et 2026 passent à .NET 10 : ce qui peut casser un complément écrit pour .NET 8","item":"https://wiip.fr/fr/blog/autocad-revit-2025-2026-net-10"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>AutoCAD et Revit 2025 et 2026 passent &#xE0; .NET 10 : ce qui peut casser un compl&#xE9;ment &#xE9;crit pour .NET 8</h1>
+                    <small class="text-muted">mercredi 4 novembre 2026</small><div class="mt-2"><a href="/fr/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/revit" class="badge bg-primary me-1 text-decoration-none">Revit</a><a href="/fr/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/fr/tags/csharp" class="badge bg-primary me-1 text-decoration-none">C#</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
+                <div class="mt-3"><p>Microsoft arrête le support de .NET 8 et de .NET 9 le 10 novembre 2026. Or AutoCAD, Revit, Inventor et Civil 3D 2025 et 2026 tournent sur .NET 8. Autodesk a donc fait une chose qu'il ne faisait pas jusqu'ici : changer de runtime <strong>en cours de cycle</strong>, par une simple mise à jour, sans changer de version de produit. Autodesk la qualifie lui-même de « breaking update ».</p>
+<p>Selon <a href="https://blog.autodesk.io/autodesk-desktop-products-2025-2026-net-10-updates/">Autodesk</a>, l'API ne change pas, seul le runtime passe de .NET 8 à .NET 10, et les compléments existants continuent de fonctionner, sauf s'ils butent sur un changement cassant de .NET 10. Côté Revit, le constat est le même : « la plupart des compléments continuent de fonctionner », avec une réserve pour ceux qui embarquent du code natif ou des bibliothèques tierces.</p>
+<p>Le « sauf » mérite qu'on s'y arrête. Un complément compilé pour .NET 8 qui tourne désormais sur .NET 10 traverse <strong>deux</strong> séries de changements cassants : ceux de <a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/9.0">.NET 9</a> et ceux de <a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/10.0">.NET 10</a>. Nous les avons passées en revue et n'avons gardé que ceux qui touchent plausiblement un complément de bureau. Les documents d'Autodesk et de Microsoft sur lesquels s'appuie cet article sont rassemblés à la fin, dans la section « Sources ».</p>
+<h2 id="quelles-mises-a-jour-sont-concernees">Quelles mises à jour sont concernées</h2>
+<table>
+<thead>
+<tr>
+<th>Produit</th>
+<th>Ligne 2026</th>
+<th>Ligne 2025</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoCAD, ses verticaux, Civil 3D, Advance Steel</td>
+<td>2026.1.2</td>
+<td>2025.1.4</td>
+</tr>
+<tr>
+<td>Revit</td>
+<td>2026.5</td>
+<td>2025.5</td>
+</tr>
+<tr>
+<td>Inventor</td>
+<td>2026.4</td>
+<td>2025.5</td>
+</tr>
+<tr>
+<td>Vault</td>
+<td>2026.4</td>
+<td>Sans objet</td>
+</tr>
+</tbody>
+</table>
+<p>Autodesk prévoyait la ligne 2026 pour la première semaine d'août 2026 et la ligne 2025 pour la deuxième semaine de septembre 2026. Autodesk recommande d'installer ensemble les mises à jour de tous les produits d'une même année, parce qu'ils partagent des composants (RealDWG, Revit Core Engine, SDK Vault, objets Civil 3D, Plant 3D et Advance Steel).</p>
+<p>Certains éditeurs de compléments conseillent d'attendre. Transoft, par exemple, recommande à ses utilisateurs d'AutoCAD et de Civil 3D 2025 et 2026 de rester sur leur version actuelle sans appliquer la mise à jour, tant que la validation de ses produits n'est pas terminée.</p>
+<p>Les versions 2027, elles, sont déjà livrées en .NET 10 (voir <a href="/fr/blog/autocad-2027">AutoCAD 2027 est sorti</a>).</p>
+<h2 id="ce-qui-casse-a-lexecution-sans-recompiler">Ce qui casse à l'exécution, sans recompiler</h2>
+<p>Ces changements touchent votre complément tel qu'il est installé : la DLL compilée pour .NET 8 n'a pas bougé, mais elle tourne désormais sur le runtime .NET 10 de l'hôte.</p>
+<h3 id="binaryformatter-leve-une-exception-quel-que-soit-le-reglage">BinaryFormatter lève une exception, quel que soit le réglage</h3>
+<p><strong>Symptôme.</strong> La commande qui sauvegarde ou relit des réglages, un presse-papiers maison ou un cache échoue. Nous avons appelé <code>BinaryFormatter.Serialize</code> depuis une bibliothèque compilée en net8, dans un processus .NET 10 :</p>
+<pre><code>System.PlatformNotSupportedException: BinaryFormatter serialization and deserialization have been removed. See https://aka.ms/binaryformatter for more information.
+</code></pre>
+<p><strong>Cause.</strong> Depuis .NET 9, l'implémentation de <code>BinaryFormatter</code> fournie avec .NET lève une exception à chaque usage, « même avec les réglages qui l'autorisaient auparavant », et ces réglages ont disparu. La classe existe toujours, ce qui explique que le code compile et se charge : c'est son exécution qui échoue. Le cas est sournois sous Revit : le fichier <code>RevitAPI.runtimeconfig.json</code> de Revit 2025.5 déclare toujours <code>&quot;System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization&quot;: true</code>. Sous .NET 8, ce réglage autorisait <code>BinaryFormatter</code>. Sous .NET 10, il n'a plus d'effet : nous avons obtenu l'exception ci-dessus avec ce même réglage à <code>true</code>.</p>
+<p><strong>Correction.</strong> Choisir un autre format de sérialisation et migrer le code. Si vos utilisateurs ont des fichiers déjà écrits dans ce format, prévoyez leur reprise : c'est souvent la partie la plus longue. Microsoft cite un paquet NuGet séparé qui fournit encore <code>BinaryFormatter</code>, mais il n'est pas pris en charge.</p>
+<h3 id="conversions-de-reels-en-entiers-nan-donne-0-les-valeurs-hors-limites-sont-saturees">Conversions de réels en entiers : NaN donne 0, les valeurs hors limites sont saturées</h3>
+<p><strong>Symptôme.</strong> Un calcul géométrique donne un résultat différent d'avant, sans aucune erreur : une coordonnée, un nombre de répétitions ou un index calculé à partir d'un <code>double</code> change de valeur.</p>
+<p><strong>Cause.</strong> Depuis .NET 9, sur x86 et x64, les conversions non vérifiées (hors contexte <code>checked</code>) d'un réel vers <code>int</code>, <code>uint</code>, <code>long</code> ou <code>ulong</code> sont <strong>saturantes</strong> : pour <code>int</code>, une valeur supérieure à <code>int.MaxValue</code> donne <code>int.MaxValue</code>, une valeur inférieure à <code>int.MinValue</code> donne <code>int.MinValue</code>, et <code>NaN</code> donne <code>0</code>. Nous l'avons constaté pour un <code>(int)</code> sur un <code>double</code> : <code>NaN</code> donnait <code>int.MinValue</code> sous .NET 8 et donne <code>0</code> sous .NET 10. Un code qui convertissait un <code>NaN</code> ou une valeur hors limites sans le savoir obtient désormais un autre nombre. Les conversions dans les limites ne changent pas : 12,9 donne toujours 12.</p>
+<p><strong>Correction.</strong> Tester <code>double.IsNaN</code> et les bornes avant la conversion, et ne plus compter sur la valeur produite par une conversion hors limites. Ce changement ne concerne que la conversion directe : <code>checked</code>, <code>Convert.ToInt32</code> ou <code>CInt</code> en VB.NET obéissent à d'autres règles.</p>
+<h3 id="wpf-un-dynamicresource-du-mauvais-type-fait-echouer-la-fenetre">WPF : un DynamicResource du mauvais type fait échouer la fenêtre</h3>
+<p><strong>Symptôme.</strong> Une palette ou une boîte de dialogue WPF qui s'ouvrait avant ne s'ouvre plus. D'après Microsoft, l'erreur ressemble à <code>System.Windows.Markup.XamlParseException: Set property 'System.Windows.ResourceDictionary.Source' threw an exception.</code></p>
+<p><strong>Cause.</strong> Une ressource de mauvais type référencée par <code>{DynamicResource}</code>, par exemple un <code>SolidColorBrush</code> à la place d'une <code>Color</code>. Microsoft signale qu'un <code>DynamicResource</code> mal typé peut désormais faire échouer le chargement du dictionnaire ou de la fenêtre, là où WPF se rabattait auparavant sur la valeur par défaut. Certains parcours échouaient déjà sous .NET 8 : l'effet dépend du contexte dans lequel la ressource est résolue.</p>
+<p><strong>Correction.</strong> Utiliser le bon type de ressource avec chaque <code>DynamicResource</code>, et ouvrir chaque fenêtre et chaque palette du complément dans un produit mis à jour.</p>
+<h3 id="system.drawing-externalexception-au-lieu-doutofmemoryexception">System.Drawing : ExternalException au lieu d'OutOfMemoryException</h3>
+<p><strong>Symptôme.</strong> Une opération sur une image (aperçu, vignette, logo de cartouche) qui échouait proprement, grâce à un <code>catch (OutOfMemoryException)</code>, provoque maintenant une erreur non gérée.</p>
+<p><strong>Cause.</strong> Depuis .NET 10, quand GDI+ renvoie le statut <code>Status.OutOfMemory</code>, <code>Bitmap</code>, <code>Graphics</code>, <code>Image</code> et <code>Icon</code> lèvent une <code>ExternalException</code> au lieu d'une <code>OutOfMemoryException</code>. Un <code>catch (OutOfMemoryException)</code> ne l'intercepte plus. Toutes les erreurs d'image ne passent pas par ce chemin : des octets d'image invalides lèvent une <code>ArgumentException</code>, sous .NET 8 comme sous .NET 10.</p>
+<p><strong>Correction.</strong> Intercepter aussi <code>ExternalException</code> autour de ces appels.</p>
+<h3 id="xmlserializer-ecrit-les-proprietes-marquees-obsolete">XmlSerializer écrit les propriétés marquées [Obsolete]</h3>
+<p><strong>Symptôme.</strong> Le fichier de réglages XML du complément contient des éléments qui n'y étaient pas. Ou bien, si une propriété porte <code>[Obsolete]</code> avec <code>IsError</code> à <code>true</code>, la création du sérialiseur échoue sur une <code>InvalidOperationException</code> (« There was an error reflecting type… »), dont l'exception interne indique <code>Cannot serialize member '…' because it is marked with ObsoleteAttribute and IsError is set to true.</code></p>
+<p><strong>Cause.</strong> Jusqu'à .NET 9, <code>XmlSerializer</code> ignorait les propriétés marquées <code>[Obsolete]</code>, comme si elles portaient <code>[XmlIgnore]</code>. Depuis .NET 10, il les sérialise, sauf si <code>IsError</code> vaut <code>true</code>.</p>
+<p><strong>Correction.</strong> Ajouter <code>[XmlIgnore]</code> aux propriétés obsolètes qui ne doivent pas être écrites. Microsoft propose aussi le commutateur <code>AppContext.SetSwitch(&quot;Switch.System.Xml.IgnoreObsoleteMembers&quot;, true)</code>. Dans un complément, gardez à l'esprit qu'un commutateur <code>AppContext</code> vaut pour tout le processus, donc aussi pour les autres compléments chargés dans AutoCAD ou dans Revit.</p>
+<h3 id="dll-natives-dllimportsearchpath.assemblydirectory-ne-cherche-plus-ailleurs">DLL natives : DllImportSearchPath.AssemblyDirectory ne cherche plus ailleurs</h3>
+<p><strong>Symptôme.</strong> <code>DllNotFoundException</code> au premier appel d'une fonction native, alors que la DLL est bien installée sur le poste, mais pas dans le dossier du complément.</p>
+<p><strong>Cause.</strong> Quand <code>DllImportSearchPath.AssemblyDirectory</code> est le seul drapeau indiqué, le runtime cherchait d'abord dans le dossier de l'assembly, puis suivait la recherche normale de Windows. Depuis .NET 10, avec ce drapeau seul, il ne cherche plus que dans le dossier de l'assembly. Cela vaut aussi pour <code>NativeLibrary.Load</code> et <code>NativeLibrary.TryLoad</code>. Un <code>DllImport</code> ordinaire, sans <code>DllImportSearchPath</code>, n'est pas concerné.</p>
+<p><strong>Correction.</strong> Livrer votre DLL native à côté du complément, ou ne pas spécifier de <code>DllImportSearchPath</code> si vous avez besoin de la recherche complète. Ne copiez pas pour autant les DLL système de Windows dans le dossier du complément.</p>
+<h3 id="cryptographie-et-certificats">Cryptographie et certificats</h3>
+<p>Ces changements touchent surtout le code de licence et de signature :</p>
+<ul>
+<li>Depuis .NET 10, quand les paramètres de l'algorithme de clé sont absents, <code>X509Certificate.GetKeyAlgorithmParameters()</code> (un tableau d'octets), <code>X509Certificate.GetKeyAlgorithmParametersString()</code> (une chaîne) et <code>PublicKey.EncodedParameters</code> (un <code>AsnEncodedData</code>) <strong>peuvent</strong> renvoyer <code>null</code> au lieu d'une valeur vide. Le symptôme est une <code>NullReferenceException</code> dans le code qui lisait ces valeurs sans vérification. Il faut traiter le cas <code>null</code>.</li>
+<li>Depuis .NET 9, pour un PFX importé sous Windows sans <code>PersistKeySet</code> ni <code>EphemeralKeySet</code>, la durée de vie de la clé privée suit l'instance directement chargée. Disposer un clone ne détruit plus prématurément la clé de l'original. Un code qui comptait sur cette suppression doit disposer l'original.</li>
+</ul>
+<p>Pour la globalisation, la section consacrée de la liste des changements cassants de .NET 10 ne recense qu'un changement, propre à Linux.</p>
+<h3 id="object-enabler-en-ccli-le-runtimeconfig.json-epingle-sur.net-8">Object Enabler en C++/CLI : le runtimeconfig.json épinglé sur .NET 8</h3>
+<p>C'est le seul cas qu'Autodesk cite nommément pour AutoCAD. Selon Autodesk, un Object Enabler écrit en C++/CLI avec du code managé, et qui livre encore un <code>runtimeconfig.json</code> épinglé sur .NET 8, ne peut pas fonctionner dans un AutoCAD passé en .NET 10. Autodesk recommande de reconstruire sa partie managée pour .NET 10. À défaut, la correction la plus simple consiste à supprimer <strong>ce</strong> <code>runtimeconfig.json</code> périmé, celui de l'Object Enabler. Cela ne concerne ni les autres fichiers <code>runtimeconfig.json</code>, ni les compléments écrits en C#.</p>
+<h3 id="les-dependances-partagees-entre-complements">Les dépendances partagées entre compléments</h3>
+<p>AutoCAD, Revit, Inventor et Vault chargent tous les compléments dans le même processus, à côté des composants d'Autodesk. Autodesk prévient que les compléments qui embarquent du code natif ou des bibliothèques tierces peuvent demander une recompilation et une mise à jour de leurs dépendances. Dans son annonce, Autodesk écrit que, « pour R2025.5 », DevExpress passe dans Vault de la version 22.2.12 à la 25.1.6, et qu'un développeur qui référence DevExpress directement peut vouloir s'aligner sur cette version.</p>
+<p>Le même processus ne veut pas toujours dire le même contexte de chargement. Revit 2026 permet à un complément de s'isoler dans son propre contexte de chargement d'assemblies, avec l'option <code>UseRevitContext</code> à <code>False</code> dans son manifeste. Cette isolation est facultative : sans cette option, le complément partage le contexte de Revit et des autres compléments.</p>
+<h2 id="ce-qui-casse-a-la-recompilation">Ce qui casse à la recompilation</h2>
+<p>Le complément fonctionne, mais vous devez le modifier. Et la mise à jour a changé votre poste de développement.</p>
+<h3 id="les-dll-installees-ne-permettent-plus-de-compiler-en-net8">Les DLL installées ne permettent plus de compiler en net8</h3>
+<p>Beaucoup de projets référencent directement <code>acdbmgd.dll</code>, <code>accoremgd.dll</code>, <code>RevitAPI.dll</code> ou <code>RevitAPIUI.dll</code> dans le dossier d'installation du produit. Une fois la mise à jour installée, ces DLL sont compilées pour .NET 10, et un projet qui cible <code>net8.0-windows</code> ne se construit plus. Voici ce que nous avons obtenu avec AutoCAD 2025 mis à jour :</p>
+<pre><code>error CS1705: Assembly 'accoremgd' with identity 'accoremgd, Version=25.0.0.0, Culture=neutral, PublicKeyToken=null' uses 'System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' which has a higher version than referenced assembly 'System.Runtime' with identity 'System.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'
+</code></pre>
+<p>Avec Revit 2025.5, le message est le même pour <code>RevitAPI</code> et <code>RevitAPIUI</code>, en version 25.5.0.0.</p>
+<p><strong>Correction pour AutoCAD.</strong> Compiler contre le paquet NuGet officiel <code>AutoCAD.NET</code> plutôt que contre les DLL installées. Ce paquet publié par Autodesk existe en deux versions par produit :</p>
+<table>
+<thead>
+<tr>
+<th>Paquet</th>
+<th>Produit</th>
+<th>Cible</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.nuget.org/packages/AutoCAD.NET/25.0.1">AutoCAD.NET 25.0.1</a></td>
+<td>AutoCAD 2025</td>
+<td>net8.0</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/AutoCAD.NET/25.0.2">AutoCAD.NET 25.0.2</a></td>
+<td>AutoCAD 2025</td>
+<td>net10.0</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/AutoCAD.NET/25.1.0">AutoCAD.NET 25.1.0</a></td>
+<td>AutoCAD 2026</td>
+<td>net8.0</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/AutoCAD.NET/25.1.1">AutoCAD.NET 25.1.1</a></td>
+<td>AutoCAD 2026</td>
+<td>net10.0</td>
+</tr>
+</tbody>
+</table>
+<p>Attention au piège : une version flottante ou une mise à jour automatique des paquets vous fait passer en net10 sans prévenir. Dans un projet net8, la restauration échoue alors avec <code>error NU1202: Package AutoCAD.NET 25.0.2 is not compatible with net8.0-windows7.0 (.NETCoreApp,Version=v8.0). Package AutoCAD.NET 25.0.2 supports: net10.0 (.NETCoreApp,Version=v10.0)</code>. Pour rester en net8, épinglez la version :</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+  &lt;PackageReference Include=&quot;AutoCAD.NET&quot; Version=&quot;25.0.1&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p><code>ExcludeAssets=&quot;runtime&quot;</code> évite de copier les DLL d'AutoCAD dans le dossier de sortie : c'est AutoCAD qui les fournit à l'exécution.</p>
+<p><strong>Correction pour Revit.</strong> Le principe est le même : il faut compiler contre des assemblies de référence de Revit 2025 ou 2026 compilées pour net8, comme celles d'une installation qui n'a pas encore reçu la mise à jour. Conservez-les avec le projet, ou dans un paquet NuGet interne que vous tenez vous-même : le paquet <code>AutoCAD.NET</code> n'a pas d'équivalent publié par Autodesk dans les sources consultées pour cet article.</p>
+<h3 id="si-vous-passez-votre-projet-en-net10">Si vous passez votre projet en net10</h3>
+<p>Recibler en <code>net10.0-windows</code> fait apparaître d'autres changements, cette fois à la compilation :</p>
+<ul>
+<li><strong>WinForms et WPF dans le même projet.</strong> <code>ContextMenu</code>, <code>DataGrid</code>, <code>DataGridCell</code>, <code>Menu</code>, <code>MenuItem</code>, <code>ToolBar</code> et <code>StatusBar</code> deviennent ambigus quand le type est écrit sans qualification alors que les espaces de noms <code>System.Windows.Controls</code> et <code>System.Windows.Forms</code> sont tous deux en portée, par des <code>using</code> explicites ou implicites : <code>error CS0104: 'ContextMenu' is an ambiguous reference between 'System.Windows.Controls.ContextMenu' and 'System.Windows.Forms.ContextMenu'</code>. Activer <code>UseWPF</code> et <code>UseWindowsForms</code> ne suffit pas à provoquer l'erreur. Il faut lever l'ambiguïté par un alias <code>using</code> ou par le nom complet du type.</li>
+<li><strong>Grilles WPF vides.</strong> Un <code>&lt;Grid.ColumnDefinitions&gt;</code> ou un <code>&lt;Grid.RowDefinitions&gt;</code> vide ne compile plus : l'erreur <code>MC3063: Property 'ColumnDefinitions' does not have a value.</code> peut apparaître enveloppée dans une erreur <code>MC1000</code>. Il faut y laisser au moins une définition ou supprimer l'élément. Le changement touche la compilation du XAML.</li>
+<li><strong>Anciennes API WinForms.</strong> <code>Form.OnClosing</code> et <code>Form.OnClosed</code> (<code>WFDEV004</code>), <code>Clipboard.GetData(string)</code> (<code>WFDEV005</code>) et les anciens contrôles <code>ContextMenu</code>, <code>MainMenu</code>, <code>DataGrid</code>, <code>StatusBar</code> et <code>ToolBar</code> (<code>WFDEV006</code>) produisent désormais des avertissements. Ce ne sont que des avertissements, qui ne bloquent la construction que si les avertissements sont traités comme des erreurs (<code>TreatWarningsAsErrors</code>).</li>
+<li><strong>Audit NuGet des dépendances transitives.</strong> Pour un projet qui cible .NET 10, NuGet audite aussi les paquets transitifs. Si vous traitez les avertissements comme des erreurs, la restauration peut échouer sur <code>NU1901</code> à <code>NU1904</code>. C'est une question de restauration et de politique d'avertissements : un complément net8 déjà compilé n'est pas concerné.</li>
+<li><strong>Constructeurs de certificats obsolètes.</strong> Les constructeurs de <code>X509Certificate2</code> qui prennent un tableau d'octets ou un chemin, ainsi que <code>X509Certificate2Collection.Import</code>, produisent l'avertissement <code>SYSLIB0057</code> à la compilation depuis .NET 9. Le code déjà compilé, lui, continue de s'exécuter.</li>
+</ul>
+<blockquote>
+<p><strong>Compiler en net8 pour couvrir 2025 et 2026 dans les deux états.</strong> Vos utilisateurs n'installeront pas tous la mise à jour le même jour : il y aura des AutoCAD et des Revit 2025 et 2026 encore en .NET 8, et d'autres passés en .NET 10. Un binaire compilé en net8 peut couvrir les deux états d'un même millésime, sous réserve des API et des dépendances qu'il utilise. Nous avons chargé un complément net8 dans un AutoCAD 2025 mis à jour : il se charge, et sa commande s'exécute sur le runtime 10.0.14. Autodesk annonce que les compléments existants continuent de fonctionner dans tous ses produits, Revit compris. L'inverse ne marche pas : une DLL compilée en net10, chargée dans un processus .NET 8 comme un AutoCAD ou un Revit qui n'a pas reçu la mise à jour, échoue faute de trouver <code>System.Runtime, Version=10.0.0.0</code>. Selon l'étape du chargement, l'exception visible est une <code>FileNotFoundException</code> ou une <code>ReflectionTypeLoadException</code>. Trois réserves. D'abord, rester en net8 ne protège pas des changements de comportement décrits plus haut : votre DLL tourne quand même sur .NET 10, et il faut la tester dans un produit mis à jour. Ensuite, la cible net8 ne garantit rien pour les bibliothèques natives ou tierces que vous embarquez, ni pour la compatibilité entre deux millésimes, Revit 2025 et Revit 2026 par exemple. Enfin, l'Object Enabler en C++/CLI fait exception : Autodesk demande de le reconstruire pour .NET 10.</p>
+</blockquote>
+<h2 id="recapitulatif">Récapitulatif</h2>
+<table>
+<thead>
+<tr>
+<th>Changement</th>
+<th>Symptôme</th>
+<th>Correction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BinaryFormatter supprimé (.NET 9)</td>
+<td><code>PlatformNotSupportedException</code> à la sauvegarde ou à la lecture, même sous Revit, qui l'autorisait</td>
+<td>Changer de format de sérialisation, reprendre les fichiers existants</td>
+</tr>
+<tr>
+<td>Conversions non vérifiées de réel en entier saturantes (.NET 9)</td>
+<td>Résultat géométrique différent, sans erreur</td>
+<td>Tester <code>NaN</code> et les bornes avant de convertir</td>
+</tr>
+<tr>
+<td>DynamicResource du mauvais type (.NET 10)</td>
+<td>Dictionnaire ou fenêtre WPF qui ne se charge plus, selon le contexte</td>
+<td>Corriger le type de la ressource</td>
+</tr>
+<tr>
+<td>System.Drawing, statut GDI+ <code>OutOfMemory</code> (.NET 10)</td>
+<td><code>ExternalException</code> non gérée là où l'on attendait <code>OutOfMemoryException</code></td>
+<td>Intercepter aussi <code>ExternalException</code></td>
+</tr>
+<tr>
+<td>XmlSerializer et <code>[Obsolete]</code> (.NET 10)</td>
+<td>Éléments en trop dans le XML, ou <code>InvalidOperationException</code></td>
+<td><code>[XmlIgnore]</code> sur les propriétés obsolètes</td>
+</tr>
+<tr>
+<td><code>DllImportSearchPath.AssemblyDirectory</code> seul (.NET 10)</td>
+<td><code>DllNotFoundException</code></td>
+<td>Livrer la DLL native avec le complément</td>
+</tr>
+<tr>
+<td>Paramètres de clé X509 qui peuvent valoir <code>null</code> (.NET 10)</td>
+<td><code>NullReferenceException</code> dans le code de licence</td>
+<td>Traiter le cas <code>null</code></td>
+</tr>
+<tr>
+<td>Object Enabler C++/CLI (AutoCAD)</td>
+<td>L'Object Enabler ne fonctionne plus</td>
+<td>Reconstruire pour .NET 10, ou supprimer son <code>runtimeconfig.json</code></td>
+</tr>
+<tr>
+<td>DLL d'AutoCAD ou de Revit installées, compilées pour .NET 10</td>
+<td><code>CS1705</code> à la compilation en net8</td>
+<td>Paquet <code>AutoCAD.NET</code> épinglé en net8, assemblies de référence net8 pour Revit</td>
+</tr>
+<tr>
+<td>Paquet AutoCAD.NET 25.0.2 ou 25.1.1</td>
+<td><code>NU1202</code> à la restauration en net8</td>
+<td>Épingler 25.0.1 (2025) ou 25.1.0 (2026)</td>
+</tr>
+<tr>
+<td>WinForms et WPF ambigus (net10)</td>
+<td><code>CS0104</code> sur un type non qualifié</td>
+<td>Alias <code>using</code> ou nom complet</td>
+</tr>
+<tr>
+<td>Grilles WPF vides (net10)</td>
+<td><code>MC3063</code>, éventuellement dans <code>MC1000</code></td>
+<td>Une définition au moins, ou supprimer l'élément</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comment-savoir-si-votre-complement-est-touche">Comment savoir si votre complément est touché</h2>
+<ol>
+<li>Cherchez dans le code les signes qui figurent dans le tableau : <code>BinaryFormatter</code>, <code>catch (OutOfMemoryException)</code>, <code>DllImportSearchPath</code>, <code>[Obsolete]</code> sur des classes sérialisées en XML, <code>DynamicResource</code>, conversions de <code>double</code> en <code>int</code> dans le code géométrique.</li>
+<li>Installez la mise à jour sur un poste de test, chargez le complément tel qu'il est livré aujourd'hui, et déroulez ses commandes, ses fenêtres et ses fichiers de réglages.</li>
+</ol>
+<h2 id="sources">Sources</h2>
+<p><strong>Autodesk</strong></p>
+<ul>
+<li><a href="https://blog.autodesk.io/autodesk-desktop-products-2025-2026-net-10-updates/">Autodesk Desktop Products 2025/2026: .NET 10 Updates</a> : produits et numéros de mise à jour, calendrier prévu, compatibilité des compléments existants, Object Enablers en C++/CLI, DevExpress dans Vault.</li>
+<li><a href="https://blog.autodesk.io/call-for-preview-testing-revit-2026-2025-migration-to-net-10/">Call for Preview Testing: Revit 2026/2025 Migration to .NET 10</a> : passage de Revit 2025 et 2026 à .NET 10, compléments qui embarquent du code natif ou des bibliothèques tierces.</li>
+<li><a href="https://blog.autodesk.io/autocad-2026-net-10-update-beta-preview-is-now-available/">AutoCAD 2026 .NET 10 Update Beta Preview is Now Available</a> : une mise à jour cassante livrée en cours de cycle.</li>
+<li><a href="https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API/files/Revit_API_Developers_Guide/Introduction/Add_In_Integration/Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Dependency_Isolation_html.html">Add-in Dependency Isolation</a> : isolation facultative des dépendances d'un complément Revit 2026 (<code>UseRevitContext</code>).</li>
+</ul>
+<p><strong>Microsoft, changements cassants de .NET 9</strong></p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/9.0">Breaking changes in .NET 9</a> : la liste complète.</li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/serialization/9.0/binaryformatter-removal">In-box BinaryFormatter implementation removed and always throws</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/jit/9.0/fp-to-integer">Floating point-to-integer conversions are saturating</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/9.0/private-key-lifetime">Windows private key lifetime simplified</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/9.0/x509-certificates">Some X509Certificate2 and X509Certificate constructors are obsolete</a></li>
+</ul>
+<p><strong>Microsoft, changements cassants de .NET 10</strong></p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/10.0">Breaking changes in .NET 10</a> : la liste complète, dont le seul changement de globalisation, propre à Linux.</li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/wpf/10.0/dynamicresource-crash">Incorrect usage of DynamicResource causes application crash</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/windows-forms/10.0/system-drawing-outofmemory-externalexception">System.Drawing OutOfMemoryException changed to ExternalException</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/serialization/10/xmlserializer-obsolete-properties">XmlSerializer no longer ignores properties marked with ObsoleteAttribute</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/interop/10.0/search-assembly-directory">Specifying DllImportSearchPath.AssemblyDirectory only searches the assembly directory</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/x509-publickey-null">X509Certificate and PublicKey key parameters can be null</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/windows-forms/10.0/menuitem-contextmenu">Applications referencing both WPF and WinForms must disambiguate MenuItem and ContextMenu types</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/wpf/10.0/empty-grid-definitions">Empty ColumnDefinitions and RowDefinitions are disallowed</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/windows-forms/10.0/obsolete-apis">.NET 10 obsoletions in Windows Forms</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/10.0/nugetaudit-transitive-packages">'dotnet restore' audits transitive packages</a></li>
+</ul>
+<p><strong>Éditeur de compléments</strong></p>
+<ul>
+<li><a href="https://helpdesk.transoftsolutions.com/hc/en-us/articles/52949444907795-Important-Notice-for-AutoCAD-or-Civil-3D-Users-Autodesk-NET-Framework-Update">Transoft : Important Notice for AutoCAD or Civil 3D Users: Autodesk .NET Framework Update</a> : conseil d'attendre avant d'appliquer la mise à jour.</li>
+</ul>
+<p>Les messages d'erreur reproduits dans l'article (<code>CS1705</code>, <code>NU1202</code>, BinaryFormatter, chargement d'une DLL net10 dans un processus .NET 8) viennent de nos propres essais sur AutoCAD 2025 et Revit 2025.5 mis à jour.</p>
+<h2 id="besoin-daide-pour-la-mise-a-jour">Besoin d'aide pour la mise à jour ?</h2>
+<p>Si l'un de vos compléments AutoCAD, Revit, Inventor ou Civil 3D ne passe plus la mise à jour, ou si vous voulez le vérifier avant de la déployer chez vos utilisateurs, nous pouvons nous en charger : diagnostic sur la version mise à jour, correction, et, quand ses dépendances le permettent, construction d'une DLL qui couvre les postes passés en .NET 10 comme ceux restés en .NET 8. Nous développons et maintenons des compléments pour ces logiciels : voir le <a href="/fr/developpement-autocad/">développement AutoCAD</a> et le <a href="/fr/developpement-revit/">développement Revit</a>, ou <a href="/fr/Contact/">écrivez-nous</a> en décrivant votre complément et le symptôme observé.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">Sur le m&#xEA;me sujet</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/fr/blog/autocad-ouvrir-avec-versions" class="text-decoration-none">&#xAB; Ouvrir avec &#xBB; : distinguer les versions d&#x27;AutoCAD sous Windows</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/polices-shx" class="text-decoration-none">Polices SHX : d&#x27;o&#xF9; elles viennent, et pourquoi leur pr&#xE9;f&#xE9;rer les TrueType</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/vault-autocad-empty-ribbon" class="text-decoration-none">Onglet Vault vide dans AutoCAD : l&#x27;onglet est l&#xE0;, mais aucun bouton</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-wildcards" class="text-decoration-none">Les caract&#xE8;res joker (wildcards) dans AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/fr/blog/autocad-versions" class="text-decoration-none">Versions d&#x27;AutoCAD : releases, .NET, DWG et noms de code</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/fr/blog/autocad-ouvrir-avec-versions" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Article pr&#xE9;c&#xE9;dent</small>
+                                    <span>&#xAB; Ouvrir avec &#xBB; : distinguer les versions d&#x27;AutoCAD sous Windows</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/fr/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/fr/TermsOfUse/">Mentions l&#xE9;gales</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
