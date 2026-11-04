@@ -140,78 +140,125 @@ a:hover, .btn-link:hover {
     padding-top: 1.5rem;
 }
 
-/* --- Navbar ----------------------------------------------- */
-.navbar {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--hairline);
+/* --- Navigation principale -------------------------------- */
+.site-nav {
+    width: 100%;
     margin-bottom: 2.5rem;
+    padding-top: 0.75rem;
 }
-
-.navbar-brand {
+.site-masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+.site-brand { flex-shrink: 0; }
+.site-brand img { display: block; }
+.site-utilities { display: flex; align-items: center; gap: 1.5rem; }
+.site-primary, .site-nav-panel, .site-technologies {
+    list-style: none;
+    margin: 0;
     padding: 0;
 }
-
-.navbar-nav .nav-link {
+.site-primary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    border-block: 1px solid var(--hairline);
+}
+.site-primary[hidden] { display: none; }
+.site-primary-link, .site-nav-group > summary, .site-menu-toggle {
     font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
     font-weight: 500;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
+    line-height: 1.4;
+}
+.site-primary-link, .site-nav-group > summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 1.1rem 0;
+    white-space: nowrap;
     color: var(--ink);
-    padding: 0.35rem 0.75rem;
-    transition: color 0.15s ease;
-    position: relative;
 }
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus {
-    color: var(--terracotta);
+.site-nav-group { position: relative; }
+.site-nav-group > summary { list-style: none; cursor: pointer; }
+.site-nav-group > summary::-webkit-details-marker { display: none; }
+.site-nav-group[open] > summary,
+.site-menu-toggle[aria-expanded="true"] { color: var(--terracotta); }
+.nav-chevron {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: inherit;
+    transition: transform 0.15s ease;
 }
-
-/* Séparateur visuel entre les deux rangées de nav */
-.navbar-nav + .navbar-nav {
-    border-top: 1px solid var(--hairline);
-    padding-top: 0.5rem;
-    margin-top: 0.25rem;
+.site-nav-group[open] > summary .nav-chevron,
+.site-menu-toggle[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+.site-nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    width: 340px;
+    padding: 1rem 1.4rem;
+    border: 1px solid var(--hairline);
+    border-top: 3px solid var(--terracotta);
+    background: #fffdf9;
+    box-shadow: 0 12px 24px rgb(43 41 38 / 6%);
 }
-
-/* Navigation responsive (sous le point d'expansion lg = 992px).
-   Par défaut Bootstrap met .navbar-nav en colonne en dessous de ce
-   point : les ~11 liens s'empilent verticalement et repoussent le
-   contenu tout en bas de la page sur mobile/tablette. On repasse les
-   deux listes en lignes qui s'enroulent et restent centrées, et on
-   contraint .main-content (enfant flex de .row sans largeur définie)
-   à toute la largeur pour borner l'enroulement. */
-@media (max-width: 991.98px) {
-    .main-content {
+.site-resources { width: 250px; }
+.site-nav-panel a { display: block; padding: 0.55rem 0; font-size: 0.85rem; }
+.site-nav-overview { font-weight: 600; border-bottom: 1px solid var(--hairline); margin-bottom: 0.9rem; }
+.site-nav-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 0 0 0.3rem;
+}
+.site-technologies { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+.site-menu-toggle { display: none; }
+.site-nav :is(a, summary, button):focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 4px;
+}
+@media (max-width: 767.98px) {
+    .site-brand img { width: 150px; height: auto; }
+    .site-utilities { gap: 1rem; }
+    .site-utilities .nav-contact-cta { font-size: 0.68rem; letter-spacing: 0.04em; }
+    .site-utilities .language-switcher a { font-size: 0.68rem; letter-spacing: 0.04em; }
+    .site-menu-toggle {
+        display: flex;
         width: 100%;
-        max-width: 100%;
+        gap: 8px;
+        align-items: center;
+        padding: 0.9rem 0;
+        border: 0;
+        border-block: 1px solid var(--hairline);
+        background: transparent;
+        color: var(--ink);
     }
-
-    .navbar,
-    .navbar .container-fluid {
+    .site-primary { display: block; border-top: 0; }
+    .site-primary > li + li { border-top: 1px solid var(--hairline); }
+    .site-primary-link, .site-nav-group > summary { padding: 0.85rem 0; }
+    .site-nav-panel {
+        position: static;
         width: 100%;
-        max-width: 100%;
+        padding: 0.6rem 1rem;
+        border: 0;
+        border-left: 2px solid var(--terracotta);
+        margin-bottom: 0.7rem;
+        box-shadow: none;
     }
-
-    .navbar-nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .navbar-nav .nav-link {
-        padding: 0.3rem 0.5rem;
-        letter-spacing: 0.08em;
-    }
+    .site-nav-panel a { padding: 0.6rem 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nav-chevron { transition: none; }
 }
 
-/* --- Lien Contact (en-tête, à côté du sélecteur de langue) -
-   Placé hors des <ul class="navbar-nav"> plutôt qu'ajouté comme
-   7e élément : à 6 items la rangée tient sur une ligne, un 7e la
-   fait déborder et Bootstrap (flex-shrink) casse les libellés en
-   plusieurs lignes au lieu de passer proprement à la ligne suivante. */
+/* --- Lien Contact ----------------------------------------- */
 .nav-contact-cta {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
