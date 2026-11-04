@@ -80,7 +80,7 @@
     }
     </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/fr/blog/"},{"@type":"ListItem","position":3,"name":"Les caractères joker (wildcards) dans AutoCAD","item":"https://wiip.fr/fr/blog/autocad-wildcards"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Les caract&#xE8;res joker (wildcards) dans AutoCAD</h1>
                     <small class="text-muted">mercredi 1 juillet 2026</small><div class="mt-2"><a href="/fr/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/fr/tags/autolisp" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/fr/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/fr/tags/cao" class="badge bg-primary me-1 text-decoration-none">CAO</a></div></header>
-                <div class="mt-3"><p>Sélectionner d'un coup tous les objets dont le calque commence par <code>MUR</code>, n'afficher que les calques de cotation, ne garder que les blocs dont le nom finit par <code>_2D</code>… Ce genre de tâche revient sans cesse dans <strong>AutoCAD</strong>. Bonne nouvelle : nul besoin d'écrire du code pour cela. <strong>AutoCAD</strong> intègre un moteur de <strong>caractères joker</strong> (ou <em>wildcards</em>), proche des expressions régulières mais bien plus simple, disponible directement dans l'interface.</p>
+                <div class="mt-3"><p>Sélectionner d'un coup tous les blocs dont le nom finit par <code>_2D</code>, n'afficher que les calques dont le nom commence par <code>MUR</code>, regrouper automatiquement les calques de cotation… Ce genre de tâche revient sans cesse dans <strong>AutoCAD</strong>. Bonne nouvelle : nul besoin d'écrire du code pour cela. <strong>AutoCAD</strong> intègre un moteur de <strong>caractères joker</strong> (ou <em>wildcards</em>), proche des expressions régulières mais bien plus simple, disponible directement dans l'interface.</p>
 <p>Dans cet article, nous partons de l'usage quotidien d'un utilisateur standard, puis nous montons progressivement en puissance jusqu'à l'usage développeur (AutoLISP et .NET). Le point important : <strong>c'est exactement le même moteur</strong> à tous les niveaux. Les motifs que vous apprenez à la souris se réutilisent tels quels dans vos scripts.</p>
 <h2 id="a-quoi-ressemble-un-motif">À quoi ressemble un motif ?</h2>
 <p>Un motif (ou <em>filtre</em>) est une chaîne où certains caractères ont un sens spécial. Les plus courants :</p>
@@ -90,25 +90,25 @@
 <li><code>#</code> remplace <strong>un chiffre</strong>.</li>
 </ul>
 <p>Ainsi <code>MUR*</code> désigne « tout ce qui commence par MUR », <code>*_2D</code> « tout ce qui finit par <code>_2D</code> », et <code>PLAN-###</code> « PLAN- suivi de trois chiffres ». Nous verrons la liste complète plus loin ; commençons par les mettre en pratique.</p>
-<h2 id="la-selection-rapide-selectionrapide">La sélection rapide (SELECTIONRAPIDE)</h2>
-<p>La <strong>sélection rapide</strong> (commande <code>SELECTIONRAPIDE</code>, anciennement <code>QSELECT</code>, aussi accessible par un clic droit dans le dessin) permet de sélectionner des objets selon leurs propriétés. Lorsqu'on filtre sur une propriété <strong>texte</strong> — le <strong>nom de calque</strong>, le <strong>nom de bloc</strong>, un texte… — l'opérateur <em>Correspond au caractère générique</em> (« Matches wildcard ») active les jokers.</p>
-<p><img src="./media/wildcards-selection-rapide.png" alt="La boîte de dialogue Sélection rapide filtrant les objets dont le calque correspond à MUR*" /></p>
-<p>Par exemple, pour sélectionner tous les objets posés sur un calque commençant par <code>MUR</code> :</p>
+<h2 id="la-selection-rapide-qselect">La sélection rapide (QSELECT)</h2>
+<p>La <strong>sélection rapide</strong> (commande <code>QSELECT</code>) permet de sélectionner des objets selon leurs propriétés. Pour certaines propriétés de type texte — comme le <strong>nom d'un bloc</strong> — l'opérateur <em>Correspondance générique</em> active les jokers. Toutes les propriétés ne le proposent pas : pour la propriété <em>Calque</em>, la boîte ne propose que <em>Egal à</em>, <em>Différent de</em> et <em>Tout sélectionner</em> (constaté dans AutoCAD 2026). Pour trouver des calques à l'aide d'un motif, passez par le gestionnaire des calques, présenté plus bas.</p>
+<p><img src="Content/fr/blog/media/wildcards-selection-rapide.png" alt="La boîte de dialogue Sélection rapide : type d'objet Référence de bloc, propriété Nom, opérateur Correspondance générique, valeur *_2D" /></p>
+<p>Par exemple, pour sélectionner les références de bloc dont le nom finit par <code>_2D</code> :</p>
 <ol>
-<li>lancez <code>SELECTIONRAPIDE</code> ;</li>
-<li>dans <strong>Propriété</strong>, choisissez <em>Calque</em> ;</li>
-<li>dans <strong>Opérateur</strong>, choisissez <em>Correspond au caractère générique</em> ;</li>
-<li>dans <strong>Valeur</strong>, saisissez <code>MUR*</code> ;</li>
-<li>validez : tous les objets concernés sont sélectionnés d'un seul coup.</li>
+<li>lancez <code>QSELECT</code> ;</li>
+<li>dans <strong>Type d'objet</strong>, choisissez <em>Référence de bloc</em> ;</li>
+<li>dans <strong>Propriétés</strong>, choisissez <em>Nom</em> ;</li>
+<li>dans <strong>Opérateur</strong>, choisissez <em>Correspondance générique</em> ;</li>
+<li>dans <strong>Valeur</strong>, saisissez <code>*_2D</code> ;</li>
+<li>validez avec <strong>OK</strong>.</li>
 </ol>
-<p>Grâce à la virgule, on peut même viser plusieurs familles à la fois : <code>MUR*,CLOISON*,POTEAU*</code>.</p>
 <h2 id="la-recherche-dans-le-gestionnaire-des-calques">La recherche dans le gestionnaire des calques</h2>
 <p>Le <strong>gestionnaire des propriétés des calques</strong> (commande <code>CALQUE</code>) possède, en haut à droite, une <strong>zone de recherche</strong> qui comprend les caractères joker. Tapez-y un motif pour n'afficher que les calques correspondants.</p>
-<p><img src="./media/wildcards-recherche-calques.png" alt="Le champ de recherche du gestionnaire des calques filtré sur MUR*" /></p>
+<p><img src="Content/fr/blog/media/wildcards-recherche-calques.png" alt="Le champ de recherche du gestionnaire des calques filtré sur MUR* : deux calques sur six restent affichés" /></p>
 <p>C'est parfait pour retrouver rapidement un calque dans un gabarit qui en compte des centaines.</p>
 <h2 id="les-filtres-de-calque-par-proprietes">Les filtres de calque par propriétés</h2>
 <p>Un cran au-dessus de la simple recherche : les <strong>filtres de calque par propriétés</strong>. Ils permettent de créer, dans le gestionnaire des calques, des groupes qui se remplissent <strong>automatiquement</strong> selon un motif. Tous les calques dont le nom correspond apparaissent dans le filtre, y compris ceux que vous créerez plus tard.</p>
-<p><img src="./media/wildcards-filtre-calques.png" alt="La création d'un filtre de calque par propriétés basé sur le motif COTATION*" /></p>
+<p><img src="Content/fr/blog/media/wildcards-filtre-calques.png" alt="La création d'un filtre de calque par propriétés nommé Cotation, avec le motif COTATION* dans la colonne Nom" /></p>
 <p>Ainsi, un filtre nommé « Cotation » basé sur <code>COTATION*</code> regroupera d'office <code>COTATION</code>, <code>COTATION-TEXTE</code>, <code>COTATION_2D</code>… Vous gérez alors la visibilité ou le verrouillage de tout le groupe d'un seul geste.</p>
 <blockquote>
 <p>Le même principe (un champ acceptant les jokers) se retrouve dans beaucoup d'autres boîtes de dialogue : gestion des <strong>types de ligne</strong>, des <strong>styles</strong>, purge d'éléments nommés, etc.</p>
@@ -246,7 +246,7 @@
 <p>De la même façon, pour chercher une chaîne contenant réellement un <code>#</code>, un <code>?</code> ou une virgule, on préfixe chacun de ces caractères par <code>`</code>.</p>
 <h2 id="les-wildcards-dans-ssget">Les wildcards dans <code>ssget</code></h2>
 <p>L'usage le plus fréquent de <code>(wcmatch)</code> est en réalité indirect : il est <strong>intégré</strong> aux filtres de sélection de <code>ssget</code>. Dans une liste de filtre, tout code DXF qui porte une valeur <strong>texte</strong> accepte directement les caractères joker : nom de calque (code <code>8</code>), nom de bloc (code <code>2</code>), type de ligne (code <code>6</code>), etc.</p>
-<p>Ici, pas besoin d'appeler <code>(wcmatch)</code> : <strong>AutoCAD</strong> applique le moteur automatiquement. C'est, en somme, la version scriptée de la <strong>sélection rapide</strong> vue plus haut.</p>
+<p>Ici, pas besoin d'appeler <code>(wcmatch)</code> : <strong>AutoCAD</strong> applique le moteur automatiquement. C'est, en somme, la version scriptée du filtrage par motif vu plus haut.</p>
 <p>Sélectionner tous les objets dont le calque commence par <code>MUR</code> :</p>
 <pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;MUR*&quot;)))
 </code></pre>

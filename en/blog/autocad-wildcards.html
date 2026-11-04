@@ -80,7 +80,7 @@
     }
     </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog/"},{"@type":"ListItem","position":3,"name":"Wildcard characters in AutoCAD","item":"https://wiip.fr/en/blog/autocad-wildcards"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>Wildcard characters in AutoCAD</h1>
                     <small class="text-muted">Wednesday, July 1, 2026</small><div class="mt-2"><a href="/en/tags/autocad" class="badge bg-primary me-1 text-decoration-none">AutoCAD</a><a href="/en/tags/autolisp" class="badge bg-primary me-1 text-decoration-none">AutoLISP</a><a href="/en/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a></div></header>
-                <div class="mt-3"><p>Selecting every object whose layer starts with <code>WALL</code> in one go, showing only your dimension layers, keeping just the blocks whose name ends in <code>_2D</code>… these tasks come up constantly in <strong>AutoCAD</strong>. The good news: you don't need to write any code for them. <strong>AutoCAD</strong> ships with a <strong>wildcard</strong> engine — close to regular expressions but far simpler — available right in the interface.</p>
+                <div class="mt-3"><p>Selecting every block whose name ends in <code>_2D</code> in one go, showing only the layers whose name starts with <code>WALL</code>, grouping your dimension layers automatically… these tasks come up constantly in <strong>AutoCAD</strong>. The good news: you don't need to write any code for them. <strong>AutoCAD</strong> ships with a <strong>wildcard</strong> engine — close to regular expressions but far simpler — available right in the interface.</p>
 <p>In this article we start from the everyday use of a standard user, then work our way up to developer use (AutoLISP and .NET). The key point: <strong>it is the exact same engine</strong> at every level. The patterns you learn with the mouse can be reused as-is in your scripts.</p>
 <h2 id="what-does-a-pattern-look-like">What does a pattern look like?</h2>
 <p>A pattern (or <em>filter</em>) is a string in which some characters carry a special meaning. The most common ones:</p>
@@ -91,24 +91,24 @@
 </ul>
 <p>So <code>WALL*</code> means &quot;anything starting with WALL&quot;, <code>*_2D</code> means &quot;anything ending in <code>_2D</code>&quot;, and <code>PLAN-###</code> means &quot;PLAN- followed by three digits&quot;. We'll see the full list further down; let's start by putting them to use.</p>
 <h2 id="quick-select-qselect">Quick Select (QSELECT)</h2>
-<p><strong>Quick Select</strong> (the <code>QSELECT</code> command, also available from a right-click in the drawing) lets you select objects based on their properties. When you filter on a <strong>text</strong> property — the <strong>layer name</strong>, the <strong>block name</strong>, some text… — the <em>Matches wildcard</em> operator turns wildcards on.</p>
-<p><img src="./media/wildcards-quick-select.png" alt="The Quick Select dialog filtering objects whose layer matches WALL*" /></p>
-<p>For example, to select every object on a layer starting with <code>WALL</code>:</p>
+<p><strong>Quick Select</strong> (the <code>QSELECT</code> command) lets you select objects based on their properties. For some text properties — such as the <strong>block name</strong> — a wildcard-match operator turns wildcards on (labelled <em>Correspondance générique</em> in the French interface shown in the screenshot). Not every property offers it: for the <em>Layer</em> property, the dialog only offers <em>Equals</em>, <em>Not equal to</em> and <em>Select all</em> (the French interface shows <em>Egal à</em>, <em>Différent de</em> and <em>Tout sélectionner</em>; observed in AutoCAD 2026). To find layers with a pattern, use the Layer Properties Manager, covered below.</p>
+<p><img src="Content/en/blog/media/wildcards-quick-select.png" alt="The Quick Select dialog (French interface): object type Block Reference, property Name, wildcard-match operator, value *_2D" /></p>
+<p>For example, to select the block references whose name ends in <code>_2D</code>:</p>
 <ol>
 <li>run <code>QSELECT</code>;</li>
-<li>under <strong>Property</strong>, choose <em>Layer</em>;</li>
-<li>under <strong>Operator</strong>, choose <em>Matches wildcard</em>;</li>
-<li>under <strong>Value</strong>, type <code>WALL*</code>;</li>
-<li>confirm: all matching objects are selected at once.</li>
+<li>under <strong>Object type</strong>, choose <em>Block Reference</em>;</li>
+<li>under <strong>Properties</strong>, choose <em>Name</em>;</li>
+<li>under <strong>Operator</strong>, choose the wildcard-match operator;</li>
+<li>under <strong>Value</strong>, type <code>*_2D</code>;</li>
+<li>confirm with <strong>OK</strong>.</li>
 </ol>
-<p>Thanks to the comma, you can even target several families at the same time: <code>WALL*,PARTITION*,COLUMN*</code>.</p>
 <h2 id="searching-in-the-layer-properties-manager">Searching in the Layer Properties Manager</h2>
 <p>The <strong>Layer Properties Manager</strong> (the <code>LAYER</code> command) has a <strong>search box</strong> in its top-right corner that understands wildcards. Type a pattern to display only the matching layers.</p>
-<p><img src="./media/wildcards-layer-search.png" alt="The Layer Properties Manager search box filtered on WALL*" /></p>
+<p><img src="Content/en/blog/media/wildcards-layer-search.png" alt="The Layer Properties Manager search box filtered on a wildcard pattern (French interface, pattern MUR*): two layers out of six remain" /></p>
 <p>This is perfect for quickly locating a layer in a template that holds hundreds of them.</p>
 <h2 id="layer-property-filters">Layer property filters</h2>
 <p>One step beyond a simple search: <strong>layer property filters</strong>. Inside the Layer Properties Manager, they let you create groups that fill themselves <strong>automatically</strong> based on a pattern. Every layer whose name matches shows up in the filter, including those you create later.</p>
-<p><img src="./media/wildcards-layer-filter.png" alt="Creating a layer property filter based on the pattern DIM*" /></p>
+<p><img src="Content/en/blog/media/wildcards-layer-filter.png" alt="Creating a layer property filter named Cotation (French interface) with the pattern COTATION* in the Name column" /></p>
 <p>A filter named &quot;Dimensions&quot; based on <code>DIM*</code> will automatically gather <code>DIM</code>, <code>DIM-TEXT</code>, <code>DIM_2D</code>… You then manage the visibility or the lock state of the whole group in a single move.</p>
 <blockquote>
 <p>The same principle (a field that accepts wildcards) appears in many other dialog boxes: managing <strong>linetypes</strong>, <strong>styles</strong>, purging named items, and so on.</p>
@@ -246,7 +246,7 @@
 <p>In the same way, to search for a string that really contains a <code>#</code>, a <code>?</code>, or a comma, you prefix each of those characters with <code>`</code>.</p>
 <h2 id="wildcards-in-ssget">Wildcards in <code>ssget</code></h2>
 <p>The most frequent use of <code>(wcmatch)</code> is in fact indirect: it is <strong>built into</strong> <code>ssget</code>'s selection filters. In a filter list, any DXF group code that carries a <strong>text</strong> value accepts wildcards directly: layer name (code <code>8</code>), block name (code <code>2</code>), linetype (code <code>6</code>), and so on.</p>
-<p>Here you don't need to call <code>(wcmatch)</code>: <strong>AutoCAD</strong> applies the engine automatically. It is, in effect, the scripted version of the <strong>Quick Select</strong> we saw earlier.</p>
+<p>Here you don't need to call <code>(wcmatch)</code>: <strong>AutoCAD</strong> applies the engine automatically. It is, in effect, the scripted version of the pattern filtering we saw earlier.</p>
 <p>Select every object whose layer starts with <code>WALL</code>:</p>
 <pre><code class="language-lisp">(ssget &quot;X&quot; '((8 . &quot;WALL*&quot;)))
 </code></pre>
