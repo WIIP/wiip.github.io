@@ -177,6 +177,9 @@
     <loc>https://wiip.fr/fr/blog/bibliotheque-materiaux-inventor</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/blog/cad-software-single-threaded</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/blog/catia-late-binding-dotnet</loc>
   </url>
   <url>
@@ -494,6 +497,9 @@
     <loc>https://wiip.fr/en/blog/autolisp-vs-code</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/blog/cad-software-single-threaded</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/blog/claude-code-bash</loc>
   </url>
   <url>
@@ -599,13 +605,16 @@
     <loc>https://wiip.fr/en/tags/autolisp</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/en/tags/programming</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/en/tags/geometry</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/en/tags/ai</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/claude-code</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/programming</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/powershell</loc>
@@ -627,9 +636,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/csharp</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/en/tags/geometry</loc>
   </url>
   <url>
     <loc>https://wiip.fr/en/tags/dwg</loc>

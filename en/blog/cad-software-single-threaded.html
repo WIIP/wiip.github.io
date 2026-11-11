@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=f6f682bc84c7" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>&#x201C;CAD software is single-threaded&#x201D;: why it&#x27;s not that simple - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/cad-software-single-threaded" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/cad-software-single-threaded" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/cad-software-single-threaded" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/cad-software-single-threaded" />
+        <meta name="description" content="A 24-core processor, and a CAD application that keeps only one of them busy during a rebuild. Lazy software vendors? Not really. Measured examples from the geometric kernel we write for Cadoscopia 3D." />
+        <meta property="og:title" content="&#x201C;CAD software is single-threaded&#x201D;: why it&#x27;s not that simple" />
+        <meta property="og:description" content="A 24-core processor, and a CAD application that keeps only one of them busy during a rebuild. Lazy software vendors? Not really. Measured examples from the geometric kernel we write for Cadoscopia 3D." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/cad-software-single-threaded" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="&#x201C;CAD software is single-threaded&#x201D;: why it&#x27;s not that simple" />
+        <meta name="twitter:description" content="A 24-core processor, and a CAD application that keeps only one of them busy during a rebuild. Lazy software vendors? Not really. Measured examples from the geometric kernel we write for Cadoscopia 3D." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="site-nav" aria-label="Main navigation"><div class="site-masthead"><a class="site-brand" href="/en/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="WIIP"></a>
+        <div class="site-utilities"><a class="nav-contact-cta" href="/en/Contact/">Contact</a>
+            <div class="language-switcher"><a href="/fr/blog/cad-software-single-threaded" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/cad-software-single-threaded" class="active">EN</a></div></div></div>
+    <button class="site-menu-toggle" type="button" aria-expanded="true" aria-controls="site-primary">
+        Menu <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></button>
+    <ul class="site-primary" id="site-primary"><li><details class="site-nav-group"><summary>Development <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></summary>
+                <div class="site-nav-panel"><a class="site-nav-overview" href="/en/custom-cad-bim-software-development/">Custom development</a>
+                    <p class="site-nav-heading">Our technologies</p>
+                    <ul class="site-technologies"><li><a href="/en/autocad-development/">AutoCAD</a></li>
+                        <li><a href="/en/inventor-development/">Inventor</a></li>
+                        <li><a href="/en/revit-development/">Revit</a></li>
+                        <li><a href="/en/revit-families-bim-objects-manufacturers/">BIM objects</a></li>
+                        <li><a href="/en/vault-development/">Vault</a></li>
+                        <li><a href="/en/aps-development/">APS</a></li>
+                        <li><a href="/en/cam-development/">CAM</a></li></ul></div></details></li>
+        <li><a class="site-primary-link" href="/en/Realizations/">Our work</a></li>
+        <li><details class="site-nav-group"><summary>Resources <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></summary>
+                <ul class="site-nav-panel site-resources"><li><a href="/en/blog/">Blog</a></li>
+                    <li><a href="/en/questions-answers/">Q&amp;A</a></li>
+                    <li><a href="/en/tutorials/">Tutorials</a></li>
+                    <li><a href="/en/books/">Books</a></li></ul></details></li>
+        <li><a class="site-primary-link" href="/en/About/">About</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "\u201CCAD software is single-threaded\u201D: why it\u0027s not that simple",
+        "description": "A 24-core processor, and a CAD application that keeps only one of them busy during a rebuild. Lazy software vendors? Not really. Measured examples from the geometric kernel we write for Cadoscopia 3D.",
+        "datePublished": "2026-11-11T00:00:00\u002B01:00",
+        "url": "https://wiip.fr/en/blog/cad-software-single-threaded",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/cad-software-single-threaded",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog/"},{"@type":"ListItem","position":3,"name":"“CAD software is single-threaded”: why it's not that simple","item":"https://wiip.fr/en/blog/cad-software-single-threaded"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>&#x201C;CAD software is single-threaded&#x201D;: why it&#x27;s not that simple</h1>
+                    <small class="text-muted">Wednesday, November 11, 2026</small><div class="mt-2"><a href="/en/tags/cad" class="badge bg-primary me-1 text-decoration-none">CAD</a><a href="/en/tags/programming" class="badge bg-primary me-1 text-decoration-none">Programming</a><a href="/en/tags/geometry" class="badge bg-primary me-1 text-decoration-none">Geometry</a><a href="/en/tags/net" class="badge bg-primary me-1 text-decoration-none">.NET</a></div></header>
+                <div class="mt-3"><p>Every now and then I hear that today's CAD software is bad because it can't make use of modern processors: &quot;it's single-threaded&quot;. The evidence is usually a Task Manager screenshot taken during a rebuild: one core at 100%, the others idle.</p>
+<p>The observation is often correct. The conclusion much less so. It ignores three realities: some operations are sequential by nature, parallelizing doesn't always pay off as much as you'd hope, and these applications carry decades of code behind them.</p>
+<p>I won't talk about other people's code, which I don't know from the inside. I'll talk about ours: at Wiip, we write the geometric kernel of Cadoscopia 3D, a free application. We have parallelized some parts of it. Others remain sequential, and not for lack of trying.</p>
+<h2 id="some-operations-are-sequential-by-nature">1. Some operations are sequential by nature</h2>
+<p>In a parametric modeler, a part is a feature tree: a list of features applied one after the other.</p>
+<pre><code class="language-text">Sketch 1 ──► Extrude ──► Hole ──► Chamfer on the hole's edge
+                │
+Sketch 2 ───────┘ (drawn on a face of the extrusion)
+</code></pre>
+<p>The hole relies on a face created by the extrusion. The chamfer relies on an edge created by the hole. You can't drill a face that doesn't exist yet, and you can't chamfer an edge that hasn't been computed yet. Having 24 cores changes nothing: each step waits for the result of the previous one.</p>
+<p>In our kernel, replaying the tree follows the order of this dependency graph, one feature after another. After each feature, we also have to find the edges and faces that the following features refer to: the face sketch 2 was drawn on may have been split in two by the previous operation. That tracking uses the history of the operation that just ran, so it can't start before that operation finishes.</p>
+<p>What we can do, however, is <strong>avoid replaying everything</strong>: when you edit a feature, the unchanged features before it are reused as they are. On this kind of chain, that's a much safer saving than parallelism.</p>
+<p>Another sequential operation, this time by design: <strong>publishing</strong> a change. When you change a parameter, the new model is computed in the background without freezing the window. But it is only published once fully computed, in a single step: you see either the old model or the new one, never a mix of both. Only one change at a time becomes the current version. That's what makes clean undo possible, and what prevents manufacturing a part from an outdated result.</p>
+<h2 id="parallelizing-isnt-that-simple">2. Parallelizing isn't that simple</h2>
+<p>Where operations are independent, the work can be spread over several cores. Meshing the faces of a part is one example: to display it, each face is cut into triangles, and a face can be meshed without waiting for its neighbors. That's what we did when opening STEP files.</p>
+<p>Here's what it brought, measured on 32 STEP files, three runs each, on a machine with 24 logical processors:</p>
+<ul>
+<li><strong>meshing alone</strong> became <strong>19.3% faster</strong> with four workers;</li>
+<li>the <strong>total opening time</strong> gained only <strong>8.5%</strong> from parallelism;</li>
+<li>on some parts, the gain is zero, or even slightly negative.</li>
+</ul>
+<p>Four cores for a 19% gain on the step concerned: very far from &quot;four times faster&quot;. Why?</p>
+<p><strong>Not every step can be parallelized.</strong> Reading the file, resolving references between entities, building and validating the model: all of this still comes before meshing. The gain on one step gets diluted in the total time.</p>
+<p><strong>Faces aren't that independent.</strong> Two neighboring faces share an edge, and their meshes must match exactly along that edge, with no gap. So we sample the edges once, before the faces. Each face reads those shared points and writes only to its own results: no lock during the computation, but a sequential step beforehand.</p>
+<p><strong>The order of results matters.</strong> If triangles are assembled in the order the workers finish, two openings of the same file produce two different meshes. To keep the result identical from one run to the next, we wait for all workers to finish, then merge in the order of the part's faces. That rendezvous costs time. We checked that the meshes stayed identical, down to the triangle, to those of the sequential code.</p>
+<p><strong>The rest of the program has to follow.</strong> Diagnostic messages, measurements, user cancellation: everything that was naturally ordered in sequential code has to be rethought. Diagnostics are replayed in face order, and a cancellation waits until every worker has actually stopped before returning.</p>
+<p><strong>Parallelizing isn't always the best first idea.</strong> Just before this work, we had measured opening step by step. The profile mostly showed avoidable work in model validation and in the evaluation of NURBS surfaces. By fixing those two points, <strong>without a single extra thread</strong>, total opening time dropped by <strong>30%</strong>. More than parallelism brought afterwards.</p>
+<h2 id="decades-of-history">3. Decades of history</h2>
+<p>Our kernel is young, and we wrote it knowing that some parts would be parallelized. Even so, parallelizing the meshing required changing how results are stored, writing the deterministic merge, bounding memory, handling cancellation and measuring everything again.</p>
+<p>The major CAD applications were born when a workstation had a single processor, and their code has since been extended by generations of developers. Code written for a single thread silently assumes that nobody else touches its data while it works: shared caches, structures modified in place, side effects whose full extent nobody knows anymore. Introducing parallelism into such a codebase means exposing yourself to bugs that show up once in a thousand runs, on a user's machine, and that can't be reproduced. Against a gain of a few percent, the risk of breaking files that have opened correctly for years weighs heavily.</p>
+<p>So parallelism is more likely to arrive piece by piece, where the work lends itself to it — meshing, display, independent computations — than in the rebuild of the feature tree, which stays sequential for the reasons above.</p>
+<h2 id="in-short">In short</h2>
+<p>One core at 100% during a rebuild doesn't prove the vendor is incompetent. It often reveals a chain of dependencies that nobody can break. Where work is truly independent, parallelism helps, but modestly, and at the cost of real design work. And sometimes the best gain comes from simply profiling the sequential code.</p>
+<p>If you're developing an add-in for CAD software and its performance is a problem, start by measuring. That's what we do, and it's one of the services we offer.</p>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/autocad-open-with-versions" class="text-decoration-none">&quot;Open with&quot;: telling AutoCAD versions apart in Windows</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/shx-fonts" class="text-decoration-none">SHX fonts: where they come from, and why TrueType is a better choice</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/inventor-thumbnails-explorer" class="text-decoration-none">Inventor thumbnails missing in Windows Explorer: diagnosis and fix</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/vault-autocad-empty-ribbon" class="text-decoration-none">Empty Vault tab in AutoCAD: the tab is there, but no buttons</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/autocad-wildcards" class="text-decoration-none">Wildcard characters in AutoCAD</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/autocad-open-with-versions" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>&quot;Open with&quot;: telling AutoCAD versions apart in Windows</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/en/TermsOfUse/">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="js/navigation.js?v=8f744bdb6a5a" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
