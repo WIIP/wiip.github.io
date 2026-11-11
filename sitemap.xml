@@ -285,6 +285,12 @@
     <loc>https://wiip.fr/fr/tags/vault</loc>
   </url>
   <url>
+    <loc>https://wiip.fr/fr/tags/programmation</loc>
+  </url>
+  <url>
+    <loc>https://wiip.fr/fr/tags/geometrie</loc>
+  </url>
+  <url>
     <loc>https://wiip.fr/fr/tags/catia</loc>
   </url>
   <url>
@@ -295,9 +301,6 @@
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/ia</loc>
-  </url>
-  <url>
-    <loc>https://wiip.fr/fr/tags/programmation</loc>
   </url>
   <url>
     <loc>https://wiip.fr/fr/tags/powershell</loc>
