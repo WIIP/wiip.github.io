@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?v=b0a21045f42b" />
+    <link rel="stylesheet" href="css/app.css?v=f6f682bc84c7" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" integrity="sha384-rCCjoCPCsizaAAYVoz1Q0CmCTvnctK0JkfCSjx7IIxexTBg+uCKtFYycedUjMyA2" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css" integrity="sha384-qArEAQvOPs1o7K1iAybhs66g8nYTXVt4VLOQ3abu+OMLJyPNfaH4Wpko0X2epHJ+" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/svg&#x2B;xml" href="favicon.svg?v=94ed092709fe" />
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=ddaf3df9482c" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=e5df27756308" />
+    
+    <meta property="og:image" content="https://wiip.fr/img/logo-wiip.png">
+    <meta name="twitter:image" content="https://wiip.fr/img/logo-wiip.png">
+    <title>A program you can neither reinstall nor uninstall (error 2753 / 1603) - WIIP</title><link rel="canonical" href="https://wiip.fr/en/blog/program-install-uninstall-troubleshooter" />
+<link rel="alternate" hreflang="en" href="https://wiip.fr/en/blog/program-install-uninstall-troubleshooter" /><link rel="alternate" hreflang="fr" href="https://wiip.fr/fr/blog/program-install-uninstall-troubleshooter" /><link rel="alternate" hreflang="x-default" href="https://wiip.fr/fr/blog/program-install-uninstall-troubleshooter" />
+        <meta name="description" content="The program is registered in Windows, its files are gone, and neither its installer nor its uninstall works: Microsoft&#x27;s troubleshooter unblocks it." />
+        <meta property="og:title" content="A program you can neither reinstall nor uninstall (error 2753 / 1603)" />
+        <meta property="og:description" content="The program is registered in Windows, its files are gone, and neither its installer nor its uninstall works: Microsoft&#x27;s troubleshooter unblocks it." />
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://wiip.fr/en/blog/program-install-uninstall-troubleshooter" />
+        <meta property="og:site_name" content="WIIP">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="A program you can neither reinstall nor uninstall (error 2753 / 1603)" />
+        <meta name="twitter:description" content="The program is registered in Windows, its files are gone, and neither its installer nor its uninstall works: Microsoft&#x27;s troubleshooter unblocks it." /></head>
+
+<body><div class="container mt-4"><div class="row justify-content-center"><div class="main-content"><nav class="site-nav" aria-label="Main navigation"><div class="site-masthead"><a class="site-brand" href="/en/"><img src="/img/logo-wiip.svg" width="220" height="85" alt="WIIP"></a>
+        <div class="site-utilities"><a class="nav-contact-cta" href="/en/Contact/">Contact</a>
+            <div class="language-switcher"><a href="/fr/blog/program-install-uninstall-troubleshooter" class="">FR</a>
+    <span class="separator">|</span>
+    <a href="/en/blog/program-install-uninstall-troubleshooter" class="active">EN</a></div></div></div>
+    <button class="site-menu-toggle" type="button" aria-expanded="true" aria-controls="site-primary">
+        Menu <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></button>
+    <ul class="site-primary" id="site-primary"><li><details class="site-nav-group"><summary>Development <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></summary>
+                <div class="site-nav-panel"><a class="site-nav-overview" href="/en/custom-cad-bim-software-development/">Custom development</a>
+                    <p class="site-nav-heading">Our technologies</p>
+                    <ul class="site-technologies"><li><a href="/en/autocad-development/">AutoCAD</a></li>
+                        <li><a href="/en/inventor-development/">Inventor</a></li>
+                        <li><a href="/en/revit-development/">Revit</a></li>
+                        <li><a href="/en/revit-families-bim-objects-manufacturers/">BIM objects</a></li>
+                        <li><a href="/en/vault-development/">Vault</a></li>
+                        <li><a href="/en/aps-development/">APS</a></li>
+                        <li><a href="/en/cam-development/">CAM</a></li></ul></div></details></li>
+        <li><a class="site-primary-link" href="/en/Realizations/">Our work</a></li>
+        <li><details class="site-nav-group"><summary>Resources <span class="nav-chevron" aria-hidden="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5 7 9.5l4-4"></path></svg></span></summary>
+                <ul class="site-nav-panel site-resources"><li><a href="/en/blog/">Blog</a></li>
+                    <li><a href="/en/questions-answers/">Q&amp;A</a></li>
+                    <li><a href="/en/tutorials/">Tutorials</a></li>
+                    <li><a href="/en/books/">Books</a></li></ul></details></li>
+        <li><a class="site-primary-link" href="/en/About/">About</a></li></ul></nav></div></div>
+        <main>
+    <script type="application/ld&#x2B;json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A program you can neither reinstall nor uninstall (error 2753 / 1603)",
+        "description": "The program is registered in Windows, its files are gone, and neither its installer nor its uninstall works: Microsoft\u0027s troubleshooter unblocks it.",
+        "datePublished": "2026-11-25T00:00:00\u002B01:00",
+        "url": "https://wiip.fr/en/blog/program-install-uninstall-troubleshooter",
+        "mainEntityOfPage": "https://wiip.fr/en/blog/program-install-uninstall-troubleshooter",
+        "inLanguage": "en",
+        "image": "https://wiip.fr/img/logo-wiip.png",
+        "author": {
+            "@type": "Person",
+            "name": "Maxence Delannoy",
+            "url": "https://wiip.fr/en/About/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "WIIP",
+            "url": "https://wiip.fr",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wiip.fr/img/logo-wiip.png"
+            }
+        }
+    }
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"WIIP","item":"https://wiip.fr/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wiip.fr/en/blog/"},{"@type":"ListItem","position":3,"name":"A program you can neither reinstall nor uninstall (error 2753 / 1603)","item":"https://wiip.fr/en/blog/program-install-uninstall-troubleshooter"}]}</script><div class="row mt-4 justify-content-center"><div class="col"><article><header><h1>A program you can neither reinstall nor uninstall (error 2753 / 1603)</h1>
+                    <small class="text-muted">Wednesday, November 25, 2026</small><div class="mt-2"><a href="/en/tags/windows" class="badge bg-primary me-1 text-decoration-none">Windows</a><a href="/en/tags/vault" class="badge bg-primary me-1 text-decoration-none">Vault</a><a href="/en/tags/installation" class="badge bg-primary me-1 text-decoration-none">Installation</a></div></header>
+                <div class="mt-3"><p>You want to reinstall a program, and its installer refuses: as far as it knows, the program is already there. So you try to uninstall it, and that fails too. The program is stuck: registered in Windows, but impossible to repair, remove or reinstall.</p>
+<p>We ran into this with the <strong>Autodesk Vault 2027</strong> client, during a Vault migration on a development workstation. But nothing below is specific to Vault or to Autodesk: <strong>the method works for any program installed by Windows Installer</strong> (an <code>.msi</code> file) and blocked the same way.</p>
+<h2 id="the-symptom">The symptom</h2>
+<ul>
+<li>The program still shows up in <strong>Programs and Features</strong> (or <strong>Installed apps</strong> on Windows 11).</li>
+<li>Its installation folder is gone — deleted by hand, by a cleanup, or never fully installed.</li>
+<li>Its installer refuses to install it again, since it believes it is present. With Vault 2027, the message even mentions minimum system requirements, and sends you to the Control Panel to uninstall the installed version first (screenshot of the French installer):</li>
+</ul>
+<p><img src="Content/en/blog/media/vault-2027-installation-blocked.png" alt="The Vault 2027 installer: &quot;Installation impossible&quot;, the installed version must be uninstalled first" /></p>
+<ul>
+<li>The uninstall fails. From a command prompt, <code>msiexec /x {product code}</code> ends with <strong>error 2753</strong> and return code <strong>1603</strong> (fatal error during installation).</li>
+</ul>
+<h2 id="the-cause">The cause</h2>
+<p>To uninstall a product, Windows Installer needs its <strong>installation source</strong>: the original <code>.msi</code>, or the copy it keeps in its cache. If that source is gone — in our case, the installer had been extracted to a temporary folder that was later deleted — it can no longer find the files it needs, and gives up.</p>
+<p>The program's registration then stays in the registry, orphaned: it blocks the reinstall, and nothing can remove it cleanly anymore.</p>
+<h2 id="the-fix-microsofts-troubleshooter">The fix: Microsoft's troubleshooter</h2>
+<p>Microsoft provides a dedicated tool, the <strong>Program Install and Uninstall troubleshooter</strong>. According to Microsoft, it fixes problems that:</p>
+<ul>
+<li>corrupt registry keys, including those that control update data;</li>
+<li>prevent new programs from being installed;</li>
+<li>prevent existing programs from being completely uninstalled or updated;</li>
+<li>block uninstalling a program through <strong>Programs and Features</strong>.</li>
+</ul>
+<p>It only covers desktop programs: for a Microsoft Store app, Microsoft points to a different procedure.</p>
+<h3 id="step-by-step">Step by step</h3>
+<ol>
+<li>Open Microsoft's page: <a href="https://support.microsoft.com/en-us/windows/deployment/install-upgrade/fix-problems-that-block-programs-from-being-installed-or-removed#tabpanel_1_windows-10">Fix problems that block programs from being installed or removed</a>.</li>
+<li><strong>Select the &quot;Windows 10&quot; tab</strong>, even if your computer runs Windows 11. That tab, and only that tab, holds the <strong>Download troubleshooter</strong> button. The tool is no longer officially supported, which is why it is no longer promoted; it still works, though.</li>
+<li>Download the tool, then run it (<strong>Run</strong> or <strong>Open</strong>).</li>
+<li>Choose <strong>Uninstalling</strong> when the tool asks what problem you are having.</li>
+<li>Select the blocked program in the list. If it isn't listed, the tool asks for its <strong>product code</strong> (the GUID in braces, found in the MSI's <em>Property</em> table, or under the <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code> key).</li>
+<li>Confirm the uninstall, and <strong>be patient</strong>: the tool is slow, and can run for quite a while without any sign of progress.</li>
+<li>Once the registration is removed, run the program's installer again.</li>
+</ol>
+<p>In our case, the tool removed the orphaned Vault 2027 client registration, and the Vault installer then installed the client normally.</p>
+<h2 id="precautions">Precautions</h2>
+<ul>
+<li><strong>Remove only the faulty program.</strong> A product often hides several: before running the tool, try a normal uninstall of each one. For us, the Vault language pack uninstalled without trouble, and the software development kit (SDK) installed alongside had no reason to go: we kept it. Don't remove everything blindly.</li>
+<li><strong>Keep your installation sources.</strong> An installer extracted to a temporary folder is the first cause of this deadlock: keep the <code>.msi</code> or the installation folder as long as the program is installed.</li>
+<li><strong>Avoid cleaning the registry by hand</strong>: Microsoft's tool does that job on the selected product's keys only.</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program registered, but its installer refuses to install it</td>
+<td>Orphaned registration in the registry</td>
+<td>Remove the registration with the troubleshooter</td>
+</tr>
+<tr>
+<td><code>msiexec /x</code> fails: error 2753, code 1603</td>
+<td>Installation source (<code>.msi</code>) not found</td>
+<td>Troubleshooter, <strong>Windows 10</strong> tab of Microsoft's page</td>
+</tr>
+</tbody>
+</table>
+</div><section class="mt-5 pt-4 border-top"><h4 class="mb-3">On the same topic</h4>
+        <ul class="list-unstyled"><li class="mb-2"><a href="/en/blog/autocad-open-with-versions" class="text-decoration-none">&quot;Open with&quot;: telling AutoCAD versions apart in Windows</a>
+                    <small class="text-muted ms-2">Blog</small></li><li class="mb-2"><a href="/en/blog/inventor-thumbnails-explorer" class="text-decoration-none">Inventor thumbnails missing in Windows Explorer: diagnosis and fix</a>
+                    <small class="text-muted ms-2">Blog</small></li></ul></section><nav class="mt-5 pt-4 border-top"><div class="row"><div class="col-6"><a href="/en/blog/cad-software-single-threaded" class="text-decoration-none"><small class="text-muted d-block">&#x2190; Previous article</small>
+                                    <span>&#x201C;CAD software is single-threaded&#x201D;: why it&#x27;s not that simple</span></a></div>
+                        <div class="col-6 text-end"></div></div></nav></article></div></div></main>
+        <div class="row justify-content-center"><div class="main-content"><hr></div></div>
+        <div class="row justify-content-center"><div class="col-6 footer-contact"><div class="row"><div class="col"><address><strong>WIIP</strong>
+                            <a class="icon-link" href="mailto:contact@wiip.fr"><img alt="Enveloppe" src="img/envelope.svg" width="16" height="16">contact@wiip.fr
+                            </a>
+                            <br>
+                            <img alt="Téléphone" src="img/phone.svg" width="16" height="16">(+33) 6 46 40 75 66
+                            <br>
+                            <a class="icon-link" href="https://maps.app.goo.gl/pBBWNrEFoLqCAojn6"><img alt="Localisation" src="img/geo.svg" width="16" height="16">8 rue du bocage, 62910 SERQUES (France)
+                            </a></address></div></div></div>
+            <div class="col-6 footer-legal text-end"><a class="link-secondary" href="/en/Contact/">Contact</a>
+                <span class="separator">|</span>
+                <a class="link-secondary" href="/en/TermsOfUse/">Legal Notice</a></div></div></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate>
+<script src="js/navigation.js?v=8f744bdb6a5a" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.js" integrity="sha384-IfXV8q9IOAE+W1GXzqnINhrSCZlBZr69tB8V4IEhv9CCAzJ3eL+4UpAuHk30yRx8" crossorigin="anonymous" defer data-manual></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-csharp.min.js" integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-basic.min.js" integrity="sha384-yEC0luSCIARlJms9XA8I9MUh0uPBmsGjOkma3ozKRyocR7bjbQHLRpsoUNd4UxD/" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-vbnet.min.js" integrity="sha384-HImbQZsT7mS6Henp7Svg8L+azRykXipi7eNI2hqc3drZnb/UkC1r6Ih52NNSbq0v" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-lisp.min.js" integrity="sha384-zA/YrVCkPoaF3OoC82PV8+nG/SucEOf0CNguQOfSnLyzVM+bVkJwB0U+i8+XG9zE" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js" integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-powershell.min.js" integrity="sha384-xbI9krqyYp4npK9Cn94XyNoSR+TYZKddrk0NUVZ44zZ+OVpKz/LL0U1PB0MjR7Vx" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" integrity="sha384-IHT6Yddb0KLCzZaxQ/so1j3xkJ8R6hOkCR06ma9NDHGn0Z4ClKcGtQ6qqsflRPxR" crossorigin="anonymous" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    Prism.highlightAll();
+    document.querySelectorAll('span.math').forEach(function(el) {
+        var tex = el.textContent.replace(/^\\\(|\\\)$/g, '').replace(/^\\\[|\\\]$/g, '');
+        var displayMode = el.parentElement && el.parentElement.tagName === 'P'
+            && el.parentElement.childNodes.length === 1;
+        katex.render(tex, el, { displayMode: displayMode, throwOnError: false });
+    });
+});</script>
+<script>
+// Regroupe chaque section (h2 + contenu) de la page Réalisations en cartes pour un affichage en grille.
+(function() {
+    function buildRealizationCards() {
+        var container = document.querySelector('.realizations-grid');
+        if (!container || container.dataset.gridReady) return;
+        var children = Array.prototype.slice.call(container.children);
+        var grid = document.createElement('div');
+        grid.className = 'realization-cards';
+        var card = null;
+        var hr = null;
+        children.forEach(function(el) {
+            if (el.tagName === 'HR') { hr = el; card = null; return; }
+            if (hr) return; // les éléments après le filet final restent en place
+            if (el.tagName === 'H2') {
+                card = document.createElement('div');
+                card.className = 'realization-card';
+                grid.appendChild(card);
+                card.appendChild(el);
+            } else if (card) {
+                card.appendChild(el);
+            }
+            // sinon : éléments d'introduction avant le premier h2, laissés en place
+        });
+        if (grid.children.length) {
+            if (hr) container.insertBefore(grid, hr);
+            else container.appendChild(grid);
+        }
+        container.dataset.gridReady = '1';
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildRealizationCards);
+    } else {
+        buildRealizationCards();
+    }
+})();
+</script>
+<script>
+(function() {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        const userLang = navigator.language || navigator.userLanguage;
+        const lang = userLang.startsWith('en') ? 'en' : 'fr';
+        window.location.replace('/' + lang + '/');
+    }
+})();
+</script></body></html>
